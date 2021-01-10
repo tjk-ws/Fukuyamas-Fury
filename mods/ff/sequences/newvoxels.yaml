@@ -1,0 +1,159 @@
+probe:
+	idle: cmin
+	unload: cmon
+
+dragoon:
+	idle: humvee
+	turret: humveetur
+
+stalker:
+	idle: avenger
+
+immortal:
+	idle: challenger
+	turret: challengertur
+	#barrel: amtbarl
+
+sentry:
+	idle: sentinel
+	turret: sentineltur
+
+colossus:
+	idle: ahvrtnk
+	turret: ahvrtnktur
+
+archon:
+	idle: archer
+	turret: archertur
+
+darkarchon:
+	idle: refractor
+	turret: refractortur
+
+disruptor:
+	idle: hyperion
+	turret: hyperiontur
+
+disruptor.nova:
+	idle: zumwaltasw
+
+observer:
+	idle: uav
+
+phoenix:
+	idle: pegasus
+
+voidray:
+	idle: abh
+
+tempest:
+	idle: hound
+
+carrier:
+	idle: rw
+
+warpprism:
+	idle: shad
+
+mothership:
+	idle: orcaskyguard
+
+scv:
+	idle: warminer
+	turret: warminertur
+
+t55:
+	idle: box
+	turret: boxtur
+	barrel: boxbarl
+
+bmp2:
+	idle: bmp2
+	turret: bmp2tur
+
+vulture: 
+	idle: tricycle2
+
+siegetank:
+	idle: buggy
+	turret: buggytur
+
+hellion:
+	idle: gjeep
+
+cyclone:
+	idle: devil
+	turret: deviltur
+
+goliath:
+	idle: kornet
+	turret: kornettur
+
+thor:
+	idle: tunguska
+	turret: tunguskatur
+
+viking:
+	idle: svair
+
+medivac:
+	idle: halo
+
+banshee:
+	idle: banshee
+
+wraith:
+	idle: sadr
+
+valkyrie:
+	idle: sukhoi
+
+liberator:
+	idle: fly
+
+battlecruiser:
+	idle: mi24
+
+gorgon:
+	idle: wz10
+
+raven:
+	idle: smallhind
+
+sciencevessel:
+	idle: helix
+
+drone:
+	idle: deyutruck
+	unload: deyutruck
+
+overlord:
+	idle: diskatk
+	turret: diskatktur
+
+queen:
+	idle: lasher
+	turret: lashertur
+
+hydralisk:
+	idle: gattlingdrone
+
+lurker:
+	idle: rocketdrone
+
+roach:
+	idle: shadow1
+
+ravager:
+	idle: shadow2
+
+ultralisk:
+	idle: gattlingfist
+
+swarmhost:
+	idle: chaosplatform
+	turret: chaosplatformtur
+
+broodlord:
+	idle: seeker
+	turret: seekertur

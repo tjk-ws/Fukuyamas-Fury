@@ -1,0 +1,192 @@
+scv:
+	Inherits: harv
+
+t55:
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	icon: htnkicon
+
+vulture:
+	Inherits@MUZZLE: ^WithMachineGunMuzzle
+	icon: htkicon
+
+vulture.spidermine:
+	Inherits: limped
+
+siegetank:
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	Inherits: ngbugy
+	icon: htnkicon
+
+commandcenter:
+	Inherits: cacnst
+	icon: scnsicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+techlab:
+	Inherits: tesla
+
+reactor:
+	Inherits: natower
+	icon: xxicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+supplydepot:
+	Inherits: nabarx
+	icon: npwricon
+		Offset: 0,0
+		UseTilesetCode: false
+
+barracks:
+	Inherits: capile
+	icon: handicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+factory:
+	Inherits: caweap
+	icon: nwepicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+starport:
+	Inherits: caair
+	icon: heliicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+academy:
+	Inherits: caup
+	icon: msslicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+academy.nuke:
+	icon: nukeicon
+
+armory:
+	Inherits: caauto
+	icon: rfixicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+engibay:
+	Inherits: cate
+	icon: ntchicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+fusioncore:
+	Inherits: capow
+	icon: nrcticon
+		Offset: 0,0
+		UseTilesetCode: false
+
+empdish:
+	Inherits: caempt
+	icon: ironicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+sciencefacility:
+	Inherits: caspy
+	icon: ntchicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+fix.t:
+	Inherits: cadept
+	icon: rfixicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+bunker:
+	Inherits: nabnkr
+
+missileturret:
+	Inherits: namissl
+	icon: samicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+marine:
+	Inherits: ggi
+	Defaults: ggi
+
+medic:
+	Inherits: whldrn
+	Defaults: whldrn
+	icon: engnicon
+
+marauder:
+	Inherits: ttrooper
+	Defaults: ttrooper
+	icon: shkicon
+
+reaper:
+	Inherits: lunr
+	Defaults: lunr
+
+ghost:
+	Inherits: init
+	Defaults: init
+
+hellion:
+	Inherits@1: apu
+	Inherits@2: terbik
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	icon: htkicon
+
+hellbat:
+	Inherits: apu
+	icon: flkticon
+
+goliath:
+	Inherits@MUZZLE: ^WithMachineGunMuzzle
+	icon: htkicon
+
+cyclone:
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	icon: ltnkicon
+
+thor:
+	Inherits@MUZZLE: ^WithApocMuzzle
+	icon: mtnkicon
+
+viking:
+	icon: schpicon
+
+banshee:
+	icon: xxicon
+
+medivac:
+	icon: shadicon
+
+wraith:
+	Inherits@MUZZLE: ^WithMachineGunMuzzle
+	icon: xxicon
+
+valkyrie:
+	icon: xxicon
+
+liberator:
+	Inherits@MUZZLE: ^WithApocMuzzle
+	icon: xxicon
+
+battlecruiser:
+	Inherits@MUZZLE: ^WithMachineGunMuzzle
+	icon: xxicon
+
+gorgon:
+	icon: xxicon
+
+raven:
+	icon: xxicon
+
+sciencevessel:
+	icon: xxicon
+
+ghost.nuke:
+	up: v3mslup
+	down: v3msldn

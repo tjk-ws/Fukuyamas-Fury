@@ -1,0 +1,36 @@
+MapFormat: 11
+
+RequiresMod: ff
+
+Title: shellmap
+
+Author: tjk-ws
+
+Tileset: SNOW
+
+MapSize: 22,58
+
+Bounds: 1,1,1,1
+
+Visibility: Shellmap
+
+Categories: Shellmap
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: Random
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: Random
+
+Actors:
+
+Rules:
+	World:
+		-StartGameNotification:
+		-MPStartLocations:
+		-SpawnMPUnits:

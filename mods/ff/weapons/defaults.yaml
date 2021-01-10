@@ -1,0 +1,337 @@
+^BreakPointDefenseDrones:
+	Warhead@ShieldUpgrade: GrantExternalCondition
+		Condition: breakpointdefense
+		Range: 96
+		Duration: 500
+		ValidTargets: Ground, Water, Air
+
+^Flak:
+	Inherits@1: ^BreakPointDefenseDrones
+	ReloadDelay: 25
+	Range: 5c0
+	Report: vflaat1a.wav, vflaat1b.wav
+	InvalidTargets: Bridge, Wall, Fence, Tree
+	Projectile: BulletAS
+		Image: 120mm
+		Palette: ra
+		LaunchAngle: 128
+		Speed: 512
+	Warhead@1Dam: SpreadDamage
+		InvalidTargets: Bridge, Wall, Fence, Tree
+		Spread: 0c256
+		Damage: 20
+		Versus:
+			None: 100
+			infantry.light: 100
+			infantry.heavy: 100
+			vehicle.light: 100
+			vehicle.heavy: 100
+			air.light: 100
+			air.heavy: 100
+			building.wood: 100
+			building.steel: 100
+			building.concrete: 100
+		DamageTypes: Prone100Percent, TriggerProne, BulletDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: flak_puff
+		ValidTargets: Ground, Air
+	Warhead@3EffWater: CreateEffect
+		Explosions: small_watersplash
+		ImpactSounds: gexpwasa.wav
+		ValidTargets: Water
+
+^AAFlak:
+	Inherits: ^Flak
+	Report: vflaat2a.wav, vflaat2b.wav, vflaat2c.wav, vflaat2d.wav
+	ValidTargets: Air
+	-Projectile:
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 0c256
+		Damage: 20
+		ValidTargets: Air
+		Versus:
+			air.light: 100
+			air.heavy: 100
+		DamageTypes: BulletDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: flak_puff_AA
+
+^LargeBullet:
+	Inherits@1: ^BreakPointDefenseDrones
+	Projectile: BulletAS
+		Speed: 40c0
+		Image: 120mm
+		Palette: ra
+		Shadow: true
+		LaunchAngle: 62
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Versus:
+			None: 100
+			infantry.light: 100
+			infantry.heavy: 100
+			vehicle.light: 100
+			vehicle.heavy: 100
+			air.light: 100
+			air.heavy: 100
+			building.wood: 100
+			building.steel: 100
+			building.concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: medium_clsn
+		ImpactSounds: gexp14a.wav
+		ValidTargets: Ground, Air
+	Warhead@3EffWater: CreateEffect
+		Explosions: small_watersplash
+		ImpactSounds: gexpwasa.wav
+		ValidTargets: Water
+
+^Missile:
+	Inherits@1: ^BreakPointDefenseDrones
+	ReloadDelay: 60
+	Range: 12c0
+	Report: bpatatta.wav
+	Projectile: Missile
+		Blockable: false
+		Shadow: true
+		Image: DRAGON
+		Palette: ra
+		ContrailLength: 8
+		ContrailWidth: 24
+		CruiseAltitude: 4352
+		Speed: 384
+		RangeLimit: 14c409
+		TerrainHeightAware: true
+		AllowSnapping: true
+	Warhead@2Eff: CreateEffect
+		ValidTargets: Ground, Air
+	Warhead@3EffWater: CreateEffect
+		Explosions: small_watersplash
+		ImpactSounds: gexpwasa.wav
+		ValidTargets: Water
+
+^AAMissile:
+	Inherits: ^Missile
+	ValidTargets: Air
+	Warhead@1Dam: SpreadDamage
+		Spread: 0c307
+		Falloff: 100, 0
+		Damage: 75
+		ValidTargets: Air
+		Versus:
+			None: 100
+			air.light: 100
+			air.heavy: 90
+		DamageTypes: BulletDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: small_bang
+		ImpactSounds: gexp10a.wav
+		ValidTargets: Ground, Air
+
+^AGMissile:
+	Inherits: ^Missile
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 75
+		Versus:
+			None: 100
+			infantry.light: 100
+			infantry.heavy: 100
+			vehicle.light: 100
+			vehicle.heavy: 100
+			air.light: 100
+			air.heavy: 100
+			building.wood: 100
+			building.steel: 100
+			building.concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: medium_clsn
+		ImpactSounds: gexp14a.wav
+		ValidTargets: Ground, Air
+
+^MG:
+	Inherits@1: ^BreakPointDefenseDrones
+	ReloadDelay: 20
+	Range: 4c0
+	Report: igiat1a.wav, igiat1b.wav, igiat1c.wav
+	InvalidTargets: Bridge, Wall, Fence, Tree
+	Projectile: InstantHit
+		Blockable: true
+	Warhead@1Dam: SpreadDamage
+		InvalidTargets: Bridge, Wall, Fence, Tree
+		Spread: 64
+		Damage: 15
+		Versus:
+			None: 100
+			infantry.light: 100
+			infantry.heavy: 100
+			vehicle.light: 100
+			vehicle.heavy: 100
+			air.light: 100
+			air.heavy: 100
+			building.wood: 100
+			building.steel: 100
+			building.concrete: 100
+		DamageTypes: Prone70Percent, TriggerProne, BulletDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: piffpiff
+		ValidTargets: Ground, Water
+
+^TeslaZap:
+	Inherits@1: ^BreakPointDefenseDrones
+	Range: 3c0
+	ReloadDelay: 60
+	Report: itesatta.wav
+	Projectile: TeslaZap
+	Warhead@1Dam: SpreadDamage
+		Spread: 120
+		Damage: 50
+		Versus:
+			None: 100
+			infantry.light: 100
+			infantry.heavy: 100
+			vehicle.light: 100
+			vehicle.heavy: 100
+			air.light: 100
+			air.heavy: 100
+			building.wood: 50
+			building.steel: 75
+			building.concrete: 25
+		DamageTypes: ElectroDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: tesla_impact
+		ValidTargets: Ground, Water
+	#Warhead@spark: FireShrapnel
+	#	Weapon: TeslaSpark
+	#	Amount: 6
+	#	AffectsParent: true
+
+^FireWeapon:
+	Inherits@1: ^BreakPointDefenseDrones
+	ReloadDelay: 65
+	Range: 5c0
+	Report: flamtnk1.aud
+	InvalidTargets: Wall
+	Warhead@1Dam: SpreadDamage
+		InvalidTargets: Wall
+		Spread: 213
+		Damage: 150
+		Versus:
+			None: 100
+			infantry.light: 100
+			infantry.heavy: 100
+			vehicle.light: 100
+			vehicle.heavy: 100
+			air.light: 100
+			air.heavy: 100
+			building.wood: 100
+			building.steel: 100
+			building.concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, FlameDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall
+	Warhead@3Eff: CreateEffect
+		Explosions: largefire
+		ImpactSounds: firebl3.aud
+		ImpactActors: false
+
+^Debris:
+	Range: 3c512
+	Projectile: BulletAS
+		Speed: 125, 166
+		LaunchAngle: 70, 190
+		Image: debris
+	Warhead@Validation: TargetDamage
+
+
+^Melee:
+	ReloadDelay: 30
+	Range: 1c512
+	ValidTargets: Ground
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 20
+		Versus:
+			None: 100
+			infantry.light: 100
+			infantry.heavy: 100
+			vehicle.light: 100
+			vehicle.heavy: 100
+			air.light: 100
+			air.heavy: 100
+			building.wood: 100
+			building.steel: 100
+			building.concrete: 100
+		DamageTypes: BulletDeath
+
+^Laser:
+	Inherits@1: ^BreakPointDefenseDrones
+	ReloadDelay: 10
+	Range: 6c0
+	Projectile: LaserZap
+		Width: 35
+		SecondaryBeam: true
+		SecondaryBeamWidth: 20
+		SecondaryBeamZOffset: 128
+		SecondaryBeamColor: FFFFFF
+		UsePlayerColor: true
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 50
+		Versus:
+			None: 100
+			infantry.light: 100
+			infantry.heavy: 100
+			vehicle.light: 100
+			vehicle.heavy: 100
+			air.light: 100
+			air.heavy: 100
+			building.wood: 100
+			building.steel: 100
+			building.concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, ElectroDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: largefire
+	Warhead@3Smu: LeaveSmudge
+		SmudgeType: SmallScorch
+
+^Targeting:
+	ReloadDelay: 30
+	Range: 6c0
+	Projectile: InstantHit
+	Warhead@1: TargetDamage
+
+^AirTargeting:
+	Inherits: ^Targeting
+	ValidTargets: Air
+	Warhead@1: TargetDamage
+		ValidTargets: Air
+
+^AllTargeting:
+	Inherits: ^Targeting
+	ValidTargets: Ground, Air
+	Warhead@1: TargetDamage
+		ValidTargets: Ground, Air
+
+^Explode:
+	ReloadDelay: 50
+	Range: 1c512
+	Projectile: InstantExplode
+
+^HealLaser:
+	ReloadDelay: 25
+	Range: 6c0
+	ValidTargets: Repair, Heal
+	Projectile: KKNDLaser
+		Radius: 2
+		Duration: 12
+		InnerLightness: 192
+		OuterLightness: 96
+	Warhead@Heal: SpreadDamage
+		Spread: 42
+		Damage: -50

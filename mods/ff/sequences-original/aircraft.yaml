@@ -1,0 +1,71 @@
+asw:
+	Inherits@EMP: ^EMPDisableable
+	icon: xxicon
+
+beag:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: beagicon
+
+cargoplane:
+	Inherits@EMP: ^EMPDisableable
+	icon: xxicon
+
+falc:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: falcicon
+
+hornet:
+	Inherits@EMP: ^EMPDisableable
+	icon: xxicon
+
+pdplane:
+	Inherits@EMP: ^EMPDisableable
+	icon: xxicon
+
+shad:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@MUZZLE: ^WithMachineGunMuzzle
+	shadow: shadshadow
+		Facings: 32
+	icon: shadicon
+
+zep:
+	Inherits@EMP: ^EMPDisableable
+	shadow: zepshadow
+		Facings: 32
+	icon: zepicon
+
+# Yuri's Revenge Aircraft
+spyp:
+	Inherits@EMP: ^EMPDisableable
+	icon: spypicon
+
+schp:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	dot: dot
+		ZOffset: -9999
+	deploy: schpdepl
+		Length: 11
+		ShadowStart: 11
+		Tick: 136
+	shadow: schpshadow
+		Facings: 32
+	icon: schpicon
+
+bpln:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: bplnicon
+
+disk:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	muzzle: diskray
+		Length: 4
+		Tick: 100
+	icon: diskicon

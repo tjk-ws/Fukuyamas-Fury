@@ -1,0 +1,1 @@
+Installing this mod is done the same way as any other [OpenRA Mod SDK](http://www.github.com/OpenRA/OpenRAModSDK) mod. Requires Red Alert 2 and Yuri's Revenge assets for the time being (may change in the future); reference the [RA2 mod's instructions](https://github.com/OpenRA/ra2/wiki) regarding this.

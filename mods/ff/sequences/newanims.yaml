@@ -1,0 +1,10 @@
+flameall:
+	idle:
+		Length: 19
+		Facings: -8
+		Tick: 160
+		ZOffset: 1023
+
+ghost.nukedummy:
+	idle: mindanim
+		Length: *

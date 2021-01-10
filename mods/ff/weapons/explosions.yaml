@@ -1,0 +1,236 @@
+LargeBarrelExplode:
+	Inherits@1: ^BreakPointDefenseDrones
+	ReloadDelay: 20
+	Range: 4c0
+	Report: gexpbara.wav, gexpbarb.wav, gexpbarc.wav
+	Projectile: BulletAS
+		Speed: 1c682
+	Warhead@1Dam: SpreadDamage
+		Spread: 0c768
+		Damage: 450 # 225
+		Falloff: 100, 73, 47, 20, 0
+		Versus:
+			None: 150
+			Flak: 100
+			Plate: 100
+			Light: 90
+			Medium: 50
+			Heavy: 50
+			Wood: 100
+			Steel: 150
+			Concrete: 30
+			Drone: 100
+			Rocket: 100
+		AffectsParent: true
+		DamageTypes: Prone70Percent, TriggerProne, FlameDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: large_barrel_explosion
+		ValidTargets: Ground, Water, Air
+	Warhead@3Smu: LeaveSmudge
+		SmudgeType: MediumCrater, MediumScorch
+
+SmallBarrelExplode:
+	Inherits: LargeBarrelExplode
+	Warhead@2Eff: CreateEffect
+		Explosions: small_barrel_explosion
+	Warhead@3Smu: LeaveSmudge
+		SmudgeType: SmallCrater
+
+DerrickExplode:
+	Inherits: LargeBarrelExplode
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+	Warhead@2Eff: CreateEffect
+		Explosions: large_twlt, large_bang, large_brnl, verylarge_clsn, large_tumu
+	Warhead@3Smu: LeaveSmudge
+		SmudgeType: MediumCrater, MediumScorch
+
+UnitExplode:
+	Range: 1c0
+	ReloadDelay: 100
+	Projectile: InstantHit
+	Warhead@1Eff: CreateEffect
+		Explosions: large_twlt, large_bang, large_brnl, large_tumu, verylarge_clsn
+		ImpactSounds: gexpifva.wav, gexpifvb.wav, gexpifvc.wav, gexp11a.wav, gexp14a.wav, gexp14b.wav, gexp14c.wav, gexp14d.wav, gexp15a.wav
+		ValidTargets: Ground, Water, Air
+	Warhead@DebrisSpawn: FireShrapnel
+		Weapon: SmallDebris
+		Amount: 1,4
+		AffectsParent: true
+
+UnitExplodeAir:
+	Inherits: UnitExplode
+	Warhead@1Eff: CreateEffect
+		Explosions: medium_bang, medium_brnl, medium_tumu, medium_twlt, large_clsn
+
+UnitExplodeSmall:
+	Inherits: UnitExplode
+	Warhead@1Eff: CreateEffect
+		Explosions: medium_brnl
+		ImpactSounds: gexp06a.wav, gexp07a.wav
+		ValidTargets: Ground, Water, Air
+	Warhead@3Smu: LeaveSmudge
+		SmudgeType: SmallCrater
+
+V3AmmunitionExplode:
+	Inherits: UnitExplodeSmall
+	Warhead@1Eff: CreateEffect
+		Explosions: terrorist_explosion
+	Warhead@3Smu: LeaveSmudge
+		SmudgeType: MediumCrater, MediumScorch
+
+BuildingExplode:
+	Inherits: UnitExplodeSmall
+	Warhead@1Eff: CreateEffect
+		Explosions: large_twlt, large_bang, large_brnl, verylarge_clsn, large_tumu
+	Warhead@DebrisSpawn: FireShrapnel
+		Weapon: LargeDebris
+	Warhead@3Smu: LeaveSmudge
+		SmudgeType: MediumCrater, MediumScorch
+
+ReactorExplode:
+	Inherits: BuildingExplode
+	Warhead@1Eff: CreateEffect
+		ImpactSounds: bpowdiea.wav, bpowdieb.wav
+
+KirovExplode:
+	Inherits: UnitExplode
+	Inherits@1: ^BreakPointDefenseDrones
+	Warhead@2Dam: SpreadDamage
+		Spread: 0c512
+		Damage: 750 # 250
+		Falloff: 100, 83, 67, 50, 0
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@3Smu: LeaveSmudge
+		SmudgeType: MediumCrater
+
+ApocExplode:
+	Inherits: KirovExplode
+	Warhead@1Eff: CreateEffect
+		ImpactSounds: gexpapoa.wav, gexpapob.wav, gexpapoc.wav
+	Warhead@2Dam: SpreadDamage
+		Damage: 40
+
+FlameTankExplode:
+	Inherits: KirovExplode
+	Warhead@1Eff: CreateEffect
+		ImpactSounds: gexpbara.wav, gexpbarb.wav, gexpbarc.wav
+	Warhead@2Dam: SpreadDamage
+		Damage: 100
+		Versus:
+			None: 100
+			Flak: 100
+			Plate: 100
+			Light: 70
+			Medium: 35
+			Heavy: 35
+			Wood: 70
+			Steel: 35
+			Concrete: 60
+			Drone: 100
+			Rocket: 100
+		Spread: 0c768
+	Warhead@2Eff: CreateEffect
+		Explosions: terrorist_explosion
+		ValidTargets: Ground, Water, Air
+	Warhead@3Smu: LeaveSmudge
+		SmudgeType: MediumScorch
+
+PlaneExplode:
+	Inherits: KirovExplode
+	Warhead@2Dam: SpreadDamage
+		Damage: 100
+
+B2Explode:
+	Inherits: PlaneExplode
+	Warhead@2Dam: SpreadDamage
+		Damage: 200
+
+HornetExplode:
+	Inherits: KirovExplode
+	Warhead@2Dam: SpreadDamage
+		Damage: 2
+
+InfantryExplode:
+	Inherits: UnitExplode
+	Warhead@1Eff: CreateEffect
+		Explosions: medium_bang
+		ImpactSounds: igenexpa.wav
+		ValidTargets: Ground, Water, Air
+	-Warhead@DebrisSpawn:
+
+MinerExplode:
+	Inherits: UnitExplodeSmall
+	Warhead@2Res: CreateResource
+		AddsResourceType: Ore
+		Size: 1,1
+
+RefineryExplode:
+	Inherits: BuildingExplode
+	Warhead@2Res: CreateResource
+		AddsResourceType: Ore
+		Size: 1,1
+
+HoloExplode:
+	Warhead@1Eff: CreateEffect
+		Explosions: holodis
+		ExplosionPalette: apolra2i
+		ValidTargets: Ground, Water, Air
+
+TemporalExplode:
+	Warhead@1Eff: CreateEffect
+		Explosions: temporal_explosion
+		ValidTargets: Ground, Water, Air
+
+Demolish:
+	Warhead@1Dam: SpreadDamage
+		DamageTypes: DefaultDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: large_twlt
+		ImpactSounds: expnew09.wav
+
+MineExplosion:
+	Inherits@1: ^BreakPointDefenseDrones
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 400
+		AffectsParent: true
+		InvalidTargets: Structure, Wall, Trees
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: mine_explosion
+		ExplosionPalette: tseffect
+		ImpactSounds: mine1.aud, mineblo1.aud
+	Warhead@Smu: LeaveSmudge
+		SmudgeType: MediumCrater, MediumScorch
+		InvalidTargets: Structure, Wall, Trees
+
+^SparkSpawner:
+	Range: 1
+	Projectile: InstantExplode
+	Warhead@TargetValidation: SpreadDamage
+	Warhead@op: FireShrapnel
+		Weapon: DamageSpark
+		AffectsParent: true
+
+DamageSparkSpawner:
+	Inherits: ^SparkSpawner
+	ReloadDelay: 384
+	Warhead@op: FireShrapnel
+		Amount: 6
+
+^Spark:
+	Range: 1c512
+	MinRange: 640
+	ReloadDelay: 1
+	Projectile: BulletAS
+		Speed: 62
+		LaunchAngle: 165, 215
+		Image: particles
+		Sequences: damagespark
+	Warhead@1Dam: SpreadDamage
+
+DamageSpark:
+	Inherits: ^Spark
+	Projectile: BulletAS
+		Palette: effect

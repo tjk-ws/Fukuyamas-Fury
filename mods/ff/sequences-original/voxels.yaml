@@ -1,0 +1,319 @@
+amcv:
+	idle: mcv
+
+aegis:
+	idle:
+
+asw:
+	idle:
+
+#axle	# TODO: unused debris
+#	idle:
+
+beag:
+	idle:
+
+bus:
+	idle:
+
+car:
+	idle:
+
+carrier:
+	idle:
+
+cdest:
+	idle:
+	empty: cdestwo
+
+cona:
+	idle:
+
+cop:
+	idle:
+
+cmin:
+	idle:
+	unload: cmon
+
+cargoplane:
+	idle: cplane
+
+cruise:
+	idle:
+
+dest:
+	idle:
+	empty: destwo
+
+dmisl:
+	idle:
+
+dred:
+	idle:
+	empty: dredwo
+
+euroc:
+	idle:
+
+falc:
+	idle:
+
+naflak:
+	turret: flaktur
+
+flata: #Unused
+	idle:
+
+fv:
+	idle:
+	turret-missile: fvtur
+	turret-mg: fvtur1
+	turret-repair: fvtur2
+	turret-hitech: fvtur3
+
+gtgcan:
+	turret: gtgcantur
+	barrel: gtgcanbarl
+
+mtnk:
+	idle: gtnk
+	turret: gtnktur
+	barrel: gtnkbarl
+
+harv:
+	idle:
+	turret: harvtur
+	unload: horv
+
+hind: #Unused
+	idle:
+
+hornet:
+	idle:
+
+htk: #Flak Track
+	idle:
+	turret: htktur
+	barrel: htkbarl
+
+htnk: #Rhino Tank
+	idle:
+	turret: htnktur
+	barrel: htnkbarl
+
+howi: #Howitzer Unused
+	idle: hwtz
+
+hyd: #Sea Scorpion
+	idle:
+
+nalasr:
+	turret: laser
+
+lcrf: #Allied transport
+	idle:
+
+limo:
+	idle:
+
+oltnk: #Light tank,Beta unit. Appears only in one mission as a prop
+	idle: local|ltnk
+	turret: local|ltnktur
+	barrel: local|ltnkbarl
+
+apoc: #Aplocalypse Tank
+	idle: mtnk
+	turret: mtnktur
+	barrel: mtnkbarl
+
+caoutp: #Tech outpost sam
+	turret: outp
+
+pdplane: #Paradrop plane
+	idle:
+
+pick: #Cargo Truck
+	idle:
+
+#piece: # TODO: unused debris
+#	idle:
+
+propa:
+	idle:
+
+ptruck: #Pickup Truck
+	idle:
+
+mgtk: #Mirage Tank, the tur and barrel files are beta, final has fixed turret
+	idle: rtnk
+
+nasam:
+	turret: sam
+
+shad: #Nighthawk
+	idle:
+
+smcv:
+	idle:
+
+sref:
+	idle:
+	turret: sreftur
+	turret-stage1: sreftur1
+	turret-stage2: sreftur2
+	turret-stage3: sreftur3
+
+stang:
+	idle:
+
+sub: #Typhoon Attack Sub
+	idle:
+
+subt: #Sub Torpedo needs voxel projectiles
+	idle:
+
+suvb:
+	idle:
+
+suvw:
+	idle:
+
+taxi:
+	idle:
+
+#tire: # TODO: unused debris
+#	idle:
+
+tnkd:
+	idle:
+
+tractor: #Unused
+	idle:
+
+sapc:
+	idle: trs
+
+dtruck:
+	idle: trucka
+
+trucka:
+	idle:
+
+truckb: #Psst Has crates in it :D
+	idle:
+
+ttnk:
+	idle:
+	turret: ttnktur
+
+tug: #Tug Boat
+	idle:
+
+v3:
+	idle:
+	empty: v3wo
+
+v3rocket:
+	idle:
+
+vlad: #Vladimir's Dreadnought SP unit
+	idle:
+	empty: vladwo
+
+wini: #Recreational Vehicle Not sure if used in RA2
+	idle:
+
+zep: #Kirov Reporting!
+	idle:
+
+#zbomb: #Kirov bomb needs voxel projectiles
+#	idle:
+
+#YR Voxels
+ambu:
+	idle:
+
+bcab:
+	idle:
+
+cblc:
+	idle:
+
+ddbx:
+	idle:
+
+doly:
+	idle:
+
+ftrk:
+	idle:
+
+jeep:
+	idle: localmd|jeep
+
+ycab:
+	idle:
+
+civp:
+	idle:
+
+spyp:
+	idle:
+
+bfrt:
+	idle:
+
+robo:
+	idle:
+	turret: robotur
+
+schp:
+	idle:
+	deployed: schd
+	turret: schdtur
+
+bpln:
+	idle:
+
+pcv:
+	idle:
+
+yhvr:
+	idle:
+
+ltnk:
+	idle: localmd|ltnk
+	turret: localmd|ltnktur
+
+mind:
+	idle:
+
+tele:
+	idle:
+	turret: teletur
+
+ytnk:
+	idle:
+	turret: ytnktur
+
+caos:
+	idle:
+
+bsub:
+	idle:
+
+bsubmisl:
+	idle:
+
+disk:
+	idle:
+	turret: disktur
+
+smin:
+	idle:
+	turret: smintur
+
+cahead:
+	turret:
+	turret-damaged: caheaddm

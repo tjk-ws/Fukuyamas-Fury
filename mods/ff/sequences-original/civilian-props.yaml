@@ -1,0 +1,379 @@
+hdstn01:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+lt_gen01:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+lt_gen02:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+lt_gen03:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+lt_gen04:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+lt_sgn01:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+lt_sgn02:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+lt_sgn03:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+lt_sgn04:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+
+lt_eur01:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+lt_eur02:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+pole01:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+pole02:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+sign01:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+sign02:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+sign03:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+
+sign04:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+sign05:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+sign06:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+trff01:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+camsc01:
+	Defaults:
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+		Offset: 0,-15
+
+camsc02:
+	Defaults:
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+		Offset: 0,-15
+
+camsc03:
+	Defaults:
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+		Offset: 0,-15
+
+camsc04:
+	Defaults:
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+		Offset: 0,-15
+
+camsc05:
+	Defaults:
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+		Offset: 0,-15
+
+camsc06:
+	Defaults:
+		UseTilesetCode: true
+		Offset: 0,-15
+	idle:
+		ShadowStart: 3
+	idle-fire: camsc06a
+		Length: 4
+		ShadowStart: 4
+		Tick: 80
+
+camsc11:
+	Defaults:
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+
+camsc12:
+	Defaults:
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+
+camsc13:
+	Defaults:
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+
+trff02:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+trff03:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+trff04:
+	Defaults:
+		UseTilesetExtension: true
+	idle:
+		ShadowStart: 1
+
+camisc01:
+	Defaults:
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+
+camisc02:
+	Defaults:
+		UseTilesetCode: true
+	idle:
+
+camisc03:
+	Defaults:
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+
+camisc04:
+	Defaults:
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+
+camisc05:
+	Defaults:
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+
+camisc06:
+	Defaults:
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+
+caeuro05:
+	Defaults:
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+		Offset: 0,-30
+
+capark01:
+	Defaults:
+		UseTilesetCode: true
+		TilesetOverrides:
+			NEWURBAN: TEMPERATE
+	idle:
+		ShadowStart: 3
+		Offset: 0,-15
+
+capark02:
+	Defaults:
+		UseTilesetCode: true
+		TilesetOverrides:
+			NEWURBAN: TEMPERATE
+	idle:
+		ShadowStart: 3
+		Offset: 0,-15
+
+capark03:
+	Defaults:
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+		Offset: 0,-30
+
+ammo01:
+	idle:
+		ShadowStart: 3
+		Offset: 0,-15
+
+cabhut:
+	idle:
+		ShadowStart: 3
+		Offset: 0, -15
+
+gagate_a:
+	Defaults:
+		UseTilesetCode: true
+		Offset: -30,-30
+	idle:
+		Length: 10
+		ShadowStart: 21
+	open:
+		Start: 9
+		ShadowStart: 30
+
+spkr01:
+	Defaults:
+		AddExtension: false
+	idle: spkr01.urb
+		ShadowStart: 1
+
+# Yuri's Revenge Props
+cabarr01:
+	idle:
+		ShadowStart: 3
+		Offset: 0, -15
+
+cabarr02:
+	idle:
+		ShadowStart: 3
+		Offset: 0, -15
+
+capark04:
+	idle: cgpark04
+		ShadowStart: 1
+		Offset: 0,-15
+
+capark05:
+	idle: cgpark05
+		ShadowStart: 1
+		Offset: 0,-15
+
+capark06:
+	idle: cgpark06
+		ShadowStart: 1
+		Offset: 0,-15
+
+capark06:
+	idle: cgpark06
+		ShadowStart: 1
+		Offset: 0,-15
+
+casin03e:
+	idle: cgsin03e
+		ShadowStart: 1
+		Offset: 0,-15
+
+casin03s:
+	idle: cgsin03s
+		ShadowStart: 1
+		Offset: 0,-15
+
+caurb01:
+	idle: cgurb01
+		ShadowStart: 1
+		Offset: 0,-15
+
+caurb02:
+	idle: cgurb02
+		ShadowStart: 1
+		Offset: 0,-15
+
+caurb03:
+	idle: cuurb03
+		ShadowStart: 1
+		Offset: 0,-15
+
+cagatene:
+	Defaults: cggatene
+		Offset: 30,-30
+	idle:
+		Length: 10
+		ShadowStart: 23
+	open:
+		Start: 9
+		ShadowStart: 31
+
+cagatenw:
+	Defaults: cggatenw
+		Offset: -30,-30
+	idle:
+		Length: 10
+		ShadowStart: 23
+	open:
+		Start: 9
+		ShadowStart: 31
+
+cagatesw:
+	Defaults: cggatesw
+		Offset: 30,-30
+	idle:
+		Length: 10
+		ShadowStart: 23
+	open:
+		Start: 9
+		ShadowStart: 31

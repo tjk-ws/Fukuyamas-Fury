@@ -1,0 +1,1275 @@
+^CreepBuff:
+	ExternalCondition@Creep:
+		Condition: creep
+		TotalCap: 1
+	SpeedMultiplier@creep:
+		Modifier: 130
+		RequiresCondition: creep
+
+^ProducedFromLarva:
+	Inherits: ^CreepBuff
+	Buildable:
+		Queue: Units.Z
+		BuildAtProductionType: Larva.Z
+
+^MorphTarget:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^SpriteActor
+	Inherits@3: ^SelectableBuilding
+	Inherits@shape: ^1x1Shape
+	-DrawLineToTarget:
+	AppearsOnMapPreview:
+	OwnerLostAction:
+		Action: Kill
+		DeathTypes: BulletDeath
+	RenderSprites:
+		PlayerPalette: placebuilding
+	Buildable:
+		Queue: Building.Z
+		BuildDuration: 0
+	Building:
+		BuildSounds: uplanadd.wav
+		Dimensions: 1,1
+		Footprint: =
+		RequiresBaseProvider: True
+		TerrainTypes: Clear, Rough, Road, DirtRoad
+	ActorPreviewPlaceBuildingPreview:
+		Palette: placefootprint
+		LineBuildSegmentPalette: placelinesegment
+		OverridePalette: placebuilding
+		FootprintUnderPreview: Valid, LineBuild, Invalid
+		FootprintOverPreview: None
+	HiddenUnderFog:
+		Type: CenterPosition
+	WithSpriteBody:
+	HitShape:
+	Health:
+		HP: 100
+	Sellable:
+		RefundPercent: 100
+		-SellSounds:
+	Targetable:
+		TargetTypes: morphable
+		RequiresCondition: !morph
+	RequiresBuildableArea:
+		AreaTypes: drone
+		Adjacent: 4
+	ExternalCondition@morph:
+		Condition: morph
+		TotalCap: 1
+	KillsSelf:
+		RequiresCondition: !morph
+		Delay: 240
+		GrantsCondition: refund
+	CashTrickler@refund:
+		Amount: 100
+		RequiresCondition: refund
+	TransformOnCondition:
+		SkipMakeAnims: false
+		RequiresCondition: morph
+
+^structure.z:
+	Inherits: ^BaseBuilding
+	Buildable:
+		Queue: Building.Z
+		Prerequisites: ~disabled
+		Description: The actual building for debug
+	SpawnSurvivors:
+		Actors: builder.z
+		RequiresCondition: build-incomplete
+	Sellable:
+		RefundPercent: 100
+		RequiresCondition: build-incomplete
+
+hatchery:
+	Inherits: ^structure.z
+	Inherits@shape: ^4x4Shape
+	Inherits@power: ^DisableOnLowPower
+	Tooltip:
+		Name: Hatchery
+	Health:
+		HP: 2000
+	Armor:
+		Type: building.concrete
+	Valued:
+		Cost: 400
+	Building:
+		Footprint: =xx= xxxx xxxx =xx=
+		Dimensions: 4,4
+	Power:
+		Amount: 15
+	Production@Units:
+		Produces: Units.Z
+		PauseOnCondition: nolarva || lowpower
+	ProductionBar@Units:
+		ProductionType: Units.Z
+	MobSpawnerMaster:
+		Actors: hatchery.larva, hatchery.larva, hatchery.larva
+		AggregateHealth: false
+		ExitByBudding: false
+		SlavesHaveFreeWill: true
+		SlaveDisposalOnKill: DoNothing
+		RespawnTicks: 275
+		InitialActorCount: 0
+	MobSpawnerMaster@Inject:
+		Actors: hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva
+		InitialActorCount: 0
+		AggregateHealth: false
+		ExitByBudding: false
+		SlavesHaveFreeWill: true
+		SlaveDisposalOnKill: DoNothing
+		RespawnTicks: 1
+		RequiresCondition: inject
+	ProvidesPrerequisite@buildingname:
+	GrantConditionOnPrerequisite:
+		Condition: nolarva
+		Prerequisites: nolarva
+	Targetable@inject:
+		TargetTypes: Inject
+	Targetable@injectable:
+		TargetTypes: Injectable
+		RequiresCondition: !injected
+	ExternalCondition@inject:
+		Condition: inject
+		TotalCap: 1
+	ExternalCondition@injected:
+		Condition: injected
+		TotalCap: 1
+	WithTextDecoration:
+		Text: INJECTED
+		UsePlayerColor: true
+		Position: Top
+		RequiresCondition: injected
+	Exit@1:
+		ExitCell: 4,4
+	RallyPoint:
+		Palette: mouse
+		IsPlayerPalette: false
+	LaysMinefield:
+		Mines: hatchery.dock
+		Locations: 0,0, 3,3, 0,3, 3,0
+		RecreationInterval: 1
+	StoresResources:
+		Capacity: 2000
+	IsometricSelectable:
+		DecorationHeight: 90
+	WithIdleOverlay@top:
+		Sequence: idle-top
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@normal:
+		Sequence: idle-normal
+		RequiresCondition: !build-incomplete
+	RenderSprites:
+		Image: hatchery
+
+hatchery.dock:
+	Inherits: townhall.dock
+
+hatchery.larva:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^SpriteActor
+	Inherits@3: ^ChronoDisable
+	Inherits@SELECTION_MODE: ^LowPrioritySelectionMode
+	Inherits@power: ^DisableOnLowPower
+	Health:
+		HP: 50
+	OwnerLostAction:
+		Action: Kill
+		DeathTypes: BulletDeath
+	HitShape:
+	Armor:
+		Type: building.steel
+	RevealsShroud:
+		Range: 4c0
+		MaxHeightDelta: 3
+	# RevealsShroudToIntelligenceOwner:
+	#	Types: SatelliteScan
+	#	Range: 4c0
+	RevealOnDeath:
+		Radius: 2c0
+		Duration: 50
+	Mobile:
+		Speed: 20
+		Locomotor: foot
+		RequiresCondition: !chronodisable
+	RejectsOrders:
+	WithTextControlGroupDecoration:
+	SelectionDecorations:
+	Selectable:
+	Targetable:
+		TargetTypes: Ground, Structure, DetonateAttack
+		RequiresCondition: !untargetable
+	GrantCondition@untargetable:
+		Condition: untargetable
+		RequiresCondition: chronodisable
+	Targetable@HEAL:
+		RequiresCondition: damaged
+		TargetTypes: Heal
+	GrantConditionOnDamageState@DAMAGED:
+		Condition: damaged
+		ValidDamageStates: Light, Medium, Heavy, Critical
+	HiddenUnderFog:
+	ActorLostNotification:
+	Guardable:
+	QuantizeFacingsFromSequence:
+	WithSpriteBody:
+	Exit:
+		ProductionTypes: Units.Z, Larva.Z
+	Production@Probes:
+		Produces: Units.Z, Larva.Z
+		PauseOnCondition: lowpower
+	ProductionBar@Probes:
+		ProductionType: Units.Z
+	Power:
+		Amount: 0
+	GrantConditionOnProduction:
+		Condition: hatched
+	GrantExternalConditionToOwner:
+		Condition: larva
+	MobSpawnerSlave:
+		GrantConditionWhenMasterIsDisabled: paused
+		GrantConditionWhenMasterIsPaused: paused
+	KillsSelf:
+		RemoveInstead: True
+		RequiresCondition: hatched
+		Delay: 1
+	Explodes:
+		Weapon: BuildingExplode
+	ExplodeWeapon:
+		Weapon: BuildingExplode
+		RequiresCondition: hatched
+	Tooltip:
+		Name: Scrap pile
+	RenderSprites:
+	GpsDotAS:
+		Sequence: Structure
+
+morph.hatchery:
+	Inherits: ^MorphTarget
+	Inherits@shape: ^4x4Shape
+	Tooltip:
+		Name: Hatchery
+	Buildable:
+		Queue: Building.Z
+		Description: Refines resources.\nPeriodically produces scrap piles, which are used to build units.
+	Building:
+		Footprint: ==== ==== ==== ====
+		Dimensions: 4,4
+	Valued:
+		Cost: 400
+	CashTrickler@refund:
+		Amount: 400
+	WithIdleOverlay@top:
+		Sequence: idle-top
+	WithIdleOverlay@normal:
+		Sequence: idle-normal
+	TransformOnCondition:
+		IntoActor: hatchery
+	RenderSprites:
+		Image: hatchery
+
+creeptumor:
+	Inherits: ^structure.z
+	Tooltip:
+		Name: 5G Tower
+	Health:
+		HP: 100
+	Armor:
+		Type: building.wood
+	Valued:
+		Cost: 10
+	ProximityExternalCondition:
+		Condition: creep
+		Range: 6c0
+	WithIdleOverlay@top:
+		Sequence: idle-top
+		RequiresCondition: !build-incomplete
+	IsometricSelectable:
+		DecorationHeight: 120
+	RenderSprites:
+		Image: creeptumor
+
+spawningpool:
+	Inherits: ^structure.z
+	Inherits@shape: ^2x3Shape
+	Tooltip:
+		Name: NEET concentration center
+	Health:
+		HP: 2000
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 200
+	Building:
+		Footprint: xx xx xx
+		Dimensions: 2,3
+	Production@1:
+		Produces: Pool.Z
+	ProductionQueue@1:
+		Type: Pool.Z
+		Group: Support
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		QueuedAudio: Building
+		CancelledAudio: Cancelled
+		DisallowPaused: true
+		ItemLimit: 1
+	ProductionBar@1:
+		ProductionType: Pool.Z
+	ProvidesPrerequisite@buildingname:
+	IsometricSelectable:
+		DecorationHeight: 105
+
+morph.spawningpool:
+	Inherits: ^MorphTarget
+	Inherits@shape: ^2x3Shape
+	Tooltip:
+		Name: NEET concentration center
+	Buildable:
+		Queue: Building.Z
+		Description: Unlocks basic units.
+	Building:
+		Footprint: == == ==
+		Dimensions: 2,3
+	Valued:
+		Cost: 200
+	CashTrickler@refund:
+		Amount: 200
+	TransformOnCondition:
+		IntoActor: spawningpool
+	RenderSprites:
+		Image: spawningpool
+
+banelingnest:
+	Inherits: ^structure.z
+	Inherits@shape: ^2x2Shape
+	Tooltip:
+		Name: Explosives factory
+	Health:
+		HP: 1700
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 150
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@loaded:
+		Sequence: loaded
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@lights:
+		Sequence: idle-lights
+		RequiresCondition: !build-incomplete
+	IsometricSelectable:
+		DecorationHeight: 90
+
+morph.banelingnest:
+	Inherits: ^MorphTarget
+	Inherits@shape: ^2x2Shape
+	Tooltip:
+		Name: Explosives factory
+	Buildable:
+		Queue: Building.Z
+		Description: Unlocks Nihilists.
+	Building:
+		Footprint: == ==
+		Dimensions: 2,2
+	Valued:
+		Cost: 150
+	CashTrickler@refund:
+		Amount: 150
+	TransformOnCondition:
+		IntoActor: banelingnest
+	RenderSprites:
+		Image: banelingnest
+
+evolutionchamber:
+	Inherits: ^structure.z
+	Inherits@shape: ^3x3Shape
+	Tooltip:
+		Name: Recycling center
+	Health:
+		HP: 1500
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 75
+	Building:
+		Footprint: xx xx xx
+		Dimensions: 2,3
+	Production@1:
+		Produces: Chamber.Z
+	ProductionQueue@1:
+		Type: Chamber.Z
+		Group: Support
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		QueuedAudio: Building
+		CancelledAudio: Cancelled
+		DisallowPaused: true
+		ItemLimit: 1
+	ProductionBar@1:
+		ProductionType: Chamber.Z
+	ProvidesPrerequisite@buildingname:
+	WithProductionOverlay:
+		Sequence: grind
+	WithIdleOverlay@top:
+		Sequence: idle-top
+		RequiresCondition: !build-incomplete
+	IsometricSelectable:
+		DecorationHeight: 105
+
+morph.evochamber:
+	Inherits: ^MorphTarget
+	Inherits@shape: ^3x3Shape
+	Tooltip:
+		Name: Recycling center
+	Buildable:
+		Queue: Building.Z
+		Description: Researches upgrades.
+	Building:
+		Footprint: === === ===
+		Dimensions: 3,3
+	Valued:
+		Cost: 75
+	CashTrickler@refund:
+		Amount: 75
+	TransformOnCondition:
+		IntoActor: evolutionchamber
+	RenderSprites:
+		Image: evolutionchamber
+
+hydraliskden:
+	Inherits: ^structure.z
+	Inherits@shape: ^2x2Shape
+	Tooltip:
+		Name: Remote control center
+	Health:
+		HP: 1700
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 200
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Production@1:
+		Produces: Hydraden.Z
+		RequiresCondition: !lurker
+	#TODO: Add lurker upgrade queue
+	ProductionQueue@1:
+		Type: Hydraden.Z
+		Group: Support
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		QueuedAudio: Building
+		CancelledAudio: Cancelled
+		DisallowPaused: true
+		ItemLimit: 1
+	ProductionBar@1:
+		ProductionType: Hydraden.Z
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@lurker:
+		Prerequisite: lurkerden
+		RequiresCondition: lurker
+	GrantConditionOnProduction@lurker:
+		Condition: lurker
+		Actors: upgrade.lurker
+	WithIdleOverlay@top:
+		Sequence: idle-spin
+		RequiresCondition: !build-incomplete
+	IsometricSelectable:
+		DecorationHeight: 120
+
+morph.hydraden:
+	Inherits: ^MorphTarget
+	Inherits@shape: ^2x2Shape
+	Tooltip:
+		Name: Remote control center
+	Buildable:
+		Queue: Building.Z
+		Description: Unlocks Battle Drones.
+	Building:
+		Footprint: == ==
+		Dimensions: 2,2
+	Valued:
+		Cost: 200
+	CashTrickler@refund:
+		Amount: 200
+	TransformOnCondition:
+		IntoActor: hydraliskden
+	RenderSprites:
+		Image: hydraliskden
+
+roachwarren:
+	Inherits: ^structure.z
+	Inherits@shape: ^2x2Shape
+	Tooltip:
+		Name: Robot assembly
+	Health:
+		HP: 1700
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 150
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	ProvidesPrerequisite@buildingname:
+	IsometricSelectable:
+		DecorationHeight: 75
+
+morph.roachwarren:
+	Inherits: ^MorphTarget
+	Inherits@shape: ^2x2Shape
+	Tooltip:
+		Name: Robot assembly
+	Buildable:
+		Queue: Building.Z
+		Description: Unlocks UGVs.
+	Building:
+		Footprint: == ==
+		Dimensions: 2,2
+	Valued:
+		Cost: 150
+	CashTrickler@refund:
+		Amount: 150
+	TransformOnCondition:
+		IntoActor: roachwarren
+	RenderSprites:
+		Image: roachwarren
+
+ultraliskcavern:
+	Inherits: ^structure.z
+	Inherits@shape: ^5x3Shape
+	Tooltip:
+		Name: Large Vehicle Factory
+	Health:
+		HP: 1700
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 350
+	Building:
+		Footprint: xxxx= xxxx= xxxx=
+		Dimensions: 5,3
+	WithIdleOverlay@lights:
+		Sequence: idle-lights
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@bib:
+		Sequence: bib
+		RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+	IsometricSelectable:
+		DecorationHeight: 75
+
+morph.ultracavern:
+	Inherits: ^MorphTarget
+	Inherits@shape: ^5x3Shape
+	Tooltip:
+		Name: Large Vehicle Factory
+	Buildable:
+		Queue: Building.Z
+		Description: Unlocks heavy vehicles.
+	Building:
+		Footprint: ===== ===== =====
+		Dimensions: 5,3
+	Valued:
+		Cost: 350
+	CashTrickler@refund:
+		Amount: 350
+	TransformOnCondition:
+		IntoActor: ultraliskcavern
+	RenderSprites:
+		Image: ultraliskcavern
+
+infestationpit:
+	Inherits: ^structure.z
+	Inherits@shape: ^3x2Shape
+	Tooltip:
+		Name: Gadget Lab
+	Health:
+		HP: 1700
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 200
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3,2
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@lift:
+		Sequence: idle-lift
+		RequiresCondition: !build-incomplete
+	IsometricSelectable:
+		DecorationHeight: 180
+
+morph.infestationpit:
+	Inherits: ^MorphTarget
+	Inherits@shape: ^3x2Shape
+	Tooltip:
+		Name: Gadget Lab
+	Buildable:
+		Queue: Building.Z
+		Description: Unlocks advanced vehicles.
+	Building:
+		Footprint: === ===
+		Dimensions: 3,2
+	Valued:
+		Cost: 200
+	CashTrickler@refund:
+		Amount: 200
+	TransformOnCondition:
+		IntoActor: infestationpit
+	RenderSprites:
+		Image: infestationpit
+
+nydus:
+	Inherits: ^structure.z
+	Inherits@shape: ^2x2Shape
+	RenderSprites:
+		PlayerPalette: yunkn
+	ActorPreviewPlaceBuildingPreview:
+		OverridePalette: cloakyunkn
+	Tooltip:
+		Name: Tunnel
+	Health:
+		HP: 600
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 150
+	Building:
+		Footprint: xx ++
+		Dimensions: 2,2
+	TeleportNetworkPrimaryExit:
+	TeleportNetwork:
+		Type: nydus
+	RallyPoint:
+	Exit@1: #Teleport network does not support multiple exits
+		ExitCell: 0,1
+		Priority: 2
+	WithIdleOverlay@lights:
+		Sequence: idle-top
+		RequiresCondition: !build-incomplete
+	IsometricSelectable:
+		DecorationHeight: 60
+
+builder.z:
+	Inherits: ^VoxelVehicle
+	Inherits@2: ^Harvester
+	Inherits@SELECTION_MODE: ^LowPrioritySelectionMode
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@HATCH: ^ProducedFromLarva
+	Selectable:
+		Class: builder.z
+	Tooltip:
+		Name: Supply Truck
+	Mobile:
+		Speed: 100
+	Health:
+		HP: 80
+	Valued:
+		Cost: 50
+	Buildable:
+		Queue: Units.Z
+		BuildPaletteOrder: 50
+		Description: Transforms into structures.
+	MustBeDestroyed:
+		RequiredForShortGame: true
+	BaseBuilding:
+	RenderSprites:
+		Image: drone
+	RenderVoxels:
+		Image: drone
+		Scale: 1.2
+	ProvidesPrerequisite@killdummy:
+		Prerequisite: hasbase
+	Production@Building:
+		Produces: Building.Z
+		PauseOnCondition: moving || !no-ore
+		RequiresCondition: !botmicro
+	ProductionQueue@Building:
+		Type: Building.Z
+		Group: Building
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		ItemLimit: 1
+		QueueLimit: 1
+	ProductionBar@Building:
+		ProductionType: Building.Z
+	BaseProvider:
+		Range: 4c0
+		RequiresCondition: !moving
+	GivesBuildableArea:
+		AreaTypes: drone
+		RequiresCondition: !moving
+	Harvester:
+		DeliveryBuildings: hatchery.dock
+	WithHarvestOverlay:
+		LocalOffset: 121,0,0
+		Palette: effect
+	AutoTargetPriority@Build:
+		ValidTargets: morphable
+		Priority: 2
+	AutoTarget:
+		ScanRadius: 4
+		InitialStance: AttackAnything
+	AttackFrontal:
+		Armaments: primary, morph
+	Armament@morph:
+		Weapon: drone.morph
+		Name: morph
+		TargetStances: Ally
+		ForceTargetStances: Ally
+	GrantConditionOnAttack@morph:
+		Condition: morphed
+		ArmamentNames: morph
+	KillsSelf@morph:
+		RequiresCondition: morphed
+		RemoveInstead: true
+	WithVoxelUnloadBody:
+	GrantConditionOnMovement@MoveStart:
+		Condition: moving
+		ValidMovementTypes: Horizontal, Turn
+	GrantConditionOnBotOwner@bot:
+		Condition: botmicro
+		Bots: test
+	Voiced:
+		VoiceSet: YuriConstructionVehicleVoice
+
+overlord:
+	Inherits: ^Helicopter
+	Inherits@VOXEL: ^VoxelActor
+	Inherits@HATCH: ^ProducedFromLarva
+	Tooltip:
+		Name: Hover Drone
+	Selectable:
+		Bounds: 68, 43, 0, -5
+	Health:
+		HP: 400
+	Valued:
+		Cost: 100
+	Buildable:
+		BuildPaletteOrder: 20
+		Description: Provides supply.\nCan transport units
+	Power:
+		Amount: 8
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 90
+		AltitudeVelocity: 200
+	Armament@secondary:
+		Weapon: barrier.energyhack
+		Name: secondary
+		TargetStances: None
+		ForceTargetStances: None
+	AttackAircraft:
+		Voice: Attack
+	Armor:
+		Type: air.light
+	Cargo:
+		Types: Infantry, Garrisoner, Vehicle
+		MaxWeight: 8
+		AfterLoadDelay: 0
+		BeforeUnloadDelay: 0
+		AfterUnloadDelay: 0
+		UnloadVoice: Move
+	#WithCargoSounds:
+	#	EnterSound: genter1a.wav
+	#	ExitSound: gexit1a.wav
+	WithCargoPipsDecoration:
+		Margin: 4, 3
+		Palette: ra
+		Position: BottomLeft
+		RequiresSelection: true
+		CustomPipSequences:
+			gray: pip-gray
+			yellow: pip-yellow
+			blue: pip-blue
+			red: pip-red
+	WithVoxelBody:
+	WithVoxelTurret:
+	Turreted:
+	RenderSprites:
+	RenderVoxels:
+	Voiced:
+		VoiceSet: ChaosDroneVoice
+
+zergling.build:
+	Inherits: ^addon
+	Inherits@HATCH: ^ProducedFromLarva
+	Tooltip:
+		Name: Larper
+	Buildable:
+		Description: Armed with a zip gun.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Mobile:
+		Locomotor: foot
+	Valued:
+		Cost: 50
+	RenderSprites:
+		Image: zergling
+	FreeActor@1:
+		Actor: zergling
+	FreeActor@2:
+		Actor: zergling
+
+zergling:
+	Inherits: ^Infantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOICES: ^WithFeedbackVoicelines
+	Tooltip:
+		Name: Larper
+	Buildable:
+		Prerequisites: spawningpool
+		Description: Armed with a zip gun.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Health:
+		HP: 70
+	Valued:
+		Cost: 25
+	Power:
+		Amount: -1
+	Mobile:
+		Speed: 95
+	Armor:
+		Type: infantry.light
+	AttackFrontal:
+		Voice: Attack
+	Armament@primary:
+		Weapon: zergling.claw
+	Voiced:
+		VoiceSet: ConscriptVoice
+	RenderSprites:
+		Image: zergling
+
+baneling:
+	Inherits: ^Infantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOICES: ^WithFeedbackVoicelines
+	Inherits@HATCH: ^ProducedFromLarva
+	Tooltip:
+		Name: Nihilist
+	Buildable:
+		Prerequisites: banelingnest
+		Description: Armed with fertilizer nail bombs.\n  Strong vs Ground targets\n  Weak vs Aircraft
+	Health:
+		HP: 60
+	Valued:
+		Cost: 25
+	Power:
+		Amount: -1
+	Mobile:
+		Speed: 85
+	Armor:
+		Type: infantry.light
+	AttackFrontal:
+		Voice: Attack
+	Armament@primary:
+		Weapon: baneling.targeting
+	GrantConditionOnAttack:
+		Condition: triggered
+	GrantConditionOnDeploy:
+		Voice: Attack
+		CanDeployOnRamps: True
+		DeployedCondition: triggered
+	KillsSelf@triggered:
+		RequiresCondition: triggered
+	Explodes:
+		Weapon: baneling.explode
+		EmptyWeapon: baneling.explode
+	Voiced:
+		VoiceSet: TerroristVoice
+	-TakeCover:
+	RenderSprites:
+		Image: baneling
+
+queen:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@HATCH: ^ProducedFromLarva
+	Inherits@FB: ^EnergyPoolEffects
+	Tooltip:
+		Name: Killdozer
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 350
+	Valued:
+		Cost: 150
+	Buildable:
+		Prerequisites: spawningpool
+		BuildPaletteOrder: 20
+		Description: Armed construction vehicle.\nCan increase production rate of scrap piles.\n  Strong vs Vehicles, Aircraft
+	Power:
+		Amount: -2
+	Mobile:
+		Speed: 120
+		TurnSpeed: 32
+	Armor:
+		Type: vehicle.light
+	Turreted:
+		TurnSpeed: 50
+	WithMuzzleOverlay:
+	AttackTurreted:
+		Armaments: primary, inject
+		Voice: Attack
+		PauseOnCondition: disabled
+	Armament@primary:
+		Weapon: queen.talon
+		LocalOffset: 800,0,832
+		MuzzleSequence: muzzle
+	Armament@secondary:
+		Weapon: queen.spine
+		LocalOffset: 800,0,832
+		MuzzleSequence: muzzle
+	Armament@inject:
+		Weapon: queen.inject
+		LocalOffset: 800,0,832
+		TargetStances: Ally
+		ForceTargetStances: Ally
+		Name: inject
+		RequiresCondition: energy >= 1
+	EnergyPool:
+		Armaments: inject
+		InitialAmmo: 1
+	ReloadEnergyPool:
+		Delay: 360
+		ResetOnFire: false
+		RequiresCondition: energy < 1
+	RenderSprites:
+	RenderVoxels:
+		Scale: 6
+	WithVoxelBody:
+	WithVoxelTurret:
+	Voiced:
+		VoiceSet: SlaveMinerVoice
+
+hydralisk:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@HATCH: ^ProducedFromLarva
+	Tooltip:
+		Name: Battle Drone
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 180
+	Valued:
+		Cost: 150
+	Buildable:
+		BuildPaletteOrder: 20
+		Prerequisites: hydraliskden
+		Description: Fast drone armed with rockets.\n  Strong vs Vehicles, Aircraft
+	Power:
+		Amount: -2
+	Mobile:
+		Speed: 120
+		TurnSpeed: 32
+	Armor:
+		Type: vehicle.light
+	WithMuzzleOverlay:
+	AttackFrontal:
+		Voice: Attack
+		PauseOnCondition: disabled
+	Armament@primary:
+		Weapon: hydralisk.spine
+		LocalOffset: 800,0,832
+		MuzzleSequence: muzzle
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	WithVoxelBody:
+	Voiced:
+		VoiceSet: ChaosDroneVoice
+
+lurker:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@HATCH: ^ProducedFromLarva
+	Tooltip:
+		Name: Ambush Drone
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 180
+	Valued:
+		Cost: 150
+	Buildable:
+		BuildPaletteOrder: 20
+		Prerequisites: lurkerden
+		Description: Drone armed with line-firing machine guns.\n  Strong vs Infantry
+	Power:
+		Amount: -3
+	Mobile:
+		Speed: 120
+		TurnSpeed: 32
+	Armor:
+		Type: vehicle.heavy
+	Turreted:
+		TurnSpeed: 50
+	WithMuzzleOverlay:
+	AttackTurreted:
+		Voice: Attack
+		PauseOnCondition: disabled
+	Armament@primary:
+		Weapon: lurker.spine
+		LocalOffset: 800,0,832
+		MuzzleSequence: muzzle
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	WithVoxelBody:
+	Voiced:
+		VoiceSet: ChaosDroneVoice
+
+roach:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@HATCH: ^ProducedFromLarva
+	Tooltip:
+		Name: Machinegun UGV
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 290
+	Valued:
+		Cost: 100
+	Buildable:
+		BuildPaletteOrder: 20
+		Prerequisites: roachwarren
+		Description: Tracked RC armed with machine guns.\n  Strong vs Infantry, Vehicles
+	Power:
+		Amount: -2
+	Mobile:
+		Speed: 90
+		TurnSpeed: 32
+	Armor:
+		Type: vehicle.heavy
+	WithMuzzleOverlay:
+	AttackFrontal:
+		Voice: Attack
+		PauseOnCondition: disabled
+	Armament@primary:
+		Weapon: roach.spit
+		LocalOffset: 800,0,832
+		MuzzleSequence: muzzle
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1.5
+	WithVoxelBody:
+	Voiced:
+		VoiceSet: GatlingTankVoice
+
+ravager:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@HATCH: ^ProducedFromLarva
+	Tooltip:
+		Name: Grenade UGV
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 240
+	Valued:
+		Cost: 100
+	Buildable:
+		BuildPaletteOrder: 20
+		Prerequisites: roachwarren
+		Description: Tracked RC armed with a grenade launcher.\n  Strong vs Vehicles
+	Power:
+		Amount: -3
+	Mobile:
+		Speed: 80
+		TurnSpeed: 32
+	Armor:
+		Type: vehicle.light
+	AttackFrontal:
+		Voice: Attack
+		PauseOnCondition: disabled
+	Armament@primary:
+		Weapon: ravager.plasma
+		LocalOffset: 800,0,832
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	WithVoxelBody:
+	Voiced:
+		VoiceSet: GatlingTankVoice
+
+ultralisk:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@HATCH: ^ProducedFromLarva
+	Tooltip:
+		Name: Gatling Fist
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 1000
+	Valued:
+		Cost: 500
+	Buildable:
+		BuildPaletteOrder: 60
+		Prerequisites: ultraliskcavern
+		Description: Heavy armored vehicle.
+	Power:
+		Amount: -6
+	Mobile:
+		Speed: 100
+		TurnSpeed: 32
+	Armor:
+		Type: vehicle.heavy
+	WithMuzzleOverlay:
+	AttackFrontal:
+		Voice: Attack
+		PauseOnCondition: disabled
+	Armament@primary:
+		Weapon: ultralisk.blade
+		LocalOffset: 800,0,832
+		MuzzleSequence: muzzle
+		ReloadingCondition: reloading
+	Armament@splash:
+		Weapon: ultralisk.splash
+		LocalOffset: 800,0,832
+		FireDelay: 10
+		RequiresCondition: reloading
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	WithVoxelBody:
+	Voiced:
+		VoiceSet: BattleFortressVoice
+
+swarmhost:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@HATCH: ^ProducedFromLarva
+	Tooltip:
+		Name: Rocket Carrier
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 240
+	Valued:
+		Cost: 100
+	Buildable:
+		BuildPaletteOrder: 20
+		Prerequisites: infestationpit
+		Description: Improvised armored vehicle armed with rockets.\n  Strong vs Vehicles
+	Power:
+		Amount: -3
+	Mobile:
+		Speed: 80
+		TurnSpeed: 32
+	Armor:
+		Type: vehicle.light
+	Turreted:
+	AttackTurreted:
+		Voice: Attack
+		PauseOnCondition: disabled
+	Armament@primary:
+		Weapon: hydralisk.spine
+		LocalOffset: 800,0,832
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1.2
+	WithVoxelBody:
+	WithVoxelTurret:
+	Voiced:
+		VoiceSet: GatlingTankVoice
+
+broodlord:
+	Inherits: ^Helicopter
+	Inherits@VOXEL: ^VoxelActor
+	Inherits@HATCH: ^ProducedFromLarva
+	Tooltip:
+		Name: Mother Drone
+	Selectable:
+		Bounds: 68, 43, 0, -5
+	Health:
+		HP: 450
+	Valued:
+		Cost: 100
+	Buildable:
+		BuildPaletteOrder: 100
+		Description: Deploys small drones to attack ground targets.
+	Power:
+		Amount: -2
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 80
+		AltitudeVelocity: 200
+	Armament@secondary:
+		Weapon: barrier.energyhack
+		Name: secondary
+		TargetStances: None
+		ForceTargetStances: None
+	AttackAircraft:
+		Voice: Attack
+	Armor:
+		Type: air.heavy
+	WithVoxelBody:
+	WithVoxelTurret:
+	Turreted:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	Voiced:
+		VoiceSet: ChaosDroneVoice
+
+teslapyro:
+	Inherits: ^Infantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@HATCH: ^ProducedFromLarva
+	Inherits@VOICES: ^WithFeedbackVoicelines
+	Tooltip:
+		Name: Tesla Trooper
+	Health:
+		HP: 180
+	Valued:
+		Cost: 125
+	Buildable:
+		Description: Elon Musk's pyrotechnical death squads.\nArmed with a Boring Company flamethrower.\n  Strong vs Infantry, Buildings
+	Power:
+		Amount: -1
+	Mobile:
+		Speed: 90
+	Armor:
+		Type: infantry.light
+	Armament@primary:
+		Weapon: bbqlighter
+		LocalOffset: 512,0,768
+	AttackFrontal:
+		Voice: Attack
+		FacingTolerance: 2
+	Voiced:
+		VoiceSet: InitiateVoice
+	WithInfantryBody:
+		IdleSequences: idle1,idle2,idle3,idle4
+
+upgrade.lurker:
+	Inherits: ^addon
+	Tooltip:
+		Name: Ambush Drones
+	Valued:
+		Cost: 200
+	Buildable:
+		Queue: Hydraden.Z
+		Description: Unlocks the Ambush Drone.\nDisables research for Battle Drones at the control center.
+	RenderSprites:
+		Image: lurker

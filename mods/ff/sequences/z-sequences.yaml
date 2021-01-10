@@ -1,0 +1,105 @@
+drone:
+	Inherits: harv
+
+hatchery:
+	Inherits: yacnst
+
+hatchery.larva:
+	idle: cgmisc05
+		ShadowStart: 3
+		UseTilesetCode: true
+	icon: yrcyicon.png
+		AddExtension: false
+
+creeptumor:
+	Inherits: yapsyt
+
+spawningpool:
+	Inherits: yabrck
+
+banelingnest:
+	Inherits: yapowr
+
+evolutionchamber:
+	Inherits: yagrnd
+	idle: yagrnd_c
+		Length: 1
+		ShadowStart: 2
+	damaged-idle: yagrnd_c
+		Start: 1
+		Length: 1
+		ShadowStart: 3
+	idle-top: yagrnd_a
+		Length: 5
+		ShadowStart: 11
+		Tick: 180
+	damaged-idle-top: yagrnd_a
+		Start: 5
+		Length: 5
+		ShadowStart: 16
+		Tick: 180
+
+hydraliskden:
+	Inherits: yapsis
+
+roachwarren:
+	Inherits: yadome
+
+ultraliskcavern:
+	Inherits: yaweap
+	Defaults: ygweap
+
+infestationpit:
+	Inherits: yatech
+
+nydus:
+	Inherits: yaunkn
+	icon: xxicon
+		Offset: 0,0
+
+overlord:
+	icon: diskicon
+
+queen:
+	Inherits@MUZZLE: ^WithFlakMuzzle
+	icon: ltnkicon
+
+zergling:
+	Inherits: e2
+
+baneling:
+	Inherits: terror
+
+hydralisk:
+	Inherits@MUZZLE: ^WithFlakMuzzle
+	icon: caosicon
+
+lurker:
+	Inherits@MUZZLE: ^WithFlakMuzzle
+	icon: caosicon
+
+roach:
+	Inherits@MUZZLE: ^WithGatlingMuzzle
+	icon: ytnkicon
+
+ravager:
+	icon: xxicon
+
+ultralisk:
+	Inherits@MUZZLE: ^WithGatlingMuzzle
+	icon: xxicon
+
+swarmhost:
+	icon: xxicon
+
+#infestor:
+#	icon: teleicon
+
+broodlord:
+	icon: diskicon
+
+teslapyro:
+	Inherits: pyro
+	Defaults: pyro
+	icon: teslapyroicon.png
+		AddExtension: false

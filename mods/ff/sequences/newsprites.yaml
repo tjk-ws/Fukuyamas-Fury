@@ -1,0 +1,1129 @@
+^Structure:
+	Defaults:
+		UseTilesetCode: true
+		TilesetOverrides:
+			TEMPERATE: GENERIC
+			URBAN: GENERIC
+			NEWURBAN: GENERIC
+			DESERT: GENERIC
+			LUNAR: GENERIC
+
+#Tiberian Sun
+
+limped:
+	idle: limped
+		Facings: 1
+		ShadowStart: 10
+		Offset: 0, 12
+	make: dlimpmk
+		Length: 41
+		ShadowStart: 42
+	deployed: dlimpet
+		Facings: 1
+		ShadowStart: 3
+	icon: xxicon
+
+#PPM
+
+ass:
+	Inherits: ^BasicInfantry
+	stand:
+		ShadowStart: 293
+	run:
+		Length: 8
+		ShadowStart: 301
+	shoot:
+		Start: 72
+		Length: 10
+		Facings: 8
+		ShadowStart: 365
+	idle1:
+		Start: 152
+		Length: 30
+		ShadowStart: 445
+	idle2:
+		Start: 182
+		Length: 30
+		ShadowStart: 475
+	die1:
+		Start: 212
+		Length: 30
+		ShadowStart: 505
+	die2:
+		Start: 242
+		Length: 30
+		ShadowStart: 535
+	cheer:
+		Start: 272
+		Length: 20
+		ShadowStart: 555
+
+burdrn:
+	stand:
+		Facings: 8
+	run:
+		Start: 14
+		Length: 6
+		Facings: 8
+	idle1:
+		Start: 62
+		Length: 16
+	idle2:
+		Start: 78
+		Length: 16
+	die1:
+		Start: 94
+		Length: 6
+	die2:
+		Start: 100
+		Length: 6
+
+gyro:
+	stand:
+		Facings: 8
+	run:
+		Start: 8
+		Length: 6
+		Facings: 8
+		Tick: 120
+	shoot:
+		Start: 56
+		Length: 6
+		Facings: 8
+		Tick: 80
+	die:
+		Start: 104
+		Length: 16
+		Tick: 120
+	cheer:
+		Start: 119
+		Length: 15
+		Tick: 120
+
+gyro2:
+	Defaults: gyrocopter2
+		Length: 4
+		Facings: -8
+	idle:
+	idle-ground:
+		Length: 1
+		Stride: 4
+	shadow:
+		Start: 32
+	shadow-ground:
+		Start: 32
+		Length: 1
+		Stride: 4
+
+mndk:
+	stand:
+		Facings: 8
+		Length: 2
+	run:
+		Start: 16
+		Facings: 8
+		Length: 7
+	harvest:
+		Start: 72
+		Length: 11
+		Facings: 8
+	die1:
+		Start: 160
+		Length: 11
+	die2:
+		Start: 171
+		Length: 11
+		
+
+#CAMP BUILDINGS BY XUETIANYI
+
+cacnst:
+	Inherits: ^Structure
+	Defaults:
+		Offset: 0, -58, 58
+	idle: cacnst_c
+	damaged-idle: cacnst_c
+		Start: 1
+	make: cgcnstmk
+		Length: 29
+		ShadowStart: 29
+		UseTilesetCode: false
+	idle-top: cacnst_a
+		Length: 8
+		ShadowStart: 8
+		Tick: 190
+	damaged-idle-top: cacnst_a
+		Length: 8
+		ShadowStart: 8
+		Tick: 190
+	idle-normal: cacnst
+		ShadowStart: 2
+		ZOffset: -1024
+	damaged-idle-normal: cacnst
+		Start: 1
+		ShadowStart: 3
+		ZOffset: -1024
+	idle-lights: cacnst_d
+		Length: 10
+		Tick: 200
+	build: cacnst_b
+		Length: 18
+		Tick: 200
+	damaged-build: cacnst_b
+		Start: 17
+		Length: 16
+		Tick: 200
+
+capile:
+	Inherits: ^Structure
+	Defaults:
+		Offset: -15, -37
+	idle: capile
+		ShadowStart: 4
+	damaged-idle: capile
+		Start: 1
+		ShadowStart: 5
+	idle2: capile
+		Start: 2
+		ShadowStart: 6
+	damaged-idle2: capile
+		Start: 3
+		ShadowStart: 7
+	idle-lights: capile_b
+		Length: 7
+		Tick: 190
+	idle-active: capile_a
+		Length: 6
+		Tick: 200
+	damaged-idle-active: capile_a
+		Start: 6
+		Length: 7
+		Tick: 190
+	make: cgpilemk
+		Length: 23
+		ShadowStart: 23
+		UseTilesetCode: false
+
+caweap:
+	Inherits: ^Structure
+	Defaults:
+		Offset: -30, -60
+	idle: caweap
+		ShadowStart: 2
+		ZOffset: -1536
+	damaged-idle: caweap
+		Start: 1
+		ShadowStart: 3
+		ZOffset: -1536
+	build-front: caweap_w1
+		#ShadowStart: 2
+		ZOffset: -1024
+	damaged-build-front: caweap_w1
+		Start: 1
+		#ShadowStart: 3
+		ZOffset: -1024
+	build-top: caweap_w2
+		#ShadowStart: 2
+		ZOffset: -1024
+	damaged-build-top: caweap_w2
+		Start: 1
+		#ShadowStart: 3
+		ZOffset: -1024
+	build-air-open: caweap_w4
+		ShadowStart: 2
+	damaged-air-open: caweap_w4
+		Start: 1
+		ShadowStart: 3
+	build-air-inside: caweap_w3
+		ShadowStart: 2
+	damaged-air-inside: caweap_w3
+		Start: 1
+		ShadowStart: 3
+	#idle-lights: caweap_a
+	#	Length: 11
+	#damaged-idle-lights: caweap_a
+	#	Length: 11
+	idle-door: caweap_b
+		Length: *
+	damaged-idle-door: caweap_bd
+		Length: *
+	bib: caweapbb
+		ShadowStart: 2
+		ZOffset: -1024
+	damaged-bib: caweapbb
+		Start: 1
+		ShadowStart: 3
+		ZOffset: -1024
+	make: cgweapmk
+		Length: 44
+		ShadowStart: 44
+		UseTilesetCode: false
+
+caair:
+	Inherits: ^Structure
+	Defaults:
+		Offset: -2, -46
+	idle: caair
+		ShadowStart: 2
+	damaged-idle: caair
+		Start: 1
+		ShadowStart: 3
+	idle-lights: caair_a
+		Length: *
+	idle-top: caair_b
+		Length: 12
+		ShadowStart: 12
+		Tick: 320
+	idle-bottom: caairbb
+		Length: 1
+		ZOffset: -512
+	damage-idle-bottom: caairbb
+		Start: 1
+		Length: 1
+		ZOffset: -512
+	idle-mid: caair_c
+		Length: *
+	damaged-idle-mid: caair_cd
+		Length: *
+	make: cgairmk
+		Length: 35
+		ShadowStart: 35
+		UseTilesetCode: false
+
+caup:
+	Inherits: ^Structure
+	Defaults:
+		Offset: 0, -45
+	idle: caup
+		ShadowStart: 4
+	damaged-idle: caup
+		Start: 1
+		ShadowStart: 5
+	idle2: caup
+		Start: 2
+		ShadowStart: 6
+	damaged-idle2: caup
+		Start: 3
+		ShadowStart: 7
+	idle-lights: caup_a
+		Start: 1
+		Length: 3
+		Tick: 360
+		UseTilesetCode: false
+	idle-top: caup_b
+		Length: *
+		Tick: 320
+	make: cgupmk
+		Length: 42
+		ShadowStart: 42
+		UseTilesetCode: false
+
+caauto:
+	Inherits: ^Structure
+	Defaults:
+		Offset: -30, -60
+	idle: caauto
+		ShadowStart: 2
+		ZOffset: -1536
+	damaged-idle: caauto
+		Start: 1
+		ShadowStart: 3
+		ZOffset: -1536
+	idle-crane: caauto_a
+		Length: 25
+		ShadowStart: 64
+		ZOffset: -1024
+		Tick: 480
+	active-crane: caauto_a
+		Start: 25
+		Length: 39
+		ShadowStart: 89
+		Tick: 240
+		ZOffset: -1024
+	build-front: caauto_b
+		Length: *
+		ZOffset: -1024
+	damaged-build-front: caauto_bd
+		Length: *
+		ZOffset: -1024
+	build-top: caauto_w1
+		ShadowStart: 2
+		ZOffset: -1024
+	damaged-build-top: caauto_w1
+		Start: 1
+		ShadowStart: 3
+		ZOffset: -1024
+	build-side: caauto_w2
+		ShadowStart: 2
+		ZOffset: -1024
+	damaged-build-side: caauto_w2
+		Start: 1
+		ShadowStart: 3
+		ZOffset: -1024
+	air-open: caauto_w3
+		ShadowStart: 2
+	damaged-air-open: caauto_w3
+		Start: 1
+		ShadowStart: 3
+	air-side: caauto_w4
+		ShadowStart: 2
+	damaged-air-side: caauto_w4
+		Start: 1
+		ShadowStart: 3
+	bib: caautobb
+		ShadowStart: 2
+		ZOffset: -1024
+	damaged-bib: caautobb
+		Start: 1
+		ShadowStart: 3
+		ZOffset: -1024
+	make: cgautomk
+		Length: 48
+		ShadowStart: 48
+		UseTilesetExtension: false
+
+caempt:
+	Inherits: ^Structure
+	Defaults:
+		Offset: 0,-45
+	idle: caempt
+	damaged-idle: caempt
+		Start: 1
+	idle-top: caempt_e
+		ShadowStart: 91
+	damaged-idle-top: caempt_ed
+		Start: 150
+		ShadowStart: 301
+	active-top: cgempt_e
+		Length: 91
+		ShadowStart: 91
+		UseTilesetCode: false
+	damaged-active-top: cgempt_ed
+		Length: 151
+		ShadowStart: 151
+		UseTilesetCode: false
+	make: cgemptmk
+		Length: 27
+		ShadowStart: 27
+		UseTilesetCode: false
+
+caspy:
+	Inherits: ^Structure
+	Defaults:
+		Offset: -15, -37
+	idle: caspy
+		ShadowStart: 4
+	damaged-idle: caspy
+		Start: 1
+		ShadowStart: 5
+	idle-bottom: caspy_a
+		Length: 5
+		Tick: 190
+	idle-top: caspy_b
+		Length: *
+		Tick: 600
+	idle-body: caspy_c
+		Length: *
+		Tick: 250
+	damaged-idle-body: caspy_cd
+		Length: *
+		Tick: 250
+	make: cgspymk
+		Length: 15
+		ShadowStart: 15
+		UseTilesetCode: false
+
+cate:
+	Inherits: ^Structure
+	Defaults:
+		Offset: 0,-45
+	idle: cate
+		ShadowStart: 2
+	damaged-idle: cate
+		Start: 1
+		ShadowStart: 3
+	idle-lights: cate_a
+		Length: *
+		Tick: 400
+	idle-body: cate_d
+		Length: 6
+		Tick: 120
+	damaged-idle-body: cate_d
+		Start: 6
+		Length: 6
+		Tick: 120
+	active-top: cate_b
+		Length: *
+		Tick: 240
+	active-body: cate_c
+		Length: 12
+		Tick: 120
+	damaged-active-body: cate_c
+		Start: 12
+		Length: 12
+		Tick: 120
+	make: cgtemk
+		Length: 48
+		ShadowStart: 48
+		UseTilesetCode: false
+
+capow:
+	Inherits: ^Structure
+	Defaults:
+		Offset: 0,-45
+	idle: capow
+		ShadowStart: 2
+	damaged-idle: capow
+		Start: 1
+		ShadowStart: 3
+	idle-lights: capow_a
+		Length: *
+		Tick: 320
+	damaged-idle-lights: capow_ad
+		Length: *
+		Tick: 320
+	make: cgpowmk
+		Length: 26
+		ShadowStart: 26
+		UseTilesetCode: false
+
+cadept:
+	Inherits: ^Structure
+	Defaults:
+		Offset: -15, -33, 53
+	idle: cadept_b
+		Length: 10
+		ShadowStart: 20
+		Tick: 180
+	damaged-idle: cadept_b
+		Start: 10
+		Length: 10
+		ShadowStart: 30
+		Tick: 180
+	idle-normal: cadept
+		ShadowStart: 2
+	damaged-idle-normal: cadept
+		Start: 1
+		ShadowStart: 3
+	bib: cadeptbb
+		ShadowStart: 2
+		ZOffset: -1c511
+		Offset: -15, -33, 12
+		ZRamp: 1
+	damaged-bib: cadeptbb
+		Start: 1
+		ShadowStart: 3
+		ZOffset: -1c511
+		Offset: -15, -33, 12
+		ZRamp: 1
+	make: cgdeptmk
+		Length: 20
+		ShadowStart: 20
+		UseTilesetCode: false
+	repair: cgdept_c
+		Length: 50
+		ShadowStart: 100
+		Tick: 120
+		UseTilesetCode: false
+	damaged-repair: cgdept_c
+		Start: 50
+		Length: 50
+		ShadowStart: 150
+		Tick: 120
+		UseTilesetCode: false
+
+#EA* BUILDINGS BY XUETIANYI
+
+eacnst:
+	Inherits: ^Structure
+	Defaults:
+		Offset: 3, -60
+	idle: eacnst
+		ShadowStart: 2
+	damaged-idle: eacnst
+		Start: 1
+		ShadowStart: 3
+	idle-fans: eacnst_a
+		Length: *
+		Tick: 150
+	crane-overlay: egcnst_working
+		Length: *
+		Tick: 150
+		UseTilesetCode: false
+	make: egcnstmk
+		Length: 41
+		ShadowStart: 41
+		UseTilesetCode: false
+
+eaweap:
+	Inherits: ^Structure
+	Defaults:
+		Offset: -30, -60
+	idle: eaweap2 #e*weap2_1 is a duplicate
+		ShadowStart: 2
+		ZOffset: -1024
+	damaged-idle: eaweap2
+		Start: 1
+		ShadowStart: 3
+		ZOffset: -1024
+	bib: eaweap2bb
+		ShadowStart: 2
+		ZOffset: -1024
+	damaged-bib: eaweap2bb
+		Start: 1
+		ShadowStart: 3
+		ZOffset: -1024
+	active-front: eaweap2_c
+		Length: *
+		BlendMode: Additive
+	damaged-active-front: eaweap2_c
+		Length: *
+		BlendMode: Additive
+	active-body: eaweap2_b
+		Start: 1
+		Length: 6
+		ZOffset: -1023
+		Tick: 150
+	damaged-active-body: eaweap2_bd
+		Start: 1
+		Length: 6
+		ZOffset: -1023
+		Tick: 150
+	active-bottom: eaweap2_a
+		Length: *
+		ZOffset: -1023
+	damaged-active-bottom: eaweap2_ad
+		Length: *
+		ZOffset: -1023
+	build-front: eaweap_s
+		Length: 16
+		BlendMode: Additive
+	make: egweap2mk
+		Length: 58
+		ShadowStart: 58
+		UseTilesetCode: false
+
+eadebuff:
+	Inherits: ^Structure
+	Defaults:
+		Offset: 0, -45
+	idle: eadebuff
+		ShadowStart: 2
+	damaged-idle: eadebuff
+		Start: 1
+		ShadowStart: 3
+	idle-top: eadebuff_b
+		Length: *
+	idle-body: eadebuff_d
+		Length: *
+	active-top: eadebuff_g
+		Length: *
+	make: egdebuffmk
+		Length: 29
+		ShadowStart: 29
+		UseTilesetCode: false
+
+eatf:
+	Inherits: ^Structure
+	Defaults:
+		Offset: 0, -45
+	idle: eatf
+		ShadowStart: 2
+	damaged-idle: eatf
+		Start: 1
+		ShadowStart: 3
+	idle-lights: egtf_d
+		Length: *
+		Tick: 150
+		UseTilesetCode: false
+	idle-bolt: eatf_a
+		Length: *
+		Tick: 150
+		BlendMode: Additive
+	idle-ball: eatf_b
+		Length: *
+		Tick: 150
+		BlendMode: Additive
+	idle-body: eatf_c
+		Length: *
+		Tick: 150
+	damaged-idle-body: eatf_cd
+		Length: *
+		Tick: 150
+	make: egtfmk
+		Length: 44
+		ShadowStart: 44
+		UseTilesetCode: false
+
+eabase:
+	Inherits: ^Structure
+	Defaults:
+		Offset: 0, -45
+	idle: eabase
+		ShadowStart: 2
+	damaged-idle: eabase
+		Start: 1
+		ShadowStart: 3
+	idle-ball: eabase_a
+		Length: *
+		Tick: 80
+		BlendMode: Screen
+	damaged-idle-ball: eabase_ad
+		Length: *
+		Tick: 80
+		BlendMode: Screen
+	idle-lights: eabase_b
+		Length: *
+		Tick: 80
+	damaged-idle-lights: eabase_bd
+		Length: *
+		Tick: 80
+	idle-top: eabase_c
+		Length: *
+		Tick: 80
+	damaged-idle-top: eabase_cd
+		Length: *
+		Tick: 80
+	make: egbasemk
+		Length: 55
+		ShadowStart: 55
+		UseTilesetCode: false
+
+eachannel:
+	Inherits: ^Structure
+	Defaults:
+		Offset: 0, -45
+	idle: eachannel
+		ShadowStart: 2
+	damaged-idle: eachannel
+		Start: 1
+		ShadowStart: 3
+	active-body: eachannel_a
+		Length: *
+	active-orb: egchannel_b
+		Length: *
+		BlendMode: Additive
+		UseTilesetCode: false
+	active-glow: eachannel_c
+		Length: *
+		BlendMode: Additive
+	#active-face: eachannel_g
+	#	Length: *
+	idle-glow: eachannel_d
+		Length: *
+	damaged-idle-glow: eachannel_dd
+		Length: *
+	make: egchannelmk
+		Length: 48
+		ShadowStart: 48
+		UseTilesetCode: false
+
+eapile:
+	Inherits: ^Structure
+	Defaults:
+		Offset: 10, -37
+	idle: eapile
+		ShadowStart: 2
+	damaged-idle: eapile
+		Start: 1
+		ShadowStart: 3
+	idle-lights: eapile_b
+		Length: *
+	active-top: eapile_a
+		Length: *
+		BlendMode: Additive
+	make: egpilemk
+		Length: 42
+		ShadowStart: 42
+		UseTilesetCode: false
+
+eatech:
+	Inherits: ^Structure
+	Defaults:
+		Offset: -11, -37
+	idle: eatech
+		ShadowStart: 2
+	damaged-idle: eatech
+		Start: 1
+		ShadowStart: 3
+	idle-lights: eatech_b
+		Length: *
+	idle-logo: egtech_a
+		Length: *
+		UseTilesetCode: false
+	make: egtechmk
+		Length: 54
+		ShadowStart: 54
+		UseTilesetCode: false
+
+eashock:
+	Inherits: ^Structure
+	Defaults:
+		Offset: -5, -55
+	idle: eashock
+		ShadowStart: 2
+	damaged-idle: eashock
+		Start: 1
+		ShadowStart: 3
+	idle-glow: eashock_a
+		Length: *
+	damaged-idle-glow: eashock_ad
+		Length: *
+	active-glow: egshock_g
+		Length: *
+		UseTilesetCode: false
+	damaged-active-glow: egshock_gd
+		Length: *
+		UseTilesetCode: false
+	make: egshockmk
+		Length: 49
+		ShadowStart: 49
+		UseTilesetCode: false
+
+eapowr:
+	Inherits: ^Structure
+	Defaults:
+		Offset: 1,-15
+	idle: eapowr
+		ShadowStart: 2
+	damaged-idle: eapowr
+		Start: 1
+		ShadowStart: 3
+	idle-glow: eapowr_b
+		Length: *
+		Tick: 160
+	damaged-idle-glow: eapowr_bd
+		Length: *
+		Tick: 160
+	idle-bolt: eapowr_a
+		Length: *
+		Tick: 160
+	damaged-idle-bolt: eapowr_ad
+		Length: *
+		Tick: 160
+	make: eapowrmk
+		Length: 27
+		ShadowStart: 27
+
+earefn:
+	Inherits: ^Structure
+	Defaults:
+		Offset: -12, -52
+	idle: earefn
+		ShadowStart: 2
+	damaged-idle: earefn
+		Start: 1
+		ShadowStart: 3
+	bib: earefnbb
+		ShadowStart: 2
+	damaged-bib: earefnbb
+		Start: 1
+		ShadowStart: 3
+	idle-glow: earefn_c
+		Length: *
+		Tick: 160
+	damaged-idle-glow: earefn_cd
+		Length: *
+		Tick: 160
+	docking-overlay: earefn_a
+		Length: *
+	make: egrefnmk
+		Length: 39
+		ShadowStart: 39
+		UseTilesetCode: false
+
+# BUILDINGS BY MADHQ
+
+nabarx:
+	Inherits: ^Structure
+	Defaults:
+		Offset: -15, -37
+	idle: nabarx
+		ShadowStart: 3
+	damaged-idle: nabarx
+		Start: 2
+		ShadowStart: 4
+	make: nabarxmk
+		Length: 25
+		ShadowStart: 25
+
+natower:
+	Defaults:
+		Offset: 0,-20
+	idle: natower
+		ShadowStart: 3
+	damaged-idle: natower
+		Start: 2
+		ShadowStart: 4
+	make: natowermk
+		Length: 25
+		ShadowStart: 25
+
+namissl:
+	Defaults:
+		Offset: 0,-18
+	idle: ngmisslsys
+		ShadowStart: 3
+	damaged-idle: ngmisslsys
+		Start: 2
+		ShadowStart: 4
+	turret: ngmisslsystur
+		Facings: 32
+		ShadowStart: 32
+	make: ngmisslmk
+		Length: 31
+		ShadowStart: 31
+
+gadomex:
+	Inherits: ^Structure
+	Defaults:
+		Offset: -15, -20
+	idle: gadomex
+		ShadowStart: 3
+	make: inviso
+		Tick: 80
+		UseTilesetCode: false
+
+gapwrx:
+	Inherits: ^Structure
+	Defaults:
+		Offset: -15, -16
+	idle: gapwrx
+		ShadowStart: 3
+	make: inviso
+		Tick: 80
+		UseTilesetCode: false
+
+gaoremin:
+	Inherits: ^Structure
+	Defaults:
+		Offset: -15, -37
+	idle: gaoremin
+		ShadowStart: 3
+	damaged-idle: gaoremin
+		Start: 2
+		ShadowStart: 4
+	make: gaoreminmk
+		Length: 15
+		ShadowStart: 15
+	icon: gaoreicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+gawhtr:
+	Inherits: ^Structure
+	Defaults:
+		Offset: 5, -30
+	idle: gawhtr
+		ShadowStart: 3
+	damaged-idle: gawhtr
+		Start: 2
+		ShadowStart: 4
+	idle-top: gawhtr_a
+		Length: 9
+	idle-lights: gawhtr_b
+		Length: 12
+	make: gawhtrmk
+		Length: 25
+		ShadowStart: 25
+	icon: gawhtricon
+		Offset: 0,0
+		UseTilesetCode: false
+
+galasr:
+	Defaults:
+		Offset: 0, -20
+	idle: gglasr
+		ShadowStart: 3
+	damaged-idle: gglasr
+		Start: 2
+		ShadowStart: 4
+	turret: gglasrt
+		Facings: 32
+		ShadowStart: 32
+	damaged-turret: gglasrtd
+		Facings: 32
+		ShadowStart: 32
+	make: gglasrmk
+		Length: 20
+		ShadowStart: 20
+	icon: galasricon
+		Offset: 0,0
+		UseTilesetCode: false
+
+yaunkn:
+	Defaults:
+		Offset: 0, -30
+	idle: ygunkn
+		ShadowStart: 2
+	damaged-idle: ygunkn
+		Start: 2
+		ShadowStart: 3
+	idle-top: ygunkn_a
+		Length: 20
+		ShadowStart: 40
+	damaged-idle-top: ygunkn_a
+		Start: 20
+		Length: 20
+		ShadowStart: 60
+	make: ygunknmk
+		Length: 25
+		ShadowStart: 25
+
+ttrooper:
+	Inherits: ^BasicInfantry
+	stand:
+		ShadowStart: 242
+	run:
+		Length: 8
+		ShadowStart: 250
+	idle1:
+		Start: 168
+		Length: 18
+		ShadowStart: 410
+	idle2:
+		Start: 186
+		Length: 12
+		ShadowStart: 428
+	paradrop:
+		Start: 198
+		ShadowStart: 440
+	cheer:
+		Start: 199
+		Length: 14
+		ShadowStart: 441
+	shoot:
+		Start: 72
+		Length: 6
+		Facings: 8
+		Tick: 80
+		ShadowStart: 314
+	shoot2:
+		Start: 120
+		Length: 6
+		Facings: 8
+		Tick: 80
+		ShadowStart: 362
+	die1:
+		Start: 213
+		Length: 17
+		ShadowStart: 455
+	die2:
+		Start: 230
+		Length: 12
+		ShadowStart: 472
+
+ngbugy:
+	idle: ngbugy
+		ShadowStart: 2
+	make: ngbugymk
+		Length: 10
+		ShadowStart: 10
+
+terbik:
+	idle: terbik
+		Facings: 8
+		ShadowStart: 8
+
+apu:
+	Inherits: ^BasicInfantry
+	Defaults: apu
+	stand:
+		ShadowStart: 219
+	run:
+		Length: 8
+		ShadowStart: 227
+	shoot:
+		Start: 72
+		Facings: 8
+		Length: 8
+		Tick: 80
+		ShadowStart: 291
+	idle1:
+		Start: 136
+		Length: 19
+		ShadowStart: 355
+	idle2:
+		Start: 155
+		Length: 20
+		ShadowStart: 374
+	cheer:
+		Start: 175
+		Length: 16
+		ShadowStart: 394
+	paradrop:
+		Start: 191
+		ShadowStart: 410
+	die1:
+		Start: 192
+		Length: 14
+		ShadowStart: 411
+	die2:
+		Start: 206
+		Length: 13
+		ShadowStart: 425
+
+whldrn:
+	Inherits: ^ArmedInfantry
+	stand:
+		ShadowStart: 338
+	run:
+		Start: 8
+		Length: 4
+		ShadowStart: 346
+	idle1:
+		Start: 40
+		Length: 15
+		ShadowStart: 378
+	idle2:
+		Start: 55
+		Length: 15
+		ShadowStart: 393
+	prone-run:
+		Start: 70
+		Length: 4
+		ShadowStart: 408
+	prone-stand:
+		-Frames:
+		Start: 70
+		Stride: 4
+		ShadowStart: 408
+	die1:
+		Start: 102
+		Length: 15
+		ShadowStart: 440
+	die2:
+		Start: 117
+		Length: 15
+		ShadowStart: 455
+	shoot:
+		Start: 132
+		Length: 6
+		ShadowStart: 470
+	prone-shoot:
+		Start: 180
+		Length: 6
+		ShadowStart: 518
+	shoot2:
+		Start: 228
+		Length: 2
+		ShadowStart: 566
+	deployed:
+		Start: 260
+		Facings: 8
+		ShadowStart: 598
+	make:
+		Start: 268
+		Length: 6
+		ShadowStart: 606
+	deployed-shoot:
+		Start: 274
+		Length: 6
+		Facings: 8
+		ShadowStart: 612
+	cheer:
+		Start: 322
+		Length: 15
+		ShadowStart: 660
+	paradrop:
+		Start: 337

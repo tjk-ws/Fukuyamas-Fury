@@ -1,0 +1,455 @@
+^Palettes:
+	PaletteFromFile@terrain-temperate:
+		Name: terrain
+		Tileset: TEMPERATE
+		Filename: isotem.pal
+		ShadowIndex: 1
+	PaletteFromFile@terrain-snow:
+		Name: terrain
+		Tileset: SNOW
+		Filename: isosno.pal
+		ShadowIndex: 1
+	PaletteFromFile@terrain-urban:
+		Name: terrain
+		Tileset: URBAN
+		Filename: isourb.pal
+		ShadowIndex: 1
+	PaletteFromFile@terrain-newurban:
+		Name: terrain
+		Tileset: NEWURBAN
+		Filename: isoubn.pal
+		ShadowIndex: 1
+	PaletteFromFile@terrain-desert:
+		Name: terrain
+		Tileset: DESERT
+		Filename: isodes.pal
+		ShadowIndex: 1
+	PaletteFromFile@terrain-lunar:
+		Name: terrain
+		Tileset: LUNAR
+		Filename: isolun.pal
+		ShadowIndex: 1
+	#VXL2SHP stuff - see OpenRA/OpenRA#15807 why isn't placed at bottom
+	PaletteFromFile@terrain-simpleterrain:
+		Name: terrain
+		Filename: isosimple.pal
+		Tileset: SIMPLETERRAIN
+		ShadowIndex: 1
+	PlayerColorPalette:
+		BasePalette: player
+		RemapIndex: 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31
+	PlayerColorPalette@Infantry:
+		BaseName: infantry
+		BasePalette: infantry
+		RemapIndex: 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31
+	PlayerColorPalette@Black:
+		BaseName: black
+		BasePalette: black
+		RemapIndex: 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31
+	PlayerColorPalette@ea1:
+		BaseName: ea1
+		BasePalette: ea1
+		RemapIndex: 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31
+	PlayerColorPalette@ea2:
+		BaseName: ea2
+		BasePalette: ea2
+		RemapIndex: 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31
+	PlayerColorPalette@yunkn:
+		BaseName: yunkn
+		BasePalette: yunkn
+		RemapIndex: 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31
+	PlayerHighlightPalette:
+	PaletteFromFile@playertem:
+		Name: player
+		Tileset: TEMPERATE
+		Filename: unittem.pal
+		ShadowIndex: 1
+	PaletteFromFile@temperatecity:
+		Name: city
+		Tileset: TEMPERATE
+		Filename: citytem.pal
+		ShadowIndex: 1
+	PaletteFromFile@snowcity:
+		Name: city
+		Tileset: SNOW
+		Filename: citysno.pal
+		ShadowIndex: 1
+	PaletteFromFile@urbancity:
+		Name: city
+		Tileset: URBAN
+		Filename: cityurb.pal
+		ShadowIndex: 1
+	PaletteFromFile@newurbancity:
+		Name: city
+		Tileset: NEWURBAN
+		Filename: cityurb.pal
+		ShadowIndex: 1
+	PaletteFromFile@desertcity:
+		Name: city
+		Tileset: DESERT
+		Filename: cityurb.pal
+		ShadowIndex: 1
+	PaletteFromFile@lunarcity:
+		Name: city
+		Tileset: LUNAR
+		Filename: cityurb.pal
+		ShadowIndex: 1
+	PaletteFromFile@temperateliberty:
+		Name: liberty
+		Tileset: TEMPERATE
+		Filename: libtem.pal
+		ShadowIndex: 1
+	PaletteFromFile@snowliberty:
+		Name: liberty
+		Tileset: SNOW
+		Filename: libsno.pal
+		ShadowIndex: 1
+	PaletteFromFile@urbanliberty:
+		Name: liberty
+		Tileset: URBAN
+		Filename: liburb.pal
+		ShadowIndex: 1
+	PaletteFromFile@newurbanliberty:
+		Name: liberty
+		Tileset: NEWURBAN
+		Filename: libubn.pal
+		ShadowIndex: 1
+	PaletteFromFile@desertliberty:
+		Name: liberty
+		Tileset: DESERT
+		Filename: libdes.pal
+		ShadowIndex: 1
+	PaletteFromFile@lunarliberty:
+		Name: liberty
+		Tileset: LUNAR
+		Filename: liblun.pal
+		ShadowIndex: 1
+	PaletteFromFile@playerurb:
+		Name: player
+		Tileset: URBAN
+		Filename: uniturb.pal
+		ShadowIndex: 1
+	PaletteFromFile@playerubn:
+		Name: player
+		Tileset: NEWURBAN
+		Filename: unitubn.pal
+		ShadowIndex: 1
+	PaletteFromFile@playersno:
+		Name: player
+		Tileset: SNOW
+		Filename: unitsno.pal
+		ShadowIndex: 1
+	PaletteFromFile@playerdes:
+		Name: player
+		Tileset: DESERT
+		Filename: unitdes.pal
+		ShadowIndex: 1
+	PaletteFromFile@playerlun:
+		Name: player
+		Tileset: LUNAR
+		Filename: unitlun.pal
+		ShadowIndex: 1
+	PaletteFromFile@playersimple:
+		Name: player
+		Tileset: SIMPLETERRAIN
+		Filename: unittem.pal
+		ShadowIndex: 1
+	PaletteFromFile@inftem:
+		Name: infantry
+		Tileset: TEMPERATE
+		Filename: unittem.pal
+		ShadowIndex: 1,12
+	PaletteFromFile@infurb:
+		Name: infantry
+		Tileset: URBAN
+		Filename: uniturb.pal
+		ShadowIndex: 1,12
+	PaletteFromFile@infubn:
+		Name: infantry
+		Tileset: NEWURBAN
+		Filename: unitubn.pal
+		ShadowIndex: 1,12
+	PaletteFromFile@infsno:
+		Name: infantry
+		Tileset: SNOW
+		Filename: unitsno.pal
+		ShadowIndex: 1,12
+	PaletteFromFile@infdes:
+		Name: infantry
+		Tileset: DESERT
+		Filename: unitdes.pal
+		ShadowIndex: 1,12
+	PaletteFromFile@influn:
+		Name: infantry
+		Tileset: LUNAR
+		Filename: unitlun.pal
+		ShadowIndex: 1,12
+	PaletteFromFile@ea1:
+		Name: ea1
+		Filename: eapal1.pal
+		ShadowIndex: 1
+	PaletteFromFile@ea2:
+		Name: ea2
+		Filename: eapal2.pal
+		ShadowIndex: 1
+	PaletteFromFile@yunkn:
+		Name: yunkn
+		Filename: yunkn.pal
+		ShadowIndex: 1
+	PaletteFromPaletteWithAlpha@terrainalpha:
+		BasePalette: terrain
+		Name: terrainalpha
+		Alpha: 0.55
+	PaletteFromFile@chrome:
+		Name: chrome
+		Filename: cameo.pal
+		AllowModifiers: false
+		ShadowIndex: 242
+	PaletteFromFile@ts-chrome:
+		Name: ts-chrome
+		Filename: tscameo.pal
+		AllowModifiers: false
+		ShadowIndex: 242
+	PaletteFromFile@pips:
+		Name: pips
+		Filename: palette.pal
+		AllowModifiers: false
+		ShadowIndex: 4
+	PaletteFromFile@black:
+		Name: black
+		Filename: blacktem.pal
+		ShadowIndex: 1
+	PaletteFromFile@ra:
+		Name: ra
+		Filename: palette.pal
+		ShadowIndex: 4
+	PaletteFromFile@effect:
+		Name: effect
+		Filename: anim.pal
+	PaletteFromPaletteWithAlpha@player50alpha:
+		Name: player50alpha
+		BasePalette: player
+		Alpha: 0.5
+	PaletteFromPaletteWithAlpha@effect50alpha:
+		Name: effect50alpha
+		BasePalette: effect
+		Alpha: 0.5
+	PaletteFromFile@tseffect:
+		Name: tseffect
+		Filename: tsanim.pal
+	PaletteFromPaletteWithAlpha@tseffect50alpha:
+		Name: tseffect50alpha
+		BasePalette: tseffect
+		Alpha: 0.5
+	PaletteFromPaletteWithAlpha@placebuilding:
+		Name: placefootprint
+		BasePalette: ra
+		Alpha: 0.7
+	PaletteFromPaletteWithAlpha@placelinesegment:
+		Name: placelinesegment
+		BasePalette: ra
+		Alpha: 0.5
+	PaletteFromPlayerPaletteWithAlpha@player50alpha:
+		BaseName: player50alpha
+		BasePalette: player
+		Alpha: 0.5
+	PaletteFromPlayerPaletteWithAlpha@placebuilding:
+		BaseName: placebuilding
+		BasePalette: player
+		Alpha: 0.55
+	PaletteFromPlayerPaletteWithAlpha@placeea1:
+		BaseName: placeea1
+		BasePalette: ea1
+		Alpha: 0.55
+	PaletteFromPlayerPaletteWithAlpha@placeea2:
+		BaseName: placeea2
+		BasePalette: ea2
+		Alpha: 0.55
+	PaletteFromFile@mousepal:
+		Name: mouse
+		Filename: mousepal.pal
+		CursorPalette: true
+	PaletteFromFile@ts-mousepal:
+		Name: ts-mouse
+		Filename: ts-mousepal.pal
+	PaletteFromFile@colorpicker:
+		Name: colorpicker
+		Filename: unittem.pal
+		AllowModifiers: false
+	PaletteFromFile@resource:
+		Name: resource
+		Filename: temperat.pal
+		ShadowIndex: 1
+	PaletteFromFile@flameguy:
+		Name: flameguy
+		Filename: anim.pal
+		ShadowIndex: 254
+	PaletteFromRGBA@shadow:
+		Name: shadow
+		R: 0
+		G: 0
+		B: 0
+		A: 140
+	PaletteFromPlayerPaletteWithAlpha@cloak:
+		BaseName: cloak
+		BasePalette: player
+		Alpha: 0.50
+	PaletteFromPlayerPaletteWithAlpha@cloakea1:
+		BaseName: cloakea1
+		BasePalette: ea1
+		Alpha: 0.50
+	PaletteFromPlayerPaletteWithAlpha@cloakea2:
+		BaseName: cloakea2
+		BasePalette: ea2
+		Alpha: 0.50
+	PaletteFromPlayerPaletteWithAlpha@cloaktunnel:
+		BaseName: cloakyunkn
+		BasePalette: yunkn
+		Alpha: 0.50
+	PaletteFromRGBA@chronodisable:
+		Name: chronodisable
+		R: 0
+		G: 96
+		B: 192
+		A: 64
+	PaletteFromRGBA@invuln:
+		Name: invuln
+		R: 64
+		G: 0
+		B: 0
+		A: 128
+	PaletteFromRGBA@force:
+		Name: force
+		R: 0
+		G: 0
+		B: 64
+		A: 128
+	PaletteFromRGBA@pointdefense1:
+		Name: pointdefense1
+		R: 48
+		G: 0
+		B: 48
+		A: 64
+	PaletteFromRGBA@pointdefense2:
+		Name: pointdefense2
+		R: 48
+		G: 0
+		B: 48
+		A: 96
+	PaletteFromRGBA@pointdefense3:
+		Name: pointdefense3
+		R: 48
+		G: 0
+		B: 48
+		A: 128
+	PaletteFromRGBA@pointdefense4:
+		Name: pointdefense4
+		R: 48
+		G: 0
+		B: 48
+		A: 160
+	PaletteFromRGBA@propaganda:
+		Name: propaganda
+		R: 255
+		G: 128
+		B: 0
+		A: 128
+	PaletteFromRGBA@propaganda_tower:
+		Name: propaganda_tower
+		R: 255
+		G: 128
+		B: 0
+		A: 64
+	PaletteFromRGBA@boost:
+		Name: boost
+		R: 255
+		G: 255
+		B: 255
+		A: 64
+	PaletteFromRGBA@flare:
+		Name: flare
+		R: 255
+		G: 0
+		B: 0
+		A: 128
+	PaletteFromRGBA@magnefreeze:
+		Name: magnefreeze
+		R: 255
+		G: 80
+		B: 245
+		A: 128
+	PaletteFromRGBA@magneslow:
+		Name: magneslow
+		R: 255
+		G: 80
+		B: 245
+		A: 64
+	PaletteFromRGBA@chaos:
+		Name: chaos
+		R: 128
+		G: 0
+		B: 128
+		A: 64
+	PaletteFromRGBA@highlight:
+		Name: highlight
+		R: 255
+		G: 255
+		B: 255
+		A: 128
+	PaletteFromRGBA@moveflash:
+		Name: moveflash
+		R: 255
+		G: 255
+		B: 255
+		A: 64
+	PaletteFromRGBA@disabled:
+		Name: disabled
+		R: 0
+		G: 0
+		B: 0
+		A: 180
+	TSShroudPalette@shroud:
+		Name: shroud
+	ShroudRenderer:
+		Index: 255, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 20, 40, 56, 65, 97, 130, 148, 194, 24, 33, 66, 132, 28, 41, 67, 134, 1, 2, 4, 8, 3, 6, 12, 9, 7, 14, 13, 11, 5, 10, 15, 255
+		UseExtendedIndex: true
+		ShroudPalette: shroud
+		FogPalette: shroud
+	VoxelNormalsPalette@normals:
+		Name: normals
+		Type: RedAlert2
+	VoxelNormalsPalette@ts-normals:
+		Name: ts-normals
+		Type: TiberianSun
+	MenuPaletteEffect:
+	PaletteFromPaletteWithAlpha@effect75alpha:
+		Name: effect75alpha
+		BasePalette: ra
+		Alpha: 0.75
+	FlashPaletteEffect@NUKE:
+		Type: Nuke
+		Length: 90
+	#VXL2SHP stuff
+	PaletteFromFile@infsimple:
+		Name: infantry
+		Tileset: SIMPLETERRAIN
+		Filename: unittem.pal
+		ShadowIndex: 1,12
+	PaletteFromFile@simplecity:
+		Name: city
+		Tileset: SIMPLETERRAIN
+		Filename: citytem.pal
+		ShadowIndex: 1
+	PaletteFromFile@simpleliberty:
+		Name: liberty
+		Tileset: SIMPLETERRAIN
+		Filename: libtem.pal
+		ShadowIndex: 1
+	PaletteFromFile@apolra2i:
+		Name: apolra2i
+		Filename: apolra2i.pal
+	PaletteFromGimpOrJascFile@cyanjascpal:
+		Name: cyanjascpal
+		Filename: cyanjascpal.pal
+		Premultiply: true
+		AllowModifiers: false

@@ -1,0 +1,456 @@
+photoncannon.ag:
+	Inherits: ^Laser
+	ReloadDelay: 23
+	Range: 7c0
+	Report: iiniatta.wav
+	ValidTargets: Ground, Water, Air
+	Projectile: ArcLaserZap
+		Width: 20
+		Duration: 10
+		ZOffset: 256
+		QuantizedSegments: 8
+	Warhead@1Dam: SpreadDamage
+		Damage: 40
+		ValidTargets: Ground, Water, Air
+
+dt.blade:
+	Inherits: ^MG
+	ReloadDelay: 30
+	Range: 5c0
+	Report: iseaatta.wav, iseaattb.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 90
+
+zealot.blade:
+	Inherits: ^Melee
+	ReloadDelay: 21
+	Report: isl1atta.wav
+	Warhead@1Dam: SpreadDamage
+		Spread: 213
+		Damage: 16
+
+adept.glaive:
+	Inherits: ^LargeBullet
+	ReloadDelay: 40
+	Range: 4c0
+	Report: icliatta.wav, icliattb.wav, icliattc.wav
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 20
+		Versus:
+			infantry.light: 210
+			vehicle.light: 210
+
+dragoon.cannon:
+	Inherits: ^LargeBullet
+	ReloadDelay: 44
+	Range: 4c0
+	Report: vrobatta.wav
+	Warhead@1Dam: SpreadDamage
+		Spread: 0c400
+		Damage: 30
+		Versus:
+			infantry.heavy: 200
+			vehicle.heavy: 200
+			building.steel: 200
+
+stalker.disruptor:
+	Inherits: ^AGMissile
+	ReloadDelay: 33
+	Range: 5c0
+	Report: vmiratta.wav
+	Projectile: Missile
+		Speed: 582
+		TrailImage: smokey2
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 26
+		Versus:
+			infantry.heavy: 138
+			vehicle.heavy: 138
+			building.steel: 138
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+
+stalker.aa:
+	Inherits: ^AAMissile
+	ReloadDelay: 33
+	Range: 5c0
+	Report: vmiratta.wav
+	Projectile: Missile
+		Speed: 582
+		TrailImage: smokey2
+	Warhead@1Dam: SpreadDamage
+		Versus:
+			air.heavy: 138
+
+immortal.disruptor:
+	Inherits: ^LargeBullet
+	ReloadDelay: 26
+	Range: 7c0
+	Report: vtadatta.wav, vtadattb.wav, vtadattc.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 40
+		Versus:
+			infantry.heavy: 250
+			vehicle.heavy: 250
+			building.steel: 250
+
+colossus.lance1:
+	Inherits: ^Laser
+	FirstBurstTargetOffset: -180,-810,0
+	FollowingBurstTargetOffset: 20,90,0
+	ReloadDelay: 90
+	Range: 7c0
+	Burst: 18
+	BurstDelays: 1
+	MinRange: 4c0
+	TargetActorCenter: true
+	Report: vfloatta.wav
+	Projectile: LaserZap
+		TrackTarget: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 0c400
+		Damage: 20
+		Versus:
+			infantry.light: 150
+			vehicle.light: 150
+
+colossus.lance2:
+	Inherits: colossus.lance1
+	FirstBurstTargetOffset: -180,810,0
+	FollowingBurstTargetOffset: 20,-90,0
+
+archon.shockwave:
+	Inherits: ^MG
+	Burst: 5
+	BurstDelays: 6
+	ReloadDelay: 31
+	Range: 3c0
+	Report: bflaatta.wav, bflaattb.wav, bflaattc.wav, bflaattd.wav
+	ValidTargets: Ground, Water, Air
+	Projectile: InstantHit
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Damage: 10
+		Versus:
+			None: 140
+			infantry.light: 140
+			infantry.heavy: 140
+		ValidTargets: Ground, Water, Air
+
+voidray.beam:
+	Inherits: ^Laser
+	Range: 6c0
+	ReloadDelay: 9
+	Report: vpriatta.wav
+	Projectile: KKNDLaser
+		Radius: 2
+		InnerLightness: 192
+		OuterLightness: 96
+		Duration: 9
+	Warhead@1Dam: SpreadDamage
+		Damage: 12
+		Versus:
+			infantry.heavy: 133
+			vehicle.heavy: 133
+			building.steel: 133
+
+voidray.beamaligned:
+	Inherits: voidray.beam
+	Warhead@1Dam: SpreadDamage
+		Versus:
+			infantry.heavy: 183
+			vehicle.heavy: 183
+			building.steel: 183
+
+tempest.coil:
+	Inherits: ^AGMissile
+	ReloadDelay: 59
+	Range: 14c0
+	Report: vmiratta.wav
+	Projectile: Missile
+		Speed: 315
+		TrailImage: smokey2
+	Warhead@1Dam: SpreadDamage
+		Spread: 0c512
+		Damage: 60
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+
+sentry.beam:
+	Inherits: ^Laser
+	ReloadDelay: 30
+	Burst: 6
+	BurstDelays: 4
+	Range: 5c0
+	Report: vfloatta.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 2
+
+barrier.energyhack:
+	Range: 8c0
+	MinRange: 5c0
+	ReloadDelay: 120
+	Burst: 2
+	BurstDelays: 1
+	Projectile: InstantHit
+		Blockable: false
+
+sentry.barrier:
+	Range: 9c0
+	MinRange: 5c0
+	ReloadDelay: 120
+	Projectile: InstantHit
+		Blockable: false
+	ValidTargets: Ground
+	InvalidTargets: Structure
+	Warhead@1Dam: TargetDamage
+	Warhead@2Clu: FireCluster
+		Weapon: sentry.barrierspawner
+		Dimensions: 4,4
+		Footprint: _XX_ XXXX XXXX _XX_
+		ValidTargets: Ground, Water, Air
+	Warhead@3Eff: CreateEffect
+		Explosions: chronofd
+		ImpactSounds: schrmov.wav
+
+sentry.barrierspawner:
+	Range: 5c0
+	ReloadDelay: 10
+	Projectile: InstantHit
+	Warhead@1Spawn: SpawnActor
+		Actors: sentry.barrier
+		Range: 0
+		ForceGround: true
+
+ht.feedback:
+	Range: 10c0
+	ReloadDelay: 120
+	Report: itesatta.wav
+	TargetActorCenter: true
+	ValidTargets: feedbackable
+	Projectile: TeslaZap
+	Warhead@1Dam: TargetDamage
+		Damage: 1
+	Warhead@2Ext: GrantExternalCondition
+		Range: 0c768
+		Duration: 8
+		Condition: feedback
+
+ht.psistorm:
+	Range: 9c0
+	ReloadDelay: 120
+	ValidTargets: Ground, Water, Air
+	Projectile: InstantHit
+	Warhead@1: TargetDamage
+	Warhead@2Spawn: SpawnSmokeParticle
+		Duration: 80
+		Image: psistorm
+		Sequences: idle
+		Palette: effect
+		Weapon: ht.psistormdamage
+		ValidTargets: Ground, Water, Air
+	Warhead@3Eff: CreateEffect
+		ImpactSounds: iyurat2a.wav
+		ValidTargets: Ground, Water, Air
+	#Warhead@1Spawn: SpawnActor
+	#	Actors: psistorm
+	#	Range: 3
+	#	Image: psistorm
+	#	Sounds: iyurat2a.wav
+	#	ValidTargets: Ground, Water, Air
+
+psistormspawner:
+	Range: 1c512
+	ReloadDelay: 10
+	ValidTargets: Ground, Water, Air
+	Warhead@1Spawn: FireShrapnel
+		Weapon: ht.psistorm
+		AllowDirectHit: true
+		AimChance: 100
+
+ht.psistormdamage:
+	Inherits: ^Explode
+	ValidTargets: Ground, Water, Air
+	Warhead@1Dam: SpreadDamage
+		Spread: 3c0
+		Falloff: 100, 100
+		Damage: 20
+		ValidTargets: Ground, Water
+		DamageTypes: PsychicDeath
+	Warhead@2Dam: SpreadDamage
+		Spread: 5c0
+		Falloff: 100, 100
+		Damage: 20
+		ValidTargets: Air
+		DamageTypes: PsychicDeath
+
+hack.archonmerge:
+	ReloadDelay: 120
+	Range: 1c512
+	Projectile: InstantHit
+	TargetActorCenter: true
+	ValidTargets: ArchonMergeable
+	Warhead@1Ext: GrantExternalCondition
+		Range: 0c768
+		Duration: 1
+		Condition: merged
+		ValidStances: Ally
+
+shieldbattery.heal:
+	Inherits: ^HealLaser
+	ReloadDelay: 25
+	Range: 6c0
+	ValidTargets: Repair, Heal
+	Warhead@Heal: SpreadDamage
+		Spread: 42
+		Damage: -75
+
+disruptor.launch:
+	Inherits: ^Targeting
+	ReloadDelay: 120
+	Range: 9c0
+	#ValidTargets: Vehicle, Infantry, Structure
+	InvalidTargets: Disruptor
+
+disruptor.targeting:
+	Inherits: ^Targeting
+	ReloadDelay: 20
+	Range: 9c0
+	#ValidTargets: Vehicle, Infantry, Structure
+	InvalidTargets: Disruptor
+
+disruptornova.targeting:
+	Inherits: ^Targeting
+	ReloadDelay: 40
+	Range: 2c0
+	#ValidTargets: Vehicle, Infantry, Structure
+	InvalidTargets: Disruptor
+	#TargetActorCenter: true
+
+disruptornova.explode:
+	Inherits: ^Explode
+	InvalidTargets: Disruptor
+	Warhead@1Dam: SpreadDamage
+		Spread: 3c0
+		Falloff: 100, 100
+		Damage: 290
+		DamageTypes: ElectroDeath
+		InvalidTargets: Disruptor
+	Warhead@2Eff: CreateEffect
+		Explosions: empulse
+		ExplosionPalette: tseffect
+		ImpactSounds: iteschaa.wav
+		ValidTargets: Ground, Water, Air
+		ImpactActors: false
+
+carrier.targeting:
+	Inherits: ^AllTargeting
+	ReloadDelay: 60
+	Range: 8c0
+
+interceptor.cannon:
+	Inherits: ^LargeBullet
+	ReloadDelay: 54
+	Range: 2c0
+	Burst: 2
+	ValidTargets: Ground, Air
+	Report: vgriatta.wav, vgriattb.wav, vgriattc.wav
+	Warhead@1Dam: SpreadDamage
+		Spread: 0c400
+		Damage: 10
+		ValidTargets: Ground, Air
+
+phoenix.cannon:
+	Inherits: ^AAMissile
+	ReloadDelay: 20
+	Burst: 2
+	Range: 5c0
+	Report: vintatta.wav
+	Projectile: Missile
+		Speed: 582
+	Warhead@1Dam: SpreadDamage
+		Damage: 10
+		Versus:
+			air.light: 200
+
+oracle.beam:
+	Inherits: ^Laser
+	ReloadDelay: 15
+	Range: 4c0
+	Report: vfloatta.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 30
+		Versus:
+			infantry.light: 147
+			vehicle.light: 147
+			building.wood: 147
+
+oracle.wardspawn:
+	Inherits: ^Explode
+	ReloadDelay: 10
+	Warhead@1: FireShrapnel
+		Weapon: oracle.ward
+		ValidTargets: Ground, Air, Water
+
+oracle.ward:
+	Range: 1c0
+	ReloadDelay: 10
+	Projectile: Bullet
+		Speed: 240
+		Image: oracle
+		Sequences: ward
+		Palette: player
+		IsPlayerPalette: true
+		Shadow: true
+		Blockable: false
+		LaunchAngle: 30
+	Warhead@1Spawn: SpawnActor
+		Actors: ward.oracle
+		Range: 3
+		ForceGround: true
+	#Warhead@3Eff: CreateEffect
+	#	Explosions: temporal_explosion
+	#	ImpactSounds: vchrtele.wav
+
+oracleward.targeting:
+	Inherits: ^Targeting
+	ReloadDelay: 40
+	Range: 2c0
+
+oracleward.explode:
+	Inherits: ^Explode
+	Warhead@1: TargetDamage
+	Warhead@2Ext: GrantExternalCondition
+		Range: 3c512
+		Duration: 540
+		Condition: stasis
+		ValidTargets: Ground
+	Warhead@3Eff: CreateEffect
+		Explosions: empulse
+		ExplosionPalette: tseffect
+		ImpactSounds: iteschaa.wav
+		ImpactActors: false
+
+mothership.beam:
+	Inherits: ^Explode
+	Range: 0c128
+	Burst: 6
+	ReloadDelay: 40
+	Report: vfloatta.wav
+	Warhead@1: TargetDamage
+	Warhead@2: FireFragment
+		Weapon: mothership.impact
+		UseZOffsetAsAbsoluteHeight: true
+		ValidTargets: Air, Ground, Water
+
+mothership.impact:
+	Inherits: ^Laser
+	Projectile: KKNDLaser
+		Radius: 6
+		InnerLightness: 192
+		OuterLightness: 96
+		Duration: 6
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Falloff: 100, 100
+		Damage: 12

@@ -1,0 +1,275 @@
+^BaseWorld:
+	Inherits: ^Palettes
+	AlwaysVisible:
+	MusicPlaylist:
+		VictoryMusic: scorex
+		DefeatMusic: score
+	ActorMap:
+	Selection:
+	ScreenMap:
+	TerrainGeometryOverlay:
+	TerrainLighting:
+	TerrainRenderer:
+	DebugVisualizations:
+	Locomotor@FOOT:
+		Name: foot
+		Crushes: crate, mine
+		SharesCell: true
+		TerrainSpeeds:
+			Clear: 100
+			Rough: 100
+			Rail: 90
+			Road: 100
+			Bridge: 100
+			DirtRoad: 100
+			Ore: 90
+			Gems: 90
+	Locomotor@FLAMEGUY:
+		Name: flameguy
+		Crushes: crate, mine
+		SharesCell: true
+		TerrainSpeeds:
+			Clear: 45
+			Road: 50
+			Rail: 45
+			DirtRoad: 50
+			Rough: 45
+			Ore: 45
+			Gems: 45
+	Locomotor@WHEELED:
+		Name: wheeled
+		Crushes: crate, mine
+		TerrainSpeeds:
+			Clear: 100
+			Rough: 100
+			Rail: 50
+			Road: 100
+			Bridge: 100
+			DirtRoad: 100
+			Beach: 100
+			Ore: 90
+			Gems: 90
+	Locomotor@TRACKED:
+		Name: tracked
+		Crushes: fence, crate, mine
+		TerrainSpeeds:
+			Clear: 100
+			Rough: 100
+			Rail: 50
+			Road: 100
+			Bridge: 100
+			DirtRoad: 100
+			Beach: 100
+			Ore: 90
+			Gems: 90
+	Locomotor@HOVER:
+		Name: hover
+		Crushes: crate, mine
+		TerrainSpeeds:
+			Clear: 100
+			Rough: 100
+			Rail: 100
+			Road: 100
+			Bridge: 100
+			DirtRoad: 100
+			Beach: 100
+			Ore: 90
+			Gems: 90
+			Water: 100
+			Cliff: 75
+			Tree: 90
+			Rock: 90
+	ShroudRenderer:
+		Index: 255, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 20, 40, 56, 65, 97, 130, 148, 194, 24, 33, 66, 132, 28, 41, 67, 134, 1, 2, 4, 8, 3, 6, 12, 9, 7, 14, 13, 11, 5, 10, 15, 255
+		UseExtendedIndex: true
+		FogPalette: shroud
+		ShroudPalette: shroud
+	Faction@random:
+		Name: Random
+		InternalName: Random
+		RandomFactionMembers: p, t, z
+		Side: Randoms
+		Description: Random Country\nA random country will be chosen when the game starts.
+	Faction@p:
+		Name: Prospectors
+		InternalName: p
+		Side: Prospectors
+		Description: Prospectors\nI can't decide if this faction should be the\nOne Belt and One Road project or LessWrong rationalists
+	Faction@a:
+		Name: Adventurers
+		InternalName: z
+		Side: Adventurers
+		Description: Adventurers\nImage board users bankrolled by Peter Thiel\nand other magnates (outcome invariable)
+	Faction@w:
+		Name: Warlords
+		InternalName: t
+		Side: Warlords
+		Description: Warlords\nParochial rulers juggling allegiances to great powers\nin the new cold war.
+	ResourceType@Ore:
+		ResourceType: 1
+		Palette: resource
+		Sequences: tib01, tib02, tib03, tib04, tib05, tib06, tib07, tib08, tib09, tib10, tib11, tib12, tib13, tib14, tib15, tib16, tib17, tib18, tib19, tib20
+		MaxDensity: 360
+		ValuePerUnit: 20
+		Type: Ore
+		Name: Valuable Minerals
+		AllowedTerrainTypes: Clear, Rough, Road, DirtRoad
+		AllowUnderActors: false
+		TerrainType: Ore
+	ResourceType@Gems:
+		ResourceType: 2
+		Palette: resource
+		Sequences: gem01, gem02, gem03, gem04, gem05, gem06, gem07, gem08, gem09, gem10, gem11, gem12
+		MaxDensity: 360
+		ValuePerUnit: 40
+		Type: Gems
+		Name: Valuable Minerals
+		AllowedTerrainTypes: Clear, Rough, Road, DirtRoad
+		AllowUnderActors: false
+		TerrainType: Gems
+	ResourceRenderer:
+		RenderTypes: Ore, Gems
+	ExitsDebugOverlayManager:
+	CliffBackImpassabilityLayer:
+	DevOffsetOverlayManager:
+
+World:
+	Inherits: ^BaseWorld
+	ChatCommands:
+	DevCommands:
+	DebugVisualizationCommands:
+	PlayerCommands:
+	HelpCommand:
+	ScreenShaker:
+	ProductionQueueFromSelection:
+		ProductionTabsWidget: PRODUCTION_TABS
+	DomainIndex:
+	SmudgeLayer@smallscorch:
+		Type: SmallScorch
+		Sequence: smallscorches
+	SmudgeLayer@mediumscorch:
+		Type: MediumScorch
+		Sequence: mediumscorches
+	SmudgeLayer@largescorch:
+		Type: LargeScorch
+		Sequence: largescorches
+	SmudgeLayer@smallcrater:
+		Type: SmallCrater
+		Sequence: smallcraters
+	SmudgeLayer@mediumcrater:
+		Type: MediumCrater
+		Sequence: mediumcraters
+	SmudgeLayer@largecrater:
+		Type: LargeCrater
+		Sequence: largecraters
+	ResourceLayer:
+	ResourceClaimLayer:
+	ResourceTwinkleLayer:
+		Image: oreshimmering
+		Types: Ore, Gems
+		Palette: effect
+	BridgeLayer:
+	WarheadDebugOverlay:
+	CustomTerrainDebugOverlay:
+	SpawnMapActors:
+	MapBuildRadius:
+		AllyBuildRadiusCheckboxDisplayOrder: 4
+		AllyBuildRadiusCheckboxEnabled: false
+		AllyBuildRadiusCheckboxLocked: true
+		AllyBuildRadiusCheckboxVisible: false
+		BuildRadiusCheckboxDisplayOrder: 7
+		BuildRadiusCheckboxLocked: true
+		BuildRadiusCheckboxVisible: false
+	MapOptions:
+		ShortGameCheckboxDisplayOrder: 2
+		TechLevelDropdownDisplayOrder: 2
+		GameSpeedDropdownDisplayOrder: 5
+		TechLevelDropdownVisible: false
+	CreateMPPlayers:
+	MPStartUnits@placeholder:
+		Class: none
+		ClassName: MCV Only
+		Factions: p, t, z
+		BaseActor: spawndummy
+	MPStartUnits@p:
+		Class: base
+		ClassName: Base and 5 workers
+		Factions: p
+		BaseActor: nexus
+		SupportActors: builder.p, builder.p, builder.p, builder.p, builder.p.bot
+	MPStartUnits@t:
+		Class: base
+		ClassName: Base and 5 workers
+		Factions: t
+		BaseActor: commandcenter
+		SupportActors: builder.t, builder.t, builder.t, builder.t, builder.t.bot
+	MPStartUnits@z:
+		Class: base
+		ClassName: Base and 5 workers
+		Factions: z
+		BaseActor: hatchery
+		SupportActors: builder.z
+	#CrateSpawner:
+	#	DeliveryAircraft: pdplane.crate
+	#	Minimum: 1
+	#	Maximum: 3
+	#	SpawnInterval: 3000
+	#	WaterChance: 25
+	#	InitialSpawnDelay: 1000
+	#	CheckboxEnabled: False
+	#	CheckboxDisplayOrder: 1
+	MapCreeps:
+		CheckboxVisible: false
+	MPStartLocations:
+		SeparateTeamSpawnsCheckboxDisplayOrder: 6
+	SpawnMPUnits:
+		StartingUnitsClass: base
+		DropdownDisplayOrder: 3
+	PathFinder:
+	ValidateOrder:
+	DebugPauseState:
+	RadarPings:
+	StartGameNotification:
+	ObjectivesPanel:
+		PanelName: SKIRMISH_STATS
+	LoadWidgetAtGameStart:
+		ShellmapRoot: MAINMENU_PRERELEASE_NOTIFICATION
+	ScriptLobbyDropdown@CPMODIFIER: #Possible future use
+		Visible: false
+		ID: cpmodifier
+		Label: CP Per Rank
+		Values:
+			disabled: 0, 0, 0, 0, 0
+			one: 1, 1, 1, 1, 1
+			normal: 1, 1, 1, 1, 3
+			two: 2, 2, 2, 2, 2
+			double: 2, 2, 2, 2, 6
+			three: 3, 3, 3, 3, 3
+			triple: 3, 3, 3, 3, 4
+			all: 4, 0, 11, 0, 1
+		Default: normal
+		Description: Commander's Points you get when you rank up, per rank.
+		DisplayOrder: 4
+	TimeLimitManager:
+		TimeLimitDisplayOrder: 1
+		TimeLimitWarnings:
+			1: OneMinuteRemaining
+			2: TwoMinutesRemaining
+			3: ThreeMinutesRemaining
+			4: FourMinutesRemaining
+			5: FiveMinutesRemaining
+			10: TenMinutesRemaining
+			20: TwentyMinutesRemaining
+	TintedCellsLayer@RADIATION:
+		Darkest: 32
+		Brightest: 96
+
+EditorWorld:
+	Inherits: ^BaseWorld
+	EditorActorLayer:
+	EditorCursorLayer:
+	EditorResourceLayer:
+	EditorSelectionLayer:
+		Palette: placefootprint
+	LoadWidgetAtGameStart:
+	EditorActionManager:

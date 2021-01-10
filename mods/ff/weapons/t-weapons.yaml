@@ -1,0 +1,496 @@
+SCVBuild:
+	Range: 2c0
+	ReloadDelay: 30
+	Report: vifvrepa.wav
+	TargetActorCenter: true
+	ValidTargets: scvbuildable
+	Projectile: LaserZap
+		Width: 35
+		SecondaryBeam: true
+		SecondaryBeamWidth: 20
+		SecondaryBeamZOffset: 128
+		SecondaryBeamColor: FFFFFF
+		UsePlayerColor: true
+		Duration: 30
+	Warhead@Validation: TargetDamage
+	Warhead@Build: GrantExternalCondition
+		Condition: scvbuild
+		Range: 0c768
+		ValidStances: Ally
+		ValidTargets: scvbuildable
+
+marine.mg:
+	Inherits: ^MG
+	ReloadDelay: 15
+	Range: 5c0
+	Report: igiat2a.wav, igiat2b.wav, igiat2c.wav, igiat2d.wav, igiat2c.wav, igiat2d.wav
+	ValidTargets: Ground, Air
+	Warhead@1Dam: SpreadDamage
+		Damage: 12
+		ValidTargets: Ground, Air
+
+medic.heal:
+	Inherits: ^HealLaser
+	ReloadDelay: 50
+	Range: 2c0
+	ValidTargets: Heal
+	Projectile: KKNDLaser
+	Warhead@Heal: SpreadDamage
+		Spread: 42
+		Damage: -75
+
+medivac.heal:
+	Inherits: ^HealLaser
+	Range: 4c0
+	Warhead@Heal: SpreadDamage
+		Spread: 42
+		Damage: -100
+
+marauder.grenade:
+	Inherits: ^LargeBullet
+	ReloadDelay: 27
+	Range: 6c0
+	Report: vgriatta.wav, vgriattb.wav, vgriattc.wav
+	Warhead@1Dam: SpreadDamage
+		Spread: 0c400
+		Damage: 20
+		Versus:
+			infantry.heavy: 200
+			vehicle.heavy: 200
+			building.steel: 200
+	Warhead@4Smu: LeaveSmudge
+		SmudgeType: SmallCrater
+
+reaper.gun:
+	Inherits: ^LargeBullet
+	ReloadDelay: 20
+	Range: 5c0
+	Report: ilasatta.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 8
+
+vulture.grenade:
+	Inherits: ^MG
+	ReloadDelay: 43
+	Range: 6c0
+	Report: vifvat2a.wav, vifvat2b.wav, vifvat2c.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 20
+		Versus:
+			infantry.light: 250
+			vehicle.light: 250
+
+spidermine.targeting:
+	Inherits: ^Targeting
+	ReloadDelay: 60
+	Range: 1c512
+
+spidermine.activation:
+	Inherits: spidermine.targeting
+	Range: 9c0
+
+spidermine.explode:
+	Inherits: ^LargeBullet
+	Warhead@1: SpreadDamage
+		Spread: 2c0
+		Falloff: 100, 100
+		Damage: 140
+
+siegetank.cannon:
+	Inherits: ^LargeBullet
+	ReloadDelay: 19
+	Range: 7c0
+	Report: vifvatta.wav
+	Projectile: BulletAS
+		Speed: 682
+		ContrailLength: 20
+		ContrailWidth: 0c20
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 30
+		Versus:
+			infantry.heavy: 167
+			vehicle.heavy: 167
+			building.steel: 167
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@4Smu: LeaveSmudge
+		SmudgeType: SmallCrater
+
+siegetank.siege:
+	Inherits: siegetank.cannon
+	ReloadDelay: 54
+	Range: 13c0
+	Report: samshot1.aud
+	Projectile: BulletAS
+		Speed: 1c512
+		LaunchAngle: 180
+		ContrailLength: 80
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 80
+		Versus:
+			infantry.heavy: 175
+			vehicle.heavy: 175
+			building.steel: 175
+	Warhead@2Eff: CreateEffect
+		Explosions: elite_explosion
+	Warhead@4Smu: LeaveSmudge
+		SmudgeType: MediumCrater, MediumScorch
+
+hellion.flamer:
+	ReloadDelay: 45
+	Range: 5c0
+	Report: flamtnk1.aud
+	Projectile: WarheadTrailProjectile
+		FireMode: Line
+		Weapon: hellion.impact
+		Speed: 200
+		ExplosionInterval: 4
+		Image: flameall
+		Palette: tseffect
+		TrailImage: flameall
+		TrailPalette: tseffect
+		TrailInterval: 3
+		Blockable: true
+		KillProjectilesWhenReachedTargetLocation: false
+	Warhead@1Dam: TargetDamage
+
+hellion.impact:
+	Inherits: ^FireWeapon
+	Projectile: Bullet
+	Warhead@1Dam: SpreadDamage
+		Spread: 0c512
+		Falloff: 100, 100
+		Damage: 16
+		Versus:
+			infantry.light: 175
+			vehicle.light: 175
+			building.wood: 175
+
+hellbat.spray:
+	Inherits: ^FireWeapon
+	Burst: 8
+	BurstDelays: 2
+	ReloadDelay: 45
+	Range: 5c0
+	Report: flamtnk1.aud
+	FirstBurstTargetOffset: -90,-300,0
+	FollowingBurstTargetOffset: 20,90,0
+	Projectile: Bullet
+		Speed: 255
+		Image: fireball
+		Palette: effect
+		TrailImage: fireball
+		TrailSequences: trailer
+		TrailInterval: 1
+		LaunchAngle: 62
+	Warhead@1Dam: SpreadDamage
+		Damage: 12
+		Versus:
+			infantry.light: 175
+			vehicle.light: 175
+			building.wood: 175
+
+cyclone.missile:
+	Inherits: ^LargeBullet
+	ReloadDelay: 18
+	Range: 5c0
+	Report: vrhiatta.wav, vrhiattb.wav, vrhiattc.wav, vrhiattd.wav
+	ValidTargets: Ground, Air
+	-Projectile:
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Damage: 36
+		ValidTargets: Ground, Air
+	Warhead@2Eff: CreateEffect
+		ImpactSounds: gexpapoa.wav
+	Warhead@4Smu: LeaveSmudge
+		SmudgeType: SmallCrater
+
+cyclone.lockon:
+	ReloadDelay: 108
+	Range: 7c0
+	ValidTargets: Ground, Air
+	Projectile: InstantHit
+	Warhead@1Dam: TargetDamage
+		ValidTargets: Ground, Air
+
+goliath.autocannon:
+	Inherits: ^MG
+	ReloadDelay: 38
+	Range: 6c0
+	Report: islyat1a.wav, islyat1b.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 36
+		Versus:
+			infantry.light: 200
+			vehicle.light: 200
+
+goliath.missile:
+	Inherits: ^AAMissile
+	Burst: 2
+	ReloadDelay: 38
+	Range: 6c0
+	Report: iggiat2a.wav, iggiat2b.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 16
+		Versus:
+			air.heavy: 200
+	Warhead@2Eff: CreateEffect
+		Explosions: small_grey_explosion
+		ImpactSounds: gexpifva.wav
+
+thor.hammer:
+	Inherits: ^LargeBullet
+	Burst: 2
+	ReloadDelay: 23
+	Range: 7c0
+	Report: vapoat1a.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 60
+	Warhead@2Eff: CreateEffect
+		Explosions: apoc_explosion
+		ImpactSounds: gexpapoa.wav
+	Warhead@4Smu: LeaveSmudge
+		SmudgeType: MediumCrater, MediumScorch
+
+thor.missile:
+	Inherits: ^AAMissile
+	Burst: 4
+	ReloadDelay: 54
+	Range: 10c0
+	Report: vapoat2a.wav, vapoat2b.wav, vapoat2c.wav
+	Warhead@1Dam: SpreadDamage
+		Spread: 0c768
+		Falloff: 100, 100
+		Damage: 12
+		Versus:
+			air.light: 200
+
+thor.cannon:
+	Inherits: ^AAFlak
+	ReloadDelay: 23
+	Range: 11c0
+	Report: vapoat1a.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 50
+		Versus:
+			air.heavy: 120
+	Warhead@2Eff: CreateEffect
+		ImpactSounds: gexpapoa.wav
+
+viking.cannon:
+	Inherits: goliath.autocannon
+	ReloadDelay: 18
+	Report: bsenatta.wav, bsenattb.wav, bsenattc.wav, bsenattd.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 24
+		Versus:
+			infantry.light: 100
+			vehicle.light: 167
+			vehicle.heavy: 167
+
+viking.missile:
+	Inherits: goliath.missile
+	Range: 9c0
+	Report: iggiat2a.wav, iggiat2b.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 20
+		Versus:
+			air.heavy: 140
+
+banshee.rockets:
+	Inherits: ^AGMissile
+	Burst: 2
+	ReloadDelay: 22
+	Range: 6c0
+	Report: vintatta.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 24
+	Warhead@2Eff: CreateEffect
+		Explosions: verylarge_clsn
+		ImpactSounds: gexp14a.wav
+	Warhead@4Smu: LeaveSmudge
+		SmudgeType: SmallCrater
+
+wraith.laser:
+	Inherits: ^MG
+	ReloadDelay: 42
+	Range: 5c0
+	Report: vblhatta.wav, vblhattb.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 16
+
+wraith.missile:
+	Inherits: ^AAMissile
+	Burst: 2
+	ReloadDelay: 32
+	Range: 5c0
+	Report: vintatta.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 10
+		Versus:
+			air.heavy: 200
+
+liberator.rockets:
+	Inherits: wraith.missile
+	Warhead@1Dam: SpreadDamage
+		Versus:
+			air.heavy: 100
+
+liberator.cannon:
+	Inherits: ^LargeBullet
+	ReloadDelay: 29
+	Range: 10c0
+	Report: vchoat2a.wav
+	InvalidTargets: Structure
+	Warhead@1Dam: SpreadDamage
+		Spread: 0c512
+		Damage: 150
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: elite_explosion
+		ImpactSounds: gexpapoa.wav
+	Warhead@4Smu: LeaveSmudge
+		SmudgeType: SmallCrater
+
+bc.laser:
+	Inherits: wraith.laser
+	Burst: 8
+	BurstDelays: 4
+	ReloadDelay: 60
+	Range: 6c0
+	Report: bsenatta.wav, bsenattb.wav, bsenattc.wav, bsenattd.wav
+
+bc.laseraa:
+	Inherits: bc.laser
+	ValidTargets: Air
+	Warhead@1Dam: SpreadDamage
+		Damage: 10
+		ValidTargets: Air
+
+missileturret.missile:
+	Inherits: ^AAMissile
+	Burst: 2
+	ReloadDelay: 15
+	Range: 7c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 24
+
+ghost.sniper:
+	Inherits: ^MG
+	ReloadDelay: 26
+	Range: 6c0
+	Report: isniatta.wav
+	ValidTargets: Infantry, Vehicle, Air
+	Warhead@1Dam: SpreadDamage
+		Damage: 20
+		Versus:
+			infantry.light: 200
+			vehicle.light: 200
+			air.light: 200
+		ValidTargets: Ground, Air
+	Warhead@2Eff: CreateEffect
+		Explosions: piff
+
+ghost.lockdown:
+	Inherits: ^Missile
+	ReloadDelay: 60
+	Range: 10c0
+	Report: bigggun1.aud
+	ValidTargets: empable, empdrainable
+	Projectile: Missile
+		Speed: 384
+		TrailImage: smokey2
+	Warhead@1Dam: TargetDamage
+		Damage: 200
+		ValidTargets: empable, empdrainable
+		DamageTypes: ElectroDeath
+	Warhead@2Ext: GrantExternalCondition
+		Range: 1c512
+		Duration: 2
+		Condition: empdrain
+	Warhead@3Ext: GrantExternalCondition
+		Range: 1c512
+		Duration: 120
+		Condition: emp
+	Warhead@4Eff: CreateEffect
+		Explosions: empulse
+		ExplosionPalette: tseffect
+		ImpactSounds: iteschaa.wav
+		ValidTargets: Ground, Water, Air
+		ImpactActors: false
+
+ghost.nukespawner:
+	ReloadDelay: 10
+	Range: 11c0
+	Report: snuklaun.wav
+	InvalidTargets: Infantry, Structure, Vehicle, Air, Wall, Fence, Ship
+	Projectile: InstantHit
+	Warhead@1: SpawnActor
+		Actors: ghost.nukedummy
+		ForceGround: true
+		ValidTargets: Ground, Water, Air
+	Warhead@2: CreateEffect
+		ImpactSounds: snuksire.wav
+		ValidTargets: Ground, Water, Air
+
+ghost.nuketargeting:
+	ReloadDelay: 20
+	Range: 11c0
+	#ValidTargets: NukeTarget
+	Projectile: InstantHit
+	Warhead@1: TargetDamage
+		#ValidTargets: NukeTarget
+
+ghost.nukelaunch:
+	ReloadDelay: 20
+	Range: 11c0
+	Report: snukintr.wav
+	#ValidTargets: NukeTarget
+	Projectile: AthenaProjectile
+		Altitude: 15c0
+	Warhead@1: TargetDamage
+		#ValidTargets: NukeTarget
+	Warhead@2: FireFragment
+		UseZOffsetAsAbsoluteHeight: true
+		Weapon: ghost.nuke
+		ValidTargets: Air, Ground, Water, NukeTarget
+
+ghost.nuke:
+	ReloadDelay: 60
+	Range: 1c0
+	ValidTargets: Ground, Air, Water, NukeTarget
+	Projectile: BulletAS
+		Image: radiationmissile
+		Sequences: down
+		Palette: player
+		IsPlayerPalette: true
+		Shadow: false
+		Speed: 640
+		TrailImage: smokeyv3
+		TrailInterval: 1
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 2c0
+		Falloff: 100, 100, 50, 25
+		Damage: 600
+		Versus:
+			building.wood: 166
+			building.steel: 166
+			building.concrete: 166
+		DamageTypes: FlameDeath, TriggerProne
+		ValidTargets: Ground, Air, Water
+	Warhead@2Eff: CreateEffect
+		Explosions: nuke_explosion
+		ImpactSounds: snukexpl.wav
+		ImpactActors: false
+	Warhead@3EffWater: CreateEffect
+		Explosions: large_watersplash
+		ImpactSounds: gexpwala.wav
+		ImpactActors: false
+		ValidTargets: Water
+	Warhead@4Smu: LeaveSmudge
+		SmudgeType: MediumCrater, MediumScorch
+		InvalidTargets: Vehicle, Building, Wall

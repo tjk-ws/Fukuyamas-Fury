@@ -1,0 +1,374 @@
+Metadata:
+	Title: Fukuyama's Fury, or, the Empire of Dust
+	Version: {DEV_VERSION}
+	Website: 
+	WebIcon32:
+
+ModCredits:
+	ModTabTitle: Fukuyama's Fury
+	ModCreditsFile: credits.txt
+
+PackageFormats: Mix, AudioBag
+
+Packages:
+	~^Content/ra2
+	~^Content/ra2/taunts
+	.
+	$ff: ff
+	./mods/common: common
+	./mods/as: as
+	~ra2.mix
+	~ra2md.mix
+	~language.mix
+	~langmd.mix
+	~multi.mix
+	~audiomd.mix
+	~cachemd.mix
+	~cache.mix
+	~cameomd.mix: cameomd
+	~cameo.mix: cameo
+	~conquer.mix: conquer
+	~conqmd.mix: conqmd
+	~des.mix
+	~desert.mix
+	~genermd.mix: genermd
+	~generic.mix
+	~isodesmd.mix
+	~isodes.mix
+	~isogenmd.mix
+	~isogen.mix
+	~isolunmd.mix
+	~isolun.mix
+	~isosnomd.mix
+	~isosnow.mix
+	~isotemmd.mix: isotemmd
+	~isotemp.mix
+	~isoubnmd.mix
+	~isoubn.mix
+	~isourbmd.mix
+	~isourb.mix
+	~loadmd.mix
+	~load.mix
+	~localmd.mix: localmd
+	~local.mix: local
+	~lun.mix
+	~lunar.mix
+	~neutral.mix
+	~ntrlmd.mix
+	~sidec01.mix
+	~sidec02.mix
+	~sno.mix
+	~snowmd.mix
+	~snow.mix
+	~tem.mix
+	~temperat.mix
+	~theme.mix
+	~thememd.mix
+	~ubn.mix
+	~urbann.mix
+	~urb.mix
+	~urban.mix
+	~audio.bag
+	ff|bits
+	ff|bits/animations
+	ff|bits/projectiles
+	ff|bits/cameos
+	ff|bits/vehicles
+	ff|bits/vehicles/aircraftshadows
+	ff|bits/vehicles/ppm
+	ff|bits/infantry
+	ff|bits/structures
+	ff|bits/structures/camp
+	ff|bits/structures/ea
+	ff|bits/audio
+	ff|uibits
+
+MapFolders:
+	ff|maps: System
+	~^maps/ff/{DEV_VERSION}: User
+
+Rules:
+	ff|rules/proxy-actors.yaml
+	ff|rules/player.yaml
+	ff|rules/world.yaml
+	ff|rules/defaults.yaml
+	ff|rules/trees.yaml
+	ff|rules/bridges.yaml
+	ff|rules/civilian-structures.yaml
+	ff|rules/civilian-props.yaml
+	ff|rules/tech-structures.yaml
+	ff|rules/misc.yaml
+	ff|rules/ai.yaml
+	ff|rules/palettes.yaml
+	ff|rules/p-base.yaml
+	ff|rules/t-base.yaml
+	ff|rules/z-base.yaml
+
+Sequences:
+	ff|sequences-original/misc.yaml
+	ff|sequences-original/aircraft.yaml
+	ff|sequences-original/allied-infantry.yaml
+	ff|sequences-original/allied-structures.yaml
+	ff|sequences-original/animals.yaml
+	ff|sequences-original/bridges.yaml
+	ff|sequences-original/civilians.yaml
+	ff|sequences-original/civilian-props.yaml
+	ff|sequences-original/civilian-structures.yaml
+	ff|sequences-original/defaults.yaml
+	ff|sequences-original/soviet-infantry.yaml
+	ff|sequences-original/soviet-structures.yaml
+	ff|sequences-original/tech-structures.yaml
+	ff|sequences-original/trees.yaml
+	ff|sequences-original/vehicles.yaml
+	ff|sequences-original/yuri-infantry.yaml
+	ff|sequences-original/yuri-structures.yaml
+	ff|sequences/newanims.yaml
+	ff|sequences/newsprites.yaml
+	ff|sequences/p-sequences.yaml
+	ff|sequences/t-sequences.yaml
+	ff|sequences/z-sequences.yaml
+
+ModelSequences:
+	ff|sequences-original/voxels.yaml
+	ff|sequences/newvoxels.yaml
+
+Cursors:
+	ff|cursors.yaml
+
+Chrome:
+	ff|chrome.yaml
+
+Assemblies:
+	common|OpenRA.Mods.Common.dll
+	common|OpenRA.Mods.Cnc.dll
+	ff|OpenRA.Mods.FF.dll
+	as|OpenRA.Mods.AS.dll
+
+ChromeLayout:
+	ff|chrome/assetbrowser.yaml
+	ff|chrome/color-picker.yaml
+	ff|chrome/credits.yaml
+	ff|chrome/ingame.yaml
+	ff|chrome/ingame-player.yaml
+	ff|chrome/ingame-observer.yaml
+	ff|chrome/ingame-infoobjectives.yaml
+	ff|chrome/ingame-infostats.yaml
+	ff|chrome/lobby-players.yaml
+	ff|chrome/mainmenu.yaml
+	ff|chrome/mainmenu-prerelease-notification.yaml
+	ff|chrome/tooltips.yaml
+	common|chrome/mainmenu-prompts.yaml
+	common|chrome/musicplayer.yaml
+	common|chrome/ingame-chat.yaml
+	common|chrome/ingame-fmvplayer.yaml
+	common|chrome/ingame-menu.yaml
+	common|chrome/ingame-info.yaml
+	common|chrome/ingame-infoscripterror.yaml
+	common|chrome/ingame-infobriefing.yaml
+	common|chrome/ingame-debug.yaml
+	common|chrome/ingame-debuginfo.yaml
+	common|chrome/ingame-perf.yaml
+	common|chrome/ingame-infochat.yaml
+	common|chrome/settings.yaml
+	common|chrome/lobby.yaml
+	common|chrome/lobby-options.yaml
+	common|chrome/lobby-music.yaml
+	common|chrome/lobby-mappreview.yaml
+	common|chrome/lobby-servers.yaml
+	common|chrome/lobby-kickdialogs.yaml
+	common|chrome/multiplayer-browser.yaml
+	common|chrome/multiplayer-browserpanels.yaml
+	common|chrome/multiplayer-createserver.yaml
+	common|chrome/multiplayer-directconnect.yaml
+	common|chrome/map-chooser.yaml
+	common|chrome/connection.yaml
+	common|chrome/replaybrowser.yaml
+	common|chrome/gamesave-browser.yaml
+	common|chrome/gamesave-loading.yaml
+	common|chrome/missionbrowser.yaml
+	common|chrome/confirmation-dialogs.yaml
+	common|chrome/dropdowns.yaml
+	common|chrome/editor.yaml
+	common|chrome/playerprofile.yaml
+
+Weapons:
+	ff|weapons/defaults.yaml
+	ff|weapons/debris.yaml
+	ff|weapons/explosions.yaml
+	ff|weapons/p-weapons.yaml
+	ff|weapons/t-weapons.yaml
+	ff|weapons/z-weapons.yaml
+
+Voices:
+	ff|audio/voices.yaml
+
+Notifications:
+	ff|audio/notifications.yaml
+
+TileSets:
+	ff|tilesets/temperat.yaml
+	ff|tilesets/snow.yaml
+	ff|tilesets/urban.yaml
+	ff|tilesets/newurban.yaml
+	ff|tilesets/desert.yaml
+	ff|tilesets/lunar.yaml
+	ff|tilesets/simpleterrain.yaml
+
+Missions: #TODO
+
+MapGrid:
+	Type: RectangularIsometric
+	TileSize: 60,30
+	DefaultSubCell: 2
+	MaximumTerrainHeight: 16
+	SubCellOffsets: 0,0,0, -256,128,0, 0,-128,0, 256,128,0
+
+Music:
+	ff|audio/music.yaml
+
+Translations: #TODO
+
+Hotkeys:
+	common|hotkeys/game.yaml
+	common|hotkeys/observer.yaml
+	common|hotkeys/production-common.yaml
+	common|hotkeys/production-peractor.yaml
+	common|hotkeys/supportpowers.yaml
+	common|hotkeys/viewport.yaml
+	ff|hotkeys.yaml
+
+LoadScreen: LogoStripeLoadScreen
+	Image: ff|uibits/loadscreen.png
+	Text: Ending history...
+
+ServerTraits:
+	LobbyCommands
+	PlayerPinger
+	MasterServerPinger
+
+ChromeMetrics:
+	common|metrics.yaml
+	ff|metrics.yaml
+
+Fonts:
+	Tiny:
+		Font: common|FreeSans.ttf
+		Size: 10
+		Ascender: 8
+	TinyBold:
+		Font: common|FreeSansBold.ttf
+		Size: 10
+		Ascender: 8
+	Small:
+		Font: common|FreeSans.ttf
+		Size: 12
+		Ascender: 9
+	Regular:
+		Font: common|FreeSans.ttf
+		Size: 14
+		Ascender: 11
+	Bold:
+		Font: common|FreeSansBold.ttf
+		Size: 14
+		Ascender: 11
+	MediumBold:
+		Font: common|FreeSansBold.ttf
+		Size: 18
+		Ascender: 14
+	BigBold:
+		Font: common|FreeSansBold.ttf
+		Size: 24
+		Ascender: 18
+	Title:
+		Font: common|FreeSansBold.ttf
+		Size: 32
+		Ascender: 26
+
+# Our maps may not work on RA2 mod, but RA2's maps would work here.
+SupportsMapsFrom: ff, ra2
+
+SoundFormats: Aud, Wav
+
+SpriteFormats: ShpTS, TmpTS, ShpTD, PngSheet
+
+SpriteSequenceFormat: TilesetSpecificSpriteSequence
+	TilesetExtensions:
+		TEMPERATE: .tem
+		SNOW: .sno
+		URBAN: .urb
+		NEWURBAN: .ubn
+		DESERT: .des
+		LUNAR: .lun
+		SIMPLETERRAIN: .tem
+	TilesetCodes:
+		GENERIC: g
+		SNOW: a
+		TEMPERATE: t
+		URBAN: u
+		NEWURBAN: n
+		DESERT: d
+		LUNAR: l
+		SIMPLETERRAIN: t
+
+ModelSequenceFormat: VoxelModelSequence
+
+AssetBrowser:
+	SupportedExtensions: .shp, .tmp, .tem, .des, .sno, .int, .vqa, .png
+
+GameSpeeds:
+	slowest:
+		Name: Slowest
+		Timestep: 80
+		OrderLatency: 2
+	slower:
+		Name: Slower
+		Timestep: 50
+		OrderLatency: 3
+	normal:
+		Name: Normal
+		Timestep: 40
+		OrderLatency: 3
+	fast:
+		Name: Fast
+		Timestep: 35
+		OrderLatency: 4
+	faster:
+		Name: Faster
+		Timestep: 30
+		OrderLatency: 4
+	fastest:
+		Name: Fastest
+		Timestep: 20
+		OrderLatency: 6
+	default:
+		Name: Ludicrous
+		Timestep: 5
+		OrderLatency: 9
+
+ColorValidator:
+	TeamColorPresets: dee308, ff1818, 2973e7, 39d629, ffa518, 31d6e7, 9429bd, ff9cef, fefefe, 6f7104, 7f0c0c, 143973, 1c6b14, 7f520c, 186b73, 4a145e, 7f484e, 000000
+
+ModContent:
+	InstallPromptMessage: Red Alert 2 requires artwork and audio from the original game.
+	HeaderMessage: The original game content must be copied from an original game disc.
+	Packages:
+		base: Base Game Files
+			TestFiles: ^Content/ra2/ra2.mix, ^Content/ra2/language.mix
+			Sources: ra2, origin, tfd
+			Required: true
+		music: Base Game Music
+			TestFiles: ^Content/ra2/theme.mix
+			Sources: ra2, origin, tfd
+		expansion: Expansion Files
+			TestFiles: ^Content/ra2/ra2md.mix, ^Content/ra2/langmd.mix
+			Sources: origin-yr, tfd-yr
+			Required: true
+		expansion-music: Expansion Music
+			TestFiles: ^Content/ra2/thememd.mix
+			Sources: origin-yr, tfd-yr
+	Sources:
+		ff|installer/ra2.yaml
+		ff|installer/origin.yaml
+		ff|installer/origin-yr.yaml
+		ff|installer/firstdecade.yaml
+		ff|installer/firstdecade-yr.yaml

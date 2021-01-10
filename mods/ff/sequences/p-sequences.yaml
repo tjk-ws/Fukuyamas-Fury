@@ -1,0 +1,235 @@
+^WarpInInfantry:
+	warp-begin: warpin
+		Length: *
+		UseTilesetCode: false
+	warp-overlay: warpout
+		Length: *
+		UseTilesetCode: false
+
+^WarpInVehicle:
+	warp-overlay: warpout
+		Length: *
+		UseTilesetCode: false
+
+^WarpInBuilding:
+	warp-overlay: chronofd
+		Length: *
+		UseTilesetCode: false
+
+darktemplar:
+	Inherits: ccomand
+	Inherits@warp: ^WarpInInfantry
+	Defaults: ccomand
+
+adept:
+	Inherits: virus
+	Inherits@warp: ^WarpInInfantry
+	Defaults: virus
+
+zealot:
+	Inherits@warp: ^WarpInInfantry
+	Inherits: ass
+	Defaults: ass
+	icon: initicon
+
+ht:
+	Inherits@warp: ^WarpInInfantry
+	Inherits: ptroop
+	Defaults: ptroop
+
+psistorm: 
+	idle: pdfxloc
+		Length: *
+		Tick: 80
+
+pylon:
+	Inherits: eapowr
+	Inherits@warp: ^WarpInBuilding
+	icon: powricon
+		Offset: 0,0
+		UseTilesetCode: false
+
+gateway:
+	Inherits: eachannel
+	Inherits@warp: ^WarpInBuilding
+	icon: brrkicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+nexus:
+	Inherits@warp: ^WarpInBuilding
+	Inherits: eacnst
+	dot: dot
+		Length: *
+		UseTilesetCode: false
+	icon: acnsicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+robotics:
+	Inherits@warp: ^WarpInBuilding
+	Inherits: eaweap
+	icon: gwepicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+stargate:
+	Inherits@warp: ^WarpInBuilding
+	Defaults:
+		Offset: -5, -55
+	idle: egshockmk
+		Start: 31
+		ShadowStart: 80
+	make: egshockmk
+		Length: 31
+		ShadowStart: 49
+	icon: heliicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+forge:
+	Inherits@warp: ^WarpInBuilding
+	Inherits: eadebuff
+	icon: gorep
+		Offset: 0,0
+		UseTilesetCode: false
+
+cybercore:
+	Inherits@warp: ^WarpInBuilding
+	Inherits: gapwrx
+	icon: xxicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+twilightcouncil:
+	Inherits@warp: ^WarpInBuilding
+	Inherits: eatech
+	icon: techicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+templararchives:
+	Inherits@warp: ^WarpInBuilding
+	Inherits: eapile
+	icon: xxicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+darkshrine:
+	Inherits@warp: ^WarpInBuilding
+	Inherits: eatf
+	icon: xxicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+fleetbeacon:
+	Inherits@warp: ^WarpInBuilding
+	Inherits: eabase
+	icon: asaticon
+		Offset: 0,0
+		UseTilesetCode: false
+
+robobay:
+	Inherits@warp: ^WarpInBuilding
+	Inherits: gadomex
+	icon: rbccicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+shieldbattery:
+	Inherits@warp: ^WarpInBuilding
+	Inherits: gawhtr
+
+photoncannon:
+	Inherits@warp: ^WarpInBuilding
+	Inherits: galasr
+
+probe:
+	Inherits: harv
+
+dragoon:
+	Inherits@warp: ^WarpInVehicle
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	icon: xxicon
+
+stalker:
+	Inherits@warp: ^WarpInVehicle
+	icon: rtnkicon
+
+immortal:
+	Inherits@warp: ^WarpInVehicle
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	icon: gtnkicon
+
+colossus:
+	Inherits@warp: ^WarpInVehicle
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	icon: sreficon
+
+sentry:
+	Inherits@warp: ^WarpInVehicle
+	Inherits@MUZZLE: ^WithMachineGunMuzzle
+	icon: roboicon
+	barrier: cubarr01
+		ShadowStart: 3
+		Offset: 0, -15
+
+archon:
+	Inherits@warp: ^WarpInVehicle
+	Inherits@MUZZLE: ^WithFlakMuzzle
+	make: dot
+		Length: *
+		Tick: 215
+	icon: mtnkicon
+
+darkarchon:
+	Inherits@warp: ^WarpInVehicle
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	icon: xxicon
+
+disruptor:
+	Inherits@warp: ^WarpInVehicle
+	icon: xxicon
+
+disruptor.nova:
+	icon: xxicon
+
+observer:
+	icon: xxicon
+
+oracle:
+	Inherits@MUZZLE: ^WithMachineGunMuzzle
+	Inherits: gyro2
+	icon: jjeticon
+		Facings: 1
+		Length: 1
+	ward: camisc02
+		Facings: 1
+		Length: 1
+		UseTilesetCode: true
+		ShadowStart: 3
+
+voidray:
+	Inherits@MUZZLE: ^WithMachineGunMuzzle
+	icon: shadicon
+
+tempest:
+	Inherits@MUZZLE: ^WithMachineGunMuzzle
+	icon: shadicon
+
+carrier:
+	icon: shadicon
+
+interceptor:
+	Inherits: burdrn
+	Defaults: burdrn
+	icon: shadicon
+
+phoenix:
+	icon: beagicon
+
+warpprism:
+	icon: shadicon
+
+mothership:
+	icon: xxicon

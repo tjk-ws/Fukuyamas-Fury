@@ -1,0 +1,191 @@
+drone.morph:
+	Range: 1c512
+	ReloadDelay: 30
+	TargetActorCenter: true
+	ValidTargets: morphable
+	Projectile: InstantHit
+	Warhead@Validation: TargetDamage
+	Warhead@Build: GrantExternalCondition
+		Condition: morph
+		Range: 0c768
+		ValidStances: Ally
+		ValidTargets: morphable
+
+zergling.claw:
+	Inherits: ^MG
+	Range: 4c0
+	ReloadDelay: 13
+	Report: iconatta.wav, iconattb.wav, iconattc.wav, iconattd.wav, iconatte.wav
+	Warhead@1Dam: SpreadDamage
+		Spread: 64
+		Damage: 10
+
+baneling.targeting:
+	Inherits: ^Targeting
+	ReloadDelay: 20
+	Range: 2c0
+	ValidTargets: Vehicle, Infantry, Structure
+
+baneling.explode:
+	Inherits: ^Explode
+	Warhead@1Dam: SpreadDamage
+		Spread: 2c256
+		Falloff: 100, 100
+		Damage: 32
+		Versus:
+			infantry.light: 220
+			vehicle.light: 220
+		DamageTypes: TriggerProne, ExplosionDeath
+		InvalidTargets: Structure
+	Warhead@2Dam: SpreadDamage
+		Spread: 2c256
+		Falloff: 100, 100
+		Damage: 160
+		DamageTypes: TriggerProne, ExplosionDeath
+		ValidTargets: Structure
+	Warhead@3Eff: CreateEffect
+		Explosions: terrorist_explosion
+		ImpactSounds: gexpapoa.wav
+		ValidTargets: Ground, Water, Air
+	Warhead@4Smu: LeaveSmudge
+		SmudgeType: SmallCrater
+
+queen.talon:
+	Inherits: ^Flak
+	ReloadDelay: 18
+	Range: 5c0
+	InvalidTargets: Inject
+	Warhead@1Dam: SpreadDamage
+		Damage: 8
+
+queen.spine:
+	Inherits: ^AAFlak
+	ReloadDelay: 18
+	Range: 7c0
+	ValidTargets: Air
+	Warhead@1Dam: SpreadDamage
+		Damage: 18
+
+queen.inject:
+	ReloadDelay: 45
+	Range: 2c0
+	TargetActorCenter: true
+	ValidTargets: Injectable
+	Projectile: InstantHit
+	Warhead@1: GrantExternalCondition
+		Condition: inject
+		Duration: 3
+		Delay: 725
+		ValidTargets: Inject
+		ValidStances: Ally
+	Warhead@2: GrantExternalCondition
+		Condition: injected
+		Duration: 725
+		ValidTargets: Injectable
+		ValidStances: Ally
+
+hydralisk.spine:
+	Inherits: ^AGMissile
+	ReloadDelay: 15
+	Range: 5c0
+	ValidTargets: Ground, Air
+	Warhead@1Dam: SpreadDamage
+		Damage: 24
+		ValidTargets: Ground, Air
+
+lurker.spine:
+	ReloadDelay: 36
+	Range: 8c0
+	Projectile: WarheadTrailProjectile
+		FireMode: Line
+		Weapon: lurker.impact
+		Speed: 256
+		ForceAtGroundLevel: true
+		ExplosionInterval: 4
+		ExplodeUnderThisAltitude: -9999
+		Blockable: false
+		KillProjectilesWhenReachedTargetLocation: false
+	Warhead@1Dam: TargetDamage
+
+lurker.impact:
+	ReloadDelay: 50
+	Range: 2c0
+	Projectile: Bullet
+	Warhead@1Dam: SpreadDamage
+		Spread: 0c512
+		Falloff: 100, 100
+		Damage: 40
+		Versus:
+			infantry.heavy: 150
+			vehicle.heavy: 150
+			building.steel: 150
+		DamageTypes: BulletDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: piffpiff
+		ImpactSounds: varmatta.wav, varmattb.wav
+
+roach.spit:
+	Inherits: ^MG
+	Range: 4c0
+	ReloadDelay: 35
+	Report: iarnatta.wav, iarnattb.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 32
+
+ravager.plasma:
+	Inherits: ^LargeBullet
+	ReloadDelay: 29
+	Range: 6c0
+	Report: vflaat1a.wav, vflaat1b.wav
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 32
+
+ultralisk.blade:
+	Inherits: ^MG
+	Range: 1c512
+	ReloadDelay: 15
+	Report: vwaratta.wav, vwarattb.wav
+	Warhead@1Dam: SpreadDamage
+		Spread: 0c400
+		Falloff: 100, 100
+		Damage: 70
+
+ultralisk.splash:
+	ReloadDelay: 15
+	Range: 2c0
+	Projectile: WarheadTrailProjectile
+		Offsets: -128,0,0, -85,96,0, -85,-96,0
+		FireMode: Spread
+		Weapon: ultralisk.impact
+		Speed: 256
+		ForceAtGroundLevel: true
+		ExplosionInterval: 5
+		ExplodeUnderThisAltitude: -9999
+		Blockable: true
+		KillProjectilesWhenReachedTargetLocation: false
+	Warhead@1Dam: TargetDamage
+
+ultralisk.impact:
+	Inherits: ultralisk.blade
+	Warhead@1Dam: SpreadDamage
+		Falloff: 33, 33
+
+bbqlighter:
+	Inherits: ^FireWeapon
+	Burst: 4
+	BurstDelays: 2
+	ReloadDelay: 45
+	Range: 4c0
+	Report: flamtnk1.aud
+	Projectile: Bullet
+		Speed: 340
+		Image: flameall
+		Palette: tseffect
+		LaunchAngle: 62
+	Warhead@1Dam: SpreadDamage
+		Damage: 10
+		Versus:
+			infantry.light: 175
+			vehicle.light: 175
+			building.wood: 175

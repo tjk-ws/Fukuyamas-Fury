@@ -1,0 +1,252 @@
+FF is a hard fork of RV which is made by much more talented people.
+There may be leftover references and credits to assets only RV uses.
+
+4StarGeneral:
+	cawash06 shadow fix 			structures/cawash06_a.shp
+
+ArgCmdr:
+	Grizzly Bear					infantry/gbear.shp
+	Remappable General				infantry/pentgen2.shp
+	Empty Truck					vehicles/truckc.*
+
+Askeladd:
+	Hind						vehicles/smallhind.*
+
+Atomic_Noodles:
+	Infantry Fixes					infantry/*fix.shp
+	Tanya Snow Artwork				infantry/tanya.shp
+	Yuri Structure Fixes				structures/fixes/*
+	Gyrocopter fixes				vehicles/gyro.shp
+	RA3 tesla trooper fixes				infantry/ttrooper.shp
+
+Azri_Apoc:
+	Hover tank					vehicles/ahvrtnk*.*
+
+Bu7loos:
+	Right Wing Gunship				vehicles/rw.*
+	Phantom						vehicles/svair.*
+	Chrono Miner					vehicles/cm*n.*
+	Lasher Tank					vehicles/lasher.*
+	Yuri Drones					vehicles/gattlingdrone.*
+							rocketdrone.*
+	Gatling Fist					vehicles/gattlingfist.*
+	Chaos Platform					vehicles/chaosplatform*.*
+	Seeker						vehicles/seeker*.*
+	Mantis						vehicles/mantis.*
+
+carnage_xploade:
+	Gyrocopter				vehicles/GyroCopter*.*
+	Reaper Drone				vehicles/arpd.*
+
+Cranium:
+	Black Hawk				vehicles/blackhawk.shp
+	Tricycle				vehicles/tricycle2.*
+
+Creator:
+	SU-25					vehicles/su25c.vxl
+	Repulse hovertank			vehicles/repulse*.*
+	Scorpion tank				vehicles/sptank*.*
+	Orca Skyguard				vehicles/orcaskyguard.vxl
+	Cataphract Megatank			vehicles/cataphract*.*
+	B-1 Centauro				vehicles/cent*.*
+	Tomahawk				vehicles/toma*.*
+
+cxtian39:
+	Banshee					vehicles/banshee.vxl
+	Turtle Airship				vehicles/turtle.*
+	Grenade jeep				vehicles/gjeep*.*
+	Missile buggy				vehicles/buggy*.*
+						ngbugy*.shp
+	Yuri Tunnel				structures/y*unkn.*
+	Mining drone				vehicles/mndk.shp
+	Yuri Stealth Tank			vehicles/stnk.*
+
+Damfoos:
+	Soviet Drone Carrier			vehicles/tdtnk*.*
+
+DonutArnold:
+	Psychic Reveal Animation	animations/scananim.shp
+
+Droke:
+	Stealth Generator			y?sgen*.shp
+
+Fryone:
+	Stealth Miner				vehicles/gm?n.*
+
+G-E:
+	Snowy Civilian Buildings		structures/snow/* : except cala14.shp
+	Halo:					vehicles/halo.*
+
+genobreaker:
+	EMP Bomb artwork			projectiles/empbomb.shp
+	Parabomb artwork			projectiles/parabomb.shp
+
+HG_SCIPCION:
+	Original concept for EMP device		structures/camp/c*empt*.*
+
+ImP_RuLz:
+	RA3 Tesla Trooper			infantry/ttrooper.shp
+	Armored Personnel Unit			infantry/apu.shp
+
+Lao Tze:
+	Mechanic					infantry/mech.shp
+	Gyrocopter					vehicles/gyro.shp
+
+LGibbs:
+	Piranha Submarine			vehicles/piranha.*
+
+Lord Kal:
+	Hijacker					infantry/hjck.shp
+
+MadHQ:
+	Cryocopter:				vehicles/chryochop.*
+	Soviet Barracks:			structures/n*barx.shp
+	Aerial Tumblr:				vehicles/altrscrft.*
+	Terrorist on a bike:			vehicles/terbik.shp
+	Flame turret:				structures/n*flame*.shp
+	Sunburst Drone:				vehicles/burdrn.shp
+	Yuri Light Disc				vehicles/diskatk.*
+	Yuri Service Depot Cameo		cameos/yfixicon.shp
+	Allied Radar Dome			structures/g*domex.shp
+	Allied Power Plant			structures/g*powrx.shp
+	Allied Ore Generator			structures/g*oremin*.shp
+	Allied Weather Tower			structures/g*whtr*.shp
+	Soviet Tower				structures/natower*.shp
+	Soviet Missile Turret			structures/ngmissl*.shp
+	Allied Laser Turret			structures/g*lasr*.shp
+
+Marn:
+	Gem Mine					structures/gmin.*
+
+MasterHaosis:
+	Insufficient Silos Notif.		audio/c*202.wav
+	Gatling Trooper Cameo			cameos/gtrpicon.shp
+	Gatling Trooper				infantry/gtrp.shp
+
+MiGEater:
+	Cargo Planes				vehicles/*plane.*
+	F22 Raptor				vehicles/f22.vxl
+	Hellhound				vehicles/hound.*
+
+Moder.U:
+	Unnamed gunship				vehicles/fly.*
+
+MustaphaTR:
+	Blue Fire				animations/bluefire0?.shp
+	Purple Chaos Gas			animations/cdgas*.shp
+	Red Bullet Hit Animations		animations/piff*red.shp
+	Prism Impact Animation			animations/prismexp.shp
+	Toxin Explosions			animations/explo*grn.shp
+	Toxin Bomb				animations/toxinbomb.shp
+	Iron Trooper				infantry/itrp.shp
+	Colored Civilian Fences			structures/fences/cgfnc?.shp
+	Advanced Coolant			structures/g?powr_b.shp
+	Allied Silo				structures/ggsilo*.shp
+	Naval Mine				structures/nmine.shp
+	Snowy CALA14				structures/snow/cala14.shp
+	Psi-Corps Attack Dog			cameos/bdog*.shp
+	Psi-Corps Silo				structures/ygsilo.shp
+	Larger Cannon				projectiles/160mm.shp
+	Leaflet					projectiles/leaflet.shp
+	Purple Toxin Gas			projectiles/txgasp.shp
+	Radiation Missile			projectiles/v3msl*.shp
+	1 Missile Dreadnought			vehicles/dred1.*, vehicles/vlad1.*
+	Grinder Tank				vehicles/grtk.*
+	Black and Brown Automobile		vehicles/car?.*
+	Railgun					structures/ygrail.shp
+
+Nah:
+	Disc Pad Cameo				cameos/dpadicon.png
+	Yuri ConYard. Cameo			cameos/yrcyicon.png
+
+Nolt:
+	Hologram Animations			animation/holo*.shp
+	Lazarus Spectre				infantry/spct.shp
+
+OverWatch:
+	Light Tank:				vehicles/box*.*
+	Magnetron remake:			vehicles/tele.*
+	yapln:					vehicles/yapln.*
+	Ural Typhoon truck:			vehicles/struck.*
+
+partyzanPaulZy:
+	Demolition Truck:			vehicles/de*truck.*
+
+PillBox20:
+	TR-85					vehicles/tr85*.*
+
+PussyPus:
+	Stealth Miner Cameo			cameos/gminicon.shp
+
+Quiet:
+	Wheeled drone				vehicles/whldrn.shp
+
+raminator:
+	Flamethrower				infantry/pyro.shp
+
+RLY_BiG_Tank:
+	MX-8M1					vehicles/mx8m1.*
+
+RobyRulz:
+	UH-60					vehicles/abh.*
+	Soviet UAV				vehicles/sadr.*
+
+ronco:
+	Laser Truck				vehicles/NODLT*.*
+
+Salted Old:
+	Rhinoceros				vehicles/gvozdika*.*
+	Devil					vehicles/devil*.*
+	Shadow Tank				vehicles/shadow*.*
+
+Speeder:
+	Yuri Radar Dome				structures/y?dome*.shp
+	Academy					structures/yaacad*.shp
+
+Stingerrr:
+	WZ-10					vehicles/wz10.*
+
+Teufeulhun1985:
+	Mini Siege Tank				vehicles/sieg*.*
+
+tomsons26:
+	Soviet Engineer Cameo			cameos/sengicon.shp
+
+Trans_C:
+	Grenadier:				infantry/gren.shp
+	Grenade:				projectiles/grenade.shp
+	Assassin:				infantry/ass.shp
+
+Xuetianyi:
+	Camp buildings				structures/camp/*
+	RA Online Allies buildings		structures/ea/*
+
+Yuri_Prime:
+	BMP-2					vehicles/bmp2*.*
+
+ZombyDragon:
+	Toxin Trooper:				infantry/ttrp.shp
+
+Zero18:
+	Hyperion				vehicles/hyperion*.*
+	Repair Drone				vehicles/repdrone.*
+	Sentinel Drone				vehicles/Sentinel*.*
+	War Miner				vehicles/warminer*.*
+	Refractor				vehicles/refractor*.*
+	Archer					vehicles/archer*.*
+	Black Eagle				vehicles/blackeagle.*
+	Lightning				vehicles/lighting.*
+	Pegasus					vehicles/pegasus.*
+	Avenger					vehicles/avenger.*
+	Humvee					vehicles/humvee.*
+	Challenger				vehicles/challenger.*
+	Kornet					vehicles/kornet.*
+	Tunguska				vehicles/tunguska*.*
+	ASW Osprey				vehicles/zumwaltasw.*
+	Sukhoi					vehicles/sukhoi.*
+	UAV:					vehicles/uav.*
+
+Image sources for FF-exclusive cameos:
+
+Joe Rogan:
+	Elon Musk holding a flamethrower	cameos/teslapyroicon.png

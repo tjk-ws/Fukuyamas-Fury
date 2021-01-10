@@ -1,0 +1,2362 @@
+^EABuildingSet1:	
+	RenderSprites:
+		PlayerPalette: ea1
+	ActorPreviewPlaceBuildingPreview:
+		OverridePalette: placeea1
+
+^EABuildingSet2:	
+	RenderSprites:
+		PlayerPalette: ea2
+	ActorPreviewPlaceBuildingPreview:
+		OverridePalette: placeea2
+
+^RequiresPylonPower:
+	ExternalCondition@pylon:
+		Condition: pylonpower
+		TotalCap: 1
+	RequiresBuildableArea:
+		AreaTypes: pylon
+		Adjacent: 5
+	WithColoredOverlay@IDISABLE:
+		RequiresCondition: !pylonpower
+		Palette: disabled
+
+^WarpIn:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^SpriteActor
+	Inherits@SELECTION_MODE: ^FlatSelectionMode
+	Inherits@shape: ^1x1Shape
+	Inherits@pylon: ^RequiresPylonPower
+	OwnerLostAction:
+		Action: Kill
+		DeathTypes: BulletDeath
+	SelectionDecorations:
+	Selectable:
+	Targetable:
+		TargetTypes: Ground, Warpin
+	Health:
+		HP: 1400
+	Building:
+		Dimensions: 1,1
+		Footprint: x
+		BuildSounds: schrmov.wav
+		RequiresBaseProvider: false
+		UndeploySounds: schrmov.wav
+		TerrainTypes: Clear, Rough, Road, DirtRoad
+	Buildable:
+		BuildDuration: 0
+	ActorPreviewPlaceBuildingPreview:
+		Palette: placefootprint
+		LineBuildSegmentPalette: placelinesegment
+		OverridePalette: placebuilding
+		FootprintUnderPreview: Valid, LineBuild, Invalid
+		FootprintOverPreview: None
+	HiddenUnderFog:
+	ActorLostNotification:
+	MustBeDestroyed:
+	HitShape:
+		UseTargetableCellsOffsets: true
+	Tooltip:
+		Name: Warp-in
+	WithColoredOverlay@warp:
+		Palette: chronodisable
+	GrantPeriodicCondition:
+		Condition: finishwarp
+		CooldownDuration: 200
+	TransformOnCondition:
+		RequiresCondition: finishwarp
+	#KillsSelf:
+	#	RequiresCondition: !pylonpower
+
+^InfantryWarpin:
+	Inherits: ^WarpIn
+	RenderSprites:
+		PlayerPalette: infantry
+	WithSpriteBody:
+		Sequence: stand
+	QuantizeFacingsFromSequence:
+		Sequence: stand
+	WithIdleOverlay@warpin:
+		Sequence: warp-overlay
+		Palette: effect
+	MapEditorData:
+		Categories: Infantry
+	GpsDotAS:
+		Sequence: Infantry
+
+^WarpedInBuilding:
+	Building:
+		BuildSounds: schrmov.wav
+	Buildable:
+		BuildDuration: 1
+	WithColoredOverlay@warp:
+		Palette: chronodisable
+		RequiresCondition: build-incomplete
+	WithIdleOverlay@warpin:
+		Sequence: warp-overlay
+		Palette: effect
+		RequiresCondition: build-incomplete
+
+^CanMergeArchon:
+	Armament@merge:
+		Weapon: hack.archonmerge
+		Name: merge
+		TargetStances: Ally
+		ForceTargetStances: Ally
+		Cursor: disguise
+	Targetable@merge:
+		TargetTypes: ArchonMergeable
+	GrantConditionOnAttack@merge:
+		Condition: merging
+		ArmamentNames: merge
+		RevokeDelay: 2
+	TransformOnCondition@merge:
+		IntoActor: archon
+		RequiresCondition: merging
+	ExternalCondition@merge:
+		Condition: merged
+		TotalCap: 1
+	KillsSelf@merge:
+		RequiresCondition: merged
+		RemoveInstead: true
+	AutoTargetPriority@DEFAULT:
+		InvalidTargets: ArchonMergeable
+	AutoTargetPriority@ATTACKANYTHING:
+		InvalidTargets: ArchonMergeable
+
+builder.p:
+	Inherits: ^VoxelVehicle
+	Inherits@2: ^Harvester
+	Inherits@3: ^BotBuilderWorker
+	Inherits@SELECTION_MODE: ^LowPrioritySelectionMode
+	Selectable:
+		Class: builder.p
+	Tooltip:
+		Name: Surveyor
+	Mobile:
+		Speed: 100
+	Health:
+		HP: 40
+	Valued:
+		Cost: 50
+	Buildable:
+		Queue: Worker.P
+		Prerequisites: nexus
+		BuildPaletteOrder: 50
+		Description: Builds structures.
+	Power:
+		Amount: -1
+	MustBeDestroyed:
+		RequiredForShortGame: true
+	BaseBuilding:
+	RenderSprites:
+		Image: probe
+	RenderVoxels:
+		Image: probe
+		Scale: 1
+	ProvidesPrerequisite@killdummy:
+		Prerequisite: hasbase
+	Production@Building:
+		Produces: Building.P
+		PauseOnCondition: moving
+		RequiresCondition: !botmicro
+	ProductionQueue@Building:
+		Type: Building.P
+		Group: Building
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@Building:
+		ProductionType: Building.P
+	BaseProvider:
+		Range: 5c0
+		RequiresCondition: !moving
+	GivesBuildableArea:
+		AreaTypes: building
+		RequiresCondition: !moving
+	Harvester:
+		DeliveryBuildings: nexus.dock
+	WithHarvestOverlay:
+		LocalOffset: 121,0,0
+		Palette: effect
+	WithVoxelUnloadBody:
+	GrantConditionOnMovement@MoveStart:
+		Condition: moving
+		ValidMovementTypes: Horizontal, Turn
+	Voiced:
+		VoiceSet: AlliedConstructionVehicleVoice
+
+builder.p.bot:
+	Inherits: builder.p
+	Tooltip:
+		Name: Surveyor (bot duplicate)
+	Buildable:
+		Prerequisites: nexus, ~prerequisite.aiplayer
+	Production@Building:
+		-RequiresCondition:
+	-MapEditorData:
+	-Harvester:
+	-WithHarvesterPipsDecoration:
+	TransformOnCondition:
+		IntoActor: builder.p
+		RequiresCondition: !botmicro
+
+pylon:
+	Inherits: ^BaseBuilding
+	Inherits@warp: ^WarpedInBuilding
+	Inherits@pal: ^EABuildingSet1
+	Tooltip:
+		Name: 5G Tower
+	Health:
+		HP: 400
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Building.P
+		Description: Provides power and warp area.
+	Power:
+		Amount: 8
+	ProvidesPrerequisite@buildingname:
+	ProximityExternalCondition@pylon:
+		Condition: pylonpower
+		Range: 8c0
+	WithRangeCircle:
+		Type: Pylon
+		Range: 8c0
+	GivesBuildableArea:
+		AreaTypes: pylon
+	IsometricSelectable:
+		DecorationHeight: 120
+	WithIdleOverlay@glow:
+		Sequence: idle-glow
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@bolt:
+		Sequence: idle-bolt
+		RequiresCondition: !build-incomplete
+	RenderSprites:
+		Image: pylon
+
+nexus:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^4x4Shape
+	Inherits@warp: ^WarpedInBuilding
+	Inherits@pal: ^EABuildingSet2
+	Tooltip:
+		Name: Nexus
+	Health:
+		HP: 2000
+	Armor:
+		Type: building.concrete
+	Valued:
+		Cost: 400
+	Buildable:
+		Queue: Building.P
+		Description: Resource processing center.
+	Building:
+		Footprint: =xx= xxxx xxxx =xx=
+		Dimensions: 4,4
+	Power:
+		Amount: 15
+	Production@Probes:
+		Produces: Worker.P
+	ProductionQueue@Probes:
+		Type: Worker.P
+		Group: Vehicle
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@Probes:
+		ProductionType: Worker.P
+	ProvidesPrerequisite@buildingname:
+	Exit@1:
+		ExitCell: 4,4
+	RallyPoint:
+		Palette: mouse
+		IsPlayerPalette: false
+	LaysMinefield:
+		Mines: nexus.dock
+		Locations: 0,0, 3,3, 0,3, 3,0
+		RecreationInterval: 1
+	StoresResources:
+		Capacity: 2000
+	IsometricSelectable:
+		DecorationHeight: 90
+	WithIdleOverlay@top:
+		Sequence: idle-fans
+		RequiresCondition: !build-incomplete
+	RenderSprites:
+		Image: nexus
+
+nexus.dock:
+	Inherits: townhall.dock
+
+gateway:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@power: ^DisableOnLowPower
+	Inherits@pylon: ^RequiresPylonPower
+	Inherits@warp: ^WarpedInBuilding
+	Inherits@pal: ^EABuildingSet2
+	Tooltip:
+		Name: Gateway
+	Health:
+		HP: 600
+	Armor:
+		Type: building.wood
+	Valued:
+		Cost: 150
+	Buildable:
+		Queue: Building.P
+		Prerequisites: pylon, nexus
+		Description: Warps in infantry.\nDeploy to enter warpgate mode
+	Building:
+		Dimensions: 3,3
+		Footprint: xxx xxx xxx
+	Exit@1:
+		SpawnOffset: 724,362,0
+		ExitCell: 3,3
+		Priority: 2
+	Exit@2:
+		SpawnOffset: 724,362,0
+		ExitCell: 3,1
+		Priority: 2
+	Production@1:
+		Produces: Infantry.P
+		PauseOnCondition: !pylonpower || disabled || warpgate
+	Production@2:
+		Produces: Warpin.P
+		PauseOnCondition: !pylonpower || disabled || gateway
+		RequiresCondition: warpgateable
+	ProductionQueue@1:
+		Type: Infantry.P
+		Group: Infantry
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Training
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionQueue@2:
+		Type: Warpin.P
+		Group: Infantry
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Training
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@1:
+		ProductionType: Infantry.P
+	#ProductionBar@2:
+	#	ProductionType: Warpin.P
+	RallyPoint:
+		Palette: mouse
+		IsPlayerPalette: false
+	GrantConditionOnDeploy:
+		UndeployedCondition: gateway
+		DeployedCondition: warpgate
+		RequiresCondition: warpgateable
+		SkipMakeAnimation: true
+	GrantConditionOnPrerequisite@warpgate:
+		Condition: warpgateable
+		Prerequisites: upgrade.warpgate
+	WithProductionOverlay@body:
+		Sequence: active-body
+		RequiresCondition: pylonpower
+	WithProductionOverlay@orb:
+		Sequence: active-orb
+		RequiresCondition: pylonpower
+	WithProductionOverlay@glow:
+		Sequence: active-glow
+		RequiresCondition: pylonpower
+	WithIdleOverlay@glow:
+		Sequence: idle-glow
+		RequiresCondition: pylonpower
+	ProvidesPrerequisite@buildingname:
+	IsometricSelectable:
+		DecorationHeight: 80
+	RenderSprites:
+		Image: gateway
+
+robotics:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^5x3Shape
+	Inherits@power: ^DisableOnLowPower
+	Inherits@pylon: ^RequiresPylonPower
+	Inherits@warp: ^WarpedInBuilding
+	Inherits@pal: ^EABuildingSet1
+	Tooltip:
+		Name: Robotics Facility
+	Health:
+		HP: 1200
+	Armor:
+		Type: building.wood
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Building.P
+		Prerequisites: pylon, cybercore
+		Description: Assembles vehicles.
+	Building:
+		Footprint: xxxx= xxxx= xxxx=
+		Dimensions: 5,3
+	Exit@1:
+		ExitCell: 4,1
+	Production@1:
+		Produces: Vehicle.P
+		PauseOnCondition: !pylonpower || disabled
+	ProductionQueue@1:
+		Type: Vehicle.P
+		Group: Vehicle
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@1:
+		ProductionType: Vehicle.P
+	RallyPoint:
+		Path: 6,1
+		Palette: mouse
+		IsPlayerPalette: false
+	WithExitOverlay@front:
+		Sequence: build-front
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@bib:
+		Sequence: bib
+		RequiresCondition: !build-incomplete
+	WithProductionOverlay@front:
+		Sequence: active-front
+		RequiresCondition: !build-incomplete
+	WithProductionOverlay@body:
+		Sequence: active-body
+		RequiresCondition: !build-incomplete
+	WithProductionOverlay@bottom:
+		Sequence: active-bottom
+		RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+	IsometricSelectable:
+		DecorationHeight: 75
+	RenderSprites:
+		Image: robotics
+
+stargate:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^4x4Shape
+	Inherits@power: ^DisableOnLowPower
+	Inherits@pylon: ^RequiresPylonPower
+	Inherits@warp: ^WarpedInBuilding
+	Inherits@pal: ^EABuildingSet2
+	Tooltip:
+		Name: Helipad
+	Health:
+		HP: 1200
+	Armor:
+		Type: building.wood
+	Valued:
+		Cost: 300
+	Buildable:
+		Queue: Building.P
+		Prerequisites: pylon, cybercore
+		Description: Warps in aircraft.
+	Building:
+		Footprint: xxxx xxxx xxxx xxxx
+		Dimensions: 4,4
+	Production@1:
+		Produces: Air.P
+		PauseOnCondition: !pylonpower || disabled
+	ProductionQueue@1:
+		Type: Air.P
+		Group: Aircraft
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@1:
+		ProductionType: Air.P
+	Exit@1:
+		ExitCell: 1,1
+	Exit@2:
+		ExitCell: 2,2
+	Exit@3:
+		ExitCell: 1,2
+	Exit@4:
+		ExitCell: 2,1
+	ProvidesPrerequisite@buildingname:
+	IsometricSelectable:
+		DecorationHeight: 50
+	RenderSprites:
+		Image: stargate
+
+forge:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@pylon: ^RequiresPylonPower
+	Inherits@warp: ^WarpedInBuilding
+	Inherits@pal: ^EABuildingSet2
+	Tooltip:
+		Name: Technical Uplink
+	Health:
+		HP: 800
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 150
+	Buildable:
+		Queue: Building.P
+		Prerequisites: nexus, pylon
+		Description: Unlocks upgrades.
+	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
+	Production@1:
+		Produces: Forge.P
+		PauseOnCondition: !pylonpower
+	ProductionQueue@1:
+		Type: Forge.P
+		Group: Support
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@1:
+		ProductionType: Forge.P
+	ProvidesPrerequisite@buildingname:
+	WithProductionOverlay:
+		Sequence: active-top
+		PauseOnCondition: !pylonpower
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@top:
+		Sequence: idle-top
+		PauseOnCondition: !pylonpower
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@body:
+		Sequence: idle-body
+		PauseOnCondition: !pylonpower
+		RequiresCondition: !build-incomplete
+	IsometricSelectable:
+		DecorationHeight: 75
+	RenderSprites:
+		Image: forge
+
+cybercore:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^2x2Shape
+	Inherits@pylon: ^RequiresPylonPower
+	Inherits@warp: ^WarpedInBuilding
+	Tooltip:
+		Name: Overtime Pod
+	Health:
+		HP: 1100
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 150
+	Buildable:
+		Queue: Building.P
+		Prerequisites: gateway, pylon
+		Description: Provides access to advanced technologies.
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Production@1:
+		Produces: Cybercore.P
+		PauseOnCondition: !pylonpower
+	ProductionQueue@1:
+		Type: Cybercore.P
+		Group: Support
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		QueuedAudio: Building
+		CancelledAudio: Cancelled
+		DisallowPaused: true
+		ItemLimit: 1
+	ProductionBar@1:
+		ProductionType: Cybercore.P
+	ProvidesPrerequisite@buildingname:
+	IsometricSelectable:
+		DecorationHeight: 60
+	RenderSprites:
+		Image: cybercore
+
+twilightcouncil:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^3x2Shape
+	Inherits@pylon: ^RequiresPylonPower
+	Inherits@warp: ^WarpedInBuilding
+	Inherits@pal: ^EABuildingSet1
+	Tooltip:
+		Name: Internet Cafe
+	Health:
+		HP: 1000
+	Armor:
+		Type: building.wood
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Building.P
+		Prerequisites: pylon, cybercore
+		Description: Provides access to advanced technologies.
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3,2
+	Production@1:
+		Produces: Council.P
+		PauseOnCondition: !pylonpower
+	ProductionQueue@1:
+		Type: Council.P
+		Group: Support
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		QueuedAudio: Building
+		CancelledAudio: Cancelled
+		DisallowPaused: true
+		ItemLimit: 1
+	ProductionBar@1:
+		ProductionType: Council.P
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@spin:
+		Sequence: idle-logo
+		PauseOnCondition: !pylonpower
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@lights:
+		Sequence: idle-lights
+		PauseOnCondition: !pylonpower
+		RequiresCondition: !build-incomplete
+	IsometricSelectable:
+		DecorationHeight: 120
+	RenderSprites:
+		Image: twilightcouncil
+
+templararchives:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^2x3Shape
+	Inherits@pylon: ^RequiresPylonPower
+	Inherits@warp: ^WarpedInBuilding
+	Inherits@pal: ^EABuildingSet1
+	Tooltip:
+		Name: Rationality Center
+	Health:
+		HP: 1000
+	Armor:
+		Type: building.wood
+	Valued:
+		Cost: 350
+	Buildable:
+		Queue: Building.P
+		Prerequisites: pylon, twilightcouncil
+		Description: Provides access to advanced technologies.
+	Building:
+		Footprint: xx xx xx
+		Dimensions: 2,3
+	Production@1:
+		Produces: Archives.P
+		PauseOnCondition: !pylonpower
+	ProductionQueue@1:
+		Type: Archives.P
+		Group: Support
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		QueuedAudio: Building
+		CancelledAudio: Cancelled
+		DisallowPaused: true
+		ItemLimit: 1
+	ProductionBar@1:
+		ProductionType: Archives.P
+	ProvidesPrerequisite@buildingname:
+	IsometricSelectable:
+		DecorationHeight: 105
+	WithIdleOverlay@lights:
+		Sequence: idle-lights
+		PauseOnCondition: !pylonpower
+		RequiresCondition: !build-incomplete
+	WithProductionOverlay:
+		Sequence: active-top
+		IsPlayerPalette: true
+		PauseOnCondition: !pylonpower
+		RequiresCondition: !build-incomplete
+	RenderSprites:
+		Image: templararchives
+
+darkshrine:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@pylon: ^RequiresPylonPower
+	Inherits@warp: ^WarpedInBuilding
+	Inherits@pal: ^EABuildingSet2
+	Tooltip:
+		Name: Tactical Ops Center
+	Health:
+		HP: 1000
+	Armor:
+		Type: building.wood
+	Valued:
+		Cost: 300
+	Buildable:
+		Queue: Building.P
+		Prerequisites: pylon, twilightcouncil
+		Description: Provides access to advanced technologies.
+	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
+	Production@1:
+		Produces: Shrine.P
+		PauseOnCondition: !pylonpower
+	ProductionQueue@1:
+		Type: Shrine.P
+		Group: Support
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		QueuedAudio: Building
+		CancelledAudio: Cancelled
+		DisallowPaused: true
+		ItemLimit: 1
+	ProductionBar@1:
+		ProductionType: Shrine.P
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@lights:
+		Sequence: idle-lights
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: !pylonpower
+	WithIdleOverlay@body:
+		Sequence: idle-body
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: !pylonpower
+	WithIdleOverlay@bolt:
+		Sequence: idle-bolt
+		RequiresCondition: !build-incomplete && pylonpower
+	WithIdleOverlay@ball:
+		Sequence: idle-ball
+		RequiresCondition: !build-incomplete && pylonpower
+	IsometricSelectable:
+		DecorationHeight: 75
+	RenderSprites:
+		Image: darkshrine
+
+robobay:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^2x2Shape
+	Inherits@pylon: ^RequiresPylonPower
+	Inherits@warp: ^WarpedInBuilding
+	Tooltip:
+		Name: Tech Center
+	Health:
+		HP: 1000
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 300
+	Buildable:
+		Queue: Building.P
+		Prerequisites: pylon, robotics
+		Description: Provides access to advanced technologies.
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Production@1:
+		Produces: Robobay.P
+		PauseOnCondition: !pylonpower
+	ProductionQueue@1:
+		Type: Robobay.P
+		Group: Support
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		QueuedAudio: Building
+		CancelledAudio: Cancelled
+		DisallowPaused: true
+		ItemLimit: 1
+	ProductionBar@1:
+		ProductionType: Robobay.P
+	ProvidesPrerequisite@buildingname:
+	IsometricSelectable:
+		DecorationHeight: 40
+	RenderSprites:
+		Image: robobay
+
+fleetbeacon:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@pylon: ^RequiresPylonPower
+	Inherits@warp: ^WarpedInBuilding
+	Inherits@pal: ^EABuildingSet1
+	Tooltip:
+		Name: Radar Tower
+	Health:
+		HP: 1000
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 500
+	Buildable:
+		Queue: Building.P
+		Prerequisites: pylon, stargate
+		Description: Provides access to advanced technologies.
+	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
+	Production@1:
+		Produces: Beacon.P
+		PauseOnCondition: !pylonpower
+	ProductionQueue@1:
+		Type: Beacon.P
+		Group: Support
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		QueuedAudio: Building
+		CancelledAudio: Cancelled
+		DisallowPaused: true
+		ItemLimit: 1
+	ProductionBar@1:
+		ProductionType: Beacon.P
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@lights:
+		Sequence: idle-lights
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: !pylonpower
+	WithIdleOverlay@top:
+		Sequence: idle-top
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: !pylonpower
+	WithIdleOverlay@ball:
+		Sequence: idle-ball
+		RequiresCondition: !build-incomplete && pylonpower
+	IsometricSelectable:
+		DecorationHeight: 75
+	RenderSprites:
+		Image: fleetbeacon
+
+shieldbattery:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^2x2Shape
+	Inherits@pylon: ^RequiresPylonPower
+	Inherits@warp: ^WarpedInBuilding
+	Inherits@ENERGY: ^EnergyPoolEffects
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Tooltip:
+		Name: Shield Battery
+	Health:
+		HP: 300
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Building.P
+		Prerequisites: pylon, cybercore
+		Description: Heals units.
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Turreted:
+		Offset: 0, 0, 2000
+	AttackTurreted:
+		PauseOnCondition: !pylonpower
+	Armament:
+		Weapon: shieldbattery.heal
+		TargetStances: Ally
+		ForceTargetStances: Ally
+		Cursor: heal
+		PauseOnCondition: !energy
+	EnergyPool:
+		Ammo: 4
+		InitialAmmo: 4
+	ReloadEnergyPool:
+		Delay: 200
+		RequiresCondition: energy < 4
+	WithIdleOverlay@bib:
+		Sequence: idle-lights
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@normal:
+		Sequence: idle-top
+		RequiresCondition: !build-incomplete
+	IsometricSelectable:
+		DecorationHeight: 65
+
+photoncannon:
+	Inherits: ^SupportBuilding
+	Inherits@pylon: ^RequiresPylonPower
+	Inherits@warp: ^WarpedInBuilding
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@DETECT: ^GenericDetector
+	Tooltip:
+		Name: TV Dish
+	Health:
+		HP: 300
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 150
+	Buildable:
+		Queue: Building.P
+		Prerequisites: forge
+		Description: All-purpose defense.\n  Strong vs Everything
+	WithSpriteBody:
+	WithSpriteTurret:
+		RequiresCondition: !build-incomplete
+	Turreted:
+		TurnSpeed: 64
+	Armament:
+		Weapon: photoncannon.ag #In case ever need to separate AA weapons
+		LocalOffset: 800,0,2400
+	RenderRangeCircle:
+	AttackTurreted:
+		PauseOnCondition: !pylonpower
+	BodyOrientation:
+		QuantizedFacings: 32
+	IsometricSelectable:
+		DecorationHeight: 45
+	RenderSprites:
+		Image: photoncannon
+
+zealot:
+	Inherits: ^Infantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOICES: ^WithFeedbackVoicelines
+	Tooltip:
+		Name: Ultra
+	Health:
+		HP: 200
+	Valued:
+		Cost: 50
+	Buildable:
+		Queue: Infantry.P
+		Description: Ultranationalist armed with cleaver.\n  Strong vs Infantry  \n  Weak vs Vehicles, Aircraft
+	Power:
+		Amount: -1
+	Mobile:
+		Speed: 85
+	Armor:
+		Type: infantry.light
+	AttackFrontal:
+		Voice: Attack
+	Armament@primary:
+		Weapon: zealot.blade
+	-TakeCover:
+	GrantConditionOnPrerequisite@charge:
+		Condition: cancharge
+		Prerequisites: upgrade.zealotcharge
+	SpeedMultiplier@charge:
+		Modifier: 125
+		RequiresCondition: cancharge && !charging
+	SpeedMultiplier@charging:
+		Modifier: 200
+		RequiresCondition: charging
+	GrantTimedConditionOnDeploy@charge:
+		DeployedCondition: charging
+		DeployedTicks: 300
+		CooldownTicks: 900
+		Voice: Attack
+		StartsFullyCharged: true
+		RequiresCondition: cancharge
+	Selectable:
+		Bounds: 20, 30, 0, -11
+	Voiced:
+		VoiceSet: TerroristVoice
+	RenderSprites:
+		Image: zealot
+
+warpin.zealot:
+	Inherits: ^InfantryWarpin
+	Tooltip:
+		Name: Ultra
+	Health:
+		HP: 200
+	Valued:
+		Cost: 50
+	Armor:
+		Type: infantry.light
+	Buildable:
+		Queue: Warpin.P
+		Description: Warps in an Ultra at\nthe targeted location.
+	TransformOnCondition:
+		IntoActor: zealot
+		RequiresCondition: finishwarp
+	RenderSprites:
+		Image: zealot
+
+darktemplar:
+	Inherits: ^Infantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOICES: ^WithFeedbackVoicelines
+	Inherits@CLOAK: ^PermanentCloak
+	Tooltip:
+		Name: Wolf Warrior
+	Health:
+		HP: 80
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Infantry.P
+		Prerequisites: darkshrine
+		Description: Elite cloaked infantry.\n  Strong vs ground targets  \n  Weak vs Aircraft
+	Power:
+		Amount: -2
+	Mobile:
+		Speed: 75
+	Armor:
+		Type: infantry.light
+	AttackFrontal:
+		Voice: Attack
+	Armament@primary:
+		Weapon: dt.blade
+	Selectable:
+		Bounds: 20, 30, 0, -11
+	RenderSprites:
+		Image: darktemplar
+	Voiced:
+		VoiceSet: ChronoLegionnaireVoice
+
+warpin.darktemplar:
+	Inherits: ^InfantryWarpin
+	Tooltip:
+		Name: Wolf Warrior
+	Health:
+		HP: 80
+	Valued:
+		Cost: 250
+	Armor:
+		Type: infantry.light
+	Buildable:
+		Queue: Warpin.P
+		Description: Warps in a Wolf Warrior at\nthe targeted location.
+	TransformOnCondition:
+		IntoActor: darktemplar
+		RequiresCondition: finishwarp
+	RenderSprites:
+		Image: darktemplar
+
+adept:
+	Inherits: ^Infantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOICES: ^WithFeedbackVoicelines
+	Tooltip:
+		Name: T-Doll
+	Health:
+		HP: 140
+	Valued:
+		Cost: 50
+	Buildable:
+		Queue: Infantry.P
+		Prerequisites: cybercore
+		Description: Gacha gamers' tulpas.
+	Power:
+		Amount: -2
+	Mobile:
+		Speed: 75
+	Armor:
+		Type: infantry.light
+	AttackFrontal:
+		Voice: Attack
+	Armament@primary:
+		Weapon: adept.glaive
+	Selectable:
+		Bounds: 20, 30, 0, -11
+	Voiced:
+		VoiceSet: VirusVoice
+	RenderSprites:
+		Image: adept
+
+warpin.adept:
+	Inherits: ^InfantryWarpin
+	Tooltip:
+		Name: T-Doll
+	Health:
+		HP: 140
+	Valued:
+		Cost: 50
+	Armor:
+		Type: infantry.light
+	Buildable:
+		Queue: Warpin.P
+		Description: Warps in a T-Doll at\nthe targeted location.
+	TransformOnCondition:
+		IntoActor: adept
+		RequiresCondition: finishwarp
+	RenderSprites:
+		Image: adept
+
+hightemplar:
+	Inherits: ^Infantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@FB: ^EnergyPoolEffects
+	Inherits@archon: ^CanMergeArchon
+	Tooltip:
+		Name: Shock Therapist
+	Health:
+		HP: 80
+	Valued:
+		Cost: 200
+	Buildable:
+		Queue: Infantry.P
+		Prerequisites: templararchives
+		Description: Fries vehicles and gamers.
+	Power:
+		Amount: -2
+	Mobile:
+		Speed: 75
+	Armor:
+		Type: infantry.light
+	AttackFrontal:
+		Armaments: primary, storm, merge
+		Voice: Attack
+		FacingTolerance: 2
+	Armament@primary:
+		Weapon: ht.feedback
+		Name: primary
+		LocalOffset: 320,128,1024
+		RequiresCondition: !stormmode
+		PauseOnCondition: energy < 2
+	Armament@secondary:
+		Weapon: ht.psistorm
+		Name: storm
+		LocalOffset: 320,128,1024
+		RequiresCondition: stormmode
+		PauseOnCondition: energy < 3
+	GrantConditionOnDeploy:
+		DeployedCondition: stormmode
+		CanDeployOnRamps: true
+		Voice: Move
+		SkipMakeAnimation: true
+		RequiresCondition: canstorm
+	GrantConditionOnAttack@feedback:
+		Condition: feedbacking
+		ArmamentNames: primary
+		RevokeDelay: 2
+	GrantConditionOnAttack@storm:
+		Condition: stormenergy
+		ArmamentNames: storm
+		RevokeDelay: 2
+	EnergyPool:
+		Armaments: secondary
+	ReloadEnergyPool:
+		Delay: 120
+		ResetOnFire: false
+		RequiresCondition: energy < 4
+	ReloadEnergyPool@shielddrain:
+		Count: -3
+		Delay: 1
+		ResetOnFire: False
+		RequiresCondition: stormenergy
+	ReloadEnergyPool@barrierdrain:
+		Count: -2
+		Delay: 1
+		ResetOnFire: False
+		RequiresCondition: feedbacking
+	GrantConditionOnPrerequisite@storm:
+		Condition: canstorm
+		Prerequisites: upgrade.psistorm
+	Selectable:
+		Bounds: 20, 30, 0, -11
+	Voiced:
+		VoiceSet: SammyVoice
+	RenderSprites:
+		Image: ht
+
+warpin.ht:
+	Inherits: ^InfantryWarpin
+	Tooltip:
+		Name: Shock Therapist
+	Health:
+		HP: 80
+	Valued:
+		Cost: 200
+	Armor:
+		Type: infantry.light
+	Buildable:
+		Queue: Warpin.P
+		Description: Warps in a Shock Therapist at\nthe targeted location.
+	TransformOnCondition:
+		IntoActor: hightemplar
+		RequiresCondition: finishwarp
+	RenderSprites:
+		Image: ht
+
+ht.psistorm:
+	Inherits@1: ^SpriteActor
+	RenderSprites:
+		Image: psistorm
+		Palette: effect
+	BodyOrientation:
+		QuantizedFacings: 1
+	-QuantizeFacingsFromSequence:
+	WithSpriteBody:
+	Interactable:
+	HiddenUnderFog:
+		Type: CenterPosition
+	RevealsShroud:
+		Range: 3c0
+		Type: CenterPosition
+	Mobile:
+		Speed: 1
+		Locomotor: wheeled
+	#Aircraft:
+	#	CruiseAltitude: 1
+	#	TurnSpeed: 1023
+	#	Repulsable: false
+	#	AltitudeVelocity: 400
+	#	Speed: 15
+	#	MoveIntoShroud: true
+	#	CanHover: true
+	#	VTOL: true
+	RejectsOrders:
+	HitShape:
+	KillsSelf:
+		Delay: 80
+		RemoveInstead: true
+	ExplodeWeapon:
+		Weapon: ht.psistormdamage
+
+dragoon:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Grenade Lobber
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 200
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Infantry.P
+		Prerequisites: cybercore
+		BuildPaletteOrder: 20
+		Description: Fast vehicle armed with a grenade launcher.\n  Strong vs Infantry, Buildings\n  Weak vs Tanks, Aircraft
+	Power:
+		Amount: -2
+	Mobile:
+		Speed: 120
+		TurnSpeed: 32
+	RevealsShroud:
+		Range: 10c0
+	Armor:
+		Type: vehicle.heavy
+	Turreted:
+		TurnSpeed: 50
+	WithMuzzleOverlay:
+	AttackTurreted:
+		Voice: Attack
+		PauseOnCondition: disabled
+	Armament@primary:
+		Weapon: dragoon.cannon
+		LocalOffset: 800,0,832
+		MuzzleSequence: muzzle
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	WithVoxelBody:
+	WithVoxelTurret:
+	Voiced:
+		VoiceSet: IFVVoice
+
+stalker:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Ambush Pod
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 160
+	Valued:
+		Cost: 150
+	Buildable:
+		Queue: Infantry.P
+		Prerequisites: cybercore
+		BuildPaletteOrder: 20
+		Description: Pickup truck turned into a teleporting rocket launcher.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
+	Power:
+		Amount: -2
+	Mobile:
+		Speed: 100
+		TurnSpeed: 32
+	RevealsShroud:
+		Range: 10c0
+	Armor:
+		Type: vehicle.light
+	WithMuzzleOverlay:
+	AttackFrontal:
+		Voice: Attack
+		PauseOnCondition: disabled
+	Armament@primary:
+		Weapon: stalker.disruptor
+		LocalOffset: 301,61,421, 301,-61,421
+	Armament@AA:
+		Weapon: stalker.aa
+		LocalOffset: 301,61,421, 301,-61,421
+	#GrantConditionOnPrerequisite@blink:
+	#	Condition: canblink
+	#	Prerequisites: upgrade.stalkerblink
+	PortableChrono:
+		ChargeDelay: 300
+		HasDistanceLimit: true
+		ChronoshiftSound: ichrmova.wav
+		DeployCursor: chronosphere
+		DeployBlockedCursor: chronosphere
+		TargetCursor: chronosphere
+		Voice: Move
+		KillCargo: false
+		#RequiresCondition: canblink
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+		#NormalsPalette: ts-normals
+	WithVoxelBody:
+	Voiced:
+		VoiceSet: SecretServiceVoice
+
+sentry:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@FB: ^EnergyPoolEffects
+	Tooltip:
+		Name: OSHA inspector drone
+	Selectable:
+		Bounds: 48, 48, 0, -12
+	Health:
+		HP: 80
+	Valued:
+		Cost: 150
+	Buildable:
+		Queue: Infantry.P
+		Prerequisites: cybercore
+		BuildPaletteOrder: 20
+		Description: Autonomous support vehicle.\nCan create barriers to impede enemy movement.\nCan shield friendly units via deploy
+	Power:
+		Amount: -2
+	Mobile:
+		Speed: 100
+		TurnSpeed: 32
+	RevealsShroud:
+		Range: 10c0
+	Hovers:
+		Ticks: 10
+		BobDistance: -64
+		InitialHeight: 384
+	Armor:
+		Type: vehicle.light
+	Turreted:
+	WithMuzzleOverlay:
+	AttackTurreted:
+		Armaments: primary, barrier
+		Voice: Attack
+		PauseOnCondition: disabled
+	Armament@primary:
+		LocalOffset: 640,0,640
+		Weapon: sentry.beam
+		Name: primary
+		MuzzleSequence: muzzle
+	Armament@forcefield:
+		Weapon: sentry.barrier
+		Name: barrier
+		PauseOnCondition: energy < 2
+	GrantTimedConditionOnDeploy@shield:
+		DeployedCondition: shielding
+		DeployedTicks: 300
+		CooldownTicks: 0
+		Voice: Attack
+		StartsFullyCharged: true
+		PauseOnCondition: energy < 3
+	GrantConditionOnAttack@barrier:
+		Condition: barriering
+		ArmamentNames: barrier
+		RevokeDelay: 2
+	GrantTimedCondition@shielding:
+		Condition: shieldenergy
+		Duration: 2
+		RequiresCondition: shielding
+	EnergyPool:
+		Armaments: secondary
+	ReloadEnergyPool:
+		Delay: 120
+		ResetOnFire: false
+		RequiresCondition: energy <= 4
+	ReloadEnergyPool@shielddrain:
+		Count: -3
+		Delay: 1
+		ResetOnFire: False
+		RequiresCondition: shieldenergy
+	ReloadEnergyPool@barrierdrain:
+		Count: -2
+		Delay: 1
+		ResetOnFire: False
+		RequiresCondition: barriering
+	Voiced:
+		VoiceSet: RobotTankVoice
+	RenderSprites:
+		Image: sentry
+	RenderVoxels:
+		Scale: 1
+	WithVoxelBody:
+	WithVoxelTurret:
+
+sentry.barrier:
+	Inherits@1: ^SpriteActor
+	Interactable:
+		Bounds: 24,24
+	QuantizeFacingsFromSequence:
+		Sequence: barrier
+	WithSpriteBody:
+		Sequence: barrier
+	HiddenUnderFog:
+	Tooltip:
+		Name: Barrier
+	RevealsShroud:
+		Range: 1c0
+	Health:
+		HP: 50
+		NotifyAppliedDamage: false
+	Mobile:
+		Speed: 1
+		Locomotor: wheeled
+		RequiresCondition: !dontmove
+	GrantCondition:
+		Condition: dontmove
+	RejectsOrders:
+	HitShape:
+	KillsSelf:
+		Delay: 900
+	Explodes:
+		Weapon: TemporalExplode
+	RenderSprites:
+		Image: sentry
+
+immortal:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Model Monkey
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 400
+	Valued:
+		Cost: 400
+	Buildable:
+		Queue: Vehicle.P
+		BuildPaletteOrder: 20
+		Description: Failed tank prototype.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Power:
+		Amount: -4
+	Mobile:
+		Speed: 95
+		TurnSpeed: 32
+	RevealsShroud:
+		Range: 9c0
+	Armor:
+		Type: vehicle.heavy
+	Turreted:
+		TurnSpeed: 50
+	WithMuzzleOverlay:
+	AttackTurreted:
+		Voice: Attack
+		PauseOnCondition: disabled
+	Armament@primary:
+		Weapon: immortal.disruptor
+		LocalOffset: 896,0,704
+		MuzzleSequence: muzzle
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	WithVoxelBody:
+	WithVoxelTurret:
+
+colossus:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Sweeper
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 400
+	Valued:
+		Cost: 400
+	Buildable:
+		Queue: Vehicle.P
+		Prerequisites: robobay
+		BuildPaletteOrder: 20
+		Description: Drone holographically disguised as a hovertank.\nAttacks with two powerful lasers.\n  Strong vs clustered ground units\n  Weak vs Tanks, Aircraft
+	Power:
+		Amount: -6
+	Mobile:
+		Speed: 95
+		TurnSpeed: 32
+		Locomotor: hover
+	RevealsShroud:
+		Range: 10c0
+	Hovers:
+		Ticks: 10
+		BobDistance: -64
+		InitialHeight: 384
+	Armor:
+		Type: vehicle.heavy
+	Turreted:
+		TurnSpeed: 50
+	AttackTurreted:
+		Voice: Attack
+		PauseOnCondition: disabled
+	Armament@primary:
+		Weapon: colossus.lance1
+		LocalOffset: 832,400,512
+		MuzzleSequence: muzzle
+	Armament@secondary:
+		Weapon: colossus.lance2
+		LocalOffset: 832,-400,512
+		MuzzleSequence: muzzle
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	WithVoxelBody:
+	WithVoxelTurret:
+	Voiced:
+		VoiceSet: PrismTankVoice
+
+archon:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Yaldabaoth
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 400
+	Valued:
+		Cost: 400
+	Buildable:
+		Queue: Vehicle.P
+		BuildPaletteOrder: 20
+		Prerequisites: ~disabled
+		Description: Armed with dual autocannons.
+	Power:
+		Amount: -4
+	Mobile:
+		Speed: 95
+		TurnSpeed: 32
+	RevealsShroud:
+		Range: 9c0
+	Armor:
+		Type: vehicle.heavy
+	Turreted:
+		TurnSpeed: 50
+	WithMuzzleOverlay:
+	AttackTurreted:
+		Voice: Attack
+		PauseOnCondition: disabled
+	Armament@primary:
+		Weapon: archon.shockwave
+		LocalOffset: 896,400,704, 896,-400,704
+		MuzzleSequence: muzzle
+		RequiresCondition: !merge-incomplete
+	GrantTimedCondition@merge:
+		Condition: merge-incomplete
+		Duration: 215
+	WithColoredOverlay@merge:
+		Palette: chronodisable
+		RequiresCondition: merge-incomplete
+	WithIdleOverlay@merge:
+		Sequence: warp-overlay
+		Palette: effect
+		RequiresCondition: merge-incomplete
+	RenderSprites:
+		Image: archon
+	RenderVoxels:
+		Scale: 1
+		Image: archon
+	WithVoxelBody:
+	WithVoxelTurret:
+	Voiced:
+		VoiceSet: BattleFortressVoice
+
+darkarchon:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Iao
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 400
+	Valued:
+		Cost: 400
+	Buildable:
+		Queue: Vehicle.P
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 20
+		Description: tbd
+	Mobile:
+		Speed: 95
+		TurnSpeed: 32
+	RevealsShroud:
+		Range: 9c0
+	Armor:
+		Type: vehicle.heavy
+	Turreted:
+		TurnSpeed: 50
+	WithMuzzleOverlay:
+	AttackTurreted:
+		Voice: Attack
+		PauseOnCondition: disabled
+	Armament@primary:
+		Weapon: immortal.disruptor
+		LocalOffset: 896,0,704
+		MuzzleSequence: muzzle
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	WithVoxelBody:
+	WithVoxelTurret:
+	Voiced:
+		VoiceSet: MirageTankVoice
+
+disruptor:
+	Inherits: ^VoxelVehicle
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Bicopter Host
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 200
+	Valued:
+		Cost: 300
+	Buildable:
+		Queue: Vehicle.P
+		Prerequisites: cybercore
+		BuildPaletteOrder: 20
+		Description: Launches powerful loitering munitions.
+	Power:
+		Amount: -3
+	Mobile:
+		Speed: 95
+		TurnSpeed: 32
+	RevealsShroud:
+		Range: 9c0
+	SpeedMultiplier@attacking:
+		Modifier: 0
+		RequiresCondition: attacking
+	Hovers:
+		Ticks: 10
+		BobDistance: -64
+		InitialHeight: 384
+	Armor:
+		Type: vehicle.heavy
+	Turreted:
+		TurnSpeed: 50
+	AttackTurreted:
+		Voice: Attack
+		PauseOnCondition: disabled
+	Armament@primary:
+		Weapon: disruptor.launch
+		Name: primary
+		ForceTargetStances: Enemy
+		PauseOnCondition: attacking
+	Armament@secondary:
+		Weapon: disruptor.targeting
+		Name: secondary
+	#ReloadArmamentsBar:
+	#	Armaments: primary
+	GrantConditionOnAttack:
+		ArmamentNames: primary
+		Condition: attacking
+		RevokeDelay: 120
+		RequiresCondition: !attacking
+	TimedConditionBar@attacking:
+		Condition: attacking
+		Color: 0000FF
+	MobSpawnerMaster:
+		Actors: disruptor.nova
+		AggregateHealth: false
+		RespawnTicks: 30
+		SlavesHaveFreeWill: false
+		RequiresCondition: attacking
+		PauseOnCondition: disabled
+		ExitByBudding: false
+		ArmamentNames: primary, secondary
+	Targetable@novaimmune:
+		TargetTypes: Disruptor
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	WithVoxelBody:
+	WithVoxelTurret:
+	Voiced:
+		VoiceSet: RobotTankVoice
+
+disruptor.nova:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	-ActorLostNotification:
+	-UpdatesPlayerStatistics:
+	RejectsOrders:
+	Tooltip:
+		Name: Suicide bomber drone
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 30
+	Valued:
+		Cost: 10
+	Mobile:
+		Speed: 240
+		TurnSpeed: 128
+	Hovers:
+		Ticks: 30
+		BobDistance: -64
+		InitialHeight: 1c0
+	Armor:
+		Type: vehicle.light
+	AutoTarget:
+		ScanRadius: 9
+		InitialStance: AttackAnything
+	MobSpawnerSlave:
+		GrantConditionWhenMasterIsDisabled: notenabled
+		GrantConditionWhenMasterIsPaused: paused
+	AttackFrontal:
+		Voice: Attack
+	Armament@primary:
+		Weapon: disruptornova.targeting
+	GrantConditionOnAttack@detonate:
+		Condition: triggered
+	GrantConditionWhileAiming:
+		Condition: aiming
+	KillsSelf@aim:
+		RequiresCondition: aiming || notenabled || paused
+		Delay: 120
+		GrantsCondition: activate
+	KillsSelf@impact:
+		RequiresCondition: triggered
+		GrantsCondition: activate
+	Explodes@nova:
+		Weapon: disruptornova.explode
+		EmptyWeapon: disruptornova.explode
+		RequiresCondition: activate
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	WithVoxelHelicopterBody:
+	Voiced:
+		VoiceSet: RobotTankVoice
+
+observer:
+	Inherits: ^Helicopter
+	Inherits@DETECT: ^GenericDetector
+	Inherits@VOXEL: ^VoxelActor
+	Inherits@CLOAK: ^PermanentCloak
+	Tooltip:
+		Name: Recon Drone
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 80
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Vehicle.P
+		BuildPaletteOrder: 1
+		Description: Slow cloaked surveillance unit.\nDetects cloaked units.\nCan deploy to increase vision.
+	Power:
+		Amount: -1
+	Aircraft:
+		TurnSpeed: 64
+		Speed: 75
+		RequireForceMoveCondition: deployed
+	RevealsShroud:
+		Range: 11c0
+	RevealsShroudMultiplier@Deploy:
+		Modifier: 125
+		RequiresCondition: deployed
+	DetectCloakedMultiplier@Deploy:
+		Modifier: 125
+		RequiresCondition: deployed
+	Armor:
+		Type: air.light
+	GrantConditionOnDeploy:
+		DeployedCondition: deployed
+		UndeployOnMove: true
+		CanDeployOnRamps: true
+		Voice: Move
+	SpeedMultiplier@deployed:
+		Modifier: 0
+		RequiresCondition: deployed
+	WithVoxelBody:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	Voiced:
+		VoiceSet: RobotTankVoice
+
+oracle:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@FB: ^EnergyPoolEffects
+	Tooltip:
+		Name: Gyrocopter
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 200
+	Valued:
+		Cost: 300
+	Buildable:
+		Queue: Air.P
+		BuildPaletteOrder: 20
+		Description: Experimental personal rotorcraft armed with a laser.\nCan deploy traps that freeze enemies.
+	Power:
+		Amount: -3
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 150
+		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 10c0
+	Armament@primary:
+		LocalOffset: 640,0,640
+		Weapon: oracle.beam
+		Name: primary
+		RequiresCondition: energy && !warding
+	ExplodeWeapon@ward:
+		Weapon: oracle.wardspawn
+		RequiresCondition: warding && energy >= 2
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+		AttackType: Hover
+		Armaments: primary, ward
+		PauseOnCondition: disabled
+	GrantTimedConditionOnDeploy:
+		DeployedCondition: warding
+		DeployedTicks: 2
+		CooldownTicks: 0
+		Voice: Attack
+		RequiresCondition: energy >= 2
+	EnergyPool:
+		Armaments: primary
+	ReloadEnergyPool:
+		Delay: 120
+		ResetOnFire: false
+		RequiresCondition: energy < 4
+	ReloadEnergyPool@ward:
+		Count: -2
+		Delay: 1
+		ResetOnFire: False
+		RequiresCondition: warding
+	Armor:
+		Type: air.light
+	RevealsShroud:
+		Range: 10c0
+	WithFacingSpriteBody@air:
+		RequiresCondition: airborne
+	WithFacingSpriteBody@ground:
+		Sequence: idle-ground
+		Name: body-ground
+		RequiresCondition: !airborne
+	WithFacingSpriteBody@shadow:
+		Sequence: shadow
+		Name: shadow
+		ForceToGround: true
+		RequiresCondition: airborne
+	WithFacingSpriteBody@shadowground:
+		Sequence: shadow-ground
+		Name: shadow-ground
+		ForceToGround: true
+		RequiresCondition: !airborne
+	RenderSprites:
+	Voiced:
+		VoiceSet: RocketeerVoice
+
+ward.oracle:
+	Inherits@1: ^SpriteActor
+	Inherits@AUTOTARGET: ^AutoTargetGround
+	Selectable:
+	SelectionDecorations:
+	QuantizeFacingsFromSequence:
+		Sequence: ward
+	WithSpriteBody:
+		Sequence: ward
+	HiddenUnderFog:
+	Tooltip:
+		Name: Totally non-suspicious barrel
+	RevealsShroud:
+		Range: 4c0
+	Health:
+		HP: 50
+		NotifyAppliedDamage: false
+	Mobile:
+		Speed: 1
+		Locomotor: wheeled
+		RequiresCondition: !dontmove
+	GrantCondition:
+		Condition: dontmove
+	Crushable:
+		CrushClasses: mine
+		WarnProbability: 0
+	#RejectsOrders:
+	HitShape:
+	AttackOmni:
+	Armament:
+		Weapon: oracleward.targeting
+	GrantConditionOnAttack:
+		Condition: triggered
+	RenderRangeCircle:
+	KillsSelf:
+		Delay: 4200
+		GrantsCondition: disappear
+	KillsSelf@triggered:
+		RequiresCondition: triggered
+	Explodes:
+		Weapon: TemporalExplode
+	Explodes@triggered:
+		Weapon: oracleward.explode
+		EmptyWeapon: oracleward.explode
+		RequiresCondition: !disappear
+	Cloak:
+		InitialDelay: 0
+		CloakDelay: 0
+		Palette:
+	RenderSprites:
+		Image: oracle
+
+phoenix:
+	Inherits: ^Helicopter
+	Inherits@VOXEL: ^VoxelActor
+	Inherits@AUTOTARGET: ^AutoTargetAirAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Beer Gut
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 240
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Air.P
+		BuildPaletteOrder: 20
+		Description: Air-superiority UAV.\n  Strong vs Aircraft\n  Weak vs anti-air
+	Power:
+		Amount: -2
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 150
+		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 10c0
+	Armament@primary:
+		LocalOffset: 640,-400,640, 640,400,640
+		Weapon: phoenix.cannon
+		Name: primary
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+		AttackType: Hover
+		PauseOnCondition: disabled
+	Armor:
+		Type: air.light
+	RevealsShroud:
+		Range: 10c0
+	WithVoxelBody:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	Voiced:
+		VoiceSet: RobotTankVoice
+
+voidray:
+	Inherits: ^Helicopter
+	Inherits@VOXEL: ^VoxelActor
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Very Black Hawk
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 300
+	Valued:
+		Cost: 350
+	Buildable:
+		Queue: Air.P
+		BuildPaletteOrder: 20
+		Description: Advanced attack helicopter retrofitted with a laser.
+	Power:
+		Amount: -4
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 150
+		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 10c0
+	Armament@primary:
+		LocalOffset: 640,0,640
+		Weapon: voidray.beam
+		Name: primary
+		RequiresCondition: !aligned
+	Armament@primaryaligned:
+		LocalOffset: 640,0,640
+		Weapon: voidray.beamaligned
+		Name: primary
+		RequiresCondition: aligned
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+		AttackType: Hover
+		PauseOnCondition: disabled
+	Armor:
+		Type: air.heavy
+	RevealsShroud:
+		Range: 10c0
+	GrantTimedConditionOnDeploy@align:
+		DeployedCondition: aligned
+		DeployedTicks: 350
+		CooldownTicks: 1000
+		Voice: Attack
+		StartsFullyCharged: true
+	SpeedMultiplier@aligned:
+		Modifier: 75
+		RequiresCondition: aligned
+	WithVoxelHelicopterBody:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 13
+	Voiced:
+		VoiceSet: NighthawkVoice
+
+tempest:
+	Inherits: ^Helicopter
+	Inherits@VOXEL: ^VoxelActor
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Big helicopter
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 400
+	Valued:
+		Cost: 350
+	Buildable:
+		Queue: Air.P
+		BuildPaletteOrder: 20
+		Description: Advanced attack helicopter armed with long-range rockets.
+	Power:
+		Amount: -5
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 150
+		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 12c0
+	Armament@primary:
+		LocalOffset: 640,-600,640, 640,600,640
+		Weapon: tempest.coil
+		Name: primary
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+		AttackType: Hover
+		PauseOnCondition: disabled
+	Armor:
+		Type: air.heavy
+	WithVoxelHelicopterBody:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1.25
+		NormalsPalette: ts-normals
+	Voiced:
+		VoiceSet: HarrierVoice
+
+carrier:
+	Inherits: ^Helicopter
+	Inherits@VOXEL: ^VoxelActor
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Big twin rotored thing
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 600
+	Valued:
+		Cost: 600
+	Buildable:
+		Queue: Air.P
+		Prerequisites: fleetbeacon
+		BuildPaletteOrder: 20
+		Description: UAV that deploys drones.
+	Power:
+		Amount: -6
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 105
+		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 12c0
+	Armament@primary:
+		Weapon: carrier.targeting
+		Name: primary
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+		AttackType: Hover
+		PauseOnCondition: disabled
+	CarrierMaster:
+		Actors: interceptor, interceptor, interceptor, interceptor
+		RespawnTicks: 150
+		RearmTicks: 10
+		SpawnAllAtOnce: false
+		LoadedCondition: loaded
+	Armor:
+		Type: air.heavy
+	WithVoxelBody:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1.5
+	Voiced:
+		VoiceSet: AircraftCarrierVoice
+
+interceptor:
+	Inherits: ^Plane
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Weaponized science project
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 80
+	Valued:
+		Cost: 15
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 150
+		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 7c0
+	Armament@primary:
+		LocalOffset: 640,0,640
+		Weapon: interceptor.cannon
+		Name: primary
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+		PauseOnCondition: disabled
+	Armor:
+		Type: air.light
+	CarrierSlave:
+	RejectsOrders:
+	WithFacingSpriteBody:
+		Sequence: stand
+	WithMoveAnimation:
+		MoveSequence: run
+	WithDeathAnimation:
+		DeathSequence: die1
+		UseDeathTypeSuffix: false
+	WithShadow:
+		Offset: 43, 128, 0
+		ZOffset: -129
+	RenderSprites:
+	Voiced:
+		VoiceSet: RobotTankVoice
+
+warpprism:
+	Inherits: ^Helicopter
+	Inherits@VOXEL: ^VoxelActor
+	Tooltip:
+		Name: Morningeagle
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 160
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Air.P
+		BuildPaletteOrder: 20
+		Description: Transport helicopter.\nCan provide build and warp area
+	Power:
+		Amount: -2
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 150
+		AltitudeVelocity: 200
+		RequireForceMoveCondition: warping
+	RevealsShroud:
+		Range: 10c0
+	Armor:
+		Type: air.heavy
+	GivesBuildableArea:
+		AreaTypes: pylon
+		RequiresCondition: warping
+	ProximityExternalCondition@pylon:
+		Condition: pylonpower
+		Range: 8c0
+	GrantConditionOnDeploy:
+		DeployedCondition: warping
+		UndeployOnMove: true
+		Voice: Move
+	SpeedMultiplier@warping:
+		Modifier: 0
+		RequiresCondition: warping
+	Cargo:
+		Types: Infantry, Garrisoner, Vehicle
+		MaxWeight: 8
+		AfterLoadDelay: 0
+		BeforeUnloadDelay: 0
+		AfterUnloadDelay: 0
+		UnloadVoice: Move
+	#WithCargoSounds:
+	#	EnterSound: genter1a.wav
+	#	ExitSound: gexit1a.wav
+	WithCargoPipsDecoration:
+		Margin: 4, 3
+		Palette: ra
+		Position: BottomLeft
+		RequiresSelection: true
+		CustomPipSequences:
+			gray: pip-gray
+			yellow: pip-yellow
+			blue: pip-blue
+			red: pip-red
+	WithVoxelHelicopterBody:
+	RenderSprites:
+	RenderVoxels:
+		#Scale: 1
+	Voiced:
+		VoiceSet: NighthawkVoice
+
+mothership:
+	Inherits: ^Helicopter
+	Inherits@VOXEL: ^VoxelActor
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Very big flying thing
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 700
+	Valued:
+		Cost: 800
+	Buildable:
+		Queue: Air.P
+		Prerequisites: fleetbeacon
+		BuildPaletteOrder: 40
+		Description: Superheavy gunship.
+		BuildLimit: 1
+	Power:
+		Amount: -8
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 150
+		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 14c0
+	Armament@primary:
+		Weapon: mothership.beam
+		Name: primary
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+		AttackType: Hover
+		PauseOnCondition: disabled
+	Armor:
+		Type: air.heavy
+	WithVoxelBody:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1.5
+	Voiced:
+		VoiceSet: HarrierVoice
+
+upgrade.warpgate:
+	Inherits: ^upgrade
+	Tooltip:
+		Name: Warpgate
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Council.P
+		Description: Allows Gateways to transform into Warpgates.
+	RenderSprites:
+		Image: gateway
+
+upgrade.zealotcharge:
+	Inherits: ^upgrade
+	Tooltip:
+		Name: Charge
+	Valued:
+		Cost: 200
+	Buildable:
+		Queue: Council.P
+		Description: Increases Ultra movement speed and grants\ndashing ability.
+	RenderSprites:
+		Image: zealot
+
+upgrade.stalkerblink:
+	Inherits: ^upgrade
+	Tooltip:
+		Name: Blink
+	Valued:
+		Cost: 1200
+	#Buildable:
+	#	Queue: Council.P
+	#	Description: Grants Ambush Pods blinking ability.
+	RenderSprites:
+		Image: stalker
+
+upgrade.psistorm:
+	Inherits: ^upgrade
+	Tooltip:
+		Name: Electrotherapeutic Storm
+	Valued:
+		Cost: 400
+	Buildable:
+		Queue: Archives.P
+		Description: Grants Shock Therapists storm ability.
+	RenderSprites:
+		Image: ht
+
+upgrade.groundweapons1:
+	Inherits: ^upgrade
+	Tooltip:
+		Name: Ground Weapons 1
+	Valued:
+		Cost: 300
+	Buildable:
+		Queue: Forge.P
+		Description: Increases ground unit firepower.
+	RenderSprites:
+		Image: stalker

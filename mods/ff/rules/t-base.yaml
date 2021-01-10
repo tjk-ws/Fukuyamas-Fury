@@ -1,0 +1,2260 @@
+^SCVBuildable:
+	Buildable:
+		BuildDuration: 0
+	GrantCondition@needsbuild:
+		Condition: needsbuild
+		RequiresCondition: build-incomplete
+		GrantPermanently: true
+	ExternalCondition@build:
+		Condition: scvbuild
+		TotalCap: 4
+	GrantCondition@buildcomplete:
+		Condition: build-complete
+		RequiresCondition: scvbuild > 3 || !needsbuild
+	Targetable@build:
+		TargetTypes: scvbuildable
+		RequiresCondition: !build-complete
+	WithColoredOverlay@BUILD:
+		RequiresCondition: !build-complete
+		Palette: disabled
+
+builder.t:
+	Inherits: ^VoxelVehicle
+	Inherits@2: ^Harvester
+	Inherits@3: ^BotBuilderWorker
+	Inherits@SELECTION_MODE: ^LowPrioritySelectionMode
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Tooltip:
+		Name: Dozer
+	Mobile:
+		Speed: 100
+		PauseOnCondition: building
+	Health:
+		HP: 200
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Worker.T
+		Prerequisites: commandcenter
+		BuildPaletteOrder: 50
+		Description: Builds structures.
+	Power:
+		Amount: -1
+	MustBeDestroyed:
+		RequiredForShortGame: true
+	BaseBuilding:
+	RenderSprites:
+		Image: scv
+	RenderVoxels:
+		Image: scv
+		Scale: 1
+	ProvidesPrerequisite@killdummy:
+		Prerequisite: hasbase
+	Production@Building:
+		Produces: Building.T
+		PauseOnCondition: moving || building
+		RequiresCondition: !botmicro
+	ProductionQueue@Building:
+		Type: Building.T
+		Group: Building
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@Building:
+		ProductionType: Building.T
+	BaseProvider:
+		Range: 5c0
+		RequiresCondition: !moving
+	GivesBuildableArea:
+		AreaTypes: building
+		RequiresCondition: !moving
+	AutoTargetPriority@Build:
+		ValidTargets: scvbuildable
+		Priority: 2
+	Armament:
+		Weapon: SCVBuild
+		TargetStances: Ally
+		ForceTargetStances: Ally
+		LocalOffset: 384,0,1024
+	GrantConditionOnAttack@build:
+		Condition: building
+		RevokeDelay: 35
+	Harvester:
+		DeliveryBuildings: cc.dock
+	Turreted:
+	AttackTurreted:
+		Voice: Move
+	WithHarvestOverlay:
+		LocalOffset: 121,0,0
+		Palette: effect
+	WithVoxelTurret:
+	WithVoxelUnloadBody:
+		UnloadSequence: idle
+	GrantConditionOnMovement@MoveStart:
+		Condition: moving
+		ValidMovementTypes: Horizontal, Turn
+	Wanders@bot:
+		MinMoveDelay: 240
+	Voiced:
+		VoiceSet: SovietConstructionVehicleVoice
+
+builder.t.bot:
+	Inherits: builder.t
+	Tooltip:
+		Name: Dozer (bot duplicate)
+	Buildable:
+		Prerequisites: commandcenter, ~prerequisite.aiplayer
+	Production@Building:
+		-RequiresCondition:
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 8
+	-MapEditorData:
+	-Harvester:
+	-WithHarvesterPipsDecoration:
+	TransformOnCondition:
+		IntoActor: builder.t
+		RequiresCondition: !botmicro
+
+commandcenter:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^4x4Shape
+	Inherits@build: ^SCVBuildable
+	Tooltip:
+		Name: Command Center
+	Health:
+		HP: 3000
+	Armor:
+		Type: building.concrete
+	Valued:
+		Cost: 400
+	Buildable:
+		Queue: Building.T
+		Description: Resource processing center.
+	Building:
+		Footprint: =xx= xxxx xxxx =xx=
+		Dimensions: 4,4
+	Power:
+		Amount: 15
+	Production@Probes:
+		Produces: Worker.T
+		RequiresCondition: build-complete
+	ProductionQueue@Probes:
+		Type: Worker.T
+		Group: Vehicle
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@Probes:
+		ProductionType: Worker.T
+	ProvidesPrerequisite@buildingname:
+	Exit@1:
+		ExitCell: 3,3
+	LaysMinefield:
+		Mines: cc.dock
+		Locations: 0,0, 3,3, 0,3, 3,0
+		RecreationInterval: 1
+		RequiresCondition: build-complete
+	StoresResources:
+		Capacity: 2000
+	IsometricSelectable:
+		DecorationHeight: 90
+	WithIdleOverlay@top:
+		Sequence: idle-top
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@normal:
+		Sequence: idle-normal
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@lights:
+		Sequence: idle-lights
+		RequiresCondition: !build-incomplete
+	RenderSprites:
+		Image: commandcenter
+
+cc.dock:
+	Inherits: townhall.dock
+
+^addon.t:
+	Buildable:
+		Prerequisites: ~disabled
+	RequiresBuildableArea:
+		AreaTypes: addon
+		Adjacent: 1
+	ProximityExternalCondition:
+		Range: 2c0
+
+^addonable.t:
+	GivesBuildableArea:
+		AreaTypes: addon
+		RequiresCondition: !reactor && !techlab
+	ExternalCondition@Reactor:
+		Condition: reactor
+		TotalCap: 1
+	ExternalCondition@Techlab:
+		Condition: techlab
+		TotalCap: 1
+	WithTextDecoration@Reactor:
+		Text: Reactor
+		UsePlayerColor: true
+		Position: Top
+		RequiresCondition: reactor
+	WithTextDecoration@Techlab:
+		Text: Tech Lab
+		UsePlayerColor: true
+		Position: Top
+		RequiresCondition: techlab
+	ProvidesPrerequisite@Techlab:
+		RequiresCondition: techlab
+	ProvidesPrerequisite@Reactor:
+		RequiresCondition: reactor
+	Production@Techlab:
+		RequiresCondition: techlab
+	ProductionQueue@Techlab:
+		Group: Support
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		QueuedAudio: Building
+		CancelledAudio: Cancelled
+		DisallowPaused: true
+		ItemLimit: 1
+
+reactor:
+	Inherits: ^BaseBuilding
+	Inherits@build: ^SCVBuildable
+	Inherits@addon: ^addon.t
+	Tooltip:
+		Name: Oversight tower
+	Health:
+		HP: 800
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Building.T
+		Description: Increases productive efficiency.
+	ProximityExternalCondition:
+		Condition: reactor
+	IsometricSelectable:
+		DecorationHeight: 75
+	RenderSprites:
+		Image: reactor
+
+^ReactorBoost:
+	ProductionTimeMultiplier@reactor:
+		Multiplier: 50
+
+^BarracksReactorBoost:
+	Inherits: ^ReactorBoost
+	ProductionTimeMultiplier@reactor:
+		Prerequisites: reactor.barracks
+
+^FactoryReactorBoost:
+	ProductionTimeMultiplier@reactor:
+		Prerequisites: reactor.factory
+
+^StarportReactorBoost:
+	ProductionTimeMultiplier@reactor:
+		Prerequisites: reactor.starport
+
+techlab:
+	Inherits: ^BaseBuilding
+	Inherits@build: ^SCVBuildable
+	Inherits@addon: ^addon.t
+	Tooltip:
+		Name: Research funding bait gimmick
+	Health:
+		HP: 800
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 75
+	Buildable:
+		Queue: Building.T
+		Description: Unlocks technologies and upgrades.
+	ProvidesPrerequisite@buildingname:
+	ProximityExternalCondition:
+		Condition: techlab
+	IsometricSelectable:
+		DecorationHeight: 75
+	RenderSprites:
+		Image: techlab
+
+supplydepot:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^3x2Shape
+	Inherits@build: ^SCVBuildable
+	Tooltip:
+		Name: Warehouse
+	Health:
+		HP: 800
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Building.T
+		Description: Provides supply.
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3,2
+	Power:
+		Amount: 8
+		RequiresCondition: build-complete
+	ProvidesPrerequisite@buildingname:
+	IsometricSelectable:
+		DecorationHeight: 45
+	RenderSprites:
+		Image: supplydepot
+
+barracks:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^3x2Shape
+	Inherits@power: ^DisableOnLowPower
+	Inherits@build: ^SCVBuildable
+	# Inherits@addon: ^addonable.t
+	Tooltip:
+		Name: Barracks
+	Health:
+		HP: 2000
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 150
+	Buildable:
+		Queue: Building.T
+		Prerequisites: supplydepot
+		Description: Trains infantry.
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3,2
+	Exit@1:
+		SpawnOffset: 724,362,0
+		ExitCell: 3,2
+		Priority: 2
+	Exit@2:
+		SpawnOffset: 724,362,0
+		ExitCell: 3,1
+		Priority: 2
+	Exit@3:
+		SpawnOffset: 724,362,0
+		ExitCell: 1,2
+	Exit@4:
+		SpawnOffset: 724,362,0
+		ExitCell: 1,1
+	Production@1:
+		Produces: Infantry.T
+		PauseOnCondition: disabled
+		RequiresCondition: build-complete
+	ProductionQueue@1:
+		Type: Infantry.T
+		Group: Infantry
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Training
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@1:
+		ProductionType: Infantry.T
+	RallyPoint:
+		Palette: mouse
+		IsPlayerPalette: false
+	WithIdleOverlay@lights:
+		Sequence: idle-lights
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@active:
+		Sequence: idle-active
+		RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+	# ProvidesPrerequisite@Reactor:
+	# 	Prerequisite: reactor.barracks
+	# ProvidesPrerequisite@Techlab:
+	# 	Prerequisite: lab.barracks
+	# Production@Techlab:
+	# 	Produces: BarracksLab.T
+	# ProductionQueue@Techlab:
+	# 	Type: BarracksLab.T
+	IsometricSelectable:
+		DecorationHeight: 70
+	RenderSprites:
+		Image: barracks
+
+factory:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^5x3Shape
+	Inherits@power: ^DisableOnLowPower
+	Inherits@build: ^SCVBuildable
+	# Inherits@addon: ^addonable.t
+	Tooltip:
+		Name: Factory
+	Health:
+		HP: 2500
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Building.T
+		Prerequisites: barracks
+		Description: Builds vehicles.
+	Building:
+		Footprint: xxxx= xxxx= xxxx=
+		Dimensions: 5,3
+	Exit@1:
+		ExitCell: 4,1
+	Production@1:
+		Produces: Vehicle.T
+		PauseOnCondition: disabled
+		RequiresCondition: build-complete
+	ProductionQueue@1:
+		Type: Vehicle.T
+		Group: Vehicle
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Training
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@1:
+		ProductionType: Vehicle.T
+	RallyPoint:
+		Palette: mouse
+		IsPlayerPalette: false
+	WithExitOverlay@front:
+		Sequence: build-front
+		RequiresCondition: !build-incomplete
+	WithExitOverlay@top:
+		Sequence: build-top
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@bib:
+		Sequence: bib
+		RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+	# ProvidesPrerequisite@Reactor:
+	# 	Prerequisite: reactor.factory
+	# Production@Techlab:
+	# 	Produces: FactoryLab.T
+	# ProductionQueue@Techlab:
+	# 	Type: FactoryLab.T
+	# ProvidesPrerequisite@Techlab:
+	# 	Prerequisite: lab.factory
+	IsometricSelectable:
+		DecorationHeight: 90
+	RenderSprites:
+		Image: factory
+
+starport:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@power: ^DisableOnLowPower
+	Inherits@build: ^SCVBuildable
+	# Inherits@addon: ^addonable.t
+	Tooltip:
+		Name: Airstrip
+	Health:
+		HP: 2500
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Building.T
+		Prerequisites: factory
+		Description: Builds aircraft.
+	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
+	Exit@1:
+		ExitCell: 2,2
+	Production@1:
+		Produces: Air.T
+		PauseOnCondition: disabled
+		RequiresCondition: build-complete
+	ProductionQueue@1:
+		Type: Air.T
+		Group: Aircraft
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Training
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@1:
+		ProductionType: Air.T
+	RallyPoint:
+		Palette: mouse
+		IsPlayerPalette: false
+	WithIdleOverlay@dish:
+		Sequence: idle-top
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: disabled
+	WithIdleOverlay@lights:
+		Sequence: idle-lights
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: disabled
+	WithIdleOverlay@mid:
+		Sequence: idle-mid
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@bottom:
+		Sequence: idle-bottom
+		RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+	# ProvidesPrerequisite@Reactor:
+	# 	Prerequisite: reactor.starport
+	# ProvidesPrerequisite@Techlab:
+	# 	Prerequisite: lab.starport
+	# Production@Techlab:
+	# 	Produces: StarportLab.T
+	# ProductionQueue@Techlab:
+	# 	Type: StarportLab.T
+	IsometricSelectable:
+		DecorationHeight: 135
+	RenderSprites:
+		Image: starport
+
+academy:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@build: ^SCVBuildable
+	Tooltip:
+		Name: Field command post
+	Health:
+		HP: 2500
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 200
+	Buildable:
+		Queue: Building.T
+		Prerequisites: barracks
+		Description: Enables deployment of Ghosts.\nProvides missile strikes for a price.
+	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
+	Production@1:
+		Produces: Academy.T
+		RequiresCondition: build-complete
+	ProductionQueue@1:
+		Type: Academy.T
+		Group: Support
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@1:
+		ProductionType: Academy.T
+	WithIdleOverlay@dish:
+		Sequence: idle-top
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: disabled
+	WithIdleOverlay@lights:
+		Sequence: idle-lights
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: disabled
+	ProvidesPrerequisite@buildingname:
+	GrantExternalConditionToOwner:
+		Condition: hasacademy
+	NukePower@GhostNuke:
+		OrderName: Nuke.T
+		Cursor: nuke
+		Icon: abomb
+		ChargeInterval: 3000
+		Description: Tactical Missile
+		LongDesc: Launches a tactical ballistic missile\nat a target location.
+		EndChargeSound: snukread.wav
+		LaunchSound: snuklaun.wav
+		SelectTargetSpeechNotification: SelectTarget
+		EndChargeSpeechNotification: NuclearMissileReady
+		LaunchSpeechNotification: NuclearMissileLaunched
+		IncomingSpeechNotification: NuclearMissileLaunched
+		MissileWeapon: ghost.nuke
+		MissilePalette: player
+		MissileDelay: 35
+		SpawnOffset: 0,0,-1c0
+		IsPlayerPalette: true
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		CameraRemoveDelay: 70
+		ArrowSequence: arrow
+		CameraRange: 10
+		FlightDelay: 200
+		SkipAscent: true
+		RequiresCondition: build-complete
+		AllowMultiple: true
+		Cost: 200
+	IsometricSelectable:
+		DecorationHeight: 100
+	RenderSprites:
+		Image: academy
+
+academy.nuke:
+	Inherits: ^addon
+	Tooltip:
+		Name: Tactical Missile
+	Buildable:
+		Queue: Nuke.T
+		Prerequisites: ~disabled #factory, academy, ~canbuildnuke
+		Description: Arms the building with a missile\nthat can be fired by Ghosts.
+	Valued:
+		Cost: 200
+
+engibay:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@build: ^SCVBuildable
+	Tooltip:
+		Name: Kit yard
+	Health:
+		HP: 1700
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 125
+	Buildable:
+		Queue: Building.T
+		Prerequisites: commandcenter
+		Description: Researches infantry upgrades.
+	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
+	Exit@1:
+		ExitCell: 4,1
+	Production@1:
+		Produces: Engibay.T
+		RequiresCondition: build-complete
+	ProductionQueue@1:
+		Type: Engibay.T
+		Group: Support
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@1:
+		ProductionType: Engibay.T
+	WithIdleOverlay@body:
+		Sequence: idle-body
+		RequiresCondition: !build-incomplete
+		#PauseOnCondition: disabled
+	WithProductionOverlay@body:
+		Sequence: active-body
+		RequiresCondition: !build-incomplete
+	WithProductionOverlay@top:
+		Sequence: active-top
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@lights:
+		Sequence: idle-lights
+		RequiresCondition: !build-incomplete
+		#PauseOnCondition: disabled
+	ProvidesPrerequisite@buildingname:
+	IsometricSelectable:
+		DecorationHeight: 70
+	RenderSprites:
+		Image: engibay
+
+armory:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^5x3Shape
+	Inherits@build: ^SCVBuildable
+	Tooltip:
+		Name: Scrap yard
+	Health:
+		HP: 1700
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 125
+	Buildable:
+		Queue: Building.T
+		Prerequisites: factory
+		Description: Researches vehicle upgrades.
+	Building:
+		Footprint: xxxx= xxxx= xxxx=
+		Dimensions: 5,3
+	Exit@1:
+		ExitCell: 4,1
+	Production@1:
+		Produces: Armory.T
+		RequiresCondition: build-complete
+	ProductionQueue@1:
+		Type: Armory.T
+		Group: Support
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@1:
+		ProductionType: Armory.T
+	WithIdleOverlay@bib:
+		Sequence: bib
+		RequiresCondition: !build-incomplete
+		#PauseOnCondition: disabled
+	WithIdleOverlay@crane:
+		Sequence: idle-crane
+		RequiresCondition: !build-incomplete
+		#PauseOnCondition: disabled
+	WithProductionOverlay@crane:
+		Sequence: active-crane
+		RequiresCondition: !build-incomplete
+		#PauseOnCondition: disabled
+	WithExitOverlay@front:
+		Sequence: build-front
+		RequiresCondition: !build-incomplete
+	WithExitOverlay@top:
+		Sequence: build-top
+		RequiresCondition: !build-incomplete
+	WithExitOverlay@side:
+		Sequence: build-side
+		RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+	IsometricSelectable:
+		DecorationHeight: 90
+	RenderSprites:
+		Image: armory
+
+fusioncore:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@build: ^SCVBuildable
+	Tooltip:
+		Name: Portable cold fusion plant
+	Health:
+		HP: 800
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Building.T
+		Prerequisites: starport
+		Description: Unlocks attack helicopters.
+	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
+	WithIdleOverlay@glow:
+		Sequence: idle-lights
+		RequiresCondition: !build-incomplete
+		#PauseOnCondition: disabled
+	ProvidesPrerequisite@buildingname:
+	IsometricSelectable:
+		DecorationHeight: 80
+	RenderSprites:
+		Image: fusioncore
+
+empdish:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@build: ^SCVBuildable
+	Tooltip:
+		Name: Electronic Warfare Center
+	Health:
+		HP: 800
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Building.T
+		Prerequisites: ~disabled #sciencefacility
+		Description: XXX
+	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
+	WithIdleOverlay@top:
+		Sequence: idle-top
+		RequiresCondition: !build-incomplete
+		#PauseOnCondition: disabled
+	IsometricSelectable:
+		DecorationHeight: 80
+	RenderSprites:
+		Image: empdish
+
+sciencefacility:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^3x2Shape
+	Inherits@build: ^SCVBuildable
+	Tooltip:
+		Name: Lab
+	Health:
+		HP: 800
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Building.T
+		Prerequisites: ~disabled #starport
+		Description: XXX
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3,2
+	WithIdleOverlay@bottom:
+		Sequence: idle-bottom
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@body:
+		Sequence: idle-body
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@top:
+		Sequence: idle-top
+		RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+	IsometricSelectable:
+		DecorationHeight: 100
+	RenderSprites:
+		Image: sciencefacility
+
+fix.t:
+	Inherits: ^BaseBuilding
+	Inherits@shape: ^3x2Shape
+	Inherits@build: ^SCVBuildable
+	Tooltip:
+		Name: Repair Pad
+	Health:
+		HP: 300
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Building.T
+		Prerequisites: ~disabled #factory
+		Description: Repairs units.
+	Building:
+		Footprint: x++ x++
+		Dimensions: 3,2
+	WithIdleOverlay@bib:
+		Sequence: bib
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@normal:
+		Sequence: idle-normal
+		RequiresCondition: !build-incomplete
+	RepairsUnits:
+		RequiresCondition: build-complete
+		HpPerStep: 20
+		Interval: 15
+		#RepairDamageTypes: KillsDrone
+		StartRepairingNotification: Repairing
+		FinishRepairingNotification: UnitRepaired
+	WithResupplyAnimation:
+		Sequence: repair
+		RequiresCondition: !build-incomplete
+	IsometricSelectable:
+		DecorationHeight: 105
+	RenderSprites:
+		Image: fix.t
+
+bunker:
+	Inherits: ^SupportBuilding
+	Inherits@shape: ^2x2Shape
+	Inherits@build: ^SCVBuildable
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Tooltip:
+		Name: Bunker
+	Health:
+		HP: 800
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Building.T
+		Prerequisites: barracks
+		Description: Defensive structure to be manned with infantry.
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Cargo:
+		Types: Garrisoner
+		MaxWeight: 4
+		InitialUnits: marine
+		AfterLoadDelay: 0
+		BeforeUnloadDelay: 0
+		AfterUnloadDelay: 0
+		LoadedCondition: loaded
+	WithSpriteBody:
+	WithIdleOverlay@Garrisoned:
+		Sequence: garrisoned
+		RequiresCondition: loaded && !build-incomplete
+	AttackOpenTopped:
+		Armaments: primary
+		PortOffsets: 768,0,1024, 448,-682,1024, -448,-682,1024, -768,0,1024, -448,682,1024, 448,682,1024
+		PauseOnCondition: chronodisable
+		RequiresCondition: build-complete
+	RenderRangeCircle:
+	WithCargoPipsDecoration:
+		EmptySequence: pip-garrison-empty
+		FullSequence: pip-garrison-green
+		Margin: 4, 3
+		PipStride: 4, 2
+		Palette: ra
+		Position: BottomLeft
+		RequiresSelection: true
+		CustomPipSequences:
+			gray: pip-garrison-gray
+			yellow: pip-garrison-yellow
+			blue: pip-garrison-blue
+			red: pip-garrison-red
+	IsometricSelectable:
+		DecorationHeight: 45
+	RenderSprites:
+		Image: bunker
+
+missileturret:
+	Inherits: ^SupportBuilding
+	Inherits@build: ^SCVBuildable
+	Inherits@AUTOTARGET: ^AutoTargetAir
+	Inherits@DETECT: ^GenericDetector
+	Tooltip:
+		Name: Improvised SAM
+	Health:
+		HP: 100
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Building.T
+		Prerequisites: engibay
+		Description: Anti-air defensive structure.\nCan detect cloaked units.
+	WithSpriteBody:
+	WithSpriteTurret:
+		RequiresCondition: !build-incomplete
+	Turreted:
+		TurnSpeed: 64
+	Armament:
+		Weapon: missileturret.missile
+		LocalOffset: 500,200,900, 500,-200,900
+	RenderRangeCircle:
+	AttackTurreted:
+		PauseOnCondition: disabled
+	BodyOrientation:
+		QuantizedFacings: 32
+	IsometricSelectable:
+		DecorationHeight: 45
+	RenderSprites:
+		Image: missileturret
+
+^Stimmable:
+	GrantConditionOnPrerequisite@stim:
+		Condition: canstim
+		Prerequisites: upgrade.stimpack
+	SpeedMultiplier@stim:
+		Modifier: 150
+		RequiresCondition: stimmed
+	ReloadDelayMultiplier@stim:
+		Modifier: 50
+		RequiresCondition: stimmed
+	GrantTimedCondition@stimdamage:
+		Condition: stimdamage
+		Duration: 2
+		RequiresCondition: stimmed
+	ChangesHealth@stimdamage:
+		Step: -20
+		Delay: 1
+		StartIfBelow: 150
+		DamageTypes: BulletDeath
+		RequiresCondition: stimdamage
+	GrantConditionOnDamageState@disablestim:
+		Condition: nostim
+		ValidDamageStates: Critical
+	GrantTimedConditionOnDeploy@stim:
+		DeployedCondition: stimmed
+		DeployedTicks: 1000
+		CooldownTicks: 0
+		Voice: Attack
+		StartsFullyCharged: true
+		RequiresCondition: canstim
+		PauseOnCondition: nostim
+
+marine:
+	Inherits: ^Infantry
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOICES: ^WithFeedbackVoicelines
+	Inherits@STIM: ^Stimmable
+	Tooltip:
+		Name: Machine gun man
+	Health:
+		HP: 90
+	Valued:
+		Cost: 50
+	Buildable:
+		Queue: Infantry.T
+		Description: Basic rifle infantry.\n  Strong vs Infantry, Aircraft \n  Weak vs Vehicles
+	Power:
+		Amount: -1
+	Mobile:
+		Speed: 85
+	RevealsShroud:
+		Range: 9c0
+	Armor:
+		Type: infantry.light
+	AttackFrontal:
+		Voice: Attack
+	Armament@primary:
+		Weapon: marine.mg
+	Voiced:
+		VoiceSet: FlakTrooperVoice
+	RenderSprites:
+		Image: marine
+
+medic:
+	Inherits: ^Infantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@ENERGY: ^EnergyPoolEffects
+	Tooltip:
+		Name: Medical Drone
+	Health:
+		HP: 125
+	Valued:
+		Cost: 120
+	Buildable:
+		Queue: Infantry.T
+		Description: Heals nearby infantry.\n  Unarmed
+	Power:
+		Amount: -1
+	Mobile:
+		Speed: 80
+	RevealsShroud:
+		Range: 9c0
+	Armor:
+		Type: infantry.light
+	AttackFrontal:
+		Voice: Attack
+	Armament@primary:
+		Weapon: medic.heal
+		LocalOffset: 512,-200,384, 512,200,384
+		TargetStances: Ally
+		ForceTargetStances: Ally
+		PauseOnCondition: !energy
+		Cursor: heal
+	DeathSounds@normal:
+		-DeathTypes:
+	-DeathSounds@zapped:
+	-DeathSounds@radiation:
+	-DeathSounds@psycrush:
+	-DeathSounds@virus:
+	Voiced:
+		VoiceSet: TerrorDroneVoice
+
+marauder:
+	Inherits: ^Infantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@STIM: ^Stimmable
+	Tooltip:
+		Name: Big guy (for you)
+	Health:
+		HP: 250
+	Valued:
+		Cost: 125
+	Buildable:
+		Queue: Infantry.T
+		# Prerequisites: lab.barracks
+		Description: Heavily armored infantry equipped with dual grenade launchers.\n  Strong vs Buildings, Vehicles \n  Weak vs Infantry, Aircraft
+	Power:
+		Amount: -2
+	Mobile:
+		Speed: 85
+	RevealsShroud:
+		Range: 10c0
+	Armor:
+		Type: infantry.light
+	AttackFrontal:
+		Voice: Attack
+	Armament@primary:
+		Weapon: marauder.grenade
+		LocalOffset: 512,-200,384, 512,200,384
+	-TakeCover:
+	Voiced:
+		VoiceSet: CrazyIvanVoice
+	RenderSprites:
+		Image: marauder
+
+reaper:
+	Inherits: ^Infantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Jetpack man
+	Health:
+		HP: 120
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Infantry.T
+		Description: Fast armored infantry.\n  Strong vs Light armor \n  Weak vs Tanks, Aircraft
+	Power:
+		Amount: -1
+	Mobile:
+		Speed: 110
+	RevealsShroud:
+		Range: 9c0
+	Armor:
+		Type: infantry.light
+	AttackFrontal:
+		Voice: Attack
+	Armament@primary:
+		Weapon: reaper.gun
+		LocalOffset: 512,-200,384, 512,200,384
+	ChangesHealth:
+		Step: 12
+		Delay: 50
+		StartIfBelow: 150
+		DamageCooldown: 175
+	Voiced:
+		VoiceSet: CosmonautVoice
+	RenderSprites:
+		Image: reaper
+
+ghost:
+	Inherits: ^Infantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@ENERGY: ^EnergyPoolEffects
+	Inherits@CLOAK: ^PermanentCloak
+	Tooltip:
+		Name: Schizo
+	Health:
+		HP: 120
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Infantry.T
+		Prerequisites: academy #, lab.barracks
+		Description: Elite infantry.\n  Can disable and drain units with Lockdown.\n  Can force fire to guide a tactical missile. (not yet)
+	Power:
+		Amount: -2
+	Mobile:
+		Speed: 90
+		RequireForceMoveCondition: nuking
+	RevealsShroud:
+		Range: 11c0
+	Armor:
+		Type: infantry.light
+	AttackFrontal:
+		Armaments: primary, lockdown, nuke, superweapon
+		ForceFireIgnoresActors: true
+		Voice: Attack
+	Armament@primary:
+		Weapon: ghost.sniper
+		PauseOnCondition: nuking
+	Armament@emp:
+		Weapon: ghost.lockdown
+		LocalOffset: 768,0,512
+		Name: lockdown
+		PauseOnCondition: energy < 3 || nuking
+	GrantConditionOnAttack@lockdown:
+		Condition: usedlockdown
+		ArmamentNames: lockdown
+		RevokeDelay: 2
+	EnergyPool:
+		Armaments: secondary
+		InitialAmmo: 3
+	ReloadEnergyPool:
+		Delay: 120
+		ResetOnFire: false
+		RequiresCondition: energy < 4
+	ReloadEnergyPool@lockdown:
+		Count: -3
+		Delay: 1
+		ResetOnFire: false
+		RequiresCondition: usedlockdown
+	Armament@Nuke:
+		Weapon: ghost.nukespawner
+		Name: superweapon
+		TargetStances: None
+		RequiresCondition: hasnuke && !nuking
+	Armament@Nuke2:
+		Weapon: ghost.nuketargeting
+		Name: nuke
+		RequiresCondition: nuking
+	Armament@Nuke3:
+		Weapon: ghost.nukelaunch
+		RequiresCondition: nukefinished
+	GrantConditionOnPrerequisite@Nuke:
+		Condition: hasnuke
+		Prerequisites: hasnuke
+	WithTextDecoration@Nuke:
+		Text: Nuke ready
+		UsePlayerColor: true
+		Position: Top
+		RequiresCondition: hasnuke
+	#GrantTimedConditionOnDeploy@Nuke:
+	#	DeployedCondition: nukemode
+	#	CooldownTicks: 0
+	#	DeployedTicks: 240
+	#	RequiresCondition: hasnuke
+	#	Voice: Attack
+	#	StartsFullyCharged: true
+	GrantConditionOnAttack@Nuke:
+		Condition: nuking
+		ArmamentNames: superweapon
+		RevokeOnNewTarget: true
+		RevokeDelay: 200
+	GrantConditionOnAttack@Nuke1:
+		Condition: nukestarted
+		ArmamentNames: superweapon
+		RevokeDelay: 1
+	GrantConditionOnAttack@Nuke2:
+		Condition: nukefinished
+		ArmamentNames: nuke
+		RequiredShotsPerInstance: 10
+		RevokeOnNewTarget: true
+		RevokeAll: true
+		RevokeDelay: 10
+	GrantExternalConditionToOwner@Nuke:
+		Condition: nukefired
+		RequiresCondition: nukestarted
+	AutoTargetPriority@NUKE:
+		ValidTargets: NukeTarget
+		Priority: 2
+		RequiresCondition: nuking
+	Voiced:
+		VoiceSet: DesolatorVoice
+	RenderSprites:
+		Image: ghost
+
+ghost.nukedummy:
+	Inherits@1: ^SpriteActor
+	Selectable:
+	BodyOrientation:
+		QuantizedFacings: 1
+	-QuantizeFacingsFromSequence:
+	WithSpriteBody:
+	HiddenUnderFog:
+	Tooltip:
+		Name: Nuke Target
+	RevealsShroud:
+		Range: 1c0
+	Health:
+		HP: 50
+		NotifyAppliedDamage: false
+	Mobile:
+		Speed: 1
+		Locomotor: foot
+		RequiresCondition: !dontmove
+	GrantCondition:
+		Condition: dontmove
+	RejectsOrders:
+	HitShape:
+	Targetable:
+		TargetTypes: NukeTarget
+	KillsSelf:
+		Delay: 300
+		RemoveInstead: true
+	AnnounceOnSeen:
+		Notification: NuclearMissileLaunched
+		PingRadar: true
+		AnnounceNeutrals: true
+	RenderSprites:
+		Palette: effect
+
+vulture:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Trike
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 150
+	Valued:
+		Cost: 75
+	Buildable:
+		Queue: Vehicle.T
+		Description: Two-man trike armed with a machinegun.\nCan lay mines.\n  Strong vs Infantry\n  Weak vs Vehicles
+	Power:
+		Amount: -2
+	Mobile:
+		Speed: 125
+		TurnSpeed: 32
+	RevealsShroud:
+		Range: 10c0
+	Armor:
+		Type: vehicle.light
+	WithMuzzleOverlay:
+	AttackFrontal:
+		Voice: Attack
+	Armament@primary:
+		Weapon: vulture.grenade
+		LocalOffset: 768,0,512
+		MuzzleSequence: muzzle
+	Minelayer:
+		Mine: vulture.spidermine
+		AmmoPoolName: mine
+		TileUnknownName: build-valid
+		Voice: Move
+	AmmoPool:
+		Ammo: 3
+		Name: mine
+		Armaments: mine
+	ReloadAmmoPool:
+		Delay: 200
+		AmmoPool: mine
+	WithAmmoPipsDecoration:
+		Margin: 4, 3
+		FullSequence: pip-ammo
+		EmptySequence: pip-ammoempty
+		Palette: ra
+		Position: BottomLeft
+		RequiresSelection: false
+	RenderSprites:
+	RenderVoxels:
+	WithVoxelBody:
+	Voiced:
+		VoiceSet: FlakTrackVoice
+
+vulture.spidermine:
+	Inherits: ^Vehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Tooltip:
+		Name: Burrowed munition
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 50
+	Valued:
+		Cost: 0
+	Mobile:
+		Speed: 160
+		TurnSpeed: 32
+		RequiresCondition: unburrowed
+	Armor:
+		Type: vehicle.light
+	AttackFollow:
+		Voice: Attack
+	Armament@primary:
+		Weapon: spidermine.activation
+		RequiresCondition: !unburrowed
+		Name: primary
+	Armament@secondary:
+		Weapon: spidermine.targeting
+		RequiresCondition: unburrowed
+		Name: secondary
+	GrantConditionOnAttack@1:
+		ArmamentNames: primary
+		Condition: unburrowed
+		RevokeDelay: 240
+		RequiresCondition: !unburrowed
+	GrantConditionOnAttack@2:
+		ArmamentNames: secondary
+		Condition: triggered
+		RequiresCondition: unburrowed
+	RejectsOrders:
+	KillsSelf:
+		RequiresCondition: triggered && unburrowed
+	Explodes@mine:
+		Weapon: spidermine.explode
+		EmptyWeapon: spidermine.explode
+		RequiresCondition: triggered && unburrowed
+	WithSpriteBody@1:
+		StartSequence: make
+		Sequence: deployed
+		RequiresCondition: !unburrowed
+	WithSpriteBody@2:
+		Sequence: idle
+		Name: body-active
+		RequiresCondition: unburrowed
+	WithAttackAnimation:
+		Body: body-active
+		Sequence: make
+		RequiresCondition: !unburrowed
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 9
+	RenderSprites:
+
+t55:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Soupbowl
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 300
+	Valued:
+		Cost: 400
+	Buildable:
+		Queue: Vehicle.T
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 20
+		Description: Old Soviet tank.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Power:
+		Amount: -3
+	Mobile:
+		Speed: 95
+		TurnSpeed: 32
+	RevealsShroud:
+		Range: 10c0
+	Armor:
+		Type: vehicle.heavy
+	Turreted:
+		TurnSpeed: 50
+	WithMuzzleOverlay:
+	AttackTurreted:
+		Voice: Attack
+	Armament@primary:
+		Weapon: immortal.disruptor
+		LocalOffset: 768,0,512
+		MuzzleSequence: muzzle
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1.5
+		NormalsPalette: ts-normals
+		#LightDiffuseColor: 1.4,1.4,1.4
+	WithVoxelBody:
+	WithVoxelTurret:
+	WithVoxelBarrel:
+	Voiced:
+		VoiceSet: SovietVehicleVoice
+
+siegetank:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Rocket Buggy
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 350
+	Valued:
+		Cost: 275
+	Buildable:
+		Queue: Vehicle.T
+		# Prerequisites: lab.factory
+		BuildPaletteOrder: 20
+		Description: Light artillery vehicle.\nCan deploy for splash damage.
+	Power:
+		Amount: -3
+	Mobile:
+		Speed: 95
+		TurnSpeed: 32
+	RevealsShroud:
+		Range: 11c0
+	Armor:
+		Type: vehicle.heavy
+	Turreted:
+		Turret: primary
+		TurnSpeed: 50
+		RequiresCondition: undeployed
+		Offset: -360,0,0
+	Turreted@2:
+		Turret: secondary
+		RequiresCondition: deployed
+	WithMuzzleOverlay:
+	AttackTurreted:
+		Turrets: primary, secondary
+		Voice: Attack
+	Armament@primary:
+		Weapon: siegetank.cannon
+		LocalOffset: 768,0,512
+		RequiresCondition: undeployed
+	Armament@deployed:
+		Weapon: siegetank.siege
+		LocalOffset: 768,512,256
+		RequiresCondition: deployed
+		Name: secondary
+		Turret: secondary
+	GrantConditionOnDeploy:
+		UndeployedCondition: undeployed
+		DeployedCondition: deployed
+		Voice: Move
+		UndeployOnMove: true
+	RenderSprites:
+	RenderVoxels:
+		Scale: 9
+	WithVoxelBody:
+		RequiresCondition: undeployed
+	WithVoxelTurret:
+		Turret: primary
+		RequiresCondition: undeployed
+	WithSpriteBody:
+		RequiresCondition: !undeployed
+	WithMakeAnimation:
+	Voiced:
+		VoiceSet: SovietVehicleVoice
+
+cyclone:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Armored Car
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 240
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Vehicle.T
+		# Prerequisites: lab.factory
+		BuildPaletteOrder: 20
+		Description: Armored car with long-range gun.
+	Power:
+		Amount: -3
+	Mobile:
+		Speed: 95
+		TurnSpeed: 32
+	RevealsShroud:
+		Range: 11c0
+	Armor:
+		Type: vehicle.heavy
+	Turreted:
+		TurnSpeed: 50
+	WithMuzzleOverlay:
+	AttackTurreted:
+		Voice: Attack
+	Armament@primary:
+		Weapon: cyclone.missile
+		LocalOffset: 768,0,512
+		MuzzleSequence: muzzle
+		PauseOnCondition: moving && !lockon
+	Armament@secondary:
+		Weapon: cyclone.lockon
+		Name: secondary
+		PauseOnCondition: lockon
+	GrantConditionOnAttack@lockon:
+		Condition: lockon
+		ArmamentNames: secondary
+		RevokeDelay: 358
+		RevokeOnNewTarget: true
+		RevokeAll: true
+	RangeMultiplier@lockon:
+		Modifier: 140
+		RequiresCondition: lockon
+	FirepowerMultiplier@lockon:
+		Modifier: 125
+		RequiresCondition: lockon
+	GrantConditionOnMovement@MoveStart:
+		Condition: moving
+		ValidMovementTypes: Horizontal, Turn
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	WithVoxelBody:
+	WithVoxelTurret:
+	Voiced:
+		VoiceSet: V3LauncherVoice
+
+goliath:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: ATGM Carrier
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 250
+	Valued:
+		Cost: 300
+	Buildable:
+		Queue: Vehicle.T
+		BuildPaletteOrder: 20
+		Description: Versatile light vehicle.
+	Power:
+		Amount: -3
+	Mobile:
+		Speed: 95
+		TurnSpeed: 32
+	RevealsShroud:
+		Range: 10c0
+	Armor:
+		Type: vehicle.heavy
+	Turreted:
+		TurnSpeed: 50
+	WithMuzzleOverlay:
+	AttackTurreted:
+		Voice: Attack
+	Armament@primary:
+		Weapon: goliath.autocannon
+		LocalOffset: 768,0,512
+		MuzzleSequence: muzzle
+	Armament@secondary:
+		Weapon: goliath.missile
+		LocalOffset: 768,0,512
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	WithVoxelBody:
+	WithVoxelTurret:
+	Voiced:
+		VoiceSet: FlakTrackVoice
+
+thor:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Tunguska
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 800
+	Valued:
+		Cost: 500
+	Buildable:
+		Queue: Vehicle.T
+		Prerequisites: armory #, lab.factory
+		BuildPaletteOrder: 20
+		Description: SPAAG refitted for general combat.\nCan switch between AA cannons and missiles.\n  Strong vs Everything
+	Power:
+		Amount: -6
+	Mobile:
+		Speed: 95
+		TurnSpeed: 32
+	RevealsShroud:
+		Range: 11c0
+	Armor:
+		Type: vehicle.heavy
+	Turreted:
+		TurnSpeed: 50
+	WithMuzzleOverlay:
+	AttackTurreted:
+		Voice: Attack
+	Armament@primary:
+		Weapon: thor.hammer
+		LocalOffset: 768,-400,512, 768,400,512
+		MuzzleSequence: muzzle
+	Armament@aa-primary:
+		Weapon: thor.missile
+		LocalOffset: 768,-400,512, 768,400,512
+		RequiresCondition: undeployed
+	Armament@aa-alt:
+		Weapon: thor.cannon
+		LocalOffset: 768,-400,512, 768,400,512
+		MuzzleSequence: muzzle
+		RequiresCondition: deployed
+	GrantConditionOnDeploy:
+		UndeployedCondition: undeployed
+		DeployedCondition: deployed
+		Voice: Move
+		CanDeployOnRamps: True
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1.2
+	WithVoxelBody:
+	WithVoxelTurret:
+	Voiced:
+		VoiceSet: ApocalypseVoice
+
+hellion:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Flame Buggy
+		RequiresCondition: !deployed
+	Tooltip@2:
+		Name: Flamer Suit
+		RequiresCondition: deployed
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 180
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Vehicle.T
+		BuildPaletteOrder: 10
+		Description: Fast harassment vehicle.\nCan deploy into a power armor suit.
+	Power:
+		Amount: -2
+	Mobile:
+		Speed: 130
+		TurnSpeed: 32
+	RevealsShroud:
+		Range: 10c0
+	Armor:
+		Type: vehicle.light
+	Turreted:
+		TurnSpeed: 50
+	AttackFrontal:
+		Voice: Attack
+	Armament@primary:
+		Weapon: hellion.flamer
+		LocalOffset: 125,-400,512
+		RequiresCondition: undeployed
+	Armament@hellbat:
+		Weapon: hellbat.spray
+		LocalOffset: 768,0,512
+		RequiresCondition: deployed
+	SpeedMultiplier@deployed:
+		Modifier: 66
+		RequiresCondition: deployed
+	GrantConditionOnDeploy:
+		UndeployedCondition: undeployed
+		DeployedCondition: deployed
+		Voice: Move
+		CanDeployOnRamps: True
+		RequiresCondition: cantransform
+	GrantConditionOnPrerequisite@transform:
+		Condition: cantransform
+		Prerequisites: armory
+	RenderSprites:
+	RenderVoxels:
+	WithVoxelBody:
+		RequiresCondition: undeployed
+	WithInfantryBody:
+		IdleSequences: idle1,idle2
+		StandSequences: stand
+		DefaultAttackSequence: shoot
+		RequiresCondition: !undeployed
+	WithDeathAnimation@infantry:
+		DeathSequencePalette: infantry
+		DeathTypes:
+			ExplosionDeath: 1
+			BulletDeath: 2
+		RequiresCondition: !undeployed
+	BodyOrientation:
+	Voiced:
+		VoiceSet: FlakTrackVoice
+
+medivac:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOXEL: ^VoxelActor
+	Inherits@ENERGY: ^EnergyPoolEffects
+	Tooltip:
+		Name: Air ambulance
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 240
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Air.T
+		BuildPaletteOrder: 20
+		Description: Transport helicopter.\nCan heal units
+	Power:
+		Amount: -2
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 150
+		AltitudeVelocity: 200
+		CanForceLand: false
+	RevealsShroud:
+		Range: 11c0
+	Armament@primary:
+		LocalOffset: 640,0,640
+		Weapon: medivac.heal
+		TargetStances: Ally
+		ForceTargetStances: Ally
+		PauseOnCondition: !energy
+		Cursor: heal
+	ReloadEnergyPool:
+		Delay: 50
+	AttackAircraft:
+		Voice: Move
+		FacingTolerance: 20
+		AttackType: Hover
+	Armor:
+		Type: air.heavy
+	Cargo:
+		Types: Infantry, Garrisoner, Vehicle
+		MaxWeight: 8
+		AfterLoadDelay: 0
+		BeforeUnloadDelay: 0
+		AfterUnloadDelay: 0
+		UnloadVoice: Move
+	#WithCargoSounds:
+	#	EnterSound: genter1a.wav
+	#	ExitSound: gexit1a.wav
+	WithCargoPipsDecoration:
+		Margin: 4, 3
+		Palette: ra
+		Position: BottomLeft
+		RequiresSelection: true
+		CustomPipSequences:
+			gray: pip-gray
+			yellow: pip-yellow
+			blue: pip-blue
+			red: pip-red
+	WithEnergyPipsDecoration:
+		Position: BottomRight
+	WithVoxelHelicopterBody:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1.5
+	Voiced:
+		VoiceSet: SovietAmphibiousTransportVoice
+
+viking:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetAirAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOXEL: ^VoxelActor
+	Tooltip:
+		Name: Weaponized science project
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 270
+	Valued:
+		Cost: 225
+	Buildable:
+		Queue: Air.T
+		BuildPaletteOrder: 20
+		Description: Combat UAV.\nCan transform into a hovering CAS mode.
+	Power:
+		Amount: -2
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 160
+		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 10c0
+	Armament@primary:
+		LocalOffset: 640,400,640, 640,-400,640
+		Weapon: viking.missile
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+		AttackType: Hover
+	Armor:
+		Type: air.heavy
+	Transforms:
+		IntoActor: viking.assault
+		Voice: Move
+	WithVoxelBody:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	Voiced:
+		VoiceSet: TerrorDroneVoice
+
+viking.assault:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Tooltip:
+		Name: Weaponized science project
+	Selectable:
+		Bounds: 64, 52, 0, -6
+		Class: viking
+	Health:
+		HP: 270
+	Valued:
+		Cost: 225
+	Buildable:
+		Queue: Vehicle.T
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 20
+		Description: Combat UAV.\nCan transform into an airborne air-superiority mode.
+	Power:
+		Amount: -2
+	Mobile:
+		Speed: 120
+		TurnSpeed: 40
+	RevealsShroud:
+		Range: 10c0
+	Hovers:
+		Ticks: 10
+		BobDistance: -64
+		InitialHeight: 384
+	Armor:
+		Type: vehicle.heavy
+	Turreted:
+		TurnSpeed: 50
+	AttackTurreted:
+		Voice: Attack
+	Armament@primary:
+		LocalOffset: 640,400,640, 640,-400,640
+		Weapon: viking.cannon
+	Transforms:
+		IntoActor: viking
+		Voice: Move
+	RenderSprites:
+		Image: viking
+	RenderVoxels:
+		Image: viking
+		Scale: 1
+	WithVoxelBody:
+	Voiced:
+		VoiceSet: TerrorDroneVoice
+
+banshee:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOXEL: ^VoxelActor
+	Inherits@CLOAK: ^PermanentCloak
+	Tooltip:
+		Name: Stealth gunship
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 280
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Air.T
+		#Prerequisites: lab.starport
+		BuildPaletteOrder: 20
+		Description: Stealth combat UAV.\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
+	Power:
+		Amount: -3
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 130
+		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 10c0
+	Armament@primary:
+		LocalOffset: 640,-400,640, 640,400,640
+		Weapon: banshee.rockets
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+		AttackType: Hover
+	Armor:
+		Type: air.light
+	WithVoxelBody:
+	RenderSprites:
+	RenderVoxels:
+		#Scale: 1
+	Voiced:
+		VoiceSet: SiegeChopperVoice
+
+wraith:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOXEL: ^VoxelActor
+	Inherits@CLOAK: ^PermanentCloak
+	Tooltip:
+		Name: Recycled drone
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 250
+	Valued:
+		Cost: 300
+	Buildable:
+		Queue: Air.T
+		BuildPaletteOrder: 20
+		Description: Stealth combat UAV.\n  Strong vs Aircraft
+	Power:
+		Amount: -2
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 120
+		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 10c0
+	Armament@primary:
+		LocalOffset: 640,-400,640, 640,400,640
+		Weapon: wraith.missile
+	Armament@secondary:
+		LocalOffset: 640,-400,640, 640,400,640
+		Weapon: wraith.laser
+		MuzzleSequence: muzzle
+	WithMuzzleOverlay:
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+	Armor:
+		Type: air.heavy
+	WithVoxelHelicopterBody:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	Voiced:
+		VoiceSet: SiegeChopperVoice
+
+valkyrie:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOXEL: ^VoxelActor
+	Tooltip:
+		Name: Model plane
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 280
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Air.T
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 20
+		Description: Stealth combat UAV.\n  Strong vs Aircraft
+	Power:
+		Amount: -3
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 150
+		AltitudeVelocity: 200
+	Armament@primary:
+		LocalOffset: 640,-400,640, 640,400,640
+		Weapon: banshee.rockets
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+	Armor:
+		Type: air.heavy
+	WithVoxelBody:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	Voiced:
+		VoiceSet: SiegeChopperVoice
+
+liberator:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetAirAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOXEL: ^VoxelActor
+	AutoTargetPriority@DEFAULT:
+		RequiresCondition: !deployed
+	AutoTargetPriority@DEPLOYED:
+		RequiresCondition: deployed
+		ValidTargets: Infantry, Vehicle, Water, Underwater
+		InvalidTargets: NoAutoTarget
+	#AutoTargetPriority@ATTACKANYTHING_DEPLOYED:
+	#	RequiresCondition: stance-attackanything && deployed
+	#	ValidTargets: Infantry, Vehicle, Water, Underwater
+	#	InvalidTargets: NoAutoTarget
+	Tooltip:
+		Name: Even bigger UAV
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 360
+	Valued:
+		Cost: 300
+	Buildable:
+		Queue: Air.T
+		BuildPaletteOrder: 20
+		Description: Heavy UAV.\nCan deploy to use a cannon.\nCan not attack structures.\n  Strong vs Ground targets
+	Power:
+		Amount: -3
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 130
+		AltitudeVelocity: 200
+		RequireForceMoveCondition: deployed
+	RevealsShroud:
+		Range: 10c0
+	Armament@primary:
+		LocalOffset: 640,-400,640, 640,400,640
+		Weapon: liberator.rockets
+		RequiresCondition: !deployed
+	Armament@secondary:
+		LocalOffset: 640,0,640
+		Weapon: liberator.cannon
+		RequiresCondition: deployed
+		MuzzleSequence: muzzle
+	WithMuzzleOverlay:
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+	Armor:
+		Type: air.heavy
+	GrantConditionOnDeploy:
+		DeployedCondition: deployed
+		UndeployOnMove: true
+		CanDeployOnRamps: true
+		Voice: Deploy
+	SpeedMultiplier@deployed:
+		Modifier: 0
+		RequiresCondition: deployed
+	WithVoxelBody:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	Voiced:
+		VoiceSet: SiegeChopperVoice
+
+battlecruiser:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOXEL: ^VoxelActor
+	Tooltip:
+		Name: Hind
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 1100
+	Valued:
+		Cost: 700
+	Buildable:
+		Queue: Air.T
+		Prerequisites: fusioncore #, lab.starport
+		BuildPaletteOrder: 20
+		Description: Actual attack helicopter.\n  Strong vs Everything
+	Power:
+		Amount: -6
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 90
+		AltitudeVelocity: 200
+	Armament@primary:
+		LocalOffset: 640,-400,640, 640,400,640
+		Weapon: bc.laser
+		MuzzleSequence: muzzle
+	Armament@secondary:
+		LocalOffset: 640,-400,640, 640,400,640
+		Weapon: bc.laseraa
+		MuzzleSequence: muzzle
+	WithMuzzleOverlay:
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+	Armor:
+		Type: air.heavy
+	WithVoxelHelicopterBody:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	Voiced:
+		VoiceSet: KirovVoice
+
+gorgon:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOXEL: ^VoxelActor
+	Tooltip:
+		Name: WZ-10
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 280
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Air.T
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 20
+		Description: Attack helicopter.
+	Power:
+		Amount: -3
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 150
+		AltitudeVelocity: 200
+	Armament@primary:
+		LocalOffset: 640,-400,640, 640,400,640
+		Weapon: banshee.rockets
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+	Armor:
+		Type: air.heavy
+	WithVoxelHelicopterBody:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+		NormalsPalette: ts-normals
+	Voiced:
+		VoiceSet: KirovVoice
+
+raven:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOXEL: ^VoxelActor
+	Tooltip:
+		Name: Mini-Hind
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 280
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Air.T
+		Prerequisites: ~disabled #lab.starport
+		BuildPaletteOrder: 20
+		Description: TBD
+	Power:
+		Amount: -3
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 90
+		AltitudeVelocity: 200
+	Armament@primary:
+		LocalOffset: 640,-400,640, 640,400,640
+		Weapon: banshee.rockets
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+	Armor:
+		Type: air.heavy
+	WithVoxelHelicopterBody:
+	RenderSprites:
+	RenderVoxels:
+		#Scale: 1
+	Voiced:
+		VoiceSet: CosmonautVoice
+
+sciencevessel:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOXEL: ^VoxelActor
+	Tooltip:
+		Name: Helix
+	Selectable:
+		Bounds: 70,60,0,-20
+	Health:
+		HP: 280
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Air.T
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 20
+		Description: TBD
+	Power:
+		Amount: -3
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 150
+		AltitudeVelocity: 200
+	Armament@primary:
+		LocalOffset: 640,-400,640, 640,400,640
+		Weapon: banshee.rockets
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+	Armor:
+		Type: air.heavy
+	WithVoxelHelicopterBody:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+		NormalsPalette: ts-normals
+	Voiced:
+		VoiceSet: CosmonautVoice

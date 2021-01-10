@@ -1,0 +1,421 @@
+amcv:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: mcvicon
+
+aegis:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@Squid: ^SquidGrabbable
+	icon: agisicon
+
+bus:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+car:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+carrier:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@Squid: ^SquidGrabbable
+	icon: carricon
+
+cdest:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	Inherits@Squid: ^SquidGrabbable
+	icon: xxicon
+
+cona:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+cop:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+cmin:
+	Inherits@EMP: ^EMPDisableable
+	harvest: oregath
+		Length: 15
+		Facings: 8
+	warpin: warpin
+	warpout: warpout
+		Length: 20
+	icon: ahrvicon
+
+cruise:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@Squid: ^SquidGrabbable
+	icon: xxicon
+
+dest:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	Inherits@Squid: ^SquidGrabbable
+	icon: desticon
+
+dred:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@Squid: ^SquidGrabbable
+	icon: dredicon
+
+dron:
+	Inherits@EMP: ^EMPDisableable
+	stand:
+		Start: 48
+		ShadowStart: 136
+		Facings: -8
+	run:
+		Start: 0
+		ShadowStart: 88
+		Length: 6
+		Facings: -8
+		Tick: 80
+	jump:
+		Start: 56
+		ShadowStart: 144
+		Length: 4
+		Facings: -8
+	shoot: dronp
+		Length: 1
+		Facings: 32
+	icon: dronicon
+
+euroc:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+flata:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+fv:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	muzzle:
+		Combine:
+			mgun-n:
+				Length: 3
+			mgun-nw:
+				Length: 3
+			mgun-w:
+				Length: 3
+			mgun-sw:
+				Length: 3
+			mgun-s:
+				Length: 3
+			mgun-se:
+				Length: 3
+			mgun-e:
+				Length: 3
+			mgun-ne:
+				Length: 3
+		Facings: 8
+		Length: 3
+	muzzle-1: gunfire
+		Length: *
+	muzzle-2: vtmuzzle
+		Length: *
+	icon: fvicon
+
+mgtk:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@MUZZLE: ^WithMirageMuzzle
+	idle: null # this is required because the WithSpriteBody constructor initializes before the Mirage trait is activated
+	icon: rtnkicon
+
+mtnk:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	icon: gtnkicon
+
+harv:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MUZZLE: ^WithMachineGunMuzzle
+	harvest: oregath
+		Length: 15
+		Facings: 8
+	icon: harvicon
+
+htk:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@MUZZLE: ^WithFlakMuzzle
+	icon: htkicon
+
+htnk:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	icon: htnkicon
+
+howi:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	icon: xxicon
+
+hyd:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@MUZZLE: ^WithFlakMuzzle
+	Inherits@Squid: ^SquidGrabbable
+	icon: hovricon
+
+lcrf:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@Squid: ^SquidGrabbable
+	icon: landicon
+
+limo:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+oltnk:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+apoc:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@MUZZLE: ^WithApocMuzzle
+	icon: mtnkicon
+
+pick:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+propa:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+ptruck:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+rtnk:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	icon: rtnkicon
+
+smcv:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: smcvicon
+
+sref:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: sreficon
+
+stang:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+sub:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@Squid: ^SquidGrabbable
+	icon: subicon
+
+suvb:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+suvw:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+taxi:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+tnkd:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	icon: tnkdicon
+
+tractor:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+sapc:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@Squid: ^SquidGrabbable
+	icon: sapcicon
+
+dtruck:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: trkaicon
+
+trucka:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+truckb:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+ttnk:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: ttnkicon
+
+tug:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@Squid: ^SquidGrabbable
+	icon: xxicon
+
+v3:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: v3icon
+
+vlad:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@Squid: ^SquidGrabbable
+	icon: xxicon
+
+wini:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+#Yuri's Revenge Vehicles
+ambu:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+bcab:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+cblc:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+ddbx:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+doly:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+ftrk:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+jeep:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+ycab:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+civp:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: xxicon
+
+bfrt:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: bfrticon
+
+robo:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MUZZLE: ^WithMachineGunMuzzle
+	icon: roboicon
+
+pcv:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: ypcvicon
+
+yhvr:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@Squid: ^SquidGrabbable
+	icon: yhvricon
+
+ltnk:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	icon: ltnkicon
+
+mind:
+	Inherits@EMP: ^EMPDisableable
+	icon: mindicon
+
+tele:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: teleicon
+
+ytnk:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@MUZZLE: ^WithGatlingMuzzle
+	icon: ytnkicon
+
+caos:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	icon: caosicon
+
+bsub:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MC: ^MindControllable
+	Inherits@Squid: ^SquidGrabbable
+	icon: bsubicon
+
+smin:
+	Inherits@EMP: ^EMPDisableable
+	Inherits@MUZZLE: ^WithMachineGunMuzzle
+	icon: sminicon

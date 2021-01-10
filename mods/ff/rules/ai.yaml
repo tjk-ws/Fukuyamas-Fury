@@ -1,0 +1,142 @@
+Player:
+	ModularBot@testai:
+		Name: Test AI
+		Type: test
+	GrantConditionOnBotOwner@test:
+		Condition: enable-test-ai
+		Bots: test
+	SupportPowerBotASModule@test:
+		RequiresCondition: enable-test-ai
+		Decisions:
+			nuke.t:
+				OrderName: Nuke.T
+				MinimumAttractiveness: 250
+				Types: Ground
+				IgnoreVisibility: true
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Health
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Enemy
+					Types: Ground, Water, Air
+					Attractiveness: 2
+					TargetMetric: Health
+					CheckRadius: 5c0
+				Consideration@3:
+					Against: Ally
+					Types: Ground, Water, Air
+					Attractiveness: -20
+	BaseBuilderBotModule@test:
+		RequiresCondition: enable-test-ai
+		BuildingQueues: Building.P, Building.T
+		DefenseQueues: Warpin.P
+		MinimumExcessPower: 3
+		MaximumExcessPower: 10
+		ExcessPowerIncrement: 0
+		ExcessPowerIncreaseThreshold: 0
+		ConstructionYardTypes: builder.p.bot, builder.t.bot, builder.t
+		RefineryTypes: nexus, commandcenter
+		PowerTypes: pylon, supplydepot
+		BarracksTypes: gateway, barracks
+		VehiclesFactoryTypes: robotics, factory
+		ProductionTypes: nexus, gateway, robotics, stargate, barracks, factory, starport
+		BuildingLimits:
+			pylon: 4
+			forge: 1
+			cybercore: 1
+			twilightcouncil: 1
+			robobay: 1
+			darkshrine: 1
+			fleetbeacon: 1
+			supplydepot: 4
+			engibay: 1
+			armory: 1
+			academy: 1
+		BuildingFractions:
+			nexus: 1
+			pylon: 1
+			gateway: 2
+			robotics: 1
+			stargate: 1
+			forge: 1
+			cybercore: 1
+			twilightcouncil: 1
+			robobay: 1
+			darkshrine: 1
+			fleetbeacon: 1
+			photoncannon: 1
+			commandcenter: 1
+			supplydepot: 2
+			barracks: 1
+			factory: 1
+			starport: 1
+			engibay: 1
+			armory: 1
+			academy: 1
+			bunker: 1
+			missileturret: 1
+		BuildingDelays:
+			engibay: 5000
+	HarvesterBotModule@test:
+		RequiresCondition: enable-test-ai
+		HarvesterTypes: builder.p, builder.t
+	BuildingRepairBotModule@test:
+		RequiresCondition: enable-test-ai
+	SquadManagerBotModule@test:
+		RequiresCondition: enable-test-ai
+		SquadSize: 5
+		SquadSizeRandomBonus: 0
+		RushAttackScanRadius: 30
+		ProtectUnitScanRadius: 25
+		IdleScanRadius: 20
+		AttackScanRadius: 20
+		DangerScanRadius: 12
+		ExcludeFromSquadsTypes: builder.p, builder.p.bot, builder.t, builder.t.bot
+		NavalUnitsTypes:
+		ConstructionYardTypes: builder.p.bot, builder.t.bot
+	UnitBuilderBotModule@test:
+		RequiresCondition: enable-test-ai
+		UnitQueues: Infantry.P, Vehicle.P, Worker.P, Air.P, Infantry.T, Vehicle.T, Worker.T, Air.T
+		UnitLimits:
+			builder.p.bot: 2
+			builder.t.bot: 2
+		UnitsToBuild:
+			zealot: 10
+			adept: 5
+			dragoon: 5
+			stalker: 5
+			sentry: 1
+			immortal: 1
+			colossus: 1
+			darktemplar: 3
+			phoenix: 1
+			voidray: 1
+			tempest: 1
+			carrier: 1
+			mothership: 1
+			builder.p: 1
+			builder.p.bot: 1
+			marine: 10
+			medic: 1
+			marauder: 3
+			reaper: 2
+			ghost: 1
+			vulture: 3
+			hellion: 3
+			siegetank: 1
+			cyclone: 1
+			goliath: 1
+			thor: 1
+			viking: 1
+			banshee: 1
+			battlecruiser: 1
+			builder.t: 1
+			builder.t.bot: 2
+		UnitDelays:
+			builder.p: 5000
+			builder.p.bot: 5000
+			builder.t: 5000
+			builder.t.bot: 1000

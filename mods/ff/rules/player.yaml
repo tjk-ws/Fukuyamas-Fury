@@ -1,0 +1,208 @@
+^BasePlayer:
+	AlwaysVisible:
+	Shroud:
+
+EditorPlayer:
+	Inherits: ^BasePlayer
+
+Player:
+	Inherits: ^BasePlayer
+	ClassicProductionQueue@power:
+		Type: Power
+		Group: Power
+	Production@power:
+		Produces: Power
+	ClassicProductionQueue@ZUnits:
+		Type: Units.Z
+		Group: Infantry
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ExternalCondition@larva:
+		Condition: larva
+		SourceCap: 1
+	ProvidesPrerequisite@larva:
+		Prerequisite: nolarva
+		RequiresCondition: !larva
+	ExternalCondition@academy:
+		Condition: hasacademy
+	ExternalCondition@nuke:
+		Condition: nukefired
+	ProvidesPrerequisite@canbuildnuke:
+		Prerequisite: canbuildnuke
+		RequiresCondition: (hasacademy >= hasnuke) && hasnuke <= 4
+	Production@nuke:
+		Produces: Nuke.T
+	ClassicProductionQueue@nuke:
+		Type: Nuke.T
+		Group: Support
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	EnergyPool@nuke:
+		Armaments: secondary
+		Ammo: 4
+		InitialAmmo: 0
+		AmmoCondition: hasnuke
+	ReloadEnergyPool@nuke:
+		Count: 1
+		Delay: 1
+		ResetOnFire: false
+		RequiresCondition: nukeloaded
+	ReloadEnergyPool@nukefire:
+		Count: -1
+		Delay: 1
+		ResetOnFire: false
+		RequiresCondition: nukefired
+	GrantConditionOnProduction@Nuke:
+		Actors: academy.nuke
+		Condition: nukeloaded
+		Duration: 1
+	ProvidesPrerequisite@Nuke:
+		Prerequisite: hasnuke
+		RequiresCondition: hasnuke
+	TechTree:
+	PlaceBuilding:
+		ToggleVariantKey: ToggleVariant
+		NewOptionsNotification: NewOptions
+		CannotPlaceNotification: BuildingCannotPlaceAudio
+	SupportPowerManager:
+	ScriptTriggers:
+	MissionObjectives:
+		WinNotification: Win
+		LoseNotification: Lose
+		LeaveNotification: Leave
+	ConquestVictoryConditions:
+	PowerManager:
+		SpeechNotification: LowPower
+	AllyRepair:
+	PlayerResources:
+		SelectableCash: 50, 100, 150, 200
+		DefaultCash: 100
+		CashTickUpNotification: CashTickUp
+		CashTickDownNotification: CashTickDown
+		InsufficientFundsNotification: InsufficientFunds
+	#ResourceStorageWarning:
+	#	Notification: InsufficientSilos
+	DeveloperMode:
+		CheckboxEnabled: true
+		CheckboxDisplayOrder: 14
+	GpsWatcher:
+	Shroud:
+		ExploredMapCheckboxEnabled: True
+		FogCheckboxDisplayOrder: 3
+	#LobbyPrerequisiteCheckbox@GLOBALFACTUNDEPLOY:
+	#	ID: factundeploy
+	#	Label: Redeployable MCVs
+	#	Description: Allow undeploying Construction Yard
+	#	Enabled: True
+	#	DisplayOrder: 5
+	#	Prerequisites: global-factundeploy
+	LobbyPrerequisiteCheckbox@FREEMINIMAP:
+		ID: freeradar
+		Label: Free Minimap
+		Description: Minimap is active without Radar Tower or AFCHQ
+		Enabled: True
+		Visible: False
+		DisplayOrder: 8
+		Prerequisites: global-freeminimap
+	#LobbyPrerequisiteCheckbox@GLOBALSWLIMIT:
+	#	ID: swlimit
+	#	Label: Limit Super Weapons
+	#	Description: Only 1 of each super weapon can be built by a player
+	#	Enabled: True
+	#	DisplayOrder: 9
+	#	Prerequisites: global-swlimit
+	#LobbyPrerequisiteCheckbox@GLOBALTECHAREA:
+	#	ID: techbuildarea
+	#	Label: Tech Build Area
+	#	Description: Allow building placement around tech structures
+	#	Enabled: False
+	#	DisplayOrder: 10
+	#	Prerequisites: global-techbuildarea
+	#LobbyPrerequisiteCheckbox@domination:
+	#	ID: domination
+	#	Label: Domination
+	#	Description: Control the flags on the map to win
+	#	Enabled: False
+	#	DisplayOrder: 11
+	#	Prerequisites: global-domination
+	#LobbyPrerequisiteCheckbox@INSTANTCAPTURE:
+	#	ID: instantcapture
+	#	Label: Instant Capture
+	#	Description: Engineers can enter a building without waiting to capture
+	#	Enabled: False
+	#	DisplayOrder: 12
+	#	Prerequisites: global-instantcapture
+	#LobbyPrerequisiteCheckbox@megawealth:
+	#	ID: megawealth
+	#	Label: Megawealth
+	#	Description: Removes all the Ore on the map and makes the economy dependent on Oil Derricks
+	#	Enabled: False
+	#	DisplayOrder: 13
+	#	Prerequisites: global-megawealth
+	LobbyPrerequisiteCheckbox@SHOWOWNERNAME:
+		ID: showownername
+		Label: Show Owner Name
+		Description: Show name and flag of the owner of a unit on its tooltip
+		Enabled: True
+		Visible: False # Too lazy to remove the setup for this.
+		DisplayOrder: 14
+		Prerequisites: global-showownername
+	ProvidesRadar:
+		RequiresCondition: freeminimap
+	GrantConditionOnPrerequisite@FREEMINIMAP:
+		Condition: freeminimap
+		Prerequisites: global-freeminimap
+	FrozenActorLayer:
+	BaseAttackNotifier:
+		AllyNotification: OurAllyIsUnderAttack
+	HarvesterAttackNotifier:
+		Notification: OreMinerUnderAttack
+	PlayerStatistics:
+	PlaceBeacon:
+		BeaconSequence: idle
+		ArrowSequence:
+		CircleSequence:
+		IsPlayerPalette: true
+		Palette: player
+	ProvidesTechPrerequisite@1:
+		Name: 1
+		Id: basic
+	ProvidesTechPrerequisite@2:
+		Name: 2
+		Prerequisites: unrestricted
+		Id: unrestricted
+	GrantConditionOnPrerequisiteManager:
+	#ExternalCondition@PadAircraft:
+	#	Condition: padaircraft
+	#ExternalCondition@AirDock:
+	#	Condition: airdock
+	ProvidesPrerequisite@aiplayer:
+		Prerequisite: prerequisite.aiplayer
+		RequiresCondition: enable-test-ai
+	#ProvidesPrerequisite@enoughair:
+	#	Prerequisite: prerequisite.enoughair
+	#	RequiresCondition: padaircraft >= airdock
+	#VeteranProductionIconOverlay:
+	#	Image: cameo-chevron
+	#	Sequence: idle
+	#	Palette: cameo-chevron
+	PlayerExperience:
+	GameSaveViewportManager:
+	EnemyWatcher:
+		NotificationInterval: 125
+	GpsASWatcher:
+	PlayerRadarTerrain:
+	AutoDeployManager:
+	TeleportNetworkManager:
+		Type: nydus
+	#Inherits@1: ^CommandersPowers
