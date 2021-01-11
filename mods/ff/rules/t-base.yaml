@@ -76,8 +76,8 @@ builder.t:
 		Priority: 2
 	Armament:
 		Weapon: SCVBuild
-		TargetStances: Ally
-		ForceTargetStances: Ally
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
 		LocalOffset: 384,0,1024
 	GrantConditionOnAttack@build:
 		Condition: building
@@ -1044,8 +1044,8 @@ medic:
 	Armament@primary:
 		Weapon: medic.heal
 		LocalOffset: 512,-200,384, 512,200,384
-		TargetStances: Ally
-		ForceTargetStances: Ally
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
 		PauseOnCondition: !energy
 		Cursor: heal
 	DeathSounds@normal:
@@ -1184,7 +1184,7 @@ ghost:
 	Armament@Nuke:
 		Weapon: ghost.nukespawner
 		Name: nukelaunch
-		TargetStances: None
+		TargetRelationships: None
 		RequiresCondition: hasnuke && !nuking && !nukefiring
 	Armament@Nuke2:
 		Weapon: ghost.nuketargeting
@@ -1779,8 +1779,8 @@ medivac:
 	Armament@primary:
 		LocalOffset: 640,0,640
 		Weapon: medivac.heal
-		TargetStances: Ally
-		ForceTargetStances: Ally
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
 		PauseOnCondition: !energy
 		Cursor: heal
 	ReloadEnergyPool:

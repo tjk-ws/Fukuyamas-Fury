@@ -294,7 +294,7 @@ hack.archonmerge:
 		Range: 0c768
 		Duration: 1
 		Condition: merged
-		ValidStances: Ally
+		ValidRelationships: Ally
 
 shieldbattery.heal:
 	Inherits: ^HealLaser

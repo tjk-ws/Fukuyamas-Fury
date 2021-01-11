@@ -8,7 +8,7 @@ drone.morph:
 	Warhead@Build: GrantExternalCondition
 		Condition: morph
 		Range: 0c768
-		ValidStances: Ally
+		ValidRelationships: Ally
 		ValidTargets: morphable
 
 zergling.claw:
@@ -77,12 +77,12 @@ queen.inject:
 		Duration: 3
 		Delay: 725
 		ValidTargets: Inject
-		ValidStances: Ally
+		ValidRelationships: Ally
 	Warhead@2: GrantExternalCondition
 		Condition: injected
 		Duration: 725
 		ValidTargets: Injectable
-		ValidStances: Ally
+		ValidRelationships: Ally
 
 hydralisk.spine:
 	Inherits: ^AGMissile

@@ -101,8 +101,8 @@
 	Armament@merge:
 		Weapon: hack.archonmerge
 		Name: merge
-		TargetStances: Ally
-		ForceTargetStances: Ally
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
 		Cursor: disguise
 	Targetable@merge:
 		TargetTypes: ArchonMergeable
@@ -872,8 +872,8 @@ shieldbattery:
 		PauseOnCondition: !pylonpower
 	Armament:
 		Weapon: shieldbattery.heal
-		TargetStances: Ally
-		ForceTargetStances: Ally
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
 		Cursor: heal
 		PauseOnCondition: !energy
 	EnergyPool:
@@ -1679,7 +1679,7 @@ disruptor:
 	Armament@primary:
 		Weapon: disruptor.launch
 		Name: primary
-		ForceTargetStances: Enemy
+		ForceTargetRelationships: Enemy
 		PauseOnCondition: attacking
 	Armament@secondary:
 		Weapon: disruptor.targeting

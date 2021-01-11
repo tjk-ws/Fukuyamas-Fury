@@ -16,7 +16,7 @@ SCVBuild:
 	Warhead@Build: GrantExternalCondition
 		Condition: scvbuild
 		Range: 0c768
-		ValidStances: Ally
+		ValidRelationships: Ally
 		ValidTargets: scvbuildable
 
 marine.mg:

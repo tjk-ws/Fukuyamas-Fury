@@ -460,8 +460,8 @@ evolutionchamber:
 	Valued:
 		Cost: 75
 	Building:
-		Footprint: xx xx xx
-		Dimensions: 2,3
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
 	Production@1:
 		Produces: Chamber.Z
 	ProductionQueue@1:
@@ -721,6 +721,12 @@ nydus:
 	Exit@1: #Teleport network does not support multiple exits
 		ExitCell: 0,1
 		Priority: 2
+	WithTextDecoration:
+		Text: PRIMARY
+		UsePlayerColor: true
+		Position: Top
+		RequiresCondition: primary
+		RequiresSelection: true
 	WithIdleOverlay@lights:
 		Sequence: idle-top
 		RequiresCondition: !build-incomplete
@@ -797,8 +803,8 @@ builder.z:
 	Armament@morph:
 		Weapon: drone.morph
 		Name: morph
-		TargetStances: Ally
-		ForceTargetStances: Ally
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
 	GrantConditionOnAttack@morph:
 		Condition: morphed
 		ArmamentNames: morph
@@ -840,8 +846,8 @@ overlord:
 	Armament@secondary:
 		Weapon: barrier.energyhack
 		Name: secondary
-		TargetStances: None
-		ForceTargetStances: None
+		TargetRelationships: None
+		ForceTargetRelationships: None
 	AttackAircraft:
 		Voice: Attack
 	Armor:
@@ -1007,8 +1013,8 @@ queen:
 	Armament@inject:
 		Weapon: queen.inject
 		LocalOffset: 800,0,832
-		TargetStances: Ally
-		ForceTargetStances: Ally
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
 		Name: inject
 		RequiresCondition: energy >= 1
 	EnergyPool:
@@ -1290,8 +1296,8 @@ broodlord:
 	Armament@secondary:
 		Weapon: barrier.energyhack
 		Name: secondary
-		TargetStances: None
-		ForceTargetStances: None
+		TargetRelationships: None
+		ForceTargetRelationships: None
 	AttackAircraft:
 		Voice: Attack
 	Armor:

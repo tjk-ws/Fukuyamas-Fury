@@ -104,7 +104,7 @@ oreclearer:
 	RejectsOrders:
 	Interactable:
 	AmbientSound:
-		AudibleThroughFog: true
+		#AudibleThroughFog: true
 	RenderSpritesEditorOnly:
 		Image: ambient
 

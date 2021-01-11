@@ -141,6 +141,7 @@ World:
 	PlayerCommands:
 	HelpCommand:
 	ScreenShaker:
+	BuildingInfluence:
 	ProductionQueueFromSelection:
 		ProductionTabsWidget: PRODUCTION_TABS
 	DomainIndex:
