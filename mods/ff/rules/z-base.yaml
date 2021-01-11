@@ -86,7 +86,7 @@ hatchery:
 	Inherits@shape: ^4x4Shape
 	Inherits@power: ^DisableOnLowPower
 	Tooltip:
-		Name: Hatchery
+		Name: Scrapyard
 	Health:
 		HP: 2000
 	Armor:
@@ -103,6 +103,24 @@ hatchery:
 		PauseOnCondition: nolarva || lowpower
 	ProductionBar@Units:
 		ProductionType: Units.Z
+	Production@Lair:
+		Produces: Hatchery.Z
+		RequiresCondition: !lair && !hive
+	Production@Hive:
+		Produces: Lair.Z
+		RequiresCondition: !hive
+	ProductionQueue@lair:
+		Type: Hatchery.Z
+		Group: Support
+	ProductionQueue@hive:
+		Type: Lair.Z
+		Group: Support
+	GrantConditionOnProduction@lair:
+		Condition: lair
+		Actors: hatchery.lair
+	GrantConditionOnProduction@hive:
+		Condition: hive
+		Actors: hatchery.hive
 	MobSpawnerMaster:
 		Actors: hatchery.larva, hatchery.larva, hatchery.larva
 		AggregateHealth: false
@@ -121,6 +139,12 @@ hatchery:
 		RespawnTicks: 1
 		RequiresCondition: inject
 	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@lair:
+		Prerequisite: lair
+		RequiresCondition: lair
+	ProvidesPrerequisite@hive:
+		Prerequisite: hive
+		RequiresCondition: hive
 	GrantConditionOnPrerequisite:
 		Condition: nolarva
 		Prerequisites: nolarva
@@ -215,6 +239,18 @@ hatchery.larva:
 	WithSpriteBody:
 	Exit:
 		ProductionTypes: Units.Z, Larva.Z
+	Exit@2:
+		ProductionTypes: Units.Z, Larva.Z
+		ExitCell: 0,1
+	Exit@3:
+		ProductionTypes: Units.Z, Larva.Z
+		ExitCell: 1,0
+	Exit@4:
+		ProductionTypes: Units.Z, Larva.Z
+		ExitCell: -1,0
+	Exit@5:
+		ProductionTypes: Units.Z, Larva.Z
+		ExitCell: 0,-1
 	Production@Probes:
 		Produces: Units.Z, Larva.Z
 		PauseOnCondition: lowpower
@@ -265,6 +301,32 @@ morph.hatchery:
 		Sequence: idle-normal
 	TransformOnCondition:
 		IntoActor: hatchery
+	RenderSprites:
+		Image: hatchery
+
+hatchery.lair:
+	Inherits: ^addon
+	Tooltip:
+		Name: Scrapyard Level 2
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Hatchery.Z
+		Prerequisites: spawningpool
+		Description: Provides access to advanced technologies.
+	RenderSprites:
+		Image: hatchery
+
+hatchery.hive:
+	Inherits: ^addon
+	Tooltip:
+		Name: Scrapyard Level 3
+	Valued:
+		Cost: 350
+	Buildable:
+		Queue: Lair.Z
+		Prerequisites: infestationpit
+		Description: Provides access to advanced technologies.
 	RenderSprites:
 		Image: hatchery
 
@@ -327,6 +389,7 @@ morph.spawningpool:
 		Name: NEET concentration center
 	Buildable:
 		Queue: Building.Z
+		Prerequisites: hatchery
 		Description: Unlocks basic units.
 	Building:
 		Footprint: == == ==
@@ -371,6 +434,7 @@ morph.banelingnest:
 		Name: Explosives factory
 	Buildable:
 		Queue: Building.Z
+		Prerequisites: spawningpool
 		Description: Unlocks Nihilists.
 	Building:
 		Footprint: == ==
@@ -427,6 +491,7 @@ morph.evochamber:
 		Name: Recycling center
 	Buildable:
 		Queue: Building.Z
+		Prerequisites: hatchery
 		Description: Researches upgrades.
 	Building:
 		Footprint: === === ===
@@ -489,6 +554,7 @@ morph.hydraden:
 		Name: Remote control center
 	Buildable:
 		Queue: Building.Z
+		Prerequisites: lair
 		Description: Unlocks Battle Drones.
 	Building:
 		Footprint: == ==
@@ -527,6 +593,7 @@ morph.roachwarren:
 		Name: Robot assembly
 	Buildable:
 		Queue: Building.Z
+		Prerequisites: spawningpool
 		Description: Unlocks UGVs.
 	Building:
 		Footprint: == ==
@@ -571,6 +638,7 @@ morph.ultracavern:
 		Name: Large Vehicle Factory
 	Buildable:
 		Queue: Building.Z
+		Prerequisites: hive
 		Description: Unlocks heavy vehicles.
 	Building:
 		Footprint: ===== ===== =====
@@ -612,6 +680,7 @@ morph.infestationpit:
 		Name: Gadget Lab
 	Buildable:
 		Queue: Building.Z
+		Prerequisites: lair
 		Description: Unlocks advanced vehicles.
 	Building:
 		Footprint: === ===
@@ -640,6 +709,8 @@ nydus:
 		Type: building.steel
 	Valued:
 		Cost: 150
+	Buildable:
+		Prerequisites: lair
 	Building:
 		Footprint: xx ++
 		Dimensions: 2,2
@@ -674,6 +745,7 @@ builder.z:
 		Cost: 50
 	Buildable:
 		Queue: Units.Z
+		Prerequisites: hatchery
 		BuildPaletteOrder: 50
 		Description: Transforms into structures.
 	MustBeDestroyed:
@@ -757,6 +829,7 @@ overlord:
 		Cost: 100
 	Buildable:
 		BuildPaletteOrder: 20
+		Prerequisites: hatchery
 		Description: Provides supply.\nCan transport units
 	Power:
 		Amount: 8
@@ -807,6 +880,7 @@ zergling.build:
 	Tooltip:
 		Name: Larper
 	Buildable:
+		Prerequisites: spawningpool
 		Description: Armed with a zip gun.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
 	Mobile:
 		Locomotor: foot
@@ -1244,6 +1318,7 @@ teslapyro:
 	Valued:
 		Cost: 125
 	Buildable:
+		Prerequisites: banelingnest
 		Description: Elon Musk's pyrotechnical death squads.\nArmed with a Boring Company flamethrower.\n  Strong vs Infantry, Buildings
 	Power:
 		Amount: -1

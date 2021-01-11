@@ -57,7 +57,6 @@ builder.t:
 	ProductionQueue@Building:
 		Type: Building.T
 		Group: Building
-		LowPowerModifier: 200
 		ReadyAudio: ConstructionComplete
 		BlockedAudio: NoBuild
 		LimitedAudio: BuildingInProgress
@@ -947,6 +946,7 @@ missileturret:
 	RenderRangeCircle:
 	AttackTurreted:
 		PauseOnCondition: disabled
+		RequiresCondition: build-complete
 	BodyOrientation:
 		QuantizedFacings: 32
 	IsometricSelectable:
@@ -1153,9 +1153,10 @@ ghost:
 	Armor:
 		Type: infantry.light
 	AttackFrontal:
-		Armaments: primary, lockdown, nuke, superweapon
+		Armaments: primary, lockdown, nuketarget, nukelaunch, nukeimpact
 		ForceFireIgnoresActors: true
 		Voice: Attack
+		RequiresCondition: !nukecooldown
 	Armament@primary:
 		Weapon: ghost.sniper
 		PauseOnCondition: nuking
@@ -1182,15 +1183,16 @@ ghost:
 		RequiresCondition: usedlockdown
 	Armament@Nuke:
 		Weapon: ghost.nukespawner
-		Name: superweapon
+		Name: nukelaunch
 		TargetStances: None
-		RequiresCondition: hasnuke && !nuking
+		RequiresCondition: hasnuke && !nuking && !nukefiring
 	Armament@Nuke2:
 		Weapon: ghost.nuketargeting
-		Name: nuke
+		Name: nuketarget
 		RequiresCondition: nuking
 	Armament@Nuke3:
 		Weapon: ghost.nukelaunch
+		Name: nukeimpact
 		RequiresCondition: nukefinished
 	GrantConditionOnPrerequisite@Nuke:
 		Condition: hasnuke
@@ -1209,27 +1211,38 @@ ghost:
 	#	StartsFullyCharged: true
 	GrantConditionOnAttack@Nuke:
 		Condition: nuking
-		ArmamentNames: superweapon
+		ArmamentNames: nukelaunch
 		RevokeOnNewTarget: true
-		RevokeDelay: 200
+		RevokeDelay: 210
 	GrantConditionOnAttack@Nuke1:
 		Condition: nukestarted
-		ArmamentNames: superweapon
+		ArmamentNames: nukelaunch
 		RevokeDelay: 1
 	GrantConditionOnAttack@Nuke2:
 		Condition: nukefinished
-		ArmamentNames: nuke
+		ArmamentNames: nuketarget
 		RequiredShotsPerInstance: 10
 		RevokeOnNewTarget: true
 		RevokeAll: true
 		RevokeDelay: 10
+	GrantConditionOnAttack@Nuke3: #INCREDIBLY AWFUL HACK: Prevent persistent targeting calling another nuke after impact
+		Condition: nukecooldown
+		ArmamentNames: nukeimpact
+		RevokeDelay: 10
 	GrantExternalConditionToOwner@Nuke:
 		Condition: nukefired
 		RequiresCondition: nukestarted
-	AutoTargetPriority@NUKE:
-		ValidTargets: NukeTarget
-		Priority: 2
-		RequiresCondition: nuking
+	#prevent more than 1 nuke being called per tick
+	ProvidesPrerequisite@nukefired:
+		Prerequisite: nukefiring
+		RequiresCondition: nukestarted
+	GrantConditionOnPrerequisite@nukefiring:
+		Condition: nukefiring
+		Prerequisites: nukefiring
+	#AutoTargetPriority@NUKE:
+	#	ValidTargets: NukeTarget
+	#	Priority: 2
+	#	RequiresCondition: nuking
 	Voiced:
 		VoiceSet: DesolatorVoice
 	RenderSprites:

@@ -445,7 +445,7 @@ ghost.nuketargeting:
 		#ValidTargets: NukeTarget
 
 ghost.nukelaunch:
-	ReloadDelay: 20
+	ReloadDelay: 10
 	Range: 11c0
 	Report: snukintr.wav
 	#ValidTargets: NukeTarget

@@ -163,7 +163,6 @@ builder.p:
 	ProductionQueue@Building:
 		Type: Building.P
 		Group: Building
-		LowPowerModifier: 200
 		ReadyAudio: ConstructionComplete
 		BlockedAudio: NoBuild
 		LimitedAudio: BuildingInProgress
