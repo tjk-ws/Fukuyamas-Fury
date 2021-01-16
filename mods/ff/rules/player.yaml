@@ -65,7 +65,7 @@ Player:
 	GrantConditionOnProduction@Nuke:
 		Actors: academy.nuke
 		Condition: nukeloaded
-		Duration: 1
+		Duration: 0
 	ProvidesPrerequisite@Nuke:
 		Prerequisite: hasnuke
 		RequiresCondition: hasnuke

@@ -8,15 +8,24 @@
 	ExternalCondition@build:
 		Condition: scvbuild
 		TotalCap: 4
+	ExternalCondition@taken:
+		Condition: scvtaken
+		TotalCap: 1
 	GrantCondition@buildcomplete:
 		Condition: build-complete
 		RequiresCondition: scvbuild > 3 || !needsbuild
-	Targetable@build:
+	Targetable@buildable:
 		TargetTypes: scvbuildable
-		RequiresCondition: !build-complete
+		RequiresCondition: !build-complete && !scvtaken
+	Targetable@building:
+		TargetTypes: scvbuilding
+		RequiresCondition: !build-complete && scvtaken
 	WithColoredOverlay@BUILD:
 		RequiresCondition: !build-complete
 		Palette: disabled
+	RequiresBuildableArea:
+		AreaTypes: scv
+		Adjacent: 4
 
 builder.t:
 	Inherits: ^VoxelVehicle
@@ -69,23 +78,34 @@ builder.t:
 		Range: 5c0
 		RequiresCondition: !moving
 	GivesBuildableArea:
-		AreaTypes: building
+		AreaTypes: scv
 		RequiresCondition: !moving
 	AutoTargetPriority@Build:
-		ValidTargets: scvbuildable
+		ValidTargets: scvbuildable, scvbuilding
 		Priority: 2
-	Armament:
-		Weapon: SCVBuild
+	Armament@Build:
+		Weapon: scv.build
 		TargetRelationships: Ally
 		ForceTargetRelationships: Ally
 		LocalOffset: 384,0,1024
+		Name: building
+		RequiresCondition: building
+	Armament@Capture:
+		Weapon: scv.capture
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
+		LocalOffset: 384,0,1024
+		Name: build
+		RequiresCondition: !building
 	GrantConditionOnAttack@build:
+		ArmamentNames: build
 		Condition: building
-		RevokeDelay: 35
+		RevokeDelay: 120
 	Harvester:
 		DeliveryBuildings: cc.dock
 	Turreted:
 	AttackTurreted:
+		Armaments: primary, building, build
 		Voice: Move
 	WithHarvestOverlay:
 		LocalOffset: 121,0,0
@@ -569,6 +589,7 @@ academy:
 	GrantExternalConditionToOwner:
 		Condition: hasacademy
 	NukePower@GhostNuke:
+		Prerequisites: ~disabled
 		OrderName: Nuke.T
 		Cursor: nuke
 		Icon: abomb
@@ -1141,8 +1162,8 @@ ghost:
 		Cost: 100
 	Buildable:
 		Queue: Infantry.T
-		Prerequisites: academy #, lab.barracks
-		Description: Elite infantry.\n  Can disable and drain units with Lockdown.\n  Can force fire to guide a tactical missile. (not yet)
+		Prerequisites: ~disabled #academy #, lab.barracks
+		Description: Elite infantry.\n  Can disable and drain units with Lockdown.\n  Can force fire to guide a tactical missile.
 	Power:
 		Amount: -2
 	Mobile:
@@ -1159,6 +1180,7 @@ ghost:
 		RequiresCondition: !nukecooldown
 	Armament@primary:
 		Weapon: ghost.sniper
+		Name: primary
 		PauseOnCondition: nuking
 	Armament@emp:
 		Weapon: ghost.lockdown
@@ -1185,6 +1207,7 @@ ghost:
 		Weapon: ghost.nukespawner
 		Name: nukelaunch
 		TargetRelationships: None
+		Cursor: nuke
 		RequiresCondition: hasnuke && !nuking && !nukefiring
 	Armament@Nuke2:
 		Weapon: ghost.nuketargeting
@@ -1202,13 +1225,6 @@ ghost:
 		UsePlayerColor: true
 		Position: Top
 		RequiresCondition: hasnuke
-	#GrantTimedConditionOnDeploy@Nuke:
-	#	DeployedCondition: nukemode
-	#	CooldownTicks: 0
-	#	DeployedTicks: 240
-	#	RequiresCondition: hasnuke
-	#	Voice: Attack
-	#	StartsFullyCharged: true
 	GrantConditionOnAttack@Nuke:
 		Condition: nuking
 		ArmamentNames: nukelaunch
@@ -1239,14 +1255,58 @@ ghost:
 	GrantConditionOnPrerequisite@nukefiring:
 		Condition: nukefiring
 		Prerequisites: nukefiring
-	#AutoTargetPriority@NUKE:
-	#	ValidTargets: NukeTarget
-	#	Priority: 2
-	#	RequiresCondition: nuking
 	Voiced:
 		VoiceSet: DesolatorVoice
 	RenderSprites:
 		Image: ghost
+
+ghost2:
+	Inherits: ghost
+	Buildable:
+		Queue: Infantry.T
+		Prerequisites: academy #, lab.barracks
+		Description: Elite infantry.\n  Can disable and drain units with Lockdown.\n  Can guide a tactical missile.
+	-AttackFrontal:
+	Turreted:
+	AttackTurreted: #FireArmamentPower does not work on attackfrontal
+		Armaments: primary, lockdown, nuketarget, nukeimpact
+		ForceFireIgnoresActors: false
+		Voice: Attack
+		RequiresCondition: !nukecooldown
+	Armament@Nuke:
+		Weapon: ghost.nukespawner
+		Name: nukelaunch
+		-TargetRelationships:
+		-RequiresCondition:
+	Armament@Nuke2:
+		Weapon: ghost.nuketargeting2
+		TargetRelationships: Ally
+	FireArmamentPower:
+		OrderName: Nuke.T
+		Cursor: nuke
+		Icon: abomb
+		ChargeInterval: 0
+		StartFullyCharged: true
+		Description: Tactical Missile
+		LongDesc: Launches a tactical ballistic missile\nat a target location.\nUnit must remain in place before\nmissile impact.
+		SelectTargetSpeechNotification: SelectTarget
+		EndChargeSpeechNotification: NuclearMissileReady
+		LaunchSpeechNotification: NuclearMissileLaunched
+		IncomingSpeechNotification: NuclearMissileLaunched
+		ArmamentName: nukelaunch
+		DisplayBeacon: false
+		DisplayRadarPing: True
+		BeaconPoster: nukeicon
+		CameraRemoveDelay: 70
+		ArrowSequence: arrow
+		CameraRange: 10
+		TargetCircleRange: 8
+		RequiresCondition: hasnuke && !nuking && !nukefiring
+		AllowMultiple: false
+	AutoTargetPriority@NUKE:
+		ValidTargets: NukeTarget
+		Priority: 2
+		RequiresCondition: nuking
 
 ghost.nukedummy:
 	Inherits@1: ^SpriteActor
@@ -1276,10 +1336,10 @@ ghost.nukedummy:
 	KillsSelf:
 		Delay: 300
 		RemoveInstead: true
-	AnnounceOnSeen:
-		Notification: NuclearMissileLaunched
-		PingRadar: true
-		AnnounceNeutrals: true
+	#AnnounceOnSeen:
+	#	Notification: NuclearMissileLaunched
+	#	PingRadar: true
+	#	AnnounceNeutrals: true
 	RenderSprites:
 		Palette: effect
 
@@ -1996,10 +2056,11 @@ wraith:
 		FacingTolerance: 20
 	Armor:
 		Type: air.heavy
-	WithVoxelHelicopterBody:
+	WithVoxelBody:
 	RenderSprites:
 	RenderVoxels:
 		Scale: 1
+		NormalsPalette: ts-normals
 	Voiced:
 		VoiceSet: SiegeChopperVoice
 

@@ -26,7 +26,6 @@ Bu7loos:
 	Right Wing Gunship				vehicles/rw.*
 	Phantom						vehicles/svair.*
 	Chrono Miner					vehicles/cm*n.*
-	Lasher Tank					vehicles/lasher.*
 	Yuri Drones					vehicles/gattlingdrone.*
 							rocketdrone.*
 	Gatling Fist					vehicles/gattlingfist.*
@@ -130,6 +129,9 @@ MiGEater:
 
 Moder.U:
 	Unnamed gunship				vehicles/fly.*
+	Lasher tank				vehicles/lasher*.*
+	Mortar crawler chassis			vehicles/btnk.*
+	SPAAG					vehicles/aagun*.*
 
 MustaphaTR:
 	Blue Fire				animations/bluefire0?.shp

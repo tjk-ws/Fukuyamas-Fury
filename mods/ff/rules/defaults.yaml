@@ -1539,6 +1539,7 @@
 		RequiresCondition: !disabled
 	AttackFrontal:
 		Voice: Attack
+		FacingTolerance: 2
 		PauseOnCondition: disabled
 	GrantCondition@disable:
 		Condition: disabled

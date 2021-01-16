@@ -1,9 +1,9 @@
-SCVBuild:
+scv.build:
 	Range: 2c0
 	ReloadDelay: 30
 	Report: vifvrepa.wav
 	TargetActorCenter: true
-	ValidTargets: scvbuildable
+	ValidTargets: scvbuilding
 	Projectile: LaserZap
 		Width: 35
 		SecondaryBeam: true
@@ -17,6 +17,14 @@ SCVBuild:
 		Condition: scvbuild
 		Range: 0c768
 		ValidRelationships: Ally
+		ValidTargets: scvbuilding
+
+scv.capture:
+	Inherits: scv.build
+	ValidTargets: scvbuildable
+	Warhead@Build: GrantExternalCondition
+		Condition: scvtaken
+		Duration: 120
 		ValidTargets: scvbuildable
 
 marine.mg:
@@ -426,29 +434,45 @@ ghost.nukespawner:
 	ReloadDelay: 10
 	Range: 11c0
 	Report: snuklaun.wav
+	ValidTargets: Ground
 	InvalidTargets: Infantry, Structure, Vehicle, Air, Wall, Fence, Ship
 	Projectile: InstantHit
 	Warhead@1: SpawnActor
 		Actors: ghost.nukedummy
 		ForceGround: true
+		Range: 5
 		ValidTargets: Ground, Water, Air
 	Warhead@2: CreateEffect
 		ImpactSounds: snuksire.wav
 		ValidTargets: Ground, Water, Air
+	Warhead@3: TargetDamage
+
+ghost.nukespawner2:
+	Inherits: ghost.nukespawner
+	Projectile: Bullet
+		Speed: 500
 
 ghost.nuketargeting:
 	ReloadDelay: 20
 	Range: 11c0
-	#ValidTargets: NukeTarget
 	Projectile: InstantHit
 	Warhead@1: TargetDamage
-		#ValidTargets: NukeTarget
+
+ghost.nuketargeting2:
+	Inherits: ghost.nuketargeting
+	Projectile: LaserZap #debug
+		Width: 35
+		Duration: 20
+		UsePlayerColor: true
+	ValidTargets: NukeTarget
+	Warhead@1: TargetDamage
+		ValidTargets: NukeTarget
 
 ghost.nukelaunch:
 	ReloadDelay: 10
 	Range: 11c0
 	Report: snukintr.wav
-	#ValidTargets: NukeTarget
+	ValidTargets: Ground, NukeTarget
 	Projectile: AthenaProjectile
 		Altitude: 15c0
 	Warhead@1: TargetDamage

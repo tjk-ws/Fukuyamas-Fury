@@ -48,6 +48,8 @@ pylon:
 	icon: powricon
 		Offset: 0,0
 		UseTilesetCode: false
+	make:
+		Tick: 112
 
 gateway:
 	Inherits: eachannel
@@ -55,6 +57,8 @@ gateway:
 	icon: brrkicon
 		Offset: 0,0
 		UseTilesetCode: false
+	make:
+		Tick: 285
 
 nexus:
 	Inherits@warp: ^WarpInBuilding
@@ -65,6 +69,8 @@ nexus:
 	icon: acnsicon
 		Offset: 0,0
 		UseTilesetCode: false
+	make:
+		Tick: 495
 
 robotics:
 	Inherits@warp: ^WarpInBuilding
@@ -72,6 +78,8 @@ robotics:
 	icon: gwepicon
 		Offset: 0,0
 		UseTilesetCode: false
+	make:
+		Tick: 285
 
 stargate:
 	Inherits@warp: ^WarpInBuilding
@@ -86,6 +94,8 @@ stargate:
 	icon: heliicon
 		Offset: 0,0
 		UseTilesetCode: false
+	make:
+		Tick: 250
 
 forge:
 	Inherits@warp: ^WarpInBuilding
@@ -93,6 +103,8 @@ forge:
 	icon: gorep
 		Offset: 0,0
 		UseTilesetCode: false
+	make:
+		Tick: 200
 
 cybercore:
 	Inherits@warp: ^WarpInBuilding
@@ -100,6 +112,8 @@ cybercore:
 	icon: xxicon
 		Offset: 0,0
 		UseTilesetCode: false
+	make:
+		Tick: 225
 
 twilightcouncil:
 	Inherits@warp: ^WarpInBuilding
@@ -107,6 +121,8 @@ twilightcouncil:
 	icon: techicon
 		Offset: 0,0
 		UseTilesetCode: false
+	make:
+		Tick: 225
 
 templararchives:
 	Inherits@warp: ^WarpInBuilding
@@ -114,6 +130,8 @@ templararchives:
 	icon: xxicon
 		Offset: 0,0
 		UseTilesetCode: false
+	make:
+		Tick: 225
 
 darkshrine:
 	Inherits@warp: ^WarpInBuilding
@@ -121,6 +139,8 @@ darkshrine:
 	icon: xxicon
 		Offset: 0,0
 		UseTilesetCode: false
+	make:
+		Tick: 225
 
 fleetbeacon:
 	Inherits@warp: ^WarpInBuilding
@@ -128,6 +148,8 @@ fleetbeacon:
 	icon: asaticon
 		Offset: 0,0
 		UseTilesetCode: false
+	make:
+		Tick: 250
 
 robobay:
 	Inherits@warp: ^WarpInBuilding
@@ -135,14 +157,20 @@ robobay:
 	icon: rbccicon
 		Offset: 0,0
 		UseTilesetCode: false
+	make:
+		Tick: 250
 
 shieldbattery:
 	Inherits@warp: ^WarpInBuilding
 	Inherits: gawhtr
+	make:
+		Tick: 370
 
 photoncannon:
 	Inherits@warp: ^WarpInBuilding
 	Inherits: galasr
+	make:
+		Tick: 185
 
 probe:
 	Inherits: harv

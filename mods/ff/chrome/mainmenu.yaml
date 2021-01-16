@@ -43,7 +43,7 @@ Container@MAINMENU:
 							Y: 22
 							Width: 200
 							Height: 30
-							Text: German Idealism Completion Simulator
+							Text: OpenRA
 							Align: Center
 							Font: Bold
 						Button@SINGLEPLAYER_BUTTON:

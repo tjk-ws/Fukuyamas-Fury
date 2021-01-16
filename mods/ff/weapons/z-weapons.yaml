@@ -11,6 +11,31 @@ drone.morph:
 		ValidRelationships: Ally
 		ValidTargets: morphable
 
+spinecrawler.tentacle:
+	Inherits: ^LargeBullet
+	Range: 7c0
+	ReloadDelay: 33
+	Report: gexpshaa.wav
+	TargetActorCenter: true
+	Projectile: BulletAS
+		Speed: 512
+		LaunchAngle: 180
+		ContrailLength: 40
+	Warhead@1Dam: SpreadDamage
+		Damage: 50
+		Versus:
+			infantry.heavy: 120
+			vehicle.heavy: 120
+
+sporecrawler.spore:
+	Inherits: ^AAFlak
+	Range: 7c0
+	ReloadDelay: 15
+	Warhead@1Dam: SpreadDamage
+		Damage: 30
+		Versus:
+			air.light: 200
+
 zergling.claw:
 	Inherits: ^MG
 	Range: 4c0

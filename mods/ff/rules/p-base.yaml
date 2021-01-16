@@ -264,6 +264,7 @@ nexus:
 		Amount: 15
 	Production@Probes:
 		Produces: Worker.P
+		RequiresCondition: !build-incomplete
 	ProductionQueue@Probes:
 		Type: Worker.P
 		Group: Vehicle
@@ -332,10 +333,11 @@ gateway:
 	Production@1:
 		Produces: Infantry.P
 		PauseOnCondition: !pylonpower || disabled || warpgate
+		RequiresCondition: !build-incomplete
 	Production@2:
 		Produces: Warpin.P
 		PauseOnCondition: !pylonpower || disabled || gateway
-		RequiresCondition: warpgateable
+		RequiresCondition: warpgateable && !build-incomplete
 	ProductionQueue@1:
 		Type: Infantry.P
 		Group: Infantry
@@ -366,7 +368,7 @@ gateway:
 	GrantConditionOnDeploy:
 		UndeployedCondition: gateway
 		DeployedCondition: warpgate
-		RequiresCondition: warpgateable
+		RequiresCondition: warpgateable && !build-incomplete
 		SkipMakeAnimation: true
 	GrantConditionOnPrerequisite@warpgate:
 		Condition: warpgateable
@@ -416,6 +418,7 @@ robotics:
 	Production@1:
 		Produces: Vehicle.P
 		PauseOnCondition: !pylonpower || disabled
+		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Vehicle.P
 		Group: Vehicle
@@ -478,6 +481,7 @@ stargate:
 	Production@1:
 		Produces: Air.P
 		PauseOnCondition: !pylonpower || disabled
+		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Air.P
 		Group: Aircraft
@@ -528,6 +532,7 @@ forge:
 	Production@1:
 		Produces: Forge.P
 		PauseOnCondition: !pylonpower
+		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Forge.P
 		Group: Support
@@ -581,6 +586,7 @@ cybercore:
 	Production@1:
 		Produces: Cybercore.P
 		PauseOnCondition: !pylonpower
+		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Cybercore.P
 		Group: Support
@@ -622,6 +628,7 @@ twilightcouncil:
 	Production@1:
 		Produces: Council.P
 		PauseOnCondition: !pylonpower
+		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Council.P
 		Group: Support
@@ -671,6 +678,7 @@ templararchives:
 	Production@1:
 		Produces: Archives.P
 		PauseOnCondition: !pylonpower
+		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Archives.P
 		Group: Support
@@ -721,6 +729,7 @@ darkshrine:
 	Production@1:
 		Produces: Shrine.P
 		PauseOnCondition: !pylonpower
+		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Shrine.P
 		Group: Support
@@ -775,6 +784,7 @@ robobay:
 	Production@1:
 		Produces: Robobay.P
 		PauseOnCondition: !pylonpower
+		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Robobay.P
 		Group: Support
@@ -816,6 +826,7 @@ fleetbeacon:
 	Production@1:
 		Produces: Beacon.P
 		PauseOnCondition: !pylonpower
+		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Beacon.P
 		Group: Support
@@ -870,6 +881,7 @@ shieldbattery:
 		Offset: 0, 0, 2000
 	AttackTurreted:
 		PauseOnCondition: !pylonpower
+		RequiresCondition: !build-incomplete
 	Armament:
 		Weapon: shieldbattery.heal
 		TargetRelationships: Ally
@@ -920,6 +932,7 @@ photoncannon:
 	RenderRangeCircle:
 	AttackTurreted:
 		PauseOnCondition: !pylonpower
+		RequiresCondition: !build-incomplete
 	BodyOrientation:
 		QuantizedFacings: 32
 	IsometricSelectable:
@@ -940,7 +953,7 @@ zealot:
 		Cost: 50
 	Buildable:
 		Queue: Infantry.P
-		Description: Ultranationalist armed with cleaver.\n  Strong vs Infantry  \n  Weak vs Vehicles, Aircraft
+		Description: Chinese ultranationalist armed with cleaver.\n  Strong vs Infantry  \n  Weak vs Vehicles, Aircraft
 	Power:
 		Amount: -1
 	Mobile:
@@ -1052,7 +1065,7 @@ adept:
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@VOICES: ^WithFeedbackVoicelines
 	Tooltip:
-		Name: T-Doll
+		Name: Tulpa
 	Health:
 		HP: 140
 	Valued:
@@ -1060,7 +1073,7 @@ adept:
 	Buildable:
 		Queue: Infantry.P
 		Prerequisites: cybercore
-		Description: Gacha gamers' tulpas.
+		Description: Creature summoned by Genshin Impact microtransactions.\n  Strong vs Light armor
 	Power:
 		Amount: -2
 	Mobile:
@@ -1081,7 +1094,7 @@ adept:
 warpin.adept:
 	Inherits: ^InfantryWarpin
 	Tooltip:
-		Name: T-Doll
+		Name: Tulpa
 	Health:
 		HP: 140
 	Valued:
@@ -1090,7 +1103,7 @@ warpin.adept:
 		Type: infantry.light
 	Buildable:
 		Queue: Warpin.P
-		Description: Warps in a T-Doll at\nthe targeted location.
+		Description: Warps in a Tulpa at\nthe targeted location.
 	TransformOnCondition:
 		IntoActor: adept
 		RequiresCondition: finishwarp
@@ -1104,7 +1117,7 @@ hightemplar:
 	Inherits@FB: ^EnergyPoolEffects
 	Inherits@archon: ^CanMergeArchon
 	Tooltip:
-		Name: Shock Therapist
+		Name: Hacker
 	Health:
 		HP: 80
 	Valued:
@@ -1112,7 +1125,7 @@ hightemplar:
 	Buildable:
 		Queue: Infantry.P
 		Prerequisites: templararchives
-		Description: Fries vehicles and gamers.
+		Description: Technology specialist.\nCan drain energy from units, dealing damage proportional to drain.\nCan detonate a powerful bomb when deployed.\n  Strong vs spellcasters, clustered units
 	Power:
 		Amount: -2
 	Mobile:
@@ -1178,7 +1191,7 @@ hightemplar:
 warpin.ht:
 	Inherits: ^InfantryWarpin
 	Tooltip:
-		Name: Shock Therapist
+		Name: Hacker
 	Health:
 		HP: 80
 	Valued:
@@ -1187,7 +1200,7 @@ warpin.ht:
 		Type: infantry.light
 	Buildable:
 		Queue: Warpin.P
-		Description: Warps in a Shock Therapist at\nthe targeted location.
+		Description: Warps in a Hacker at\nthe targeted location.
 	TransformOnCondition:
 		IntoActor: hightemplar
 		RequiresCondition: finishwarp
@@ -1347,7 +1360,7 @@ sentry:
 		Queue: Infantry.P
 		Prerequisites: cybercore
 		BuildPaletteOrder: 20
-		Description: Autonomous support vehicle.\nCan create barriers to impede enemy movement.\nCan shield friendly units via deploy
+		Description: Autonomous support vehicle.\nCan create barriers to impede enemy movement.\nCan shield friendly units via deploy (TBD)
 	Power:
 		Amount: -2
 	Mobile:
@@ -1452,7 +1465,7 @@ immortal:
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Inherits@EXPERIENCE: ^GainsExperience
 	Tooltip:
-		Name: Model Monkey
+		Name: Generic tank
 	Selectable:
 		Bounds: 64, 52, 0, -6
 	Health:
@@ -1462,7 +1475,7 @@ immortal:
 	Buildable:
 		Queue: Vehicle.P
 		BuildPaletteOrder: 20
-		Description: Failed tank prototype.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+		Description: Light tank prototype.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
 	Power:
 		Amount: -4
 	Mobile:
@@ -2339,12 +2352,12 @@ upgrade.stalkerblink:
 upgrade.psistorm:
 	Inherits: ^upgrade
 	Tooltip:
-		Name: Electrotherapeutic Storm
+		Name: Logic Bomb
 	Valued:
 		Cost: 400
 	Buildable:
 		Queue: Archives.P
-		Description: Grants Shock Therapists storm ability.
+		Description: Grants Hackers bomb ability.
 	RenderSprites:
 		Image: ht
 

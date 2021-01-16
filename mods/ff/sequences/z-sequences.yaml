@@ -1,8 +1,13 @@
+^Crawler:
+	Inherits: natbnk
+
 drone:
 	Inherits: harv
 
 hatchery:
 	Inherits: yacnst
+	make:
+		Tick: 1000
 
 hatchery.larva:
 	idle: cgmisc05
@@ -16,9 +21,13 @@ creeptumor:
 
 spawningpool:
 	Inherits: yabrck
+	make:
+		Tick: 600
 
 banelingnest:
 	Inherits: yapowr
+	make:
+		Tick: 800
 
 evolutionchamber:
 	Inherits: yagrnd
@@ -38,24 +47,36 @@ evolutionchamber:
 		Length: 5
 		ShadowStart: 16
 		Tick: 180
+	make:
+		Tick: 600
 
 hydraliskden:
 	Inherits: yapsis
+	make:
+		Tick: 800
 
 roachwarren:
 	Inherits: yadome
+	make:
+		Tick: 800
 
 ultraliskcavern:
 	Inherits: yaweap
 	Defaults: ygweap
+	make:
+		Tick: 1000
 
 infestationpit:
 	Inherits: yatech
+	make:
+		Tick: 1000
 
 nydus:
 	Inherits: yaunkn
 	icon: xxicon
 		Offset: 0,0
+	make:
+		Tick: 360
 
 overlord:
 	icon: diskicon
@@ -103,3 +124,16 @@ teslapyro:
 	Defaults: pyro
 	icon: teslapyroicon.png
 		AddExtension: false
+
+sporecrawler:
+	Inherits: ^Crawler
+	Inherits@MUZZLE: ^WithFlakMuzzle
+	icon: xxicon
+	make:
+		Tick: 125
+
+spinecrawler:
+	Inherits: ^Crawler
+	icon: xxicon
+	make:
+		Tick: 225

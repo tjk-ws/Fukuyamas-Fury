@@ -103,7 +103,7 @@ banshee:
 	idle: banshee
 
 wraith:
-	idle: sadr
+	idle: mx8m1
 
 valkyrie:
 	idle: sukhoi
@@ -157,3 +157,10 @@ swarmhost:
 broodlord:
 	idle: seeker
 	turret: seekertur
+
+sporecrawler:
+	idle: aagun
+	turret: aaguntur
+
+spinecrawler:
+	idle: btnk

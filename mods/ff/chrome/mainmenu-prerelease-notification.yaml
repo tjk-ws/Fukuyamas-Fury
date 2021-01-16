@@ -11,7 +11,7 @@ Background@MAINMENU_PRERELEASE_NOTIFICATION:
 			Height: 25
 			Font: Bold
 			Align: Center
-			Text: Romanov's Vengeance Disclaimer
+			Text: Fukuyama's Fury Disclaimer
 		Label@PROMPT_TEXT_A:
 			X: 15
 			Y: 50
@@ -32,21 +32,21 @@ Background@MAINMENU_PRERELEASE_NOTIFICATION:
 			Width: PARENT_RIGHT - 30
 			Height: 16
 			Align: Center
-			Text: Romanov's Vengeance is in an early Beta stage as well. Neither design,
+			Text: Fukuyama's Fury is highly experimental and will remain in development for a
 		Label@PROMPT_TEXT_D:
 			X: 15
 			Y: 122
 			Width: PARENT_RIGHT - 30
 			Height: 16
 			Align: Center
-			Text: gameplay nor balance are set in stone and subject to change. Expect to see
+			Text: considerable length of time as its design will continuously change.
 		Label@PROMPT_TEXT_E:
 			X: 15
 			Y: 140
 			Width: PARENT_RIGHT - 30
 			Height: 16
 			Align: Center
-			Text: bugs, unbalanced gameplay, placeholders or missing features.
+			Text: Expect bugs, unbalanced gameplay, placeholders or missing features.
 		Button@CONTINUE_BUTTON:
 			X: PARENT_RIGHT - WIDTH - 20
 			Y: PARENT_BOTTOM - 45

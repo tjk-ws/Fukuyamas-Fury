@@ -80,6 +80,7 @@
 	Sellable:
 		RefundPercent: 100
 		RequiresCondition: build-incomplete
+		SkipMakeAnimation: true
 
 hatchery:
 	Inherits: ^structure.z
@@ -129,6 +130,7 @@ hatchery:
 		SlaveDisposalOnKill: DoNothing
 		RespawnTicks: 275
 		InitialActorCount: 0
+		RequiresCondition: !build-incomplete
 	MobSpawnerMaster@Inject:
 		Actors: hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva
 		InitialActorCount: 0
@@ -137,7 +139,7 @@ hatchery:
 		SlavesHaveFreeWill: true
 		SlaveDisposalOnKill: DoNothing
 		RespawnTicks: 1
-		RequiresCondition: inject
+		RequiresCondition: inject && !build-incomplete
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@lair:
 		Prerequisite: lair
@@ -880,6 +882,221 @@ overlord:
 	Voiced:
 		VoiceSet: ChaosDroneVoice
 
+^spinecrawler.base:
+	Inherits@shape: ^2x2Shape
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Turreted:
+		Turret: primary
+	Turreted@2:
+		InitialFacing: 384
+		Turret: secondary
+	WithSpriteBody:
+	WithVoxelTurret:
+		Turret: secondary
+		Sequence: idle
+	WithMakeAnimation:
+		Condition: build-incomplete
+	WithIdleOverlay@Garrisoned:
+		Sequence: idle-garrisoned
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@GarrisonedFront:
+		Sequence: idle-garrisoned-front
+		RequiresCondition: !build-incomplete
+	IsometricSelectable:
+		DecorationHeight: 45
+	RenderVoxels:
+		Scale: 1
+		Image: spinecrawler
+	RenderSprites:
+		Image: spinecrawler
+
+^sporecrawler.base:
+	Inherits: ^spinecrawler.base
+	Turreted:
+		InitialFacing: 384
+		Offset: 0,0,500
+		Turret: primary
+	WithVoxelTurret@2:
+	RenderVoxels:
+		Image: sporecrawler
+	RenderSprites:
+		Image: sporecrawler
+
+spinecrawler:
+	Inherits@1: ^structure.z
+	Inherits@2: ^SupportBuilding
+	Inherits@3: ^VoxelActor
+	Inherits: ^spinecrawler.base
+	Inherits@AUTOTARGET: ^AutoTargetGround
+	Tooltip:
+		Name: Deployed Mortar Crawler
+	Health:
+		HP: 600
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Building.Z
+		Prerequisites: ~disabled #spawningpool
+		Description: Anti-ground defense.
+	Armament:
+		Weapon: spinecrawler.tentacle
+		Turret: primary
+	AttackTurreted:
+		Voice: Attack
+	RenderRangeCircle:
+	Transforms:
+		IntoActor: spinecrawler.mobile
+		Voice: Move
+	Voiced:
+		VoiceSet: GatlingTankVoice
+
+morph.spinecrawler:
+	Inherits: ^MorphTarget
+	Inherits@2: ^spinecrawler.base
+	Tooltip:
+		Name: Mortar Crawler
+	Buildable:
+		Queue: Building.Z
+		Prerequisites: spawningpool
+		Description: Anti-ground defense.
+	Building:
+		Footprint: == ==
+	Valued:
+		Cost: 100
+	CashTrickler@refund:
+		Amount: 100
+	TransformOnCondition:
+		IntoActor: spinecrawler
+
+spinecrawler.mobile:
+	Inherits: ^VoxelVehicle
+	Inherits@HATCH: ^ProducedFromLarva
+	Tooltip:
+		Name: Mortar Crawler
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 600
+	Valued:
+		Cost: 100
+	Buildable:
+		BuildPaletteOrder: 0
+		Prerequisites: ~disabled #spawningpool
+		Description: TBD
+	Power:
+		Amount: -6
+	Mobile:
+		Speed: 70
+		TurnSpeed: 32
+	Armor:
+		Type: building.steel
+	RenderSprites:
+		Image: spinecrawler
+	RenderVoxels:
+		Image: spinecrawler
+		Scale: 1
+	WithVoxelBody:
+	Transforms:
+		IntoActor: spinecrawler
+		Voice: Move
+	Voiced:
+		VoiceSet: GatlingTankVoice
+
+sporecrawler:
+	Inherits@1: ^structure.z
+	Inherits@2: ^SupportBuilding
+	Inherits@3: ^VoxelActor
+	Inherits: ^sporecrawler.base
+	Inherits@AUTOTARGET: ^AutoTargetAir
+	Inherits@DETECT: ^GenericDetector
+	Tooltip:
+		Name: Deployed Flak Crawler
+	Health:
+		HP: 800
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 75
+	Buildable:
+		Queue: Building.Z
+		Prerequisites: ~disabled #evolutionchamber
+		Description: Anti-air defense.
+	Armament:
+		Weapon: sporecrawler.spore
+		LocalOffset: 0,-300,0, 0,300,0
+		MuzzleSequence: muzzle
+		Turret: primary
+	WithMuzzleOverlay:
+	AttackTurreted:
+		Voice: Attack
+	RenderRangeCircle:
+	Transforms:
+		IntoActor: sporecrawler.mobile
+		Voice: Move
+	Voiced:
+		VoiceSet: GatlingTankVoice
+	RenderSprites:
+		Image: sporecrawler
+
+morph.sporecrawler:
+	Inherits: ^MorphTarget
+	Inherits@2: ^sporecrawler.base
+	Tooltip:
+		Name: Flak Crawler
+	Buildable:
+		Queue: Building.Z
+		Prerequisites: evolutionchamber
+		Description: Anti-air defense.
+	Building:
+		Footprint: == ==
+	Valued:
+		Cost: 75
+	CashTrickler@refund:
+		Amount: 75
+	TransformOnCondition:
+		IntoActor: sporecrawler
+
+sporecrawler.mobile:
+	Inherits: ^VoxelVehicle
+	Inherits@HATCH: ^ProducedFromLarva
+	Tooltip:
+		Name: Flak Crawler
+	Selectable:
+		Bounds: 64, 52, 0, -6
+	Health:
+		HP: 800
+	Valued:
+		Cost: 75
+	Buildable:
+		BuildPaletteOrder: 0
+		Prerequisites: ~disabled #evolutionchamber
+		Description: TBD
+	Power:
+		Amount: -6
+	Mobile:
+		Speed: 70
+		TurnSpeed: 32
+	Armor:
+		Type: building.steel
+	RenderSprites:
+		Image: sporecrawler
+	RenderVoxels:
+		Image: sporecrawler
+		Scale: 1
+	Turreted:
+		Offset: 0,0,500
+	WithVoxelBody:
+	WithVoxelTurret:
+	Transforms:
+		IntoActor: sporecrawler
+		Voice: Move
+	Voiced:
+		VoiceSet: GatlingTankVoice
+
 zergling.build:
 	Inherits: ^addon
 	Inherits@HATCH: ^ProducedFromLarva
@@ -1026,7 +1243,7 @@ queen:
 		RequiresCondition: energy < 1
 	RenderSprites:
 	RenderVoxels:
-		Scale: 6
+		Scale: 2
 	WithVoxelBody:
 	WithVoxelTurret:
 	Voiced:
@@ -1286,6 +1503,7 @@ broodlord:
 		Cost: 100
 	Buildable:
 		BuildPaletteOrder: 100
+		Prerequisites: ~disabled
 		Description: Deploys small drones to attack ground targets.
 	Power:
 		Amount: -2
