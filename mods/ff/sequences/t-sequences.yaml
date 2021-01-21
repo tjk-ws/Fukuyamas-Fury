@@ -142,6 +142,9 @@ hellbat:
 	Inherits: apu
 	icon: flkticon
 
+widowmine:
+	Inherits: sidewinder
+
 goliath:
 	Inherits@MUZZLE: ^WithMachineGunMuzzle
 	icon: htkicon

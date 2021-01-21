@@ -951,6 +951,47 @@ galasr:
 		Offset: 0,0
 		UseTilesetCode: false
 
+yapad:
+	Defaults:
+		Offset: 0, -30
+	idle: ygpad
+		ShadowStart: 3
+	idle-spin: ygpad_b
+		Length: 37
+		ShadowStart: 76
+		UseTilesetCode: true
+		TilesetOverrides:
+			TEMPERATE: GENERIC
+			URBAN: GENERIC
+			NEWURBAN: GENERIC
+			DESERT: GENERIC
+			LUNAR: GENERIC
+	damaged-idle-spin: ygpad_b
+		Start: 37
+		Length: 37
+		ShadowStart: 112
+		UseTilesetCode: true
+		TilesetOverrides:
+			TEMPERATE: GENERIC
+			URBAN: GENERIC
+			NEWURBAN: GENERIC
+			DESERT: GENERIC
+			LUNAR: GENERIC
+	bib: ygpadbb
+		ShadowStart: 2
+	idle-bottom: ygpad_a
+		Length: 39
+		ShadowStart: 78
+	damaged-idle-bottom: ygpad_a
+		Start: 39
+		Length: 39
+		ShadowStart: 117
+	make: ygpadmk
+		Length: 41
+		ShadowStart: 41
+	icon: yapadicon
+		Offset: 0, 0
+
 yaunkn:
 	Defaults:
 		Offset: 0, -30
@@ -1127,3 +1168,34 @@ whldrn:
 		ShadowStart: 660
 	paradrop:
 		Start: 337
+
+sidewinder:
+	Inherits: ^ArmedInfantry
+	Defaults: sidewinder
+	dot: dot
+		ZOffset: -9999
+	liedown:
+		Start: 164
+	standup:
+		Start: 182
+	shoot:
+		Start: 204
+	prone-shoot:
+		Start: 252
+	run:
+		Tick: 120
+	deployed: ggi
+		Start: 315
+		Facings: 8
+	deploy: ggi
+		Start: 300
+		Length: 15
+	shoot-deployed: ggi
+		Start: 323
+		Length: 6
+		Facings: 8
+	paradrop:
+		Start: 300
+	cheer:
+		Start: 196
+	icon: gdgiicon

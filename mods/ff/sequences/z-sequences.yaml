@@ -1,5 +1,12 @@
 ^Crawler:
 	Inherits: natbnk
+	make2:
+		Combine:
+			natbnkmk:
+				Length: 10
+			natbnk_b:
+				Length: 10
+		Length: 20
 
 drone:
 	Inherits: harv
@@ -71,6 +78,9 @@ infestationpit:
 	make:
 		Tick: 1000
 
+spire:
+	Inherits: yapad
+
 nydus:
 	Inherits: yaunkn
 	icon: xxicon
@@ -129,11 +139,11 @@ sporecrawler:
 	Inherits: ^Crawler
 	Inherits@MUZZLE: ^WithFlakMuzzle
 	icon: xxicon
-	make:
+	make2:
 		Tick: 125
 
 spinecrawler:
 	Inherits: ^Crawler
 	icon: xxicon
-	make:
+	make2:
 		Tick: 225

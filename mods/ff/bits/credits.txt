@@ -63,6 +63,9 @@ cxtian39:
 Damfoos:
 	Soviet Drone Carrier			vehicles/tdtnk*.*
 
+Dark_Elf_2001:
+	Sidewinder				infantry/sidewinder.shp
+
 DonutArnold:
 	Psychic Reveal Animation	animations/scananim.shp
 
@@ -113,6 +116,7 @@ MadHQ:
 	Soviet Tower				structures/natower*.shp
 	Soviet Missile Turret			structures/ngmissl*.shp
 	Allied Laser Turret			structures/g*lasr*.shp
+	Yuri Airpad				structures/y*pad*.shp
 
 Marn:
 	Gem Mine					structures/gmin.*

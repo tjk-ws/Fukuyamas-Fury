@@ -696,6 +696,33 @@ morph.infestationpit:
 	RenderSprites:
 		Image: infestationpit
 
+spire:
+	Inherits: ^structure.z
+	Inherits@shape: ^3x2Shape
+	Tooltip:
+		Name: Landing Pads
+	Health:
+		HP: 1700
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 400
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3,2
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@bib:
+		Sequence: bib
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@spin:
+		Sequence: idle-spin
+		RequiresCondition: !build-incomplete
+	WithIdleOverlay@bottom:
+		Sequence: idle-bottom
+		RequiresCondition: !build-incomplete
+	IsometricSelectable:
+		DecorationHeight: 105
+
 nydus:
 	Inherits: ^structure.z
 	Inherits@shape: ^2x2Shape
@@ -897,6 +924,7 @@ overlord:
 		Turret: secondary
 		Sequence: idle
 	WithMakeAnimation:
+		Sequence: make2
 		Condition: build-incomplete
 	WithIdleOverlay@Garrisoned:
 		Sequence: idle-garrisoned

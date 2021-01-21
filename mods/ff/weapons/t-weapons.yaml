@@ -460,10 +460,6 @@ ghost.nuketargeting:
 
 ghost.nuketargeting2:
 	Inherits: ghost.nuketargeting
-	Projectile: LaserZap #debug
-		Width: 35
-		Duration: 20
-		UsePlayerColor: true
 	ValidTargets: NukeTarget
 	Warhead@1: TargetDamage
 		ValidTargets: NukeTarget
