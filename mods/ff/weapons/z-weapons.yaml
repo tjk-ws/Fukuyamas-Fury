@@ -214,3 +214,90 @@ bbqlighter:
 			infantry.light: 175
 			vehicle.light: 175
 			building.wood: 175
+
+mutalisk.wurm:
+	Inherits: ^LargeBullet
+	Range: 3c0
+	ReloadDelay: 27
+	Report: vrobatta.wav
+	ValidTargets: Ground, Water, Air
+	TargetActorCenter: true
+	Projectile: BulletAS
+		Speed: 768
+	Warhead@1Dam: SpreadDamage
+		Damage: 18
+	Warhead@Bounce: FireShrapnel
+		Weapon: mutalisk.wurm2
+		AimChance: 100
+
+mutalisk.wurm2:
+	Inherits: mutalisk.wurm
+	-Report:
+	Warhead@1Dam: SpreadDamage
+		Damage: 6
+	Warhead@Bounce: FireShrapnel
+		Weapon: mutalisk.wurm3
+
+mutalisk.wurm3:
+	Inherits: mutalisk.wurm2
+	Warhead@1Dam: SpreadDamage
+		Damage: 2
+	-Warhead@Bounce:
+
+corruptor.spore:
+	Inherits: ^AAMissile
+	Range: 6c0
+	ReloadDelay: 34
+	Projectile: Missile
+		Speed: 400
+	Warhead@1Dam: SpreadDamage
+		Damage: 28
+		Versus:
+			air.heavy: 129
+
+corruptor.spray:
+	Inherits: ^FireWeapon
+	Range: 6c0
+	ReloadDelay: 25
+	ValidTargets: Structure
+	Projectile: Bullet
+		Speed: 255
+		Image: flameall
+		Palette: tseffect
+		TrailImage: flameall
+		TrailPalette: tseffect
+		TrailInterval: 3
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 0c512
+		Damage: 14
+
+corruptor.spray2:
+	Inherits: corruptor.spray
+	Projectile: Bullet
+		TrailInterval: 1
+	Warhead@1Dam: SpreadDamage
+		Damage: 70
+
+broodlord.spawn:
+	Inherits: ^LargeBullet
+	Range: 10c0
+	ReloadDelay: 45
+	Projectile: BulletAS
+		Speed: 300
+		Image: broodling
+		Sequences: jump
+		Palette: infantry
+	Warhead@1Dam: SpreadDamage
+		Damage: 40
+		ValidRelationships: Neutral, Enemy
+	Warhead@Spawn: SpawnActor
+		Actors: broodling
+		Range: 3
+		ValidTargets: Ground
+
+broodling.claw:
+	Inherits: ^Melee
+	ReloadDelay: 12
+	Warhead@1Dam: SpreadDamage
+		Damage: 8

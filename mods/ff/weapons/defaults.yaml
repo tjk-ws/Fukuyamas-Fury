@@ -215,6 +215,7 @@
 	Range: 5c0
 	Report: flamtnk1.aud
 	InvalidTargets: Wall
+	Projectile: Bullet
 	Warhead@1Dam: SpreadDamage
 		InvalidTargets: Wall
 		Spread: 213

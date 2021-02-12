@@ -1040,7 +1040,7 @@ marine:
 		Image: marine
 
 medic:
-	Inherits: ^Infantry
+	Inherits: ^DefaultInfantry
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Inherits@ENERGY: ^EnergyPoolEffects
 	Tooltip:
@@ -1069,12 +1069,8 @@ medic:
 		ForceTargetRelationships: Ally
 		PauseOnCondition: !energy
 		Cursor: heal
-	DeathSounds@normal:
-		-DeathTypes:
-	-DeathSounds@zapped:
-	-DeathSounds@radiation:
-	-DeathSounds@psycrush:
-	-DeathSounds@virus:
+	WithInfantryBody:
+		IdleSequences: idle1,idle2
 	Voiced:
 		VoiceSet: TerrorDroneVoice
 
@@ -1458,6 +1454,74 @@ vulture.spidermine:
 		InitialStance: AttackAnything
 		ScanRadius: 9
 	RenderSprites:
+
+widowmine:
+	Inherits: ^Infantry
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@VOICES: ^WithFeedbackVoicelines
+	Inherits@CLOAK: ^PermanentCloak
+	Tooltip:
+		Name: RPG Trooper
+	Health:
+		HP: 180
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Infantry.T
+		Description: Soldier armed with a rocket launcher.\nNeeds to be deployed to attack.\n  Strong vs Everything
+	Power:
+		Amount: -2
+	Mobile:
+		Speed: 70
+		RequireForceMoveCondition: deployed
+	RevealsShroud:
+		Range: 7c0
+	Armor:
+		Type: vehicle.light
+	AttackTurreted:
+		Voice: Attack
+		RequiresCondition: deployed
+	Armament@primary:
+		Weapon: widowmine.missile
+		ReloadingCondition: reloading
+		RequiresCondition: deployed
+	Turreted:
+		TurnSpeed: 200
+		InitialFacing: 384
+	WithInfantryBody:
+		RequiresCondition: undeployed
+	WithSpriteTurret:
+		Sequence: deployed
+		RequiresCondition: !undeployed
+	WithTurretDeployAnimation:
+	WithTurretAttackAnimation:
+		Sequence: shoot-deployed
+	GrantConditionOnDeploy:
+		DeployedCondition: deployed
+		UndeployedCondition: undeployed
+		Voice: Deploy
+		CanDeployOnRamps: True
+		SmartDeploy: True
+		Facing: 384
+		UndeployOnMove: true
+		RequiresCondition: !disabled
+		DeploySounds: iggidepa.wav
+		UndeploySounds: igidepa.wav, igidepb.wav
+	TakeCover:
+		RequiresCondition: undeployed
+	Cloak:
+		RequiresCondition: deployed && !reloading
+	Voiced:
+		VoiceSet: GGIVoice
+	# render on editor hack
+	GrantCondition:
+		Condition: editorhack
+	WithInfantryBody@Editor:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !editorhack
+	RenderSprites:
+		Image: widowmine
 
 t55:
 	Inherits: ^VoxelVehicle

@@ -1059,7 +1059,7 @@
 	FrozenUnderFog:
 	Capturable:
 		Types: building
-		RequiresCondition: !build-incomplete
+		#RequiresCondition: !build-incomplete
 	CaptureNotification:
 	CapturableProgressBar:
 		RequiresCondition: !instantcapture
@@ -1272,7 +1272,6 @@
 	GrantConditionOnCombatantOwner:
 		Condition: enabled
 	Capturable:
-		-RequiresCondition:
 	CaptureNotification:
 		Notification: TechBuildingCaptured
 		LoseNotification: TechBuildingLost
@@ -1503,7 +1502,7 @@
 	LineBuildNode:
 		Connections: 0,-1, 0,1
 
-^Infantry:
+^DefaultInfantry:
 	Inherits@1: ^ExistsInWorld
 	Inherits@2: ^SpriteActor
 	Inherits@3: ^ChronoDisable
@@ -1563,26 +1562,10 @@
 		MinDelay: 125
 		MaxDelay: 250
 	WithInfantryBody:
-		IdleSequences: idle1,idle2
 		StandSequences: stand
 		DefaultAttackSequence: shoot
 	WithDeathAnimation@normal:
 		DeathSequencePalette: infantry
-		DeathTypes:
-			ExplosionDeath: 1
-			BulletDeath: 2
-	WithDeathAnimation@effect:
-		DeathSequencePalette: effect
-		DeathPaletteIsPlayerPalette: False
-		DeathTypes:
-			RadiationDeath: 4
-			PsychicDeath: 5
-			ElectroDeath: 6
-			VirusDeath: 7
-			BruteDeath: 8
-	SpawnActorOnDeath@flames:
-		Actor: FLAMEGUY
-		DeathType: FlameDeath
 	TakeCover:
 		DamageModifiers:
 			Prone50Percent: 50
@@ -1608,19 +1591,6 @@
 		Voice: Attack
 	Guardable:
 	DeathSounds@normal:
-		DeathTypes: ExplosionDeath, BulletDeath
-	DeathSounds@zapped:
-		Voice: Zapped
-		DeathTypes: ElectroDeath
-	DeathSounds@radiation:
-		Voice: Melted
-		DeathTypes: RadiationDeath
-	DeathSounds@psycrush:
-		Voice: PsyCrush
-		DeathTypes: PsychicDeath, BruteDeath
-	DeathSounds@virus:
-		Voice: Virus
-		DeathTypes: VirusDeath
 	MustBeDestroyed:
 	Cloneable:
 		Types: Infantry
@@ -1647,6 +1617,42 @@
 		Range: 1c0
 	GpsDotAS:
 		Sequence: Infantry
+
+^Infantry:
+	Inherits: ^DefaultInfantry
+	WithInfantryBody:
+		IdleSequences: idle1,idle2
+	WithDeathAnimation@normal:
+		DeathSequencePalette: infantry
+		DeathTypes:
+			ExplosionDeath: 1
+			BulletDeath: 2
+	WithDeathAnimation@effect:
+		DeathSequencePalette: effect
+		DeathPaletteIsPlayerPalette: False
+		DeathTypes:
+			RadiationDeath: 4
+			PsychicDeath: 5
+			ElectroDeath: 6
+			VirusDeath: 7
+			BruteDeath: 8
+	SpawnActorOnDeath@flames:
+		Actor: FLAMEGUY
+		DeathType: FlameDeath
+	DeathSounds@normal:
+		DeathTypes: ExplosionDeath, BulletDeath
+	DeathSounds@zapped:
+		Voice: Zapped
+		DeathTypes: ElectroDeath
+	DeathSounds@radiation:
+		Voice: Melted
+		DeathTypes: RadiationDeath
+	DeathSounds@psycrush:
+		Voice: PsyCrush
+		DeathTypes: PsychicDeath, BruteDeath
+	DeathSounds@virus:
+		Voice: Virus
+		DeathTypes: VirusDeath
 
 ^Parachutable:
 	WithSpriteBody@Parachute:

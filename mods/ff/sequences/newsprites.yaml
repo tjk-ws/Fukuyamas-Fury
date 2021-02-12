@@ -1190,6 +1190,9 @@ sidewinder:
 	deploy: ggi
 		Start: 300
 		Length: 15
+	undeploy:
+		Frames: 314, 313, 312, 311, 310, 309, 308, 307, 306, 305, 304, 303, 302, 301, 300
+		Length: 15
 	shoot-deployed: ggi
 		Start: 323
 		Length: 6

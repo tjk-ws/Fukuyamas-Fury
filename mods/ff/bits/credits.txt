@@ -1,5 +1,34 @@
-FF is a hard fork of RV which is made by much more talented people.
-There may be leftover references and credits to assets only RV uses.
+Fukuyama's Fury is a 3rd-party OpenRA mod based on
+the OpenRA Red Alert 2 mod. It was originally hard-
+forked from Romanov's Vengeance, another RA2 mod
+created by MustaphaTR, which is considerably more 
+enjoyable and playable than this one.
+
+This mod uses modifications from the Attacque
+Supérior engine created by Gyula Zimmermann (Graion
+Dilach). The creator is very grateful for the powerful
+codebase of AS and also highly recommends Valiant 
+Shades, a fun RA2-based mod created by Graion that
+puts the capabilities of AS to full use.
+
+You can see the details of credits for OpenRA and AS
+on the other tabs above.
+
+Besides the above contributions, Fukuyama's Fury is 
+developed by:
+ * tjk-ws
+   > MiniYaml configuration
+   > Duplicate traits in the mod trait folder
+
+Other contributors:
+ * Patrick Wieth
+   > Technical advice
+   > Some code modifications
+
+The following assets are public assets taken from 
+places such as Project Perfect Mod or YR Argentina.
+Some credits may refer to unused and unpresent
+assets.
 
 4StarGeneral:
 	cawash06 shadow fix 			structures/cawash06_a.shp
@@ -32,6 +61,7 @@ Bu7loos:
 	Chaos Platform					vehicles/chaosplatform*.*
 	Seeker						vehicles/seeker*.*
 	Mantis						vehicles/mantis.*
+	Vulture						vehicles/vulture.*
 
 carnage_xploade:
 	Gyrocopter				vehicles/GyroCopter*.*

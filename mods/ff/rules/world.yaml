@@ -91,20 +91,38 @@
 		Side: Randoms
 		Description: Random Country\nA random country will be chosen when the game starts.
 	Faction@p:
-		Name: Prospectors
+		Name: Baconians
 		InternalName: p
-		Side: Prospectors
-		Description: Prospectors\nI can't decide if this faction should be the\nOne Belt and One Road project or LessWrong rationalists
+		Side: Baconians
+		Description: Baconians\nGeneric Baconian faction.\nAnglo-Analytic global domination plot
 	Faction@a:
-		Name: Adventurers
+		Name: Classicalists
 		InternalName: z
-		Side: Adventurers
-		Description: Adventurers\nImage board users bankrolled by Peter Thiel\nand other magnates (outcome invariable)
+		Side: Classicalists
+		Description: Classicalists\nGeneric Classicalist faction.\nEuros critical of modernity/liberalism who disagree on\nwhat tradition to return to.
+	#Faction@a1:
+	#	Name: Arendt
+	#	InternalName: z.kerrigan
+	#	Side: Classicalists
+	#	Description: Hannah Arendt\nGame features TBD\n\n
+	#	Selectable: false
 	Faction@w:
-		Name: Warlords
+		Name: Comintern
 		InternalName: t
-		Side: Warlords
-		Description: Warlords\nParochial rulers juggling allegiances to great powers\nin the new cold war.
+		Side: Comintern
+		Description: Comintern\nGeneric Comintern faction.\nHegelian forces fighting a pointless war to end history.
+	#Faction@w1:
+	#	Name: Kojeve
+	#	InternalName: t.mengsk
+	#	Side: Comintern
+	#	Description: Alexandre Kojeve\nUses fragile workers that can be armed anytime\ninstead of builders.\n\nKojeve's USSR is the most powerful and important Comintern member.\nFortunately, the Supreme Soviet refuses to approve anything more than\nviolent GULAG detainees to be allocated for his personal use.
+	#	Selectable: false
+	#Faction@w2:
+	#	Name: Sartre
+	#	InternalName: t.raynor
+	#	Side: Comintern
+	#	Description: Jean-Paul Sartre\nGame features TBD\n\nThe Fifth French Republic split with the USSR over ideology.\nSartre's student followers will fearlessly throw themselves into combat to prove\ntheir own existence.
+	#	Selectable: false
 	ResourceType@Ore:
 		ResourceType: 1
 		Palette: resource

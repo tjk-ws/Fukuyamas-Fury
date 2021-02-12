@@ -147,3 +147,18 @@ spinecrawler:
 	icon: xxicon
 	make2:
 		Tick: 225
+
+mutalisk:
+	Inherits@MUZZLE: ^WithGatlingMuzzle
+	icon: falcicon
+
+corruptor:
+	icon: falcicon
+
+broodling:
+	Inherits: dron
+	Defaults: dron
+
+viper:
+	Inherits@MUZZLE: ^WithFlakMuzzle
+	icon: falcicon

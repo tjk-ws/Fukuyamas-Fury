@@ -1517,6 +1517,95 @@ swarmhost:
 	Voiced:
 		VoiceSet: GatlingTankVoice
 
+mutalisk:
+	Inherits: ^Helicopter
+	Inherits@VOXEL: ^VoxelActor
+	Inherits@HATCH: ^ProducedFromLarva
+	Tooltip:
+		Name: Attack Drone
+	Selectable:
+		Bounds: 68, 43, 0, -5
+	Health:
+		HP: 240
+	Valued:
+		Cost: 200
+	Buildable:
+		BuildPaletteOrder: 100
+		Prerequisites: spire
+		Description: Fast multirole aircraft.
+	Power:
+		Amount: -2
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 160
+		AltitudeVelocity: 200
+	Armament@primary:
+		Weapon: mutalisk.wurm
+		LocalOffset: 640,-400,640, 640,400,640
+		MuzzleSequence: muzzle
+	WithMuzzleOverlay:
+	AttackAircraft:
+		Voice: Attack
+	Armor:
+		Type: air.light
+	WithVoxelBody:
+	RenderSprites:
+	RenderVoxels:
+	Voiced:
+		VoiceSet: ChaosDroneVoice
+
+corruptor:
+	Inherits: ^Helicopter
+	Inherits@VOXEL: ^VoxelActor
+	Inherits@HATCH: ^ProducedFromLarva
+	Tooltip:
+		Name: Interceptor Drone
+	Selectable:
+		Bounds: 68, 43, 0, -5
+	Health:
+		HP: 250
+	Valued:
+		Cost: 400
+	Buildable:
+		BuildPaletteOrder: 110
+		Prerequisites: spire
+		Description: Fast air superiority and anti-structure aircraft.
+	Power:
+		Amount: -2
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 110
+		AltitudeVelocity: 200
+	Armament@primary:
+		Weapon: corruptor.spore
+		LocalOffset: 640,-400,640, 640,400,640
+	Armament@spray:
+		Weapon: corruptor.spray
+		LocalOffset: 0,-400,0
+		Name: secondary
+		RequiresCondition: !spraycharged
+	Armament@spray2:
+		Weapon: corruptor.spray2
+		LocalOffset: 0,-400,0
+		Name: secondary
+		RequiresCondition: spraycharged
+	GrantConditionOnAttack@Spray: #crap can't replicate the cooldown for this
+		Condition: spraycharged
+		ArmamentNames: secondary
+		RequiredShotsPerInstance: 4
+		RevokeDelay: 30
+		RevokeOnNewTarget: true
+	AttackAircraft:
+		Voice: Attack
+	Armor:
+		Type: air.heavy
+	WithVoxelBody:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	Voiced:
+		VoiceSet: ChaosDroneVoice
+
 broodlord:
 	Inherits: ^Helicopter
 	Inherits@VOXEL: ^VoxelActor
@@ -1531,7 +1620,7 @@ broodlord:
 		Cost: 100
 	Buildable:
 		BuildPaletteOrder: 100
-		Prerequisites: ~disabled
+		Prerequisites: spire
 		Description: Deploys small drones to attack ground targets.
 	Power:
 		Amount: -2
@@ -1539,11 +1628,8 @@ broodlord:
 		TurnSpeed: 40
 		Speed: 80
 		AltitudeVelocity: 200
-	Armament@secondary:
-		Weapon: barrier.energyhack
-		Name: secondary
-		TargetRelationships: None
-		ForceTargetRelationships: None
+	Armament@primary:
+		Weapon: broodlord.spawn
 	AttackAircraft:
 		Voice: Attack
 	Armor:
@@ -1551,6 +1637,86 @@ broodlord:
 	WithVoxelBody:
 	WithVoxelTurret:
 	Turreted:
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	Voiced:
+		VoiceSet: ChaosDroneVoice
+
+broodling:
+	Inherits: ^DefaultInfantry
+	Inherits@HATCH: ^ProducedFromLarva
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Tooltip:
+		Name: Drone
+	Health:
+		HP: 60
+	Valued:
+		Cost: 0
+	Buildable:
+		Prerequisites: ~disabled
+		Description: Small melee unit.\nSelf destructs after a short period of time.
+	Power:
+		Amount: 0
+	Mobile:
+		Speed: 200
+	RevealsShroud:
+		Range: 7c0
+	Armor:
+		Type: infantry.light
+	AttackFrontal:
+		Voice: Attack
+	Armament@primary:
+		Weapon: broodling.claw
+	Voiced:
+		VoiceSet: TerrorDroneVoice
+	AutoTarget:
+		ScanRadius: 6
+		InitialStance: AttackAnything
+	-WithDeathAnimation@normal:
+	-TakeCover:
+	-UpdatesPlayerStatistics:
+	KillsSelf:
+		Delay: 145
+		DamageTypes: BulletDeath
+		RequiresCondition: !chronodisable
+	Explodes:
+		Weapon: UnitExplode
+		EmptyWeapon: UnitExplode
+		RequiresCondition: !chronodisable
+
+viper:
+	Inherits: ^Helicopter
+	Inherits@VOXEL: ^VoxelActor
+	Inherits@HATCH: ^ProducedFromLarva
+	Tooltip:
+		Name: Disruptor Drone
+	Selectable:
+		Bounds: 68, 43, 0, -5
+	Health:
+		HP: 300
+	Valued:
+		Cost: 300
+	Buildable:
+		BuildPaletteOrder: 100
+		Prerequisites: spire
+		Description: Support aircraft
+	Power:
+		Amount: -3
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 100
+		AltitudeVelocity: 200
+	Armament@primary:
+		Weapon: mutalisk.wurm
+		LocalOffset: 640,-400,640, 640,400,640
+		MuzzleSequence: muzzle
+	WithMuzzleOverlay:
+	AttackAircraft:
+		Voice: Attack
+	Armor:
+		Type: air.heavy
+	WithVoxelBody:
 	RenderSprites:
 	RenderVoxels:
 		Scale: 1

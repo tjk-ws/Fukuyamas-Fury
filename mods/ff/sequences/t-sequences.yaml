@@ -113,6 +113,7 @@ missileturret:
 marine:
 	Inherits: ggi
 	Defaults: ggi
+	icon: giicon
 
 medic:
 	Inherits: whldrn

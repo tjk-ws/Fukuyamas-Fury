@@ -104,6 +104,22 @@ spidermine.explode:
 		Falloff: 100, 100
 		Damage: 140
 
+widowmine.missile:
+	Inherits: ^AGMissile
+	ReloadDelay: 300
+	Range: 5c0
+	Report: iggiat2a.wav, iggiat2b.wav
+	ValidTargets: Ground, Air
+	Projectile: Missile
+		Speed: 768
+		HorizontalRateOfTurn: 152
+		VerticalRateOfTurn: 152
+	Warhead@1Dam: SpreadDamage
+		Damage: 250
+		Spread: 1c0
+		Falloff: 100, 28
+		ValidTargets: Ground, Air
+
 siegetank.cannon:
 	Inherits: ^LargeBullet
 	ReloadDelay: 19
@@ -166,7 +182,6 @@ hellion.flamer:
 
 hellion.impact:
 	Inherits: ^FireWeapon
-	Projectile: Bullet
 	Warhead@1Dam: SpreadDamage
 		Spread: 0c512
 		Falloff: 100, 100
