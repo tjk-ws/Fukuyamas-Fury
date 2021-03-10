@@ -79,7 +79,6 @@ queen.talon:
 	Inherits: ^Flak
 	ReloadDelay: 18
 	Range: 5c0
-	InvalidTargets: Inject
 	Warhead@1Dam: SpreadDamage
 		Damage: 8
 
@@ -301,3 +300,107 @@ broodling.claw:
 	ReloadDelay: 12
 	Warhead@1Dam: SpreadDamage
 		Damage: 8
+
+swarmhost.spawn:
+	Inherits: ^Explode
+	ReloadDelay: 100
+	Projectile: AthenaProjectile
+		Altitude: 640
+	Warhead@1: FireShrapnel
+		Weapon: swarmhost.spawn2
+		Amount: 2
+		ValidTargets: Ground, Air, Water
+
+swarmhost.spawn2:
+	Range: 1c0
+	ReloadDelay: 10
+	Projectile: Bullet
+		Speed: 100
+		Image: locust
+		Sequences: shoot
+		Palette: player
+		IsPlayerPalette: true
+		Shadow: false
+		Blockable: false
+		LaunchAngle: 0
+	Warhead@1Spawn: SpawnActor
+		Actors: swarmhost.locust.air
+		FallRate: 5000
+		Range: 3
+
+locust.targeting:
+	Inherits: ^Targeting
+	Range: 1c512
+
+locust.spit:
+	Inherits: ^LargeBullet
+	Range: 3c0
+	ReloadDelay: 11
+	Report: vrobatta.wav
+	Warhead@1Dam: SpreadDamage
+		Damage: 20
+
+viper.parasitebomb:
+	Inherits: ^LargeBullet
+	Range: 8c0
+	ReloadDelay: 180
+	Report: iviratta.wav
+	ValidTargets: Parasite
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Damage: 0
+	Warhead@Attach: AttachDelayedWeapon
+		Weapon: viper.parasitedummy
+		Type: parasite
+		TriggerTime: 175
+		Range: 0c128
+		ValidTargets: Parasite
+
+viper.parasitedummy:
+	Inherits: ^Targeting
+	Projectile: InstantExplode
+	Warhead@1: SpreadDamage
+
+viper.parasiteexplode:
+	Inherits: ^Explode
+	ReloadDelay: 25
+	Warhead@1Dam: SpreadDamage
+		Spread: 2c0
+		Falloff: 100, 100
+		Damage: 34
+		DamageTypes: TriggerProne, ExplosionDeath
+		InvalidTargets: Structure
+		ValidTargets: Ground, Water
+		AffectsParent: true
+	Warhead@2Dam: SpreadDamage
+		Spread: 4c0
+		Falloff: 100, 100
+		Damage: 34
+		DamageTypes: TriggerProne, ExplosionDeath
+		InvalidTargets: Structure
+		AffectsParent: true
+		ValidTargets: Air
+	Warhead@3Eff: CreateEffect
+		Explosions: medium_toxin_explosion
+		ExplosionPalette: player
+		ValidTargets: Ground, Water, Air
+
+viper.cloud:
+	Range: 11c0
+	ReloadDelay: 150
+	Report: icivatta.wav, icivattb.wav
+	ValidTargets: Ground, Air, Water
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Damage: 0
+	Warhead@1Spawn: SpawnActor
+		Actors: viper.cloudspawner
+		FallRate: 5000
+		Range: 3
+	Warhead@3Eff: CreateEffect
+		Explosions: medium_grey_explosion
+		ImpactSounds: gexp14c.wav
+		ValidTargets: Ground, Air, Water
+	Warhead@4Eff: CreateEffect
+		ImpactSounds: ucamera.wav
+		ImpactActors: false

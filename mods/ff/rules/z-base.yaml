@@ -710,7 +710,26 @@ spire:
 	Building:
 		Footprint: xxx xxx
 		Dimensions: 3,2
+	Production@1:
+		Produces: Spire.Z
+		RequiresCondition: !greaterspire
+	ProductionQueue@1:
+		Type: Spire.Z
+		Group: Support
+		ReadyAudio: ConstructionComplete
+		QueuedAudio: Building
+		CancelledAudio: Cancelled
+		DisallowPaused: true
+		ItemLimit: 1
+	ProductionBar@1:
+		ProductionType: Spire.Z
+	GrantConditionOnProduction@spire:
+		Condition: greaterspire
+		Actors: upgrade.greaterspire
 	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@greaterspire:
+		Prerequisite: greaterspire
+		RequiresCondition: greaterspire
 	WithIdleOverlay@bib:
 		Sequence: bib
 		RequiresCondition: !build-incomplete
@@ -722,6 +741,27 @@ spire:
 		RequiresCondition: !build-incomplete
 	IsometricSelectable:
 		DecorationHeight: 105
+
+morph.spire:
+	Inherits: ^MorphTarget
+	Inherits@shape: ^3x2Shape
+	Tooltip:
+		Name: Landing Pads
+	Buildable:
+		Queue: Building.Z
+		Prerequisites: lair
+		Description: Unlocks aircraft.
+	Building:
+		Footprint: === ===
+		Dimensions: 3,2
+	Valued:
+		Cost: 400
+	CashTrickler@refund:
+		Amount: 400
+	TransformOnCondition:
+		IntoActor: spire
+	RenderSprites:
+		Image: spire
 
 nydus:
 	Inherits: ^structure.z
@@ -1251,6 +1291,7 @@ queen:
 		Weapon: queen.talon
 		LocalOffset: 800,0,832
 		MuzzleSequence: muzzle
+		TargetRelationships: Neutral, Enemy
 	Armament@secondary:
 		Weapon: queen.spine
 		LocalOffset: 800,0,832
@@ -1271,7 +1312,7 @@ queen:
 		RequiresCondition: energy < 1
 	RenderSprites:
 	RenderVoxels:
-		Scale: 2
+		Scale: 1
 	WithVoxelBody:
 	WithVoxelTurret:
 	Voiced:
@@ -1484,7 +1525,7 @@ swarmhost:
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@HATCH: ^ProducedFromLarva
 	Tooltip:
-		Name: Rocket Carrier
+		Name: Drone Lobber
 	Selectable:
 		Bounds: 64, 52, 0, -6
 	Health:
@@ -1494,7 +1535,7 @@ swarmhost:
 	Buildable:
 		BuildPaletteOrder: 20
 		Prerequisites: infestationpit
-		Description: Improvised armored vehicle armed with rockets.\n  Strong vs Vehicles
+		Description: Improvised armored vehicle armed with drones.\n  Strong vs Vehicles
 	Power:
 		Amount: -3
 	Mobile:
@@ -1506,9 +1547,18 @@ swarmhost:
 	AttackTurreted:
 		Voice: Attack
 		PauseOnCondition: disabled
+		Armaments: secondary
 	Armament@primary:
-		Weapon: hydralisk.spine
-		LocalOffset: 800,0,832
+		Weapon: swarmhost.spawn
+	ExplodeWeapon@spawn:
+		Weapon: swarmhost.spawn
+		RequiresCondition: spawning
+	GrantTimedConditionOnDeploy:
+		DeployedCondition: spawning
+		DeployedTicks: 2
+		CooldownTicks: 1075
+		Voice: Attack
+		StartsFullyCharged: true
 	RenderSprites:
 	RenderVoxels:
 		Scale: 1.2
@@ -1516,6 +1566,96 @@ swarmhost:
 	WithVoxelTurret:
 	Voiced:
 		VoiceSet: GatlingTankVoice
+
+swarmhost.locust.air:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Tooltip:
+		Name: Drone
+	Health:
+		HP: 100
+	Aircraft:
+		TurnSpeed: 40
+		Speed: 140
+		AltitudeVelocity: 200
+		CanSlide: true
+		CruiseAltitude: 2c512
+	Armament@primary:
+		Weapon: locust.targeting
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 128
+		AttackType: Hover
+		PauseOnCondition: disabled
+	AutoTarget:
+		ScanRadius: 6
+		InitialStance: AttackAnything
+	GrantConditionOnAttack:
+		Condition: forceland
+		RequiresCondition: !disabled
+	Transforms:
+		IntoActor: swarmhost.locust
+		Voice: Move
+		PauseOnCondition: disabled
+	TransformOnCondition:
+		IntoActor: swarmhost.locust
+		RequiresCondition: forceland && !disabled
+	Armor:
+		Type: air.light
+	RevealsShroud:
+		Range: 6c0
+	WithFacingSpriteBody:
+		Sequence: stand
+	WithMoveAnimation:
+		MoveSequence: run
+	Voiced:
+		VoiceSet: TerrorDroneVoice
+	RenderSprites:
+		Image: locust
+
+swarmhost.locust:
+	Inherits: ^DefaultInfantry
+	Inherits@HATCH: ^ProducedFromLarva
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Tooltip:
+		Name: Drone
+	Health:
+		HP: 100
+	Valued:
+		Cost: 0
+	Buildable:
+		Prerequisites: ~disabled
+		Description: Short-ranged unit.\nSelf destructs after a short period of time.
+	Power:
+		Amount: 0
+	Mobile:
+		Speed: 70
+	RevealsShroud:
+		Range: 6c0
+	Armor:
+		Type: infantry.light
+	AttackFrontal:
+		Voice: Attack
+	Armament@primary:
+		Weapon: locust.spit
+	Voiced:
+		VoiceSet: TerrorDroneVoice
+	AutoTarget:
+		ScanRadius: 6
+		InitialStance: AttackAnything
+	-WithDeathAnimation@normal:
+	-TakeCover:
+	-UpdatesPlayerStatistics:
+	KillsSelf:
+		Delay: 450
+		DamageTypes: BulletDeath
+		RequiresCondition: !chronodisable
+	Explodes:
+		Weapon: UnitExplode
+		EmptyWeapon: UnitExplode
+		RequiresCondition: !chronodisable
+	RenderSprites:
+		Image: locust
 
 mutalisk:
 	Inherits: ^Helicopter
@@ -1620,7 +1760,7 @@ broodlord:
 		Cost: 100
 	Buildable:
 		BuildPaletteOrder: 100
-		Prerequisites: spire
+		Prerequisites: greaterspire
 		Description: Deploys small drones to attack ground targets.
 	Power:
 		Amount: -2
@@ -1699,8 +1839,8 @@ viper:
 		Cost: 300
 	Buildable:
 		BuildPaletteOrder: 100
-		Prerequisites: spire
-		Description: Support aircraft
+		Prerequisites: hive
+		Description: Advanced UAV armed with chemical weapons.\nCan create a cloud to reduce enemy firing range by force-firing.
 	Power:
 		Amount: -3
 	Aircraft:
@@ -1708,9 +1848,14 @@ viper:
 		Speed: 100
 		AltitudeVelocity: 200
 	Armament@primary:
-		Weapon: mutalisk.wurm
+		Weapon: viper.parasitebomb
 		LocalOffset: 640,-400,640, 640,400,640
 		MuzzleSequence: muzzle
+	Armament@cloud:
+		Weapon: viper.cloud
+		LocalOffset: 640,-400,640, 640,400,640
+		MuzzleSequence: muzzle
+		TargetRelationships: None
 	WithMuzzleOverlay:
 	AttackAircraft:
 		Voice: Attack
@@ -1722,6 +1867,84 @@ viper:
 		Scale: 1
 	Voiced:
 		VoiceSet: ChaosDroneVoice
+
+viper.parasite:
+	Inherits@1: ^SpriteActor
+	Selectable:
+	SelectionDecorations:
+	RenderSprites:
+		Palette: mouse
+	QuantizeFacingsFromSequence:
+		Sequence: parasite
+	WithSpriteBody:
+		Sequence: parasite
+	HiddenUnderFog:
+		Type: CenterPosition
+	Tooltip:
+		Name: Toxin Cloud
+	Health:
+		HP: 50
+		NotifyAppliedDamage: false
+	Aircraft:
+		CruiseAltitude: 1
+		Speed: 1
+		VTOL: true
+	RejectsOrders:
+	HitShape:
+	ExplodeWeapon:
+		Weapon: viper.parasiteexplode
+		LocalOffset: 0,0,384
+	KillsSelf:
+		Delay: 175
+		RemoveInstead: true
+	RenderSprites:
+		Image: viper
+
+viper.cloudspawner:
+	Interactable:
+	AlwaysVisible:
+	Mobile:
+		Speed: 1
+		Locomotor: foot
+		RequiresCondition: !dontmove
+	GrantCondition:
+		Condition: dontmove
+	FreeActor:
+		Actor: viper.cloud
+	KillsSelf:
+		RemoveInstead: true
+
+viper.cloud:
+	Inherits@1: ^SpriteActor
+	Interactable:
+	RenderSprites:
+		PlayerPalette: player50alpha
+	QuantizeFacingsFromSequence:
+		Sequence: cloud
+	WithSpriteBody:
+		Sequence: cloud
+	HiddenUnderFog:
+		Type: CenterPosition
+	Tooltip:
+		Name: Smoke Cloud
+	Health:
+		HP: 50
+		NotifyAppliedDamage: false
+	Aircraft:
+		CruiseAltitude: 1
+		Speed: 1
+		AltitudeVelocity: 500
+		VTOL: true
+	RejectsOrders:
+	HitShape:
+	ProximityExternalCondition@CLOUD:
+		Condition: blindingcloud
+		Range: 4c0
+	KillsSelf:
+		Delay: 280
+		RemoveInstead: true
+	RenderSprites:
+		Image: viper
 
 teslapyro:
 	Inherits: ^Infantry
@@ -1766,3 +1989,15 @@ upgrade.lurker:
 		Description: Unlocks the Ambush Drone.\nDisables research for Battle Drones at the control center.
 	RenderSprites:
 		Image: lurker
+
+upgrade.greaterspire:
+	Inherits: ^addon
+	Tooltip:
+		Name: Upgrade Pads
+	Valued:
+		Cost: 250
+	Buildable:
+		Queue: Spire.Z
+		Description: Upgrades the Landing Pads.\nEnables construction of more advanced aircraft.
+	RenderSprites:
+		Image: spire

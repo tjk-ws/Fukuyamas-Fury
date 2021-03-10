@@ -1090,14 +1090,6 @@
 		UseTargetableCellsOffsets: true
 	Tooltip:
 		Name: Structure
-		#RequiresCondition: showownername
-	Tooltip@NoRow:
-		Name: Structure
-		ShowOwnerRow: false
-		RequiresCondition: !showownername
-	GrantConditionOnPrerequisite@SHOWOWNERNAME:
-		Condition: showownername
-		Prerequisites: global-showownername
 	MapEditorData:
 		Categories: Building
 	WithBuildingRepairDecoration:
@@ -1124,6 +1116,7 @@
 
 ^SupportBuilding:
 	Inherits: ^BaseBuilding
+	Inherits@3: ^CloudBlindable
 	-Capturable:
 	-CaptureNotification:
 	-CapturableProgressBar:
@@ -1173,8 +1166,6 @@
 	RevealsShroud:
 		Range: 4c0
 	Tooltip:
-		Name: Civilian Building
-	Tooltip@NoRow:
 		Name: Civilian Building
 	MapEditorData:
 		Categories: Civilian building
@@ -1298,8 +1289,6 @@
 		Dimensions: 1, 1
 	Tooltip:
 		Name: Flag
-	Tooltip@NoRow:
-		Name: Flag
 	Health:
 		HP: 20
 	Armor:
@@ -1370,15 +1359,6 @@
 	Tooltip:
 		Name: Wall
 		GenericName: Wall
-		RequiresCondition: showownername
-	Tooltip@NoRow:
-		Name: Wall
-		GenericName: Wall
-		ShowOwnerRow: false
-		RequiresCondition: !showownername
-	GrantConditionOnPrerequisite@SHOWOWNERNAME:
-		Condition: showownername
-		Prerequisites: global-showownername
 	MapEditorData:
 		Categories: Wall
 	RequiresBuildableArea:
@@ -1411,9 +1391,6 @@
 		DamagedSounds: gblacrua.wav, gblacrub.wav
 		DestroyedSounds: gblacrua.wav, gblacrub.wav
 	Tooltip:
-		Name: Fence
-		GenericName: Fence
-	Tooltip@NoRow:
 		Name: Fence
 		GenericName: Fence
 
@@ -1464,9 +1441,6 @@
 	Tooltip:
 		Name: Gate
 		GenericName: Gate
-	Tooltip@NoRow:
-		Name: Gate
-		GenericName: Gate
 
 ^Gate_A:
 	Inherits: ^Gate
@@ -1507,6 +1481,8 @@
 	Inherits@2: ^SpriteActor
 	Inherits@3: ^ChronoDisable
 	Inherits@4: ^TeleportNetworkTransportable
+	Inherits@5: ^CloudBlindable
+	Inherits@6: ^ParasiteBombable
 	Inherits@SELECTION_MODE: ^FlatSelectionMode
 	Selectable:
 		Bounds: 20, 30, 0, -11
@@ -1600,13 +1576,6 @@
 		Sequence: stand
 	Tooltip:
 		Name: Soldier
-	Tooltip@NoRow:
-		Name: Soldier
-		ShowOwnerRow: false
-		RequiresCondition: !showownername
-	GrantConditionOnPrerequisite@SHOWOWNERNAME:
-		Condition: showownername
-		Prerequisites: global-showownername
 	MapEditorData:
 		Categories: Infantry
 	EdibleByLeap:
@@ -1755,9 +1724,6 @@
 	Tooltip:
 		Name: Civilian
 		GenericName: Civilian
-	Tooltip@NoRow:
-		Name: Civilian
-		GenericName: Civilian
 	Health:
 		HP: 50
 	Mobile:
@@ -1847,6 +1813,8 @@
 	Inherits@3: ^DisabledByEMP
 	Inherits@4: ^ChronoDisable
 	Inherits@5: ^TeleportNetworkTransportable
+	Inherits@6: ^CloudBlindable
+	Inherits@7: ^ParasiteBombable
 	OwnerLostAction:
 		Action: Kill
 		DeathTypes: BulletDeath
@@ -1930,13 +1898,6 @@
 		RequiresCondition: !untargetable
 	Tooltip:
 		Name: Vehicle
-	Tooltip@NoRow:
-		Name: Vehicle
-		ShowOwnerRow: false
-		RequiresCondition: !showownername
-	GrantConditionOnPrerequisite@SHOWOWNERNAME:
-		Condition: showownername
-		Prerequisites: global-showownername
 	MapEditorData:
 		Categories: Vehicle
 	GpsDotAS:
@@ -2019,14 +1980,6 @@
 		UseLocation: true
 	Tooltip:
 		Name: Aircraft
-	Tooltip@NoRow:
-		Name: Aircraft
-		GenericName: Aircraft
-		ShowOwnerRow: false
-		RequiresCondition: !showownername
-	GrantConditionOnPrerequisite@SHOWOWNERNAME:
-		Condition: showownername
-		Prerequisites: global-showownername
 	MapEditorData:
 		Categories: Aircraft
 	GpsDotAS:
@@ -2036,6 +1989,8 @@
 	Inherits@1: ^NeutralAircraft
 	Inherits@2: ^DisabledByEMP
 	Inherits@3: ^ChronoDisable
+	Inherits@4: ^CloudBlindable
+	Inherits@5: ^ParasiteBombable
 	Inherits@7: ^UnitParticles
 	Aircraft:
 		AltitudeVelocity: 43
@@ -2108,8 +2063,6 @@
 ^ShootableMissile:
 	Inherits@1: ^ExistsInWorld
 	-GivesExperience:
-	Armor:
-		Type: Missile
 	BallisticMissile:
 		LaunchAngle: 128
 		Speed: 170
@@ -2125,15 +2078,6 @@
 	Tooltip:
 		Name: Missile
 		GenericName: Missile
-		RequiresCondition: showownername
-	Tooltip@NoRow:
-		Name: Missile
-		GenericName: Missile
-		ShowOwnerRow: false
-		RequiresCondition: !showownername
-	GrantConditionOnPrerequisite@SHOWOWNERNAME:
-		Condition: showownername
-		Prerequisites: global-showownername
 	HitShape:
 	RejectsOrders:
 	Interactable:
@@ -2166,15 +2110,6 @@
 	Tooltip:
 		Name: Aircraft
 		GenericName: Aircraft
-		RequiresCondition: showownername
-	Tooltip@NoRow:
-		Name: Aircraft
-		GenericName: Aircraft
-		ShowOwnerRow: false
-		RequiresCondition: !showownername
-	GrantConditionOnPrerequisite@SHOWOWNERNAME:
-		Condition: showownername
-		Prerequisites: global-showownername
 	MapEditorData:
 		Categories: Husk
 	Interactable:
@@ -2273,15 +2208,6 @@
 	Tooltip:
 		Name: Ship
 		GenericName: Ship
-		RequiresCondition: showownername
-	Tooltip@NoRow:
-		Name: Ship
-		GenericName: Ship
-		ShowOwnerRow: false
-		RequiresCondition: !showownername
-	GrantConditionOnPrerequisite@SHOWOWNERNAME:
-		Condition: showownername
-		Prerequisites: global-showownername
 	MapEditorData:
 		Categories: Naval
 	GpsDotAS:
@@ -2676,6 +2602,39 @@
 		IsPlayerPalette: true
 		UncloakOn: None
 		PauseOnCondition: disabled
+
+^CloudBlindable:
+	ExternalCondition@BLINDINGCLOUD:
+		Condition: blindingcloud
+		TotalCap: 1
+	RangeMultiplier@BLINDINGCLOUD:
+		Modifier: 5
+		RequiresCondition: blindingcloud
+
+^ParasiteBombable:
+	DelayedWeaponAttachable@PARASITE:
+		Type: parasite
+		RequiresCondition: !chronodisable
+		ProgressBarColor: 00FF00
+		Condition: parasite
+	Targetable@PARASITE:
+		TargetTypes: Parasite
+		RequiresCondition: !parasite
+	WithDecoration@PARASITE:
+		RequiresSelection: false
+		Image: toxinbomb
+		Sequence: idle
+		Palette: mouse
+		Position: Center
+		ValidRelationships: Ally, Neutral, Enemy
+		RequiresCondition: parasite
+	ExplodeWeapon@PARASITE:
+		Weapon: viper.parasiteexplode
+		LocalOffset: 0,0,384
+		RequiresCondition: parasite
+	SpawnActorOnDeath@PARASITE:
+		Actor: viper.parasite
+		RequiresCondition: parasite && !chronodisable
 
 ^BotMicromanageable:
 	GrantConditionOnBotOwner@bot:

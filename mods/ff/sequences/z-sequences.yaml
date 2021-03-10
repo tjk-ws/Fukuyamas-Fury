@@ -3,8 +3,22 @@
 	make2:
 		Combine:
 			natbnkmk:
+				UseTilesetCode: true
+				TilesetOverrides:
+					TEMPERATE: GENERIC
+					URBAN: GENERIC
+					NEWURBAN: GENERIC
+					DESERT: GENERIC
+					LUNAR: GENERIC
 				Length: 10
 			natbnk_b:
+				UseTilesetCode: true
+				TilesetOverrides:
+					TEMPERATE: GENERIC
+					URBAN: GENERIC
+					NEWURBAN: GENERIC
+					DESERT: GENERIC
+					LUNAR: GENERIC
 				Length: 10
 		Length: 20
 
@@ -123,8 +137,11 @@ ultralisk:
 swarmhost:
 	icon: xxicon
 
-#infestor:
-#	icon: teleicon
+locust:
+	Inherits: dron2
+
+infestor:
+	icon: teleicon
 
 broodlord:
 	icon: diskicon
@@ -162,3 +179,7 @@ broodling:
 viper:
 	Inherits@MUZZLE: ^WithFlakMuzzle
 	icon: falcicon
+	parasite: toxinbomb
+		Length: *
+	cloud: wccloud2
+		Length: *

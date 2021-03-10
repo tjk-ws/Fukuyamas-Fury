@@ -115,6 +115,9 @@
 ^AAMissile:
 	Inherits: ^Missile
 	ValidTargets: Air
+	Projectile: Missile
+		HorizontalRateOfTurn: 152
+		VerticalRateOfTurn: 152
 	Warhead@1Dam: SpreadDamage
 		Spread: 0c307
 		Falloff: 100, 0

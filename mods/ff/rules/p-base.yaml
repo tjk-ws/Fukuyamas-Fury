@@ -1887,8 +1887,6 @@ oracle:
 		RequiresCondition: warding
 	Armor:
 		Type: air.light
-	RevealsShroud:
-		Range: 10c0
 	WithFacingSpriteBody@air:
 		RequiresCondition: airborne
 	WithFacingSpriteBody@ground:
@@ -1920,7 +1918,7 @@ ward.oracle:
 		Sequence: ward
 	HiddenUnderFog:
 	Tooltip:
-		Name: Totally non-suspicious barrel
+		Name: Barrel Bomb
 	RevealsShroud:
 		Range: 4c0
 	Health:

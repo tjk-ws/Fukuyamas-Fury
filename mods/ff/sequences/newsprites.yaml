@@ -953,7 +953,7 @@ galasr:
 
 yapad:
 	Defaults:
-		Offset: 0, -30
+		Offset: -20, -35
 	idle: ygpad
 		ShadowStart: 3
 	idle-spin: ygpad_b
@@ -1010,6 +1010,11 @@ yaunkn:
 	make: ygunknmk
 		Length: 25
 		ShadowStart: 25
+
+dron2:
+	Inherits: dron
+	Defaults: dron2
+	shoot: dronp2
 
 ttrooper:
 	Inherits: ^BasicInfantry
@@ -1190,7 +1195,7 @@ sidewinder:
 	deploy: ggi
 		Start: 300
 		Length: 15
-	undeploy:
+	undeploy: ggi
 		Frames: 314, 313, 312, 311, 310, 309, 308, 307, 306, 305, 304, 303, 302, 301, 300
 		Length: 15
 	shoot-deployed: ggi

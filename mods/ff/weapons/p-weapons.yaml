@@ -430,6 +430,9 @@ oracleward.explode:
 		ExplosionPalette: tseffect
 		ImpactSounds: iteschaa.wav
 		ImpactActors: false
+	Warhead@4Eff: CreateEffect
+		ImpactSounds: gexpbara.wav, gexpbarb.wav, gexpbarc.wav
+		ImpactActors: false
 
 mothership.beam:
 	Inherits: ^Explode

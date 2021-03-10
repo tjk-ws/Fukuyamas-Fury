@@ -91,10 +91,28 @@
 		Side: Randoms
 		Description: Random Country\nA random country will be chosen when the game starts.
 	Faction@p:
-		Name: Baconians
+		Name: Anglos
 		InternalName: p
-		Side: Baconians
-		Description: Baconians\nGeneric Baconian faction.\nAnglo-Analytic global domination plot
+		Side: Anglos
+		Description: Anglos\nGeneric Anglo faction.\nAnalytic global domination plot
+	#Faction@p1:
+	#	Name: Russell
+	#	InternalName: p.artanis
+	#	Side: Anglos
+	#	Description: Bertrand Russell\nGame features TBD\n\n
+	#	Selectable: false
+	#Faction@p2:
+	#	Name: Whitehead
+	#	InternalName: p.zeratul
+	#	Side: Anglos
+	#	Description: Alfred North Whitehead\nGame features TBD\n\n
+	#	Selectable: false
+	#Faction@p3:
+	#	Name: Rorty
+	#	InternalName: p.alarak
+	#	Side: Anglos
+	#	Description: Richard Rorty\nGame features TBD\n\n
+	#	Selectable: false
 	Faction@a:
 		Name: Classicalists
 		InternalName: z
@@ -105,6 +123,24 @@
 	#	InternalName: z.kerrigan
 	#	Side: Classicalists
 	#	Description: Hannah Arendt\nGame features TBD\n\n
+	#	Selectable: false
+	#Faction@a2:
+	#	Name: Berlin #TODO
+	#	InternalName: z.zagara
+	#	Side: Classicalists
+	#	Description: Isaiah Berlin\nGame features TBD\n\n
+	#	Selectable: false
+	#Faction@a3:
+	#	Name: Schmitt
+	#	InternalName: z.abathur
+	#	Side: Classicalists
+	#	Description: Carl Schmitt\nGame features TBD\n\n
+	#	Selectable: false
+	#Faction@a4:
+	#	Name: Strauss
+	#	InternalName: z.dehaka
+	#	Side: Classicalists
+	#	Description: Leo Strauss\nGame features TBD\n\n
 	#	Selectable: false
 	Faction@w:
 		Name: Comintern
@@ -118,10 +154,16 @@
 	#	Description: Alexandre Kojeve\nUses fragile workers that can be armed anytime\ninstead of builders.\n\nKojeve's USSR is the most powerful and important Comintern member.\nFortunately, the Supreme Soviet refuses to approve anything more than\nviolent GULAG detainees to be allocated for his personal use.
 	#	Selectable: false
 	#Faction@w2:
-	#	Name: Sartre
+	#	Name: Merleau-Ponty
 	#	InternalName: t.raynor
 	#	Side: Comintern
-	#	Description: Jean-Paul Sartre\nGame features TBD\n\nThe Fifth French Republic split with the USSR over ideology.\nSartre's student followers will fearlessly throw themselves into combat to prove\ntheir own existence.
+	#	Description: Maurice Merleau-Ponty\nGame features TBD\n\n
+	#	Selectable: false
+	#Faction@w3:
+	#	Name: Sartre & de Beauvoir
+	#	InternalName: t.horner
+	#	Side: Comintern
+	#	Description: Jean-Paul Sartre & Simone de Beauvoir\nGame features TBD\n\n
 	#	Selectable: false
 	ResourceType@Ore:
 		ResourceType: 1

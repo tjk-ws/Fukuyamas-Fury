@@ -13,8 +13,6 @@ caoild:
 		RequiresCondition: enabled
 	Tooltip:
 		Name: Tech Oil Derrick
-	Tooltip@NoRow:
-		Name: Tech Oil Derrick
 	TooltipDescription:
 		Description: Periodically provides cash.
 	Health:
@@ -113,8 +111,6 @@ caairp:
 	Inherits@shape: ^3x3Shape
 	Tooltip:
 		Name: Tech Airport
-	Tooltip@NoRow:
-		Name: Tech Airport
 	TooltipDescription:
 		Description: Provides Paradrop support power.
 	Armor:
@@ -144,8 +140,6 @@ cahosp:
 		Footprint: xxxx xxxx xxxx xxxx xxxx xxxx
 		Dimensions: 6, 4
 	Tooltip:
-		Name: Civilian Hospital
-	Tooltip@NoRow:
 		Name: Civilian Hospital
 	TooltipDescription:
 		Description: Allows infantry to self-heal.
@@ -179,8 +173,6 @@ caoutp:
 	Inherits@MC: ^MindControllableBuilding
 	Inherits@shape: ^4x3Shape
 	Tooltip:
-		Name: Tech Outpost
-	Tooltip@NoRow:
 		Name: Tech Outpost
 	TooltipDescription:
 		Description: Provides repairing ground for vehicles. Armed with missile launcher. Provides build area.
@@ -255,8 +247,6 @@ capowr:
 	EngineerRepairable:
 	Tooltip:
 		Name: Tech Power Plant
-	Tooltip@NoRow:
-		Name: Tech Power Plant
 	TooltipDescription:
 		Description: Provides 400 power.
 	Health:
@@ -284,8 +274,6 @@ camach:
 		Dimensions: 3, 3
 	Tooltip:
 		Name: Tech Machine Shop
-	Tooltip@NoRow:
-		Name: Tech Machine Shop
 	TooltipDescription:
 		Description: Allows vehicles to self-repair.
 	Health:
@@ -309,8 +297,6 @@ caslab:
 		Footprint: xxx xxx xxx
 		Dimensions: 3, 3
 	Tooltip:
-		Name: Tech Secret Lab
-	Tooltip@NoRow:
 		Name: Tech Secret Lab
 	TooltipDescription:
 		Description: Allow construction of a new 3rd tier vehicle.

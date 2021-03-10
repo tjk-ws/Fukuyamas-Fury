@@ -147,6 +147,7 @@ MadHQ:
 	Soviet Missile Turret			structures/ngmissl*.shp
 	Allied Laser Turret			structures/g*lasr*.shp
 	Yuri Airpad				structures/y*pad*.shp
+	RA3 Terror Drone			vehicles/dron2.shp
 
 Marn:
 	Gem Mine					structures/gmin.*
