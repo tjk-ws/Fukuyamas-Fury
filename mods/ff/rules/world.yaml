@@ -89,82 +89,22 @@
 		InternalName: Random
 		RandomFactionMembers: p, t, z
 		Side: Randoms
-		Description: Random Country\nA random country will be chosen when the game starts.
+		Description: Random philosopher\nA random philosopher will be chosen when the game starts.
 	Faction@p:
-		Name: Anglos
+		Name: Analytics
 		InternalName: p
-		Side: Anglos
-		Description: Anglos\nGeneric Anglo faction.\nAnalytic global domination plot
-	#Faction@p1:
-	#	Name: Russell
-	#	InternalName: p.artanis
-	#	Side: Anglos
-	#	Description: Bertrand Russell\nGame features TBD\n\n
-	#	Selectable: false
-	#Faction@p2:
-	#	Name: Whitehead
-	#	InternalName: p.zeratul
-	#	Side: Anglos
-	#	Description: Alfred North Whitehead\nGame features TBD\n\n
-	#	Selectable: false
-	#Faction@p3:
-	#	Name: Rorty
-	#	InternalName: p.alarak
-	#	Side: Anglos
-	#	Description: Richard Rorty\nGame features TBD\n\n
-	#	Selectable: false
+		Side: Analytics
+		Description: Analytics\nGeneric Analytic faction.
 	Faction@a:
-		Name: Classicalists
+		Name: Classicals
 		InternalName: z
-		Side: Classicalists
-		Description: Classicalists\nGeneric Classicalist faction.\nEuros critical of modernity/liberalism who disagree on\nwhat tradition to return to.
-	#Faction@a1:
-	#	Name: Arendt
-	#	InternalName: z.kerrigan
-	#	Side: Classicalists
-	#	Description: Hannah Arendt\nGame features TBD\n\n
-	#	Selectable: false
-	#Faction@a2:
-	#	Name: Berlin #TODO
-	#	InternalName: z.zagara
-	#	Side: Classicalists
-	#	Description: Isaiah Berlin\nGame features TBD\n\n
-	#	Selectable: false
-	#Faction@a3:
-	#	Name: Schmitt
-	#	InternalName: z.abathur
-	#	Side: Classicalists
-	#	Description: Carl Schmitt\nGame features TBD\n\n
-	#	Selectable: false
-	#Faction@a4:
-	#	Name: Strauss
-	#	InternalName: z.dehaka
-	#	Side: Classicalists
-	#	Description: Leo Strauss\nGame features TBD\n\n
-	#	Selectable: false
+		Side: Classicals
+		Description: Classicals\nGeneric Classical faction.
 	Faction@w:
-		Name: Comintern
+		Name: Continentals
 		InternalName: t
-		Side: Comintern
-		Description: Comintern\nGeneric Comintern faction.\nHegelian forces fighting a pointless war to end history.
-	#Faction@w1:
-	#	Name: Kojeve
-	#	InternalName: t.mengsk
-	#	Side: Comintern
-	#	Description: Alexandre Kojeve\nUses fragile workers that can be armed anytime\ninstead of builders.\n\nKojeve's USSR is the most powerful and important Comintern member.\nFortunately, the Supreme Soviet refuses to approve anything more than\nviolent GULAG detainees to be allocated for his personal use.
-	#	Selectable: false
-	#Faction@w2:
-	#	Name: Merleau-Ponty
-	#	InternalName: t.raynor
-	#	Side: Comintern
-	#	Description: Maurice Merleau-Ponty\nGame features TBD\n\n
-	#	Selectable: false
-	#Faction@w3:
-	#	Name: Sartre & de Beauvoir
-	#	InternalName: t.horner
-	#	Side: Comintern
-	#	Description: Jean-Paul Sartre & Simone de Beauvoir\nGame features TBD\n\n
-	#	Selectable: false
+		Side: Continentals
+		Description: Continentals\nGeneric Continental faction.
 	ResourceType@Ore:
 		ResourceType: 1
 		Palette: resource
