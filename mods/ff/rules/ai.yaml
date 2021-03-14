@@ -31,18 +31,22 @@ Player:
 					Attractiveness: -20
 	BaseBuilderBotModule@test:
 		RequiresCondition: enable-test-ai
-		BuildingQueues: Building.P, Building.T
+		BuildingQueues: Building.P, Building.T, Building.Z
 		DefenseQueues: Warpin.P
-		MinimumExcessPower: 3
-		MaximumExcessPower: 10
+		MinimumExcessPower: 6
+		MaximumExcessPower: 14
 		ExcessPowerIncrement: 0
 		ExcessPowerIncreaseThreshold: 0
-		ConstructionYardTypes: builder.p.bot, builder.t.bot, builder.t
-		RefineryTypes: nexus, commandcenter
-		PowerTypes: pylon, supplydepot
-		BarracksTypes: gateway, barracks
-		VehiclesFactoryTypes: robotics, factory
-		ProductionTypes: nexus, gateway, robotics, stargate, barracks, factory, starport
+		MaximumFailedPlacementAttempts: 10
+		MinBaseRadius: 0
+		MaxBaseRadius: 8
+		NewProductionCashThreshold: 300
+		ConstructionYardTypes: builder.p.bot, builder.t.bot, builder.t, builder.z.bot
+		RefineryTypes: nexus, commandcenter, hatchery
+		PowerTypes: pylon, supplydepot, overlord
+		BarracksTypes: gateway, barracks, hatchery
+		VehiclesFactoryTypes: robotics, factory, hatchery
+		ProductionTypes: nexus, gateway, robotics, stargate, barracks, factory, starport, hatchery, hydraliskden, spire
 		BuildingLimits:
 			pylon: 4
 			forge: 1
@@ -55,6 +59,14 @@ Player:
 			engibay: 1
 			armory: 1
 			academy: 1
+			spawningpool: 1
+			banelingnest: 1
+			evolutionchamber: 1
+			hydraliskden: 1
+			roachwarren: 1
+			ultraliskcavern: 1
+			infestationpit: 1
+			spire: 1
 		BuildingFractions:
 			nexus: 1
 			pylon: 1
@@ -96,15 +108,19 @@ Player:
 		DangerScanRadius: 12
 		ExcludeFromSquadsTypes: builder.p, builder.p.bot, builder.t, builder.t.bot
 		NavalUnitsTypes:
-		ConstructionYardTypes: builder.p.bot, builder.t.bot
+		ConstructionYardTypes: builder.p.bot, builder.t.bot, builder.z.bot
 	UnitBuilderBotModule@test:
 		RequiresCondition: enable-test-ai
-		UnitQueues: Infantry.P, Vehicle.P, Worker.P, Air.P, Infantry.T, Vehicle.T, Worker.T, Air.T
+		UnitQueues: Infantry.P, Vehicle.P, Worker.P, Air.P, Infantry.T, Vehicle.T, Worker.T, Air.T, Units.Z
 		UnitLimits:
 			builder.p.bot: 2
 			builder.t.bot: 2
+			builder.z.bot: 10
+			builder.p: 15
+			builder.t: 15
+			builder.z: 15
 		UnitsToBuild:
-			zealot: 10
+			zealot: 5
 			adept: 5
 			dragoon: 5
 			stalker: 5
@@ -119,8 +135,7 @@ Player:
 			mothership: 1
 			builder.p: 1
 			builder.p.bot: 1
-			marine: 10
-			medic: 1
+			marine: 5
 			marauder: 3
 			reaper: 2
 			ghost: 1

@@ -206,11 +206,8 @@ hatchery.larva:
 	Armor:
 		Type: building.steel
 	RevealsShroud:
-		Range: 4c0
+		Range: 5c0
 		MaxHeightDelta: 3
-	# RevealsShroudToIntelligenceOwner:
-	#	Types: SatelliteScan
-	#	Range: 4c0
 	RevealOnDeath:
 		Radius: 2c0
 		Duration: 50
@@ -253,6 +250,18 @@ hatchery.larva:
 	Exit@5:
 		ProductionTypes: Units.Z, Larva.Z
 		ExitCell: 0,-1
+	Exit@6:
+		ProductionTypes: Units.Z, Larva.Z
+		ExitCell: 1,1
+	Exit@7:
+		ProductionTypes: Units.Z, Larva.Z
+		ExitCell: 1,-1
+	Exit@8:
+		ProductionTypes: Units.Z, Larva.Z
+		ExitCell: -1,1
+	Exit@9:
+		ProductionTypes: Units.Z, Larva.Z
+		ExitCell: -1,-1
 	Production@Probes:
 		Produces: Units.Z, Larva.Z
 		PauseOnCondition: lowpower
@@ -805,6 +814,7 @@ nydus:
 builder.z:
 	Inherits: ^VoxelVehicle
 	Inherits@2: ^Harvester
+	Inherits@3: ^BotBuilderWorker
 	Inherits@SELECTION_MODE: ^LowPrioritySelectionMode
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Inherits@HATCH: ^ProducedFromLarva
@@ -814,6 +824,8 @@ builder.z:
 		Name: Supply Truck
 	Mobile:
 		Speed: 100
+	RevealsShroud:
+		Range: 8c0
 	Health:
 		HP: 80
 	Valued:
@@ -821,7 +833,7 @@ builder.z:
 	Buildable:
 		Queue: Units.Z
 		Prerequisites: hatchery
-		BuildPaletteOrder: 50
+		BuildPaletteOrder: 0
 		Description: Transforms into structures.
 	MustBeDestroyed:
 		RequiredForShortGame: true
@@ -852,10 +864,10 @@ builder.z:
 		ProductionType: Building.Z
 	BaseProvider:
 		Range: 4c0
-		RequiresCondition: !moving
+		RequiresCondition: !moving && no-ore
 	GivesBuildableArea:
 		AreaTypes: drone
-		RequiresCondition: !moving
+		RequiresCondition: !moving && no-ore
 	Harvester:
 		DeliveryBuildings: hatchery.dock
 	WithHarvestOverlay:
@@ -884,16 +896,33 @@ builder.z:
 	GrantConditionOnMovement@MoveStart:
 		Condition: moving
 		ValidMovementTypes: Horizontal, Turn
-	GrantConditionOnBotOwner@bot:
-		Condition: botmicro
-		Bots: test
 	Voiced:
 		VoiceSet: YuriConstructionVehicleVoice
+
+builder.z.bot:
+	Inherits: builder.z
+	Tooltip:
+		Name: Truck (bot duplicate)
+	Buildable:
+		Prerequisites: hatchery, ~prerequisite.aiplayer
+	Production@Building:
+		-RequiresCondition:
+	AutoTarget:
+		ScanRadius: 8
+	-MapEditorData:
+	-Harvester:
+	-WithHarvesterPipsDecoration:
+	GrantCondition@botmicro:
+		Condition: no-ore
+	TransformOnCondition:
+		IntoActor: builder.z
+		RequiresCondition: !botmicro
 
 overlord:
 	Inherits: ^Helicopter
 	Inherits@VOXEL: ^VoxelActor
 	Inherits@HATCH: ^ProducedFromLarva
+	Inherits@CARGO: ^GenericTransport
 	Tooltip:
 		Name: Hover Drone
 	Selectable:
@@ -903,7 +932,7 @@ overlord:
 	Valued:
 		Cost: 100
 	Buildable:
-		BuildPaletteOrder: 20
+		BuildPaletteOrder: 10
 		Prerequisites: hatchery
 		Description: Provides supply.\nCan transport units
 	Power:
@@ -912,6 +941,53 @@ overlord:
 		TurnSpeed: 40
 		Speed: 90
 		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 11c0
+	Armament@secondary:
+		Weapon: barrier.energyhack
+		Name: secondary
+		TargetRelationships: None
+		ForceTargetRelationships: None
+	AttackAircraft:
+		Voice: Move
+	Armor:
+		Type: air.light
+	Cargo:
+		MaxWeight: 8
+	WithVoxelBody:
+	WithVoxelTurret:
+	Turreted:
+	RenderSprites:
+	RenderVoxels:
+	Voiced:
+		VoiceSet: YuriAmphibiousTransportVoice
+
+overseer:
+	Inherits: ^Helicopter
+	Inherits@VOXEL: ^VoxelActor
+	Inherits@HATCH: ^ProducedFromLarva
+	Inherits@DETECT: ^GenericDetector
+	Tooltip:
+		Name: Hover Drone Mk. II
+	Selectable:
+		Bounds: 68, 43, 0, -5
+	Health:
+		HP: 400
+	Valued:
+		Cost: 100
+	Buildable:
+		BuildPaletteOrder: 20
+		Prerequisites: lair
+		Description: Provides supply.\nCan detect cloaked units\nCan deploy to provide additional vision
+	Power:
+		Amount: 8
+	Aircraft:
+		TurnSpeed: 60
+		Speed: 120
+		AltitudeVelocity: 200
+		RequireForceMoveCondition: deployed
+	RevealsShroud:
+		Range: 11c0
 	Armament@secondary:
 		Weapon: barrier.energyhack
 		Name: secondary
@@ -921,33 +997,25 @@ overlord:
 		Voice: Attack
 	Armor:
 		Type: air.light
-	Cargo:
-		Types: Infantry, Garrisoner, Vehicle
-		MaxWeight: 8
-		AfterLoadDelay: 0
-		BeforeUnloadDelay: 0
-		AfterUnloadDelay: 0
-		UnloadVoice: Move
-	#WithCargoSounds:
-	#	EnterSound: genter1a.wav
-	#	ExitSound: gexit1a.wav
-	WithCargoPipsDecoration:
-		Margin: 4, 3
-		Palette: ra
-		Position: BottomLeft
-		RequiresSelection: true
-		CustomPipSequences:
-			gray: pip-gray
-			yellow: pip-yellow
-			blue: pip-blue
-			red: pip-red
+	GrantConditionOnDeploy:
+		DeployedCondition: deployed
+		UndeployOnMove: true
+		CanDeployOnRamps: true
+		Voice: Move
+	SpeedMultiplier@deployed:
+		Modifier: 0
+		RequiresCondition: deployed
+	RevealsShroudMultiplier@deployed:
+		Modifier: 125
+		RequiresCondition: deployed
+	DetectCloakedMultiplier@Deploy:
+		Modifier: 125
+		RequiresCondition: deployed
 	WithVoxelBody:
-	WithVoxelTurret:
-	Turreted:
 	RenderSprites:
 	RenderVoxels:
 	Voiced:
-		VoiceSet: ChaosDroneVoice
+		VoiceSet: YuriVoice
 
 ^spinecrawler.base:
 	Inherits@shape: ^2x2Shape
@@ -1172,6 +1240,7 @@ zergling.build:
 		Name: Larper
 	Buildable:
 		Prerequisites: spawningpool
+		BuildPaletteOrder: 30
 		Description: Armed with a zip gun.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
 	Mobile:
 		Locomotor: foot
@@ -1193,7 +1262,10 @@ zergling:
 		Name: Larper
 	Buildable:
 		Prerequisites: spawningpool
+		BuildPaletteOrder: 30
 		Description: Armed with a zip gun.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Health:
 		HP: 70
 	Valued:
@@ -1202,6 +1274,8 @@ zergling:
 		Amount: -1
 	Mobile:
 		Speed: 95
+	RevealsShroud:
+		Range: 8c0
 	Armor:
 		Type: infantry.light
 	AttackFrontal:
@@ -1223,7 +1297,10 @@ baneling:
 		Name: Nihilist
 	Buildable:
 		Prerequisites: banelingnest
+		BuildPaletteOrder: 70
 		Description: Armed with fertilizer nail bombs.\n  Strong vs Ground targets\n  Weak vs Aircraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Health:
 		HP: 60
 	Valued:
@@ -1232,6 +1309,8 @@ baneling:
 		Amount: -1
 	Mobile:
 		Speed: 85
+	RevealsShroud:
+		Range: 8c0
 	Armor:
 		Type: infantry.light
 	AttackFrontal:
@@ -1257,7 +1336,7 @@ baneling:
 
 queen:
 	Inherits: ^VoxelVehicle
-	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@HATCH: ^ProducedFromLarva
 	Inherits@FB: ^EnergyPoolEffects
@@ -1271,13 +1350,17 @@ queen:
 		Cost: 150
 	Buildable:
 		Prerequisites: spawningpool
-		BuildPaletteOrder: 20
+		BuildPaletteOrder: 40
 		Description: Armed construction vehicle.\nCan increase production rate of scrap piles.\n  Strong vs Vehicles, Aircraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Mobile:
 		Speed: 120
 		TurnSpeed: 32
+	RevealsShroud:
+		Range: 9c0
 	Armor:
 		Type: vehicle.light
 	Turreted:
@@ -1332,14 +1415,18 @@ hydralisk:
 	Valued:
 		Cost: 150
 	Buildable:
-		BuildPaletteOrder: 20
+		BuildPaletteOrder: 50
 		Prerequisites: hydraliskden
 		Description: Fast drone armed with rockets.\n  Strong vs Vehicles, Aircraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Mobile:
 		Speed: 120
 		TurnSpeed: 32
+	RevealsShroud:
+		Range: 9c0
 	Armor:
 		Type: vehicle.light
 	WithMuzzleOverlay:
@@ -1371,14 +1458,18 @@ lurker:
 	Valued:
 		Cost: 150
 	Buildable:
-		BuildPaletteOrder: 20
+		BuildPaletteOrder: 60
 		Prerequisites: lurkerden
 		Description: Drone armed with line-firing machine guns.\n  Strong vs Infantry
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -3
 	Mobile:
 		Speed: 120
 		TurnSpeed: 32
+	RevealsShroud:
+		Range: 10c0
 	Armor:
 		Type: vehicle.heavy
 	Turreted:
@@ -1412,14 +1503,18 @@ roach:
 	Valued:
 		Cost: 100
 	Buildable:
-		BuildPaletteOrder: 20
+		BuildPaletteOrder: 80
 		Prerequisites: roachwarren
 		Description: Tracked RC armed with machine guns.\n  Strong vs Infantry, Vehicles
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Mobile:
 		Speed: 90
 		TurnSpeed: 32
+	RevealsShroud:
+		Range: 9c0
 	Armor:
 		Type: vehicle.heavy
 	WithMuzzleOverlay:
@@ -1451,14 +1546,18 @@ ravager:
 	Valued:
 		Cost: 100
 	Buildable:
-		BuildPaletteOrder: 20
+		BuildPaletteOrder: 90
 		Prerequisites: roachwarren
 		Description: Tracked RC armed with a grenade launcher.\n  Strong vs Vehicles
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -3
 	Mobile:
 		Speed: 80
 		TurnSpeed: 32
+	RevealsShroud:
+		Range: 9c0
 	Armor:
 		Type: vehicle.light
 	AttackFrontal:
@@ -1472,7 +1571,7 @@ ravager:
 		Scale: 1
 	WithVoxelBody:
 	Voiced:
-		VoiceSet: GatlingTankVoice
+		VoiceSet: LasherTankVoice
 
 ultralisk:
 	Inherits: ^VoxelVehicle
@@ -1488,14 +1587,18 @@ ultralisk:
 	Valued:
 		Cost: 500
 	Buildable:
-		BuildPaletteOrder: 60
+		BuildPaletteOrder: 100
 		Prerequisites: ultraliskcavern
 		Description: Heavy armored vehicle.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -6
 	Mobile:
 		Speed: 100
 		TurnSpeed: 32
+	RevealsShroud:
+		Range: 9c0
 	Armor:
 		Type: vehicle.heavy
 	WithMuzzleOverlay:
@@ -1517,7 +1620,7 @@ ultralisk:
 		Scale: 1
 	WithVoxelBody:
 	Voiced:
-		VoiceSet: BattleFortressVoice
+		VoiceSet: BruteVoice
 
 swarmhost:
 	Inherits: ^VoxelVehicle
@@ -1533,14 +1636,18 @@ swarmhost:
 	Valued:
 		Cost: 100
 	Buildable:
-		BuildPaletteOrder: 20
+		BuildPaletteOrder: 110
 		Prerequisites: infestationpit
 		Description: Improvised armored vehicle armed with drones.\n  Strong vs Vehicles
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -3
 	Mobile:
 		Speed: 80
 		TurnSpeed: 32
+	RevealsShroud:
+		Range: 10c0
 	Armor:
 		Type: vehicle.light
 	Turreted:
@@ -1565,7 +1672,7 @@ swarmhost:
 	WithVoxelBody:
 	WithVoxelTurret:
 	Voiced:
-		VoiceSet: GatlingTankVoice
+		VoiceSet: YuriPrimeVoice
 
 swarmhost.locust.air:
 	Inherits: ^Helicopter
@@ -1588,7 +1695,7 @@ swarmhost.locust.air:
 		AttackType: Hover
 		PauseOnCondition: disabled
 	AutoTarget:
-		ScanRadius: 6
+		ScanRadius: 9
 		InitialStance: AttackAnything
 	GrantConditionOnAttack:
 		Condition: forceland
@@ -1661,6 +1768,7 @@ mutalisk:
 	Inherits: ^Helicopter
 	Inherits@VOXEL: ^VoxelActor
 	Inherits@HATCH: ^ProducedFromLarva
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Tooltip:
 		Name: Attack Drone
 	Selectable:
@@ -1670,15 +1778,19 @@ mutalisk:
 	Valued:
 		Cost: 200
 	Buildable:
-		BuildPaletteOrder: 100
+		BuildPaletteOrder: 150
 		Prerequisites: spire
 		Description: Fast multirole aircraft.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 160
 		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 11c0
 	Armament@primary:
 		Weapon: mutalisk.wurm
 		LocalOffset: 640,-400,640, 640,400,640
@@ -1698,6 +1810,7 @@ corruptor:
 	Inherits: ^Helicopter
 	Inherits@VOXEL: ^VoxelActor
 	Inherits@HATCH: ^ProducedFromLarva
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Tooltip:
 		Name: Interceptor Drone
 	Selectable:
@@ -1707,15 +1820,19 @@ corruptor:
 	Valued:
 		Cost: 400
 	Buildable:
-		BuildPaletteOrder: 110
+		BuildPaletteOrder: 160
 		Prerequisites: spire
 		Description: Fast air superiority and anti-structure aircraft.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 110
 		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 10c0
 	Armament@primary:
 		Weapon: corruptor.spore
 		LocalOffset: 640,-400,640, 640,400,640
@@ -1744,12 +1861,13 @@ corruptor:
 	RenderVoxels:
 		Scale: 1
 	Voiced:
-		VoiceSet: ChaosDroneVoice
+		VoiceSet: FloatingDiskVoice
 
 broodlord:
 	Inherits: ^Helicopter
 	Inherits@VOXEL: ^VoxelActor
 	Inherits@HATCH: ^ProducedFromLarva
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Tooltip:
 		Name: Mother Drone
 	Selectable:
@@ -1759,15 +1877,19 @@ broodlord:
 	Valued:
 		Cost: 100
 	Buildable:
-		BuildPaletteOrder: 100
+		BuildPaletteOrder: 170
 		Prerequisites: greaterspire
 		Description: Deploys small drones to attack ground targets.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 80
 		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 12c0
 	Armament@primary:
 		Weapon: broodlord.spawn
 	AttackAircraft:
@@ -1781,7 +1903,7 @@ broodlord:
 	RenderVoxels:
 		Scale: 1
 	Voiced:
-		VoiceSet: ChaosDroneVoice
+		VoiceSet: MasterMindVoice
 
 broodling:
 	Inherits: ^DefaultInfantry
@@ -1829,6 +1951,7 @@ viper:
 	Inherits: ^Helicopter
 	Inherits@VOXEL: ^VoxelActor
 	Inherits@HATCH: ^ProducedFromLarva
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Tooltip:
 		Name: Disruptor Drone
 	Selectable:
@@ -1838,15 +1961,19 @@ viper:
 	Valued:
 		Cost: 300
 	Buildable:
-		BuildPaletteOrder: 100
+		BuildPaletteOrder: 180
 		Prerequisites: hive
 		Description: Advanced UAV armed with chemical weapons.\nCan create a cloud to reduce enemy firing range by force-firing.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -3
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 100
 		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 11c0
 	Armament@primary:
 		Weapon: viper.parasitebomb
 		LocalOffset: 640,-400,640, 640,400,640
@@ -1866,7 +1993,7 @@ viper:
 	RenderVoxels:
 		Scale: 1
 	Voiced:
-		VoiceSet: ChaosDroneVoice
+		VoiceSet: VirusVoice
 
 viper.parasite:
 	Inherits@1: ^SpriteActor
@@ -1961,8 +2088,10 @@ teslapyro:
 	Buildable:
 		Prerequisites: banelingnest
 		Description: Elon Musk's pyrotechnical death squads.\nArmed with a Boring Company flamethrower.\n  Strong vs Infantry, Buildings
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
-		Amount: -1
+		Amount: -2
 	Mobile:
 		Speed: 90
 	Armor:

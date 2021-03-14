@@ -61,12 +61,14 @@ baneling.explode:
 			infantry.light: 220
 			vehicle.light: 220
 		DamageTypes: TriggerProne, ExplosionDeath
+		ValidRelationships: Neutral, Enemy
 		InvalidTargets: Structure
 	Warhead@2Dam: SpreadDamage
 		Spread: 2c256
 		Falloff: 100, 100
 		Damage: 160
 		DamageTypes: TriggerProne, ExplosionDeath
+		ValidRelationships: Neutral, Enemy
 		ValidTargets: Structure
 	Warhead@3Eff: CreateEffect
 		Explosions: terrorist_explosion
@@ -389,7 +391,7 @@ viper.cloud:
 	Range: 11c0
 	ReloadDelay: 150
 	Report: icivatta.wav, icivattb.wav
-	ValidTargets: Ground, Air, Water
+	InvalidTargets: Structure, Infantry, Vehicle, Wall, Air, Ship
 	Projectile: InstantHit
 	Warhead@1Dam: SpreadDamage
 		Damage: 0

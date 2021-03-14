@@ -144,6 +144,9 @@ builder.p:
 		Prerequisites: nexus
 		BuildPaletteOrder: 50
 		Description: Builds structures.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+		OverrideActor: builder.p
 	Power:
 		Amount: -1
 	MustBeDestroyed:
@@ -158,7 +161,7 @@ builder.p:
 		Prerequisite: hasbase
 	Production@Building:
 		Produces: Building.P
-		PauseOnCondition: moving
+		PauseOnCondition: moving || !no-ore
 		RequiresCondition: !botmicro
 	ProductionQueue@Building:
 		Type: Building.P
@@ -173,10 +176,10 @@ builder.p:
 		ProductionType: Building.P
 	BaseProvider:
 		Range: 5c0
-		RequiresCondition: !moving
+		RequiresCondition: !moving && no-ore 
 	GivesBuildableArea:
 		AreaTypes: building
-		RequiresCondition: !moving
+		RequiresCondition: !moving && no-ore
 	Harvester:
 		DeliveryBuildings: nexus.dock
 	WithHarvestOverlay:
@@ -200,6 +203,8 @@ builder.p.bot:
 	-MapEditorData:
 	-Harvester:
 	-WithHarvesterPipsDecoration:
+	GrantCondition@botmicro:
+		Condition: no-ore
 	TransformOnCondition:
 		IntoActor: builder.p
 		RequiresCondition: !botmicro
@@ -321,14 +326,30 @@ gateway:
 		Description: Warps in infantry.\nDeploy to enter warpgate mode
 	Building:
 		Dimensions: 3,3
-		Footprint: xxx xxx xxx
+		Footprint: xxx xxx ===
 	Exit@1:
 		SpawnOffset: 724,362,0
-		ExitCell: 3,3
-		Priority: 2
+		ExitCell: 0,2
 	Exit@2:
 		SpawnOffset: 724,362,0
-		ExitCell: 3,1
+		ExitCell: 0,1
+	Exit@3:
+		SpawnOffset: 724,362,0
+		ExitCell: 2,2
+	Exit@4:
+		SpawnOffset: 724,362,0
+		ExitCell: 2,1
+	Exit@5:
+		SpawnOffset: 724,362,0
+		ExitCell: 1,2
+	Exit@7:
+		ExitCell: 0,0
+		Priority: 2
+	Exit@8:
+		ExitCell: 1,0
+		Priority: 2
+	Exit@9:
+		ExitCell: 2,0
 		Priority: 2
 	Production@1:
 		Produces: Infantry.P
@@ -954,6 +975,8 @@ zealot:
 	Buildable:
 		Queue: Infantry.P
 		Description: Chinese ultranationalist armed with cleaver.\n  Strong vs Infantry  \n  Weak vs Vehicles, Aircraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -1
 	Mobile:
@@ -984,7 +1007,7 @@ zealot:
 	Selectable:
 		Bounds: 20, 30, 0, -11
 	Voiced:
-		VoiceSet: TerroristVoice
+		VoiceSet: CivilianAlliedMaleVoice
 	RenderSprites:
 		Image: zealot
 
@@ -1023,6 +1046,8 @@ darktemplar:
 		Queue: Infantry.P
 		Prerequisites: darkshrine
 		Description: Elite cloaked infantry.\n  Strong vs ground targets  \n  Weak vs Aircraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Mobile:
@@ -1074,6 +1099,8 @@ adept:
 		Queue: Infantry.P
 		Prerequisites: cybercore
 		Description: Creature summoned by Genshin Impact microtransactions.\n  Strong vs Light armor
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Mobile:
@@ -1087,7 +1114,7 @@ adept:
 	Selectable:
 		Bounds: 20, 30, 0, -11
 	Voiced:
-		VoiceSet: VirusVoice
+		VoiceSet: CivilianAlliedFemaleVoice
 	RenderSprites:
 		Image: adept
 
@@ -1126,6 +1153,8 @@ hightemplar:
 		Queue: Infantry.P
 		Prerequisites: templararchives
 		Description: Technology specialist.\nCan drain energy from units, dealing damage proportional to drain.\nCan detonate a powerful bomb when deployed.\n  Strong vs spellcasters, clustered units
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Mobile:
@@ -1259,6 +1288,8 @@ dragoon:
 		Prerequisites: cybercore
 		BuildPaletteOrder: 20
 		Description: Fast vehicle armed with a grenade launcher.\n  Strong vs Infantry, Buildings\n  Weak vs Tanks, Aircraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Mobile:
@@ -1303,6 +1334,8 @@ stalker:
 		Prerequisites: cybercore
 		BuildPaletteOrder: 20
 		Description: Pickup truck turned into a teleporting rocket launcher.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Mobile:
@@ -1361,6 +1394,8 @@ sentry:
 		Prerequisites: cybercore
 		BuildPaletteOrder: 20
 		Description: Autonomous support vehicle.\nCan create barriers to impede enemy movement.\nCan shield friendly units via deploy (TBD)
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Mobile:
@@ -1476,6 +1511,8 @@ immortal:
 		Queue: Vehicle.P
 		BuildPaletteOrder: 20
 		Description: Light tank prototype.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -4
 	Mobile:
@@ -1495,6 +1532,8 @@ immortal:
 		Weapon: immortal.disruptor
 		LocalOffset: 896,0,704
 		MuzzleSequence: muzzle
+	Voiced:
+		VoiceSet: AlliedVehicleVoice
 	RenderSprites:
 	RenderVoxels:
 		Scale: 1
@@ -1518,6 +1557,8 @@ colossus:
 		Prerequisites: robobay
 		BuildPaletteOrder: 20
 		Description: Drone holographically disguised as a hovertank.\nAttacks with two powerful lasers.\n  Strong vs clustered ground units\n  Weak vs Tanks, Aircraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -6
 	Mobile:
@@ -1570,6 +1611,8 @@ archon:
 		BuildPaletteOrder: 20
 		Prerequisites: ~disabled
 		Description: Armed with dual autocannons.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -4
 	Mobile:
@@ -1627,6 +1670,8 @@ darkarchon:
 		Prerequisites: ~disabled
 		BuildPaletteOrder: 20
 		Description: tbd
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Mobile:
 		Speed: 95
 		TurnSpeed: 32
@@ -1668,6 +1713,8 @@ disruptor:
 		Prerequisites: cybercore
 		BuildPaletteOrder: 20
 		Description: Launches powerful loitering munitions.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -3
 	Mobile:
@@ -1798,6 +1845,8 @@ observer:
 		Queue: Vehicle.P
 		BuildPaletteOrder: 1
 		Description: Slow cloaked surveillance unit.\nDetects cloaked units.\nCan deploy to increase vision.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -1
 	Aircraft:
@@ -1846,6 +1895,8 @@ oracle:
 		Queue: Air.P
 		BuildPaletteOrder: 20
 		Description: Experimental personal rotorcraft armed with a laser.\nCan deploy traps that freeze enemies.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -3
 	Aircraft:
@@ -1976,6 +2027,8 @@ phoenix:
 		Queue: Air.P
 		BuildPaletteOrder: 20
 		Description: Air-superiority UAV.\n  Strong vs Aircraft\n  Weak vs anti-air
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Aircraft:
@@ -2021,6 +2074,8 @@ voidray:
 		Queue: Air.P
 		BuildPaletteOrder: 20
 		Description: Advanced attack helicopter retrofitted with a laser.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -4
 	Aircraft:
@@ -2081,6 +2136,8 @@ tempest:
 		Queue: Air.P
 		BuildPaletteOrder: 20
 		Description: Advanced attack helicopter armed with long-range rockets.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -5
 	Aircraft:
@@ -2126,6 +2183,8 @@ carrier:
 		Prerequisites: fleetbeacon
 		BuildPaletteOrder: 20
 		Description: UAV that deploys drones.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -6
 	Aircraft:
@@ -2204,6 +2263,7 @@ interceptor:
 warpprism:
 	Inherits: ^Helicopter
 	Inherits@VOXEL: ^VoxelActor
+	Inherits@CARGO: ^GenericTransport
 	Tooltip:
 		Name: Morningeagle
 	Selectable:
@@ -2216,6 +2276,8 @@ warpprism:
 		Queue: Air.P
 		BuildPaletteOrder: 20
 		Description: Transport helicopter.\nCan provide build and warp area
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Aircraft:
@@ -2241,25 +2303,7 @@ warpprism:
 		Modifier: 0
 		RequiresCondition: warping
 	Cargo:
-		Types: Infantry, Garrisoner, Vehicle
 		MaxWeight: 8
-		AfterLoadDelay: 0
-		BeforeUnloadDelay: 0
-		AfterUnloadDelay: 0
-		UnloadVoice: Move
-	#WithCargoSounds:
-	#	EnterSound: genter1a.wav
-	#	ExitSound: gexit1a.wav
-	WithCargoPipsDecoration:
-		Margin: 4, 3
-		Palette: ra
-		Position: BottomLeft
-		RequiresSelection: true
-		CustomPipSequences:
-			gray: pip-gray
-			yellow: pip-yellow
-			blue: pip-blue
-			red: pip-red
 	WithVoxelHelicopterBody:
 	RenderSprites:
 	RenderVoxels:
@@ -2286,6 +2330,8 @@ mothership:
 		BuildPaletteOrder: 40
 		Description: Superheavy gunship.
 		BuildLimit: 1
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -8
 	Aircraft:
@@ -2309,7 +2355,7 @@ mothership:
 	RenderVoxels:
 		Scale: 1.5
 	Voiced:
-		VoiceSet: HarrierVoice
+		VoiceSet: AlliedNavalVoice
 
 upgrade.warpgate:
 	Inherits: ^upgrade

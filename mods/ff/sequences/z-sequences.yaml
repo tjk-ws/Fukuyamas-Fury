@@ -105,6 +105,9 @@ nydus:
 overlord:
 	icon: diskicon
 
+overseer:
+	icon: diskicon
+
 queen:
 	Inherits@MUZZLE: ^WithFlakMuzzle
 	icon: ltnkicon

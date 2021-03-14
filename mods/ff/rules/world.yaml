@@ -209,7 +209,7 @@ World:
 		ClassName: Base and 5 workers
 		Factions: z
 		BaseActor: hatchery
-		SupportActors: builder.z, builder.z, builder.z, builder.z, builder.z
+		SupportActors: builder.z, builder.z, builder.z, builder.z, builder.z.bot
 	#CrateSpawner:
 	#	DeliveryAircraft: pdplane.crate
 	#	Minimum: 1

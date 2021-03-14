@@ -62,6 +62,7 @@ Bu7loos:
 	Seeker						vehicles/seeker*.*
 	Mantis						vehicles/mantis.*
 	Vulture						vehicles/vulture.*
+	Floating Disc					vehicles/disk2.*
 
 carnage_xploade:
 	Gyrocopter				vehicles/GyroCopter*.*

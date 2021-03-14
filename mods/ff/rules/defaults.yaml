@@ -1103,6 +1103,11 @@
 
 ^BaseBuilding:
 	Inherits: ^Building
+	RevealsShroud:
+		Range: 9c0
+	RevealsShroudMultiplier@BUILDING:
+		Modifier: 25
+		RequiresCondition: build-incomplete
 	WithMakeAnimation:
 		Condition: build-incomplete
 	Sellable:
@@ -1860,7 +1865,7 @@
 	Passenger:
 		Voice: Move
 		CargoType: Vehicle
-		Weight: 3
+		Weight: 2
 	Crushable:
 		CrushClasses: vehicle
 		WarnProbability: 0
@@ -2648,6 +2653,30 @@
 		MinMoveDelay: 100
 		MaxMoveDelay: 400
 		RequiresCondition: botmicro
+	RevealsShroud:
+		Range: 8c0
+
+^GenericTransport:
+	Cargo:
+		Types: Infantry, Garrisoner, Vehicle
+		MaxWeight: 8
+		AfterLoadDelay: 0
+		BeforeUnloadDelay: 0
+		AfterUnloadDelay: 0
+		UnloadVoice: Move
+	#WithCargoSounds:
+	#	EnterSound: genter1a.wav
+	#	ExitSound: gexit1a.wav
+	WithCargoPipsDecoration:
+		Margin: 4, 3
+		Palette: ra
+		Position: BottomLeft
+		RequiresSelection: true
+		CustomPipSequences:
+			gray: pip-gray
+			yellow: pip-yellow
+			blue: pip-blue
+			red: pip-red
 
 ^TeleportNetworkTransportable:
 	TeleportNetworkTransportable:

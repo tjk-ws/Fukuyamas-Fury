@@ -26,6 +26,8 @@
 	RequiresBuildableArea:
 		AreaTypes: scv
 		Adjacent: 4
+	RevealsShroudMultiplier@BUILDING:
+		RequiresCondition: !build-complete
 
 builder.t:
 	Inherits: ^VoxelVehicle
@@ -47,6 +49,9 @@ builder.t:
 		Prerequisites: commandcenter
 		BuildPaletteOrder: 50
 		Description: Builds structures.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+		OverrideActor: builder.t
 	Power:
 		Amount: -1
 	MustBeDestroyed:
@@ -61,7 +66,7 @@ builder.t:
 		Prerequisite: hasbase
 	Production@Building:
 		Produces: Building.T
-		PauseOnCondition: moving || building
+		PauseOnCondition: moving || building || !no-ore
 		RequiresCondition: !botmicro
 	ProductionQueue@Building:
 		Type: Building.T
@@ -76,10 +81,10 @@ builder.t:
 		ProductionType: Building.T
 	BaseProvider:
 		Range: 5c0
-		RequiresCondition: !moving
+		RequiresCondition: !moving && no-ore
 	GivesBuildableArea:
 		AreaTypes: scv
-		RequiresCondition: !moving
+		RequiresCondition: !moving && no-ore
 	AutoTargetPriority@Build:
 		ValidTargets: scvbuildable, scvbuilding
 		Priority: 2
@@ -135,6 +140,8 @@ builder.t.bot:
 	-MapEditorData:
 	-Harvester:
 	-WithHarvesterPipsDecoration:
+	GrantCondition@botmicro:
+		Condition: no-ore
 	TransformOnCondition:
 		IntoActor: builder.t
 		RequiresCondition: !botmicro
@@ -1022,6 +1029,8 @@ marine:
 	Buildable:
 		Queue: Infantry.T
 		Description: Basic rifle infantry.\n  Strong vs Infantry, Aircraft \n  Weak vs Vehicles
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -1
 	Mobile:
@@ -1052,6 +1061,8 @@ medic:
 	Buildable:
 		Queue: Infantry.T
 		Description: Heals nearby infantry.\n  Unarmed
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -1
 	Mobile:
@@ -1089,6 +1100,8 @@ marauder:
 		Queue: Infantry.T
 		# Prerequisites: lab.barracks
 		Description: Heavily armored infantry equipped with dual grenade launchers.\n  Strong vs Buildings, Vehicles \n  Weak vs Infantry, Aircraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Mobile:
@@ -1121,6 +1134,8 @@ reaper:
 	Buildable:
 		Queue: Infantry.T
 		Description: Fast armored infantry.\n  Strong vs Light armor \n  Weak vs Tanks, Aircraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -1
 	Mobile:
@@ -1160,6 +1175,8 @@ ghost:
 		Queue: Infantry.T
 		Prerequisites: ~disabled #academy #, lab.barracks
 		Description: Elite infantry.\n  Can disable and drain units with Lockdown.\n  Can force fire to guide a tactical missile.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Mobile:
@@ -1354,6 +1371,8 @@ vulture:
 	Buildable:
 		Queue: Vehicle.T
 		Description: Two-man trike armed with a machinegun.\nCan lay mines.\n  Strong vs Infantry\n  Weak vs Vehicles
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Mobile:
@@ -1393,7 +1412,7 @@ vulture:
 	RenderVoxels:
 	WithVoxelBody:
 	Voiced:
-		VoiceSet: FlakTrackVoice
+		VoiceSet: SeaScorpionVoice
 
 vulture.spidermine:
 	Inherits: ^Vehicle
@@ -1470,6 +1489,8 @@ widowmine:
 	Buildable:
 		Queue: Infantry.T
 		Description: Soldier armed with a rocket launcher.\nNeeds to be deployed to attack.\n  Strong vs Everything
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Mobile:
@@ -1500,7 +1521,7 @@ widowmine:
 	GrantConditionOnDeploy:
 		DeployedCondition: deployed
 		UndeployedCondition: undeployed
-		Voice: Deploy
+		Voice: Move #Deploy
 		CanDeployOnRamps: True
 		SmartDeploy: True
 		Facing: 384
@@ -1513,7 +1534,7 @@ widowmine:
 	Cloak:
 		RequiresCondition: deployed && !reloading
 	Voiced:
-		VoiceSet: GGIVoice
+		VoiceSet: CivilianSovietMaleVoice
 	# render on editor hack
 	GrantCondition:
 		Condition: editorhack
@@ -1540,6 +1561,8 @@ t55:
 		Prerequisites: ~disabled
 		BuildPaletteOrder: 20
 		Description: Old Soviet tank.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -3
 	Mobile:
@@ -1586,6 +1609,8 @@ siegetank:
 		# Prerequisites: lab.factory
 		BuildPaletteOrder: 20
 		Description: Light artillery vehicle.\nCan deploy for splash damage.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -3
 	Mobile:
@@ -1653,6 +1678,8 @@ cyclone:
 		# Prerequisites: lab.factory
 		BuildPaletteOrder: 20
 		Description: Armored car with long-range gun.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -3
 	Mobile:
@@ -1715,6 +1742,8 @@ goliath:
 		Queue: Vehicle.T
 		BuildPaletteOrder: 20
 		Description: Versatile light vehicle.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -3
 	Mobile:
@@ -1761,6 +1790,8 @@ thor:
 		Prerequisites: armory #, lab.factory
 		BuildPaletteOrder: 20
 		Description: SPAAG refitted for general combat.\nCan switch between AA cannons and missiles.\n  Strong vs Everything
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -6
 	Mobile:
@@ -1821,6 +1852,8 @@ hellion:
 		Queue: Vehicle.T
 		BuildPaletteOrder: 10
 		Description: Fast harassment vehicle.\nCan deploy into a power armor suit.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Mobile:
@@ -1871,7 +1904,7 @@ hellion:
 		RequiresCondition: !undeployed
 	BodyOrientation:
 	Voiced:
-		VoiceSet: FlakTrackVoice
+		VoiceSet: TerroristVoice
 
 medivac:
 	Inherits: ^Helicopter
@@ -1879,6 +1912,7 @@ medivac:
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@VOXEL: ^VoxelActor
 	Inherits@ENERGY: ^EnergyPoolEffects
+	Inherits@CARGO: ^GenericTransport
 	Tooltip:
 		Name: Air ambulance
 	Selectable:
@@ -1891,6 +1925,8 @@ medivac:
 		Queue: Air.T
 		BuildPaletteOrder: 20
 		Description: Transport helicopter.\nCan heal units
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Aircraft:
@@ -1916,25 +1952,7 @@ medivac:
 	Armor:
 		Type: air.heavy
 	Cargo:
-		Types: Infantry, Garrisoner, Vehicle
 		MaxWeight: 8
-		AfterLoadDelay: 0
-		BeforeUnloadDelay: 0
-		AfterUnloadDelay: 0
-		UnloadVoice: Move
-	#WithCargoSounds:
-	#	EnterSound: genter1a.wav
-	#	ExitSound: gexit1a.wav
-	WithCargoPipsDecoration:
-		Margin: 4, 3
-		Palette: ra
-		Position: BottomLeft
-		RequiresSelection: true
-		CustomPipSequences:
-			gray: pip-gray
-			yellow: pip-yellow
-			blue: pip-blue
-			red: pip-red
 	WithEnergyPipsDecoration:
 		Position: BottomRight
 	WithVoxelHelicopterBody:
@@ -1961,6 +1979,8 @@ viking:
 		Queue: Air.T
 		BuildPaletteOrder: 20
 		Description: Combat UAV.\nCan transform into a hovering CAS mode.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Aircraft:
@@ -2006,6 +2026,9 @@ viking.assault:
 		Prerequisites: ~disabled
 		BuildPaletteOrder: 20
 		Description: Combat UAV.\nCan transform into an airborne air-superiority mode.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+		OverrideActor: viking
 	Power:
 		Amount: -2
 	Mobile:
@@ -2057,6 +2080,8 @@ banshee:
 		#Prerequisites: lab.starport
 		BuildPaletteOrder: 20
 		Description: Stealth combat UAV.\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -3
 	Aircraft:
@@ -2079,7 +2104,7 @@ banshee:
 	RenderVoxels:
 		#Scale: 1
 	Voiced:
-		VoiceSet: SiegeChopperVoice
+		VoiceSet: TyphoonVoice
 
 wraith:
 	Inherits: ^Helicopter
@@ -2099,6 +2124,8 @@ wraith:
 		Queue: Air.T
 		BuildPaletteOrder: 20
 		Description: Stealth combat UAV.\n  Strong vs Aircraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -2
 	Aircraft:
@@ -2146,6 +2173,8 @@ valkyrie:
 		Prerequisites: ~disabled
 		BuildPaletteOrder: 20
 		Description: Stealth combat UAV.\n  Strong vs Aircraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -3
 	Aircraft:
@@ -2194,6 +2223,8 @@ liberator:
 		Queue: Air.T
 		BuildPaletteOrder: 20
 		Description: Heavy UAV.\nCan deploy to use a cannon.\nCan not attack structures.\n  Strong vs Ground targets
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -3
 	Aircraft:
@@ -2222,7 +2253,7 @@ liberator:
 		DeployedCondition: deployed
 		UndeployOnMove: true
 		CanDeployOnRamps: true
-		Voice: Deploy
+		Voice: Move
 	SpeedMultiplier@deployed:
 		Modifier: 0
 		RequiresCondition: deployed
@@ -2231,7 +2262,7 @@ liberator:
 	RenderVoxels:
 		Scale: 1
 	Voiced:
-		VoiceSet: SiegeChopperVoice
+		VoiceSet: CivilianSovietFemaleVoice
 
 battlecruiser:
 	Inherits: ^Helicopter
@@ -2251,12 +2282,16 @@ battlecruiser:
 		Prerequisites: fusioncore #, lab.starport
 		BuildPaletteOrder: 20
 		Description: Actual attack helicopter.\n  Strong vs Everything
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -6
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 90
 		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 12c0
 	Armament@primary:
 		LocalOffset: 640,-400,640, 640,400,640
 		Weapon: bc.laser
@@ -2296,12 +2331,16 @@ gorgon:
 		Prerequisites: ~disabled
 		BuildPaletteOrder: 20
 		Description: Attack helicopter.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -3
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 150
 		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 12c0
 	Armament@primary:
 		LocalOffset: 640,-400,640, 640,400,640
 		Weapon: banshee.rockets
@@ -2336,12 +2375,16 @@ raven:
 		Prerequisites: ~disabled #lab.starport
 		BuildPaletteOrder: 20
 		Description: TBD
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -3
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 90
 		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 11c0
 	Armament@primary:
 		LocalOffset: 640,-400,640, 640,400,640
 		Weapon: banshee.rockets
@@ -2355,7 +2398,7 @@ raven:
 	RenderVoxels:
 		#Scale: 1
 	Voiced:
-		VoiceSet: CosmonautVoice
+		VoiceSet: TeslaTankVoice
 
 sciencevessel:
 	Inherits: ^Helicopter
@@ -2375,12 +2418,16 @@ sciencevessel:
 		Prerequisites: ~disabled
 		BuildPaletteOrder: 20
 		Description: TBD
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 	Power:
 		Amount: -3
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 150
 		AltitudeVelocity: 200
+	RevealsShroud:
+		Range: 11c0
 	Armament@primary:
 		LocalOffset: 640,-400,640, 640,400,640
 		Weapon: banshee.rockets
@@ -2395,4 +2442,4 @@ sciencevessel:
 		Scale: 1
 		NormalsPalette: ts-normals
 	Voiced:
-		VoiceSet: CosmonautVoice
+		VoiceSet: TeslaTankVoice

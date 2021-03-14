@@ -131,6 +131,9 @@ overlord:
 	idle: diskatk
 	turret: diskatktur
 
+overseer:
+	idle: disk2
+
 queen:
 	idle: lasher
 	turret: lashertur
