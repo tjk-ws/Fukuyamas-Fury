@@ -17,7 +17,7 @@ spinecrawler.tentacle:
 	ReloadDelay: 33
 	Report: gexpshaa.wav
 	TargetActorCenter: true
-	Projectile: BulletAS
+	Projectile: Bullet
 		Speed: 512
 		LaunchAngle: 180
 		ContrailLength: 40
@@ -223,7 +223,7 @@ mutalisk.wurm:
 	Report: vrobatta.wav
 	ValidTargets: Ground, Water, Air
 	TargetActorCenter: true
-	Projectile: BulletAS
+	Projectile: Bullet
 		Speed: 768
 	Warhead@1Dam: SpreadDamage
 		Damage: 18
@@ -284,7 +284,7 @@ broodlord.spawn:
 	Inherits: ^LargeBullet
 	Range: 10c0
 	ReloadDelay: 45
-	Projectile: BulletAS
+	Projectile: Bullet
 		Speed: 300
 		Image: broodling
 		Sequences: jump

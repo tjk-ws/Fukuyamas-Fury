@@ -112,8 +112,6 @@ cahse01:
 	Building:
 		Dimensions: 3,2
 		Footprint: xxx xxx
-	Garrisonable:
-		MaxWeight: 5
 	SpawnActorOnDeath:
 		Actor: cahse01.rubble
 	IsometricSelectable:
@@ -136,8 +134,6 @@ cahse02:
 	Building:
 		Dimensions: 3,2
 		Footprint: xxx xxx
-	Garrisonable:
-		MaxWeight: 5
 	SpawnActorOnDeath:
 		Actor: cahse02.rubble
 	IsometricSelectable:
@@ -160,8 +156,6 @@ cahse03:
 	Building:
 		Dimensions: 3,4
 		Footprint: xxx xxx xxx xxx
-	Garrisonable:
-		MaxWeight: 5
 	SpawnActorOnDeath:
 		Actor: cahse03.rubble
 	IsometricSelectable:
@@ -184,8 +178,6 @@ cahse04:
 	Building:
 		Dimensions: 3,2
 		Footprint: xxx xxx
-	Garrisonable:
-		MaxWeight: 5
 	SpawnActorOnDeath:
 		Actor: cahse04.rubble
 	IsometricSelectable:
@@ -208,8 +200,6 @@ cahse05:
 	Building:
 		Dimensions: 1,2
 		Footprint: x x
-	Garrisonable:
-		MaxWeight: 5
 	SpawnActorOnDeath:
 		Actor: cahse05.rubble
 
@@ -230,8 +220,6 @@ cahse06:
 	Building:
 		Dimensions: 2,1
 		Footprint: xx
-	Garrisonable:
-		MaxWeight: 5
 	SpawnActorOnDeath:
 		Actor: cahse06.rubble
 
@@ -252,8 +240,6 @@ cahse07:
 	Building:
 		Dimensions: 2,3
 		Footprint: xx xx xx
-	Garrisonable:
-		MaxWeight: 5
 	SpawnActorOnDeath:
 		Actor: cahse07.rubble
 	IsometricSelectable:
@@ -314,8 +300,6 @@ cabarn02:
 	Building:
 		Dimensions: 2,2
 		Footprint: xx xx
-	Garrisonable:
-		MaxWeight: 5
 	SpawnActorOnDeath:
 		Actor: cabarn02.rubble
 	IsometricSelectable:
@@ -1151,8 +1135,6 @@ caarmy01:
 		Name: Army Tent
 	Health:
 		HP: 400
-	Garrisonable:
-		MaxWeight: 8
 
 caarmy02:
 	Inherits: ^GarrisonableBuilding
@@ -1162,8 +1144,6 @@ caarmy02:
 		Name: Army Tent
 	Health:
 		HP: 400
-	Garrisonable:
-		MaxWeight: 4
 
 caarmy03:
 	Inherits: ^GarrisonableBuilding
@@ -1173,8 +1153,6 @@ caarmy03:
 		Name: Army Tent
 	Health:
 		HP: 400
-	Garrisonable:
-		MaxWeight: 4
 
 caarmy04:
 	Inherits: ^GarrisonableBuilding
@@ -1184,8 +1162,6 @@ caarmy04:
 		Name: Army Tent
 	Health:
 		HP: 400
-	Garrisonable:
-		MaxWeight: 4
 
 cawa2a:
 	Inherits: ^GarrisonableBuilding
@@ -1271,8 +1247,6 @@ cafarm01:
 		Name: Farm
 	Health:
 		HP: 800
-	Garrisonable:
-		MaxWeight: 6
 	IsometricSelectable:
 		DecorationHeight: 60
 
@@ -1309,8 +1283,6 @@ cafarm06:
 	Building:
 		Dimensions: 2,2
 		Footprint: xx xx
-	Garrisonable:
-		MaxWeight: 5
 	SpawnActorOnDeath:
 		Actor: cafarm06.rubble
 	IsometricSelectable:
@@ -1808,8 +1780,6 @@ capars04:
 	Building:
 		Dimensions: 3,3
 		Footprint: xxx xxx xxx
-	Garrisonable:
-		MaxWeight: 6
 	SpawnActorOnDeath:
 		Actor: capars04.rubble
 	IsometricSelectable:
@@ -1832,8 +1802,6 @@ capars05:
 	Building:
 		Dimensions: 3,3
 		Footprint: xxx xxx xxx
-	Garrisonable:
-		MaxWeight: 6
 	SpawnActorOnDeath:
 		Actor: capars05.rubble
 	IsometricSelectable:
@@ -1856,8 +1824,6 @@ capars06:
 	Building:
 		Dimensions: 3,3
 		Footprint: xxx xxx xxx
-	Garrisonable:
-		MaxWeight: 6
 	SpawnActorOnDeath:
 		Actor: capars06.rubble
 	IsometricSelectable:
@@ -2080,8 +2046,6 @@ cafrmb:
 		HP: 100
 	MapEditorData:
 		Categories: Decoration
-	Garrisonable:
-		MaxWeight: 1
 
 caprs03:
 	Inherits: ^GarrisonableBuilding
@@ -2248,8 +2212,6 @@ carus04:
 	Building:
 		Dimensions: 4,4
 		Footprint: xxxx xxxx xxxx xxxx
-	Garrisonable:
-		MaxWeight: 8
 	SpawnActorOnDeath:
 		Actor: carus04.rubble
 	IsometricSelectable:
@@ -2270,8 +2232,6 @@ carus05:
 	Building:
 		Dimensions: 4,4
 		Footprint: xxxx xxxx xxxx xxxx
-	Garrisonable:
-		MaxWeight: 8
 	SpawnActorOnDeath:
 		Actor: carus05.rubble
 	IsometricSelectable:
@@ -2292,8 +2252,6 @@ carus06:
 	Building:
 		Dimensions: 4,4
 		Footprint: xxxx xxxx xxxx xxxx
-	Garrisonable:
-		MaxWeight: 8
 	SpawnActorOnDeath:
 		Actor: carus06.rubble
 	IsometricSelectable:
@@ -2310,8 +2268,6 @@ carus06.rubble:
 
 carus08:
 	Inherits: ^GarrisonableBuilding
-	Garrisonable:
-		MaxWeight: 5
 	SpawnActorOnDeath:
 		Actor: carus08.rubble
 	IsometricSelectable:
@@ -2328,8 +2284,6 @@ carus09:
 	Building:
 		Dimensions: 2,1
 		Footprint: xx
-	Garrisonable:
-		MaxWeight: 5
 	SpawnActorOnDeath:
 		Actor: carus09.rubble
 	IsometricSelectable:
@@ -2350,8 +2304,6 @@ carus10:
 	Building:
 		Dimensions: 1,2
 		Footprint: x x
-	Garrisonable:
-		MaxWeight: 5
 	SpawnActorOnDeath:
 		Actor: carus10.rubble
 	IsometricSelectable:
@@ -2372,8 +2324,6 @@ carus11:
 	Building:
 		Dimensions: 2,1
 		Footprint: xx
-	Garrisonable:
-		MaxWeight: 5
 	SpawnActorOnDeath:
 		Actor: carus11.rubble
 	IsometricSelectable:
@@ -2458,8 +2408,6 @@ camiam04:
 		HP: 400
 	MapEditorData:
 		Categories: Decoration
-	Garrisonable:
-		MaxWeight: 3
 	IsometricSelectable:
 		DecorationHeight: 30
 
@@ -2860,8 +2808,6 @@ caeur1:
 	Building:
 		Dimensions: 2,2
 		Footprint: xx xx
-	Garrisonable:
-		MaxWeight: 3
 	SpawnActorOnDeath:
 		Actor: caeur1.rubble
 	IsometricSelectable:
@@ -2888,8 +2834,6 @@ caeur2:
 	Building:
 		Dimensions: 2,2
 		Footprint: xx xx
-	Garrisonable:
-		MaxWeight: 3
 	SpawnActorOnDeath:
 		Actor: caeur2.rubble
 	IsometricSelectable:
@@ -3366,8 +3310,6 @@ camsc07:
 	Building:
 		Dimensions: 2,2
 		Footprint: xx xx
-	Garrisonable:
-		MaxWeight: 6
 	IsometricSelectable:
 		DecorationHeight: 45
 
@@ -3380,8 +3322,6 @@ camsc08:
 		Name: Hut
 	Health:
 		HP: 400
-	Garrisonable:
-		MaxWeight: 6
 	IsometricSelectable:
 		DecorationHeight: 45
 
@@ -3394,8 +3334,6 @@ camsc09:
 		Name: Hut
 	Health:
 		HP: 400
-	Garrisonable:
-		MaxWeight: 6
 	IsometricSelectable:
 		DecorationHeight: 45
 
@@ -3435,8 +3373,6 @@ cabunk01:
 	Building:
 		Dimensions: 2,2
 		Footprint: xx xx
-	Garrisonable:
-		MaxWeight: 8
 	SpawnActorOnDeath:
 		Actor: cabunk01.rubble
 	IsometricSelectable:
@@ -3463,8 +3399,6 @@ cabunk02:
 	Building:
 		Dimensions: 2,2
 		Footprint: xx xx
-	Garrisonable:
-		MaxWeight: 8
 	SpawnActorOnDeath:
 		Actor: cabunk02.rubble
 	IsometricSelectable:
@@ -3492,8 +3426,6 @@ cabunk03:
 	Building:
 		Dimensions: 2,2
 		Footprint: xx xx
-	Garrisonable:
-		MaxWeight: 8
 	SpawnActorOnDeath:
 		Actor: cabunk03.rubble
 	IsometricSelectable:
@@ -3520,8 +3452,6 @@ cabunk04:
 	Building:
 		Dimensions: 2,2
 		Footprint: xx xx
-	Garrisonable:
-		MaxWeight: 8
 	SpawnActorOnDeath:
 		Actor: cabunk04.rubble
 	IsometricSelectable:

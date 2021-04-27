@@ -39,8 +39,6 @@ caoild:
 	AmbientSound@Ambient:
 		SoundFiles: boillo2a.wav, boillo2b.wav, boillo2c.wav
 		RequiresCondition: enabled
-	GpsDotAS:
-		Sequence: Oil
 	CashTricklerMultiplier:
 		Modifier: 125
 		RequiresCondition: orepurifier && megawealth
@@ -124,8 +122,6 @@ caairp:
 	WithIdleOverlay@decoration:
 	#WithIdleOverlay@flag:
 	#	Sequence: flag
-	GpsDotAS:
-		Sequence: Paradrop
 	IsometricSelectable:
 		DecorationHeight: 90
 	Voiced:
@@ -154,8 +150,6 @@ cahosp:
 	WithIdleOverlay@flag:
 		Sequence: flag
 		Offset: 0,-500,2520
-	GpsDotAS:
-		Sequence: Hospital
 	IsometricSelectable:
 		DecorationHeight: 105
 
@@ -231,8 +225,6 @@ caoutp:
 	#Armament:
 	#	Weapon: OutpostMissile
 	#	LocalOffset: 500,0,900
-	GpsDotAS:
-		Sequence: Outpost
 	IsometricSelectable:
 		DecorationHeight: 90
 
@@ -260,8 +252,6 @@ capowr:
 		Offset: 1000,0,0
 	Power:
 		Amount: 400
-	GpsDotAS:
-		Sequence: Power
 	IsometricSelectable:
 		DecorationHeight: 90
 
@@ -284,8 +274,6 @@ camach:
 		RequiresCondition: enabled
 	WithIdleOverlay@flag:
 		Sequence: flag
-	GpsDotAS:
-		Sequence: MachineShop
 	IsometricSelectable:
 		DecorationHeight: 75
 
@@ -307,8 +295,6 @@ caslab:
 	WithIdleOverlay@flag:
 		Sequence: flag
 	ProvidesPrerequisite@buildingname:
-	GpsDotAS:
-		Sequence: SecretLab
 	IsometricSelectable:
 		DecorationHeight: 90
 

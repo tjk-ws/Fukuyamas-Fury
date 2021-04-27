@@ -11,7 +11,7 @@
 	Range: 5c0
 	Report: vflaat1a.wav, vflaat1b.wav
 	InvalidTargets: Bridge, Wall, Fence, Tree
-	Projectile: BulletAS
+	Projectile: Bullet
 		Image: 120mm
 		Palette: ra
 		LaunchAngle: 128
@@ -59,7 +59,7 @@
 
 ^LargeBullet:
 	Inherits@1: ^BreakPointDefenseDrones
-	Projectile: BulletAS
+	Projectile: Bullet
 		Speed: 40c0
 		Image: 120mm
 		Palette: ra
@@ -245,7 +245,7 @@
 
 ^Debris:
 	Range: 3c512
-	Projectile: BulletAS
+	Projectile: Bullet
 		Speed: 125, 166
 		LaunchAngle: 70, 190
 		Image: debris

@@ -22,7 +22,7 @@
 		RequiresCondition: !build-complete && scvtaken
 	WithColoredOverlay@BUILD:
 		RequiresCondition: !build-complete
-		Palette: disabled
+		Color: 00000080
 	RequiresBuildableArea:
 		AreaTypes: scv
 		Adjacent: 4
@@ -635,7 +635,7 @@ academy.nuke:
 		Name: Tactical Missile
 	Buildable:
 		Queue: Nuke.T
-		Prerequisites: ~disabled #factory, academy, ~canbuildnuke
+		Prerequisites: factory, academy, ~canbuildnuke
 		Description: Arms the building with a missile\nthat can be fired by Ghosts.
 	Valued:
 		Cost: 200
@@ -922,9 +922,11 @@ bunker:
 	WithIdleOverlay@Garrisoned:
 		Sequence: garrisoned
 		RequiresCondition: loaded && !build-incomplete
-	AttackOpenTopped:
+	AttackGarrisoned:
 		Armaments: primary
 		PortOffsets: 768,0,1024, 448,-682,1024, -448,-682,1024, -768,0,1024, -448,682,1024, 448,682,1024
+		PortYaws: 0, 176, 341, 512, 682, 853
+		PortCones: 88, 88, 88, 88, 88, 88
 		PauseOnCondition: chronodisable
 		RequiresCondition: build-complete
 	RenderRangeCircle:
@@ -1200,22 +1202,14 @@ ghost:
 		LocalOffset: 768,0,512
 		Name: lockdown
 		PauseOnCondition: energy < 3 || nuking
-	GrantConditionOnAttack@lockdown:
-		Condition: usedlockdown
-		ArmamentNames: lockdown
-		RevokeDelay: 2
-	EnergyPool:
-		Armaments: secondary
+		AmmoUsage: 3
+	AmmoPool:
+		Armaments: lockdown
 		InitialAmmo: 3
-	ReloadEnergyPool:
+	ReloadAmmoPool:
 		Delay: 120
 		ResetOnFire: false
 		RequiresCondition: energy < 4
-	ReloadEnergyPool@lockdown:
-		Count: -3
-		Delay: 1
-		ResetOnFire: false
-		RequiresCondition: usedlockdown
 	Armament@Nuke:
 		Weapon: ghost.nukespawner
 		Name: nukelaunch
@@ -1363,7 +1357,7 @@ vulture:
 	Tooltip:
 		Name: Trike
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 150
 	Valued:
@@ -1389,25 +1383,28 @@ vulture:
 		Weapon: vulture.grenade
 		LocalOffset: 768,0,512
 		MuzzleSequence: muzzle
-	Minelayer:
-		Mine: vulture.spidermine
-		AmmoPoolName: mine
-		TileUnknownName: build-valid
-		Voice: Move
-	AmmoPool:
-		Ammo: 3
-		Name: mine
-		Armaments: mine
-	ReloadAmmoPool:
-		Delay: 200
-		AmmoPool: mine
-	WithAmmoPipsDecoration:
-		Margin: 4, 3
-		FullSequence: pip-ammo
-		EmptySequence: pip-ammoempty
-		Palette: ra
-		Position: BottomLeft
-		RequiresSelection: false
+	#Minelayer:
+	#	Mine: vulture.spidermine
+	#	AmmoPoolName: mine
+	#	TileUnknownName: build-valid
+	#	Voice: Move
+	#AmmoPool:
+	#	Ammo: 3
+	#	Name: mine
+	#	Armaments: mine
+	#ReloadAmmoPool:
+	#	Delay: 200
+	#	AmmoPool: mine
+	#Rearmable:
+	#	RearmActors: oreclearer
+	#	AmmoPools: mine
+	#WithAmmoPipsDecoration:
+	#	Margin: 4, 3
+	#	FullSequence: pip-ammo
+	#	EmptySequence: pip-ammoempty
+	#	Palette: ra
+	#	Position: BottomLeft
+	#	RequiresSelection: false
 	RenderSprites:
 	RenderVoxels:
 	WithVoxelBody:
@@ -1420,7 +1417,7 @@ vulture.spidermine:
 	Tooltip:
 		Name: Burrowed munition
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 50
 	Valued:
@@ -1551,7 +1548,7 @@ t55:
 	Tooltip:
 		Name: Soupbowl
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 300
 	Valued:
@@ -1599,7 +1596,7 @@ siegetank:
 	Tooltip:
 		Name: Rocket Buggy
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 350
 	Valued:
@@ -1668,7 +1665,7 @@ cyclone:
 	Tooltip:
 		Name: Armored Car
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 240
 	Valued:
@@ -1733,7 +1730,7 @@ goliath:
 	Tooltip:
 		Name: ATGM Carrier
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 250
 	Valued:
@@ -1780,7 +1777,7 @@ thor:
 	Tooltip:
 		Name: Tunguska
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 800
 	Valued:
@@ -1843,7 +1840,7 @@ hellion:
 		Name: Flamer Suit
 		RequiresCondition: deployed
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 180
 	Valued:
@@ -1916,7 +1913,7 @@ medivac:
 	Tooltip:
 		Name: Air ambulance
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 240
 	Valued:
@@ -1943,7 +1940,7 @@ medivac:
 		ForceTargetRelationships: Ally
 		PauseOnCondition: !energy
 		Cursor: heal
-	ReloadEnergyPool:
+	ReloadAmmoPool:
 		Delay: 50
 	AttackAircraft:
 		Voice: Move
@@ -1953,7 +1950,7 @@ medivac:
 		Type: air.heavy
 	Cargo:
 		MaxWeight: 8
-	WithEnergyPipsDecoration:
+	WithAmmoPipsDecoration:
 		Position: BottomRight
 	WithVoxelHelicopterBody:
 	RenderSprites:
@@ -1970,7 +1967,7 @@ viking:
 	Tooltip:
 		Name: Weaponized science project
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 270
 	Valued:
@@ -2015,7 +2012,7 @@ viking.assault:
 	Tooltip:
 		Name: Weaponized science project
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1689, 2896, 0, -965
 		Class: viking
 	Health:
 		HP: 270
@@ -2070,7 +2067,7 @@ banshee:
 	Tooltip:
 		Name: Stealth gunship
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 280
 	Valued:
@@ -2115,7 +2112,7 @@ wraith:
 	Tooltip:
 		Name: Recycled drone
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 250
 	Valued:
@@ -2163,7 +2160,7 @@ valkyrie:
 	Tooltip:
 		Name: Model plane
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 280
 	Valued:
@@ -2214,7 +2211,7 @@ liberator:
 	Tooltip:
 		Name: Even bigger UAV
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 360
 	Valued:
@@ -2272,7 +2269,7 @@ battlecruiser:
 	Tooltip:
 		Name: Hind
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 1100
 	Valued:
@@ -2321,7 +2318,7 @@ gorgon:
 	Tooltip:
 		Name: WZ-10
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 280
 	Valued:
@@ -2365,7 +2362,7 @@ raven:
 	Tooltip:
 		Name: Mini-Hind
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 280
 	Valued:
@@ -2408,7 +2405,7 @@ sciencevessel:
 	Tooltip:
 		Name: Helix
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 280
 	Valued:

@@ -351,7 +351,7 @@
 		Modifier: 70
 		RequiresCondition: propaganda1 || propaganda2 || propaganda3
 	WithColoredOverlay@PROPAGANDA:
-		Palette: propaganda
+		Palette: FF800080
 		RequiresCondition: propaganda1 || propaganda2 || propaganda3
 	ExternalCondition@PROPAGANDA1:
 		Condition: propaganda1
@@ -363,7 +363,7 @@
 		RequiresCondition: propaganda_tower
 		Modifier: 75
 	WithColoredOverlay@PROPAGANDA_TOWER:
-		Palette: propaganda_tower
+		Palette: FF800040
 		RequiresCondition: propaganda_tower
 	ChangesHealth@PROPAGANDA_TOWER:
 		Step: 0
@@ -389,7 +389,7 @@
 		Modifier: 200
 		RequiresCondition: boost3
 	WithColoredOverlay@BOOST:
-		Palette: boost
+		Palette: FFFFFF40
 		RequiresCondition: boost1 || boost2 || boost3
 	ExternalCondition@BOOST1:
 		Condition: boost1
@@ -575,6 +575,7 @@
 
 ^IronCurtainable:
 	WithColoredOverlay@ironcurtain:
+		Color: 40000080
 		RequiresCondition: invulnerability
 	DamageMultiplier@ironcurtain:
 		RequiresCondition: invulnerability
@@ -631,6 +632,7 @@
 
 ^ForceShieldable:
 	WithColoredOverlay@forceshield:
+		Color: 00004080
 		Palette: force
 		RequiresCondition: forceshield
 	DamageMultiplier@forceshield:
@@ -715,7 +717,7 @@
 		TargetTypes: ChronoBeamed
 		RequiresCondition: chronodisable
 	WithColoredOverlay@ChronoDisable:
-		Palette: chronodisable
+		Color: 0060C040
 		RequiresCondition: chronodisable
 	GrantCondition@ChronoDisable:
 		Condition: chronodisable
@@ -746,9 +748,9 @@
 	MindControllable:
 		RevokeControlSounds: gmindcle.wav
 		Condition: controlled
-	WithMindControlArc:
-		UsePlayerColor: true
-		Offset: 0,0,960
+	#WithMindControlArc:
+	#	UsePlayerColor: true
+	#	Offset: 0,0,960
 	Targetable@MC:
 		TargetTypes: MindControl
 		RequiresCondition: !controlled && !permamc
@@ -1036,7 +1038,7 @@
 		Condition: untargetable
 		RequiresCondition: chronodisable
 	WithColoredOverlay@FLARE:
-		Palette: flare
+		Palette: FF000080
 		RequiresCondition: flare
 	ExternalCondition@FLARE:
 		Condition: flare
@@ -1098,8 +1100,6 @@
 		Position: Center
 		Palette: mouse
 	CaptureManager:
-	GpsDotAS:
-		Sequence: Structure
 
 ^BaseBuilding:
 	Inherits: ^Building
@@ -1134,8 +1134,6 @@
 		Duration: 50
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure, Defense, NonGarrisonableStructure
-	GpsDotAS:
-		Sequence: Defense
 
 ^BuildingPlug:
 	Interactable:
@@ -1177,54 +1175,54 @@
 
 ^GarrisonableBuilding:
 	Inherits: ^CivBuilding
-	Inherits@AUTOTARGET: ^AutoTargetAll
+	#Inherits@AUTOTARGET: ^AutoTargetAll
 	RevealsShroud:
 		Range: 10c0
-		RequiresCondition: loaded
+		#RequiresCondition: loaded
 	# RevealsShroudToIntelligenceOwner:
 	#	Types: SatelliteScan
 	#	Range: 8c0
 	#	RequiresCondition: loaded
-	ChangeOwnerOnGarrisoner:
-		EnterSound: ugarris.wav
-		ExitSound: ugarris.wav
-		EnterNotification: StructureGarrisoned
-		ExitNotification: StructureAbandoned
-	Garrisonable:
-		Types: Garrisoner
-		MaxWeight: 10
-		# EjectOnDeath: true # This causes desyncs.
-		LoadedCondition: loaded
-		#PauseOnCondition: chronodisable
-		RequiresCondition: !dmg_crit
-	WithGarrisonPipsDecoration:
-		EmptySequence: pip-garrison-empty
-		FullSequence: pip-garrison-green
-		Margin: 4, 3
-		PipStride: 4, 2
-		Palette: ra
-		Position: BottomLeft
-		RequiresSelection: true
-		CustomPipSequences:
-			gray: pip-garrison-gray
-			yellow: pip-garrison-yellow
-			blue: pip-garrison-blue
-			red: pip-garrison-red
-	AttackOpenTopped:
-		Armaments: garrisoned, garrisoned-secondary
-		PortOffsets: 768,0,1024, 448,-682,1024, -448,-682,1024, -768,0,1024, -448,682,1024, 448,682,1024
-		#PauseOnCondition: chronodisable
+	#ChangeOwnerOnGarrisoner:
+	#	EnterSound: ugarris.wav
+	#	ExitSound: ugarris.wav
+	#	EnterNotification: StructureGarrisoned
+	#	ExitNotification: StructureAbandoned
+	#Garrisonable:
+	#	Types: Garrisoner
+	#	MaxWeight: 10
+	#	# EjectOnDeath: true # This causes desyncs.
+	#	LoadedCondition: loaded
+	#	#PauseOnCondition: chronodisable
+	#	RequiresCondition: !dmg_crit
+	#WithGarrisonPipsDecoration:
+	#	EmptySequence: pip-garrison-empty
+	#	FullSequence: pip-garrison-green
+	#	Margin: 4, 3
+	#	PipStride: 4, 2
+	#	Palette: ra
+	#	Position: BottomLeft
+	#	RequiresSelection: true
+	#	CustomPipSequences:
+	#		gray: pip-garrison-gray
+	#		yellow: pip-garrison-yellow
+	#		blue: pip-garrison-blue
+	#		red: pip-garrison-red
+	#AttackOpenTopped:
+	#	Armaments: garrisoned, garrisoned-secondary
+	#	PortOffsets: 768,0,1024, 448,-682,1024, -448,-682,1024, -768,0,1024, -448,682,1024, 448,682,1024
+	#	#PauseOnCondition: chronodisable
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure
-	Targetable@GARRISONED:
-		TargetTypes: Defense, GarrisonedStructure
-		RequiresCondition: loaded
+	#Targetable@GARRISONED:
+	#	TargetTypes: Defense, GarrisonedStructure
+	#	RequiresCondition: loaded
 	WithSpriteBody:
-		RequiresCondition: !loaded
-	WithSpriteBody@GARRISONED:
-		Name: garrisoned
-		Sequence: garrisoned
-		RequiresCondition: loaded
+	#	RequiresCondition: !loaded
+	#WithSpriteBody@GARRISONED:
+	#	Name: garrisoned
+	#	Sequence: garrisoned
+	#	RequiresCondition: loaded
 	EngineerRepairable:
 		RequiresCondition: damaged
 	GrantConditionOnDamageState@DAMAGED:
@@ -1370,8 +1368,6 @@
 		AreaTypes: building
 		Adjacent: 6
 	Interactable:
-	GpsDotAS:
-		Sequence: Wall
 
 ^Fence:
 	Inherits: ^Wall
@@ -1487,10 +1483,10 @@
 	Inherits@3: ^ChronoDisable
 	Inherits@4: ^TeleportNetworkTransportable
 	Inherits@5: ^CloudBlindable
-	Inherits@6: ^ParasiteBombable
+	Inherits@6: ^GuardianShieldable
 	Inherits@SELECTION_MODE: ^FlatSelectionMode
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 482, 1448, 0, -530
 	Health:
 	OwnerLostAction:
 		Action: Kill
@@ -1589,8 +1585,6 @@
 	DetectCloaked:
 		CloakTypes: Cloak
 		Range: 1c0
-	GpsDotAS:
-		Sequence: Infantry
 
 ^Infantry:
 	Inherits: ^DefaultInfantry
@@ -1719,7 +1713,7 @@
 	Inherits@CHAOS: ^Berserkable
 	Inherits@MC: ^MindControllable
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 482, 1448, 0, -530
 	Valued:
 		Cost: 10
 	DeliversCash:
@@ -1778,7 +1772,7 @@
 	Mobile:
 		Speed: 45
 	Selectable:
-		Bounds: 45, 25, 0, -8
+		Bounds: 1086, 1206, 0, -386
 	AttackFrontal:
 		Voice: Attack
 		PauseOnCondition: disabled
@@ -1819,7 +1813,7 @@
 	Inherits@4: ^ChronoDisable
 	Inherits@5: ^TeleportNetworkTransportable
 	Inherits@6: ^CloudBlindable
-	Inherits@7: ^ParasiteBombable
+	Inherits@7: ^GuardianShieldable
 	OwnerLostAction:
 		Action: Kill
 		DeathTypes: BulletDeath
@@ -1839,7 +1833,7 @@
 	HitShape:
 	SelectionDecorations:
 	Selectable:
-		Bounds: 32,32
+		Bounds: 772, 1544
 	Targetable:
 		TargetTypes: Ground, Vehicle, DroneInfection, DetonateAttack
 		RequiresCondition: !untargetable
@@ -1860,7 +1854,7 @@
 		RequiresCondition: emp || chronodisable
 	WithColoredOverlay@IDISABLE:
 		RequiresCondition: emp
-		Palette: disabled
+		Color: 00000080
 	Carryable:
 	Passenger:
 		Voice: Move
@@ -1905,8 +1899,6 @@
 		Name: Vehicle
 	MapEditorData:
 		Categories: Vehicle
-	GpsDotAS:
-		Sequence: Vehicle
 
 ^VoxelVehicle:
 	Inherits: ^Vehicle
@@ -1987,8 +1979,6 @@
 		Name: Aircraft
 	MapEditorData:
 		Categories: Aircraft
-	GpsDotAS:
-		Sequence: Plane
 
 ^Aircraft:
 	Inherits@1: ^NeutralAircraft
@@ -2009,17 +1999,13 @@
 	Targetable@ChronoDisable:
 	Targetable@EMP:
 	GrantCondition@IDISABLE:
-		RequiresCondition: emp
+		RequiresCondition: emp || chronodisable
 	GrantCondition@untargetable:
 		Condition: untargetable
 		RequiresCondition: chronodisable
 	SpeedMultiplier@IDISABLE:
 		Modifier: 0
 		RequiresCondition: disabled
-	Chronoshiftable:
-		ChronoshiftSound: schrmov.wav
-		ReturnToOrigin: false
-		#RequiresCondition: !invulnerability
 	RevealsShroud:
 		Range: 5c0
 		Type: CenterPosition
@@ -2062,8 +2048,6 @@
 		CruisingCondition: cruising
 	Hovers@CRUISING:
 		RequiresCondition: cruising
-	GpsDotAS:
-		Sequence: Helicopter
 
 ^ShootableMissile:
 	Inherits@1: ^ExistsInWorld
@@ -2128,8 +2112,6 @@
 		Velocity: 240
 		Moves: true
 		MaximumSpinSpeed: 0
-	GpsDotAS:
-		Sequence: Plane
 
 ^HelicopterHusk:
 	Inherits: ^Husk
@@ -2137,8 +2119,6 @@
 		VTOL: true
 		CanSlide: true
 		CanHover: true
-	GpsDotAS:
-		Sequence: Helicopter
 
 ^Ship:
 	Inherits@1: ^ExistsInWorld
@@ -2187,7 +2167,7 @@
 		RequiresCondition: emp
 	WithColoredOverlay@IDISABLE:
 		RequiresCondition: disabled
-		Palette: disabled
+		Color: 00000080
 	HiddenUnderFog:
 	ActorLostNotification:
 	ProximityCaptor:
@@ -2215,8 +2195,6 @@
 		GenericName: Ship
 	MapEditorData:
 		Categories: Naval
-	GpsDotAS:
-		Sequence: Ship
 
 ^OreDrill:
 	Inherits@1: ^SpriteActor
@@ -2377,7 +2355,7 @@
 ^DisableOnLowPower:
 	WithColoredOverlay@IDISABLE:
 		RequiresCondition: disabled
-		Palette: disabled
+		Color: 00000080
 	GrantConditionOnPowerState@LOWPOWER:
 		Condition: lowpower
 		ValidPowerStates: Low, Critical
@@ -2408,7 +2386,7 @@
 ^DisabledByPowerOutage:
 	WithColoredOverlay@IDISABLE:
 		RequiresCondition: disabled
-		Palette: disabled
+		Color: 00000080
 	GrantCondition@IDISABLE:
 		RequiresCondition: power-outage
 		Condition: disabled
@@ -2424,7 +2402,7 @@
 ^DisabledByEMP:
 	WithColoredOverlay@IDISABLE:
 		RequiresCondition: disabled
-		Palette: disabled
+		Color: 00000080
 	GrantCondition@IDISABLE:
 		RequiresCondition: emp
 		Condition: disabled
@@ -2519,15 +2497,15 @@
 		RemoveInstead: true
 
 ^EnergyPool:
-	EnergyPool:
+	AmmoPool:
 		Ammo: 8
 		InitialAmmo: 2
 		AmmoCondition: energy
-	ReloadEnergyPool:
+	ReloadAmmoPool:
 		Delay: 100
 		ResetOnFire: false
 		RequiresCondition: energy <= 2
-	WithEnergyPipsDecoration:
+	WithAmmoPipsDecoration:
 		Margin: 4, 3
 		FullSequence: pip-ammo
 		EmptySequence: pip-ammoempty
@@ -2542,7 +2520,7 @@
 	Targetable@FB:
 		TargetTypes: feedbackable
 		RequiresCondition: energy > 0 && !untargetable
-	ReloadEnergyPool@FB:
+	ReloadAmmoPool@FB:
 		Count: -1
 		Delay: 1
 		ResetOnFire: False
@@ -2562,7 +2540,7 @@
 	Targetable@EMP:
 		TargetTypes: empdrainable
 		RequiresCondition: energy > 0 && !untargetable
-	ReloadEnergyPool@EMP:
+	ReloadAmmoPool@EMP:
 		Count: -4
 		Delay: 1
 		ResetOnFire: False
@@ -2640,6 +2618,17 @@
 	SpawnActorOnDeath@PARASITE:
 		Actor: viper.parasite
 		RequiresCondition: parasite && !chronodisable
+
+^GuardianShieldable:
+	ExternalCondition@guardianshield:
+		Condition: guardianshield
+		TotalCap: 1
+	WithColoredOverlay@guardianshield:
+		Color: 33CCFF30
+		RequiresCondition: guardianshield
+	DamageMultiplier@guardianshield: #TODO: use armor to limit effect to ranged attacks
+		RequiresCondition: guardianshield
+		Modifier: 80
 
 ^BotMicromanageable:
 	GrantConditionOnBotOwner@bot:

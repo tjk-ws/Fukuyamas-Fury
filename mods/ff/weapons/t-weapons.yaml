@@ -125,7 +125,7 @@ siegetank.cannon:
 	ReloadDelay: 19
 	Range: 7c0
 	Report: vifvatta.wav
-	Projectile: BulletAS
+	Projectile: Bullet
 		Speed: 682
 		ContrailLength: 20
 		ContrailWidth: 0c20
@@ -145,7 +145,7 @@ siegetank.siege:
 	ReloadDelay: 54
 	Range: 13c0
 	Report: samshot1.aud
-	Projectile: BulletAS
+	Projectile: Bullet
 		Speed: 1c512
 		LaunchAngle: 180
 		ContrailLength: 80
@@ -497,7 +497,7 @@ ghost.nuke:
 	ReloadDelay: 60
 	Range: 1c0
 	ValidTargets: Ground, Air, Water, NukeTarget
-	Projectile: BulletAS
+	Projectile: Bullet
 		Image: radiationmissile
 		Sequences: down
 		Palette: player

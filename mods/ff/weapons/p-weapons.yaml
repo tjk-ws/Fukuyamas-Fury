@@ -322,7 +322,7 @@ disruptor.targeting:
 disruptornova.targeting:
 	Inherits: ^Targeting
 	ReloadDelay: 40
-	Range: 2c0
+	Range: 1c512
 	#ValidTargets: Vehicle, Infantry, Structure
 	InvalidTargets: Disruptor
 	#TargetActorCenter: true

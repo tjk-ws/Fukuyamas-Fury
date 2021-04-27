@@ -458,8 +458,6 @@ camov02:
 		Dimensions: 2,2
 		Footprint: xx xx
 	WithIdleOverlay:
-	Garrisonable:
-		MaxWeight: 5
 	IsometricSelectable:
 		DecorationHeight: 60
 

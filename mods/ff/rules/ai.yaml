@@ -5,7 +5,7 @@ Player:
 	GrantConditionOnBotOwner@test:
 		Condition: enable-test-ai
 		Bots: test
-	SupportPowerBotASModule@test:
+	SupportPowerBotModule@test:
 		RequiresCondition: enable-test-ai
 		Decisions:
 			nuke.t:

@@ -1,6 +1,10 @@
 ^BasePlayer:
 	AlwaysVisible:
 	Shroud:
+	PlayerResources:
+		ResourceValues:
+			Ore: 10
+			Gems: 20
 
 EditorPlayer:
 	Inherits: ^BasePlayer
@@ -34,7 +38,7 @@ Player:
 		Condition: nukefired
 	ProvidesPrerequisite@canbuildnuke:
 		Prerequisite: canbuildnuke
-		RequiresCondition: (hasacademy >= hasnuke) && hasnuke <= 4
+		RequiresCondition: (hasacademy > hasnuke) && hasnuke <= 4
 	Production@nuke:
 		Produces: Nuke.T
 	ClassicProductionQueue@nuke:
@@ -47,17 +51,17 @@ Player:
 		QueuedAudio: Building
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
-	EnergyPool@nuke:
+	AmmoPool@nuke:
 		Armaments: secondary
 		Ammo: 4
 		InitialAmmo: 0
 		AmmoCondition: hasnuke
-	ReloadEnergyPool@nuke:
+	ReloadAmmoPool@nuke:
 		Count: 1
 		Delay: 1
 		ResetOnFire: false
 		RequiresCondition: nukeloaded
-	ReloadEnergyPool@nukefire:
+	ReloadAmmoPool@nukefire:
 		Count: -1
 		Delay: 1
 		ResetOnFire: false
@@ -200,7 +204,6 @@ Player:
 	GameSaveViewportManager:
 	EnemyWatcher:
 		NotificationInterval: 125
-	GpsASWatcher:
 	PlayerRadarTerrain:
 	AutoDeployManager:
 	TeleportNetworkManager:

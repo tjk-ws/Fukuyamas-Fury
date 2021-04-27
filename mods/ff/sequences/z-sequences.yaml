@@ -32,6 +32,7 @@ hatchery:
 
 hatchery.larva:
 	idle: cgmisc05
+		Facings: 1
 		ShadowStart: 3
 		UseTilesetCode: true
 	icon: yrcyicon.png

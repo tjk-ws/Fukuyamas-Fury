@@ -168,6 +168,7 @@ hatchery:
 		RequiresCondition: injected
 	Exit@1:
 		ExitCell: 4,4
+		Facing: 384
 	RallyPoint:
 		Palette: mouse
 		IsPlayerPalette: false
@@ -235,7 +236,7 @@ hatchery.larva:
 	ActorLostNotification:
 	Guardable:
 	QuantizeFacingsFromSequence:
-	WithSpriteBody:
+	WithFacingSpriteBody:
 	Exit:
 		ProductionTypes: Units.Z, Larva.Z
 	Exit@2:
@@ -288,8 +289,6 @@ hatchery.larva:
 	Tooltip:
 		Name: Scrap pile
 	RenderSprites:
-	GpsDotAS:
-		Sequence: Structure
 
 morph.hatchery:
 	Inherits: ^MorphTarget
@@ -926,7 +925,7 @@ overlord:
 	Tooltip:
 		Name: Hover Drone
 	Selectable:
-		Bounds: 68, 43, 0, -5
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 400
 	Valued:
@@ -950,6 +949,8 @@ overlord:
 		ForceTargetRelationships: None
 	AttackAircraft:
 		Voice: Move
+	Guard:
+		Voice: Move
 	Armor:
 		Type: air.light
 	Cargo:
@@ -970,7 +971,7 @@ overseer:
 	Tooltip:
 		Name: Hover Drone Mk. II
 	Selectable:
-		Bounds: 68, 43, 0, -5
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 400
 	Valued:
@@ -1114,7 +1115,7 @@ spinecrawler.mobile:
 	Tooltip:
 		Name: Mortar Crawler
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 600
 	Valued:
@@ -1202,7 +1203,7 @@ sporecrawler.mobile:
 	Tooltip:
 		Name: Flak Crawler
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 800
 	Valued:
@@ -1343,7 +1344,7 @@ queen:
 	Tooltip:
 		Name: Killdozer
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 350
 	Valued:
@@ -1375,6 +1376,7 @@ queen:
 		LocalOffset: 800,0,832
 		MuzzleSequence: muzzle
 		TargetRelationships: Neutral, Enemy
+		ForceTargetRelationships: Neutral, Enemy
 	Armament@secondary:
 		Weapon: queen.spine
 		LocalOffset: 800,0,832
@@ -1386,10 +1388,10 @@ queen:
 		ForceTargetRelationships: Ally
 		Name: inject
 		RequiresCondition: energy >= 1
-	EnergyPool:
+	AmmoPool:
 		Armaments: inject
 		InitialAmmo: 1
-	ReloadEnergyPool:
+	ReloadAmmoPool:
 		Delay: 360
 		ResetOnFire: false
 		RequiresCondition: energy < 1
@@ -1409,7 +1411,7 @@ hydralisk:
 	Tooltip:
 		Name: Battle Drone
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 180
 	Valued:
@@ -1449,10 +1451,11 @@ lurker:
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@HATCH: ^ProducedFromLarva
+	Inherits@CLOAK: ^PermanentCloak
 	Tooltip:
 		Name: Ambush Drone
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 180
 	Valued:
@@ -1460,7 +1463,7 @@ lurker:
 	Buildable:
 		BuildPaletteOrder: 60
 		Prerequisites: lurkerden
-		Description: Drone armed with line-firing machine guns.\n  Strong vs Infantry
+		Description: Drone armed with line-firing machine guns.\nHas to deploy to fire.\n  Strong vs Infantry
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
@@ -1468,6 +1471,7 @@ lurker:
 	Mobile:
 		Speed: 120
 		TurnSpeed: 32
+		RequireForceMoveCondition: deployed
 	RevealsShroud:
 		Range: 10c0
 	Armor:
@@ -1478,10 +1482,24 @@ lurker:
 	AttackTurreted:
 		Voice: Attack
 		PauseOnCondition: disabled
+		RequiresCondition: deployed
 	Armament@primary:
 		Weapon: lurker.spine
 		LocalOffset: 800,0,832
 		MuzzleSequence: muzzle
+	GrantConditionOnDeploy:
+		DeployedCondition: deployed
+		UndeployedCondition: undeployed
+		Voice: Move
+		CanDeployOnRamps: True
+		SmartDeploy: True
+		UndeployOnMove: true
+		RequiresCondition: !disabled
+	Cloak:
+		CloakDelay: 25
+		RequiresCondition: deployed
+		CloakSound: appear1.aud
+		UncloakSound: appear1.aud
 	RenderSprites:
 	RenderVoxels:
 		Scale: 1
@@ -1497,7 +1515,7 @@ roach:
 	Tooltip:
 		Name: Machinegun UGV
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 290
 	Valued:
@@ -1540,7 +1558,7 @@ ravager:
 	Tooltip:
 		Name: Grenade UGV
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 240
 	Valued:
@@ -1581,7 +1599,7 @@ ultralisk:
 	Tooltip:
 		Name: Gatling Fist
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 1000
 	Valued:
@@ -1630,7 +1648,7 @@ swarmhost:
 	Tooltip:
 		Name: Drone Lobber
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 240
 	Valued:
@@ -1657,15 +1675,7 @@ swarmhost:
 		Armaments: secondary
 	Armament@primary:
 		Weapon: swarmhost.spawn
-	ExplodeWeapon@spawn:
-		Weapon: swarmhost.spawn
-		RequiresCondition: spawning
-	GrantTimedConditionOnDeploy:
-		DeployedCondition: spawning
-		DeployedTicks: 2
-		CooldownTicks: 1075
-		Voice: Attack
-		StartsFullyCharged: true
+		ForceTargetRelationships: Enemy, Neutral
 	RenderSprites:
 	RenderVoxels:
 		Scale: 1.2
@@ -1772,7 +1782,7 @@ mutalisk:
 	Tooltip:
 		Name: Attack Drone
 	Selectable:
-		Bounds: 68, 43, 0, -5
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 240
 	Valued:
@@ -1814,7 +1824,7 @@ corruptor:
 	Tooltip:
 		Name: Interceptor Drone
 	Selectable:
-		Bounds: 68, 43, 0, -5
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 250
 	Valued:
@@ -1871,7 +1881,7 @@ broodlord:
 	Tooltip:
 		Name: Mother Drone
 	Selectable:
-		Bounds: 68, 43, 0, -5
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 450
 	Valued:
@@ -1892,6 +1902,7 @@ broodlord:
 		Range: 12c0
 	Armament@primary:
 		Weapon: broodlord.spawn
+		ForceTargetRelationships: Enemy, Neutral
 	AttackAircraft:
 		Voice: Attack
 	Armor:
@@ -1952,10 +1963,11 @@ viper:
 	Inherits@VOXEL: ^VoxelActor
 	Inherits@HATCH: ^ProducedFromLarva
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@FB: ^EnergyPoolEffects
 	Tooltip:
 		Name: Disruptor Drone
 	Selectable:
-		Bounds: 68, 43, 0, -5
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 300
 	Valued:
@@ -1978,11 +1990,19 @@ viper:
 		Weapon: viper.parasitebomb
 		LocalOffset: 640,-400,640, 640,400,640
 		MuzzleSequence: muzzle
+		RequiresCondition: energy >= 4
+		AmmoUsage: 4
 	Armament@cloud:
 		Weapon: viper.cloud
 		LocalOffset: 640,-400,640, 640,400,640
 		MuzzleSequence: muzzle
 		TargetRelationships: None
+		RequiresCondition: energy >= 4
+		AmmoUsage: 4
+	ReloadAmmoPool:
+		Delay: 100
+		ResetOnFire: false
+		RequiresCondition: energy <= 4
 	WithMuzzleOverlay:
 	AttackAircraft:
 		Voice: Attack
@@ -2085,9 +2105,7 @@ teslapyro:
 		HP: 180
 	Valued:
 		Cost: 125
-	Buildable:
-		Prerequisites: banelingnest
-		Description: Elon Musk's pyrotechnical death squads.\nArmed with a Boring Company flamethrower.\n  Strong vs Infantry, Buildings
+	-Buildable:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:

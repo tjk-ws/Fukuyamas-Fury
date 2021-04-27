@@ -19,7 +19,7 @@
 		Adjacent: 5
 	WithColoredOverlay@IDISABLE:
 		RequiresCondition: !pylonpower
-		Palette: disabled
+		Color: 00000080
 
 ^WarpIn:
 	Inherits@1: ^ExistsInWorld
@@ -59,7 +59,7 @@
 	Tooltip:
 		Name: Warp-in
 	WithColoredOverlay@warp:
-		Palette: chronodisable
+		Color: 0060C040
 	GrantPeriodicCondition:
 		Condition: finishwarp
 		CooldownDuration: 200
@@ -81,8 +81,6 @@
 		Palette: effect
 	MapEditorData:
 		Categories: Infantry
-	GpsDotAS:
-		Sequence: Infantry
 
 ^WarpedInBuilding:
 	Building:
@@ -90,7 +88,7 @@
 	Buildable:
 		BuildDuration: 1
 	WithColoredOverlay@warp:
-		Palette: chronodisable
+		Color: 0060C040
 		RequiresCondition: build-incomplete
 	WithIdleOverlay@warpin:
 		Sequence: warp-overlay
@@ -358,7 +356,7 @@ gateway:
 	Production@2:
 		Produces: Warpin.P
 		PauseOnCondition: !pylonpower || disabled || gateway
-		RequiresCondition: warpgateable && !build-incomplete
+		RequiresCondition: warpgate && !build-incomplete
 	ProductionQueue@1:
 		Type: Infantry.P
 		Group: Infantry
@@ -909,10 +907,10 @@ shieldbattery:
 		ForceTargetRelationships: Ally
 		Cursor: heal
 		PauseOnCondition: !energy
-	EnergyPool:
+	AmmoPool:
 		Ammo: 4
 		InitialAmmo: 4
-	ReloadEnergyPool:
+	ReloadAmmoPool:
 		Delay: 200
 		RequiresCondition: energy < 4
 	WithIdleOverlay@bib:
@@ -1004,8 +1002,6 @@ zealot:
 		Voice: Attack
 		StartsFullyCharged: true
 		RequiresCondition: cancharge
-	Selectable:
-		Bounds: 20, 30, 0, -11
 	Voiced:
 		VoiceSet: CivilianAlliedMaleVoice
 	RenderSprites:
@@ -1058,8 +1054,6 @@ darktemplar:
 		Voice: Attack
 	Armament@primary:
 		Weapon: dt.blade
-	Selectable:
-		Bounds: 20, 30, 0, -11
 	RenderSprites:
 		Image: darktemplar
 	Voiced:
@@ -1111,8 +1105,6 @@ adept:
 		Voice: Attack
 	Armament@primary:
 		Weapon: adept.glaive
-	Selectable:
-		Bounds: 20, 30, 0, -11
 	Voiced:
 		VoiceSet: CivilianAlliedFemaleVoice
 	RenderSprites:
@@ -1171,47 +1163,29 @@ hightemplar:
 		LocalOffset: 320,128,1024
 		RequiresCondition: !stormmode
 		PauseOnCondition: energy < 2
+		AmmoUsage: 2
 	Armament@secondary:
 		Weapon: ht.psistorm
 		Name: storm
 		LocalOffset: 320,128,1024
 		RequiresCondition: stormmode
 		PauseOnCondition: energy < 3
+		AmmoUsage: 3
 	GrantConditionOnDeploy:
 		DeployedCondition: stormmode
 		CanDeployOnRamps: true
 		Voice: Move
 		SkipMakeAnimation: true
 		RequiresCondition: canstorm
-	GrantConditionOnAttack@feedback:
-		Condition: feedbacking
-		ArmamentNames: primary
-		RevokeDelay: 2
-	GrantConditionOnAttack@storm:
-		Condition: stormenergy
-		ArmamentNames: storm
-		RevokeDelay: 2
-	EnergyPool:
-		Armaments: secondary
-	ReloadEnergyPool:
+	AmmoPool:
+		Armaments: primary, secondary
+	ReloadAmmoPool:
 		Delay: 120
 		ResetOnFire: false
 		RequiresCondition: energy < 4
-	ReloadEnergyPool@shielddrain:
-		Count: -3
-		Delay: 1
-		ResetOnFire: False
-		RequiresCondition: stormenergy
-	ReloadEnergyPool@barrierdrain:
-		Count: -2
-		Delay: 1
-		ResetOnFire: False
-		RequiresCondition: feedbacking
 	GrantConditionOnPrerequisite@storm:
 		Condition: canstorm
 		Prerequisites: upgrade.psistorm
-	Selectable:
-		Bounds: 20, 30, 0, -11
 	Voiced:
 		VoiceSet: SammyVoice
 	RenderSprites:
@@ -1278,7 +1252,7 @@ dragoon:
 	Tooltip:
 		Name: Grenade Lobber
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 200
 	Valued:
@@ -1324,7 +1298,7 @@ stalker:
 	Tooltip:
 		Name: Ambush Pod
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 160
 	Valued:
@@ -1384,7 +1358,7 @@ sentry:
 	Tooltip:
 		Name: OSHA inspector drone
 	Selectable:
-		Bounds: 48, 48, 0, -12
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 80
 	Valued:
@@ -1424,6 +1398,15 @@ sentry:
 		Weapon: sentry.barrier
 		Name: barrier
 		PauseOnCondition: energy < 2
+		AmmoUsage: 2
+	ProximityExternalCondition@shield:
+		Condition: guardianshield
+		Range: 4c0
+		RequiresCondition: shielding
+	WithRangeCircle@shield:
+		Type: guardianshield
+		BorderColor: 00004060
+		Range: 4c0
 	GrantTimedConditionOnDeploy@shield:
 		DeployedCondition: shielding
 		DeployedTicks: 300
@@ -1431,30 +1414,23 @@ sentry:
 		Voice: Attack
 		StartsFullyCharged: true
 		PauseOnCondition: energy < 3
-	GrantConditionOnAttack@barrier:
-		Condition: barriering
-		ArmamentNames: barrier
-		RevokeDelay: 2
+		ChargingColor: 33CCFF
+		DischargingColor: 33CCFF
 	GrantTimedCondition@shielding:
 		Condition: shieldenergy
 		Duration: 2
 		RequiresCondition: shielding
-	EnergyPool:
+	AmmoPool:
 		Armaments: secondary
-	ReloadEnergyPool:
+	ReloadAmmoPool:
 		Delay: 120
 		ResetOnFire: false
 		RequiresCondition: energy <= 4
-	ReloadEnergyPool@shielddrain:
+	ReloadAmmoPool@shielddrain:
 		Count: -3
 		Delay: 1
 		ResetOnFire: False
 		RequiresCondition: shieldenergy
-	ReloadEnergyPool@barrierdrain:
-		Count: -2
-		Delay: 1
-		ResetOnFire: False
-		RequiresCondition: barriering
 	Voiced:
 		VoiceSet: RobotTankVoice
 	RenderSprites:
@@ -1467,7 +1443,7 @@ sentry:
 sentry.barrier:
 	Inherits@1: ^SpriteActor
 	Interactable:
-		Bounds: 24,24
+		Bounds: 1544, 1544
 	QuantizeFacingsFromSequence:
 		Sequence: barrier
 	WithSpriteBody:
@@ -1502,7 +1478,7 @@ immortal:
 	Tooltip:
 		Name: Generic tank
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 400
 	Valued:
@@ -1547,7 +1523,7 @@ colossus:
 	Tooltip:
 		Name: Sweeper
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 400
 	Valued:
@@ -1601,7 +1577,7 @@ archon:
 	Tooltip:
 		Name: Yaldabaoth
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 400
 	Valued:
@@ -1637,7 +1613,7 @@ archon:
 		Condition: merge-incomplete
 		Duration: 215
 	WithColoredOverlay@merge:
-		Palette: chronodisable
+		Color: 0060C040
 		RequiresCondition: merge-incomplete
 	WithIdleOverlay@merge:
 		Sequence: warp-overlay
@@ -1660,7 +1636,7 @@ darkarchon:
 	Tooltip:
 		Name: Iao
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 400
 	Valued:
@@ -1703,7 +1679,7 @@ disruptor:
 	Tooltip:
 		Name: Bicopter Host
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 2509, 0, -289
 	Health:
 		HP: 200
 	Valued:
@@ -1740,29 +1716,11 @@ disruptor:
 		Weapon: disruptor.launch
 		Name: primary
 		ForceTargetRelationships: Enemy
-		PauseOnCondition: attacking
-	Armament@secondary:
-		Weapon: disruptor.targeting
-		Name: secondary
-	#ReloadArmamentsBar:
-	#	Armaments: primary
-	GrantConditionOnAttack:
-		ArmamentNames: primary
-		Condition: attacking
-		RevokeDelay: 120
-		RequiresCondition: !attacking
-	TimedConditionBar@attacking:
-		Condition: attacking
-		Color: 0000FF
-	MobSpawnerMaster:
+	ReaverMaster:
 		Actors: disruptor.nova
 		AggregateHealth: false
-		RespawnTicks: 30
-		SlavesHaveFreeWill: false
-		RequiresCondition: attacking
+		RespawnTicks: 120
 		PauseOnCondition: disabled
-		ExitByBudding: false
-		ArmamentNames: primary, secondary
 	Targetable@novaimmune:
 		TargetTypes: Disruptor
 	RenderSprites:
@@ -1782,7 +1740,7 @@ disruptor.nova:
 	Tooltip:
 		Name: Suicide bomber drone
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1544, 1544
 	Health:
 		HP: 30
 	Valued:
@@ -1798,10 +1756,7 @@ disruptor.nova:
 		Type: vehicle.light
 	AutoTarget:
 		ScanRadius: 9
-		InitialStance: AttackAnything
-	MobSpawnerSlave:
-		GrantConditionWhenMasterIsDisabled: notenabled
-		GrantConditionWhenMasterIsPaused: paused
+	ReaverSlave:
 	AttackFrontal:
 		Voice: Attack
 	Armament@primary:
@@ -1811,7 +1766,7 @@ disruptor.nova:
 	GrantConditionWhileAiming:
 		Condition: aiming
 	KillsSelf@aim:
-		RequiresCondition: aiming || notenabled || paused
+		RequiresCondition: aiming
 		Delay: 120
 		GrantsCondition: activate
 	KillsSelf@impact:
@@ -1836,7 +1791,7 @@ observer:
 	Tooltip:
 		Name: Recon Drone
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 80
 	Valued:
@@ -1886,7 +1841,7 @@ oracle:
 	Tooltip:
 		Name: Gyrocopter
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 200
 	Valued:
@@ -1913,6 +1868,8 @@ oracle:
 	ExplodeWeapon@ward:
 		Weapon: oracle.wardspawn
 		RequiresCondition: warding && energy >= 2
+		AmmoPoolName: primary
+		AmmoUsage: 2
 	AttackAircraft:
 		Voice: Attack
 		FacingTolerance: 20
@@ -1925,17 +1882,12 @@ oracle:
 		CooldownTicks: 0
 		Voice: Attack
 		RequiresCondition: energy >= 2
-	EnergyPool:
+	AmmoPool:
 		Armaments: primary
-	ReloadEnergyPool:
+	ReloadAmmoPool:
 		Delay: 120
 		ResetOnFire: false
 		RequiresCondition: energy < 4
-	ReloadEnergyPool@ward:
-		Count: -2
-		Delay: 1
-		ResetOnFire: False
-		RequiresCondition: warding
 	Armor:
 		Type: air.light
 	WithFacingSpriteBody@air:
@@ -2018,7 +1970,7 @@ phoenix:
 	Tooltip:
 		Name: Beer Gut
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 240
 	Valued:
@@ -2065,7 +2017,7 @@ voidray:
 	Tooltip:
 		Name: Very Black Hawk
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 300
 	Valued:
@@ -2127,7 +2079,7 @@ tempest:
 	Tooltip:
 		Name: Big helicopter
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 400
 	Valued:
@@ -2173,7 +2125,7 @@ carrier:
 	Tooltip:
 		Name: Big twin rotored thing
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 600
 	Valued:
@@ -2222,8 +2174,8 @@ interceptor:
 	Inherits@EXPERIENCE: ^GainsExperience
 	Tooltip:
 		Name: Weaponized science project
-	Selectable:
-		Bounds: 70,60,0,-20
+	-Selectable:
+	Interactable:
 	Health:
 		HP: 80
 	Valued:
@@ -2267,7 +2219,7 @@ warpprism:
 	Tooltip:
 		Name: Morningeagle
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 160
 	Valued:
@@ -2319,7 +2271,7 @@ mothership:
 	Tooltip:
 		Name: Very big flying thing
 	Selectable:
-		Bounds: 70,60,0,-20
+		Bounds: 1689, 2896, 0, -965
 	Health:
 		HP: 700
 	Valued:

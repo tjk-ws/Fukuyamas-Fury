@@ -3,7 +3,7 @@ LargeBarrelExplode:
 	ReloadDelay: 20
 	Range: 4c0
 	Report: gexpbara.wav, gexpbarb.wav, gexpbarc.wav
-	Projectile: BulletAS
+	Projectile: Bullet
 		Speed: 1c682
 	Warhead@1Dam: SpreadDamage
 		Spread: 0c768
@@ -223,7 +223,7 @@ DamageSparkSpawner:
 	Range: 1c512
 	MinRange: 640
 	ReloadDelay: 1
-	Projectile: BulletAS
+	Projectile: Bullet
 		Speed: 62
 		LaunchAngle: 165, 215
 		Image: particles
@@ -232,5 +232,5 @@ DamageSparkSpawner:
 
 DamageSpark:
 	Inherits: ^Spark
-	Projectile: BulletAS
+	Projectile: Bullet
 		Palette: effect
