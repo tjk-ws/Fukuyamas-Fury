@@ -1,4 +1,4 @@
-﻿#region Copyright & License Information
+#region Copyright & License Information
 /*
  * Copyright 2015- OpenRA.Mods.AS Developers (see AUTHORS)
  * This file is a part of a third-party plugin for OpenRA, which is
@@ -47,7 +47,6 @@ namespace OpenRA.Mods.AS.Activities
 
 			var exit = CPos.Zero; // spawn point
 			var exitLocations = new List<CPos>(); // dest to move (cell pos)
-			var dest = Target.Invalid; // destination to move (in Target)
 
 			if (pri.OccupiesSpace != null)
 			{
@@ -70,7 +69,6 @@ namespace OpenRA.Mods.AS.Activities
 				}
 
 				exitLocations = rp != null ? rp.Path : new List<CPos> { exit };
-				dest = Target.FromCell(self.World, exitLocations.Last());
 			}
 
 			// Teleport myself to primary actor.
