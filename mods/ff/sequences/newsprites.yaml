@@ -380,7 +380,7 @@ caauto:
 	make: cgautomk
 		Length: 48
 		ShadowStart: 48
-		UseTilesetExtension: false
+		UseTilesetCode: false
 
 caempt:
 	Inherits: ^Structure

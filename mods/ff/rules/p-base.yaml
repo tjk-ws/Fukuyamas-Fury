@@ -2182,6 +2182,7 @@ interceptor:
 	Valued:
 		Cost: 15
 	Aircraft:
+		Repulsable: false
 		TurnSpeed: 40
 		Speed: 150
 		AltitudeVelocity: 200

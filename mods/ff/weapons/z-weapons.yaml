@@ -38,7 +38,7 @@ sporecrawler.spore:
 
 zergling.claw:
 	Inherits: ^MG
-	Range: 4c0
+	Range: 1c512
 	ReloadDelay: 13
 	Report: iconatta.wav, iconattb.wav, iconattc.wav, iconattd.wav, iconatte.wav
 	Warhead@1Dam: SpreadDamage
@@ -305,9 +305,11 @@ broodling.claw:
 
 swarmhost.spawn:
 	Inherits: ^Explode
-	ReloadDelay: 100
-	Projectile: AthenaProjectile
-		Altitude: 640
+	ReloadDelay: 450
+	Range: 6c0
+	ValidTargets: Infantry, Vehicle, Structure
+	Projectile: InstantExplode
+	Warhead@1Dam: TargetDamage
 	Warhead@1: FireShrapnel
 		Weapon: swarmhost.spawn2
 		Amount: 2

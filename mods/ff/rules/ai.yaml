@@ -31,7 +31,7 @@ Player:
 					Attractiveness: -20
 	BaseBuilderBotModule@test:
 		RequiresCondition: enable-test-ai
-		BuildingQueues: Building.P, Building.T, Building.Z
+		BuildingQueues: Building.P, Building.T, Building.Z.Bot
 		DefenseQueues: Warpin.P
 		MinimumExcessPower: 6
 		MaximumExcessPower: 14
@@ -59,6 +59,7 @@ Player:
 			engibay: 1
 			armory: 1
 			academy: 1
+			hatchery: 2
 			spawningpool: 1
 			banelingnest: 1
 			evolutionchamber: 1
@@ -90,11 +91,21 @@ Player:
 			academy: 1
 			bunker: 1
 			missileturret: 1
+			hatchery: 1
+			spawningpool: 1
+			banelingnest: 1
+			evolutionchamber: 1
+			hydraliskden: 1
+			roachwarren: 1
+			ultraliskcavern: 1
+			infestationpit: 1
+			spire: 1
 		BuildingDelays:
 			engibay: 5000
+			academy: 6000
 	HarvesterBotModule@test:
 		RequiresCondition: enable-test-ai
-		HarvesterTypes: builder.p, builder.t
+		HarvesterTypes: builder.p, builder.t, builder.z
 	BuildingRepairBotModule@test:
 		RequiresCondition: enable-test-ai
 	SquadManagerBotModule@test:
@@ -106,12 +117,12 @@ Player:
 		IdleScanRadius: 20
 		AttackScanRadius: 20
 		DangerScanRadius: 12
-		ExcludeFromSquadsTypes: builder.p, builder.p.bot, builder.t, builder.t.bot
+		ExcludeFromSquadsTypes: builder.p, builder.p.bot, builder.t, builder.t.bot, builder.z, builder.z.bot, overlord, overseer, queen
 		NavalUnitsTypes:
 		ConstructionYardTypes: builder.p.bot, builder.t.bot, builder.z.bot
 	UnitBuilderBotModule@test:
 		RequiresCondition: enable-test-ai
-		UnitQueues: Infantry.P, Vehicle.P, Worker.P, Air.P, Infantry.T, Vehicle.T, Worker.T, Air.T, Units.Z
+		UnitQueues: Infantry.P, Vehicle.P, Worker.P, Air.P, Infantry.T, Vehicle.T, Worker.T, Air.T, Units.Z, Hatchery.Z, Lair.Z
 		UnitLimits:
 			builder.p.bot: 2
 			builder.t.bot: 2
@@ -119,6 +130,9 @@ Player:
 			builder.p: 15
 			builder.t: 15
 			builder.z: 15
+			overlord: 8
+			overseer: 2
+			queen: 3
 		UnitsToBuild:
 			zealot: 5
 			adept: 5
@@ -127,6 +141,7 @@ Player:
 			sentry: 1
 			immortal: 1
 			colossus: 1
+			disruptor: 1
 			darktemplar: 3
 			phoenix: 1
 			voidray: 1
@@ -145,13 +160,28 @@ Player:
 			cyclone: 1
 			goliath: 1
 			thor: 1
-			viking: 1
 			banshee: 1
 			battlecruiser: 1
 			builder.t: 1
 			builder.t.bot: 2
+			hatchery.lair: 1
+			hatchery.hive: 1
+			upgrade.greaterspire: 1
+			zergling.build: 2
+			baneling: 1
+			queen: 1
+			overlord: 1
+			overseer: 1
+			hydralisk: 1
+			roach: 1
+			ravager: 1
+			ultralisk: 1
+			swarmhost: 1
+			mutalisk: 1
+			corruptor: 1
+			broodlord: 1
+			builder.z: 1
+			builder.z.bot: 1
 		UnitDelays:
-			builder.p: 5000
 			builder.p.bot: 5000
-			builder.t: 5000
-			builder.t.bot: 1000
+			builder.t.bot: 2500

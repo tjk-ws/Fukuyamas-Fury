@@ -71,8 +71,8 @@
 ^structure.z:
 	Inherits: ^BaseBuilding
 	Buildable:
-		Queue: Building.Z
-		Prerequisites: ~disabled
+		Queue: Building.Z, Building.Z.Bot
+		Prerequisites: ~prerequisite.aiplayer
 		Description: The actual building for debug
 	SpawnSurvivors:
 		Actors: builder.z
@@ -81,6 +81,9 @@
 		RefundPercent: 100
 		RequiresCondition: build-incomplete
 		SkipMakeAnimation: true
+	RequiresBuildableArea:
+		AreaTypes: drone
+		Adjacent: 4
 
 hatchery:
 	Inherits: ^structure.z
@@ -366,6 +369,8 @@ spawningpool:
 	Inherits@shape: ^2x3Shape
 	Tooltip:
 		Name: NEET concentration center
+	Buildable:
+		Prerequisites: ~prerequisite.aiplayer, hatchery
 	Health:
 		HP: 2000
 	Armor:
@@ -418,6 +423,8 @@ banelingnest:
 	Inherits@shape: ^2x2Shape
 	Tooltip:
 		Name: Explosives factory
+	Buildable:
+		Prerequisites: ~prerequisite.aiplayer, spawningpool
 	Health:
 		HP: 1700
 	Armor:
@@ -463,6 +470,8 @@ evolutionchamber:
 	Inherits@shape: ^3x3Shape
 	Tooltip:
 		Name: Recycling center
+	Buildable:
+		Prerequisites: ~prerequisite.aiplayer, hatchery
 	Health:
 		HP: 1500
 	Armor:
@@ -520,6 +529,8 @@ hydraliskden:
 	Inherits@shape: ^2x2Shape
 	Tooltip:
 		Name: Remote control center
+	Buildable:
+		Prerequisites: ~prerequisite.aiplayer, lair
 	Health:
 		HP: 1700
 	Armor:
@@ -583,6 +594,8 @@ roachwarren:
 	Inherits@shape: ^2x2Shape
 	Tooltip:
 		Name: Robot assembly
+	Buildable:
+		Prerequisites: ~prerequisite.aiplayer, spawningpool
 	Health:
 		HP: 1700
 	Armor:
@@ -622,6 +635,8 @@ ultraliskcavern:
 	Inherits@shape: ^5x3Shape
 	Tooltip:
 		Name: Large Vehicle Factory
+	Buildable:
+		Prerequisites: ~prerequisite.aiplayer, hive
 	Health:
 		HP: 1700
 	Armor:
@@ -667,6 +682,8 @@ infestationpit:
 	Inherits@shape: ^3x2Shape
 	Tooltip:
 		Name: Gadget Lab
+	Buildable:
+		Prerequisites: ~prerequisite.aiplayer, lair
 	Health:
 		HP: 1700
 	Armor:
@@ -709,6 +726,8 @@ spire:
 	Inherits@shape: ^3x2Shape
 	Tooltip:
 		Name: Landing Pads
+	Buildable:
+		Prerequisites: ~prerequisite.aiplayer, lair
 	Health:
 		HP: 1700
 	Armor:
@@ -834,6 +853,11 @@ builder.z:
 		Prerequisites: hatchery
 		BuildPaletteOrder: 0
 		Description: Transforms into structures.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+		OverrideActor: builder.z
+	Power:
+		Amount: -1
 	MustBeDestroyed:
 		RequiredForShortGame: true
 	BaseBuilding:
@@ -905,7 +929,14 @@ builder.z.bot:
 	Buildable:
 		Prerequisites: hatchery, ~prerequisite.aiplayer
 	Production@Building:
+		Produces: Building.Z.Bot
 		-RequiresCondition:
+	ProductionQueue@Building:
+		Type: Building.Z.Bot
+	ProductionBar@Building:
+		ProductionType: Building.Z.Bot
+	GrantConditionOnBuildingPlaced@Bothack:
+		Condition: morphed
 	AutoTarget:
 		ScanRadius: 8
 	-MapEditorData:
@@ -1672,10 +1703,9 @@ swarmhost:
 	AttackTurreted:
 		Voice: Attack
 		PauseOnCondition: disabled
-		Armaments: secondary
 	Armament@primary:
 		Weapon: swarmhost.spawn
-		ForceTargetRelationships: Enemy, Neutral
+		ForceTargetRelationships: Enemy
 	RenderSprites:
 	RenderVoxels:
 		Scale: 1.2
@@ -1697,6 +1727,8 @@ swarmhost.locust.air:
 		AltitudeVelocity: 200
 		CanSlide: true
 		CruiseAltitude: 2c512
+		CanForceLand: false
+		Repulsable: false
 	Armament@primary:
 		Weapon: locust.targeting
 	AttackAircraft:
@@ -1725,10 +1757,15 @@ swarmhost.locust.air:
 		Sequence: stand
 	WithMoveAnimation:
 		MoveSequence: run
+	KillsSelf:
+		Delay: 450
+		DamageTypes: BulletDeath
+		RequiresCondition: !chronodisable
 	Voiced:
 		VoiceSet: TerrorDroneVoice
 	RenderSprites:
 		Image: locust
+	-UpdatesPlayerStatistics:
 
 swarmhost.locust:
 	Inherits: ^DefaultInfantry
@@ -2002,7 +2039,7 @@ viper:
 	ReloadAmmoPool:
 		Delay: 100
 		ResetOnFire: false
-		RequiresCondition: energy <= 4
+		RequiresCondition: energy < 4
 	WithMuzzleOverlay:
 	AttackAircraft:
 		Voice: Attack
