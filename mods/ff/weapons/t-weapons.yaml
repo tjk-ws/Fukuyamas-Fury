@@ -449,12 +449,12 @@ ghost.nukespawner:
 	ReloadDelay: 10
 	Range: 11c0
 	Report: snuklaun.wav
-	ValidTargets: Ground
+	ValidTargets: Ground, Water, Air
 	InvalidTargets: Infantry, Structure, Vehicle, Air, Wall, Fence, Ship
 	Projectile: InstantHit
 	Warhead@1: SpawnActor
 		Actors: ghost.nukedummy
-		ForceGround: true
+		FallRate: 5000
 		Range: 5
 		ValidTargets: Ground, Water, Air
 	Warhead@2: CreateEffect
@@ -469,7 +469,7 @@ ghost.nukespawner2:
 
 ghost.nuketargeting:
 	ReloadDelay: 20
-	Range: 11c0
+	Range: 13c0
 	Projectile: InstantHit
 	Warhead@1: TargetDamage
 
@@ -481,9 +481,9 @@ ghost.nuketargeting2:
 
 ghost.nukelaunch:
 	ReloadDelay: 10
-	Range: 11c0
+	Range: 13c0
 	Report: snukintr.wav
-	ValidTargets: Ground, NukeTarget
+	ValidTargets: Ground, Air, Water, NukeTarget
 	Projectile: AthenaProjectile
 		Altitude: 15c0
 	Warhead@1: TargetDamage

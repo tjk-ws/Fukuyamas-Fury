@@ -356,7 +356,7 @@ gateway:
 	Production@2:
 		Produces: Warpin.P
 		PauseOnCondition: !pylonpower || disabled || gateway
-		RequiresCondition: warpgate && !build-incomplete
+		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Infantry.P
 		Group: Infantry
@@ -1001,7 +1001,7 @@ zealot:
 		CooldownTicks: 900
 		Voice: Attack
 		StartsFullyCharged: true
-		RequiresCondition: cancharge
+		RequiresCondition: cancharge && !disabled
 	Voiced:
 		VoiceSet: CivilianAlliedMaleVoice
 	RenderSprites:
@@ -1154,7 +1154,7 @@ hightemplar:
 	Armor:
 		Type: infantry.light
 	AttackFrontal:
-		Armaments: primary, storm, merge
+		Armaments: primary, secondary, merge
 		Voice: Attack
 		FacingTolerance: 2
 	Armament@primary:
@@ -1166,7 +1166,7 @@ hightemplar:
 		AmmoUsage: 2
 	Armament@secondary:
 		Weapon: ht.psistorm
-		Name: storm
+		Name: secondary
 		LocalOffset: 320,128,1024
 		RequiresCondition: stormmode
 		PauseOnCondition: energy < 3
@@ -1386,7 +1386,7 @@ sentry:
 	Turreted:
 	WithMuzzleOverlay:
 	AttackTurreted:
-		Armaments: primary, barrier
+		Armaments: primary, secondary
 		Voice: Attack
 		PauseOnCondition: disabled
 	Armament@primary:
@@ -1396,7 +1396,7 @@ sentry:
 		MuzzleSequence: muzzle
 	Armament@forcefield:
 		Weapon: sentry.barrier
-		Name: barrier
+		Name: secondary
 		PauseOnCondition: energy < 2
 		AmmoUsage: 2
 	ProximityExternalCondition@shield:
@@ -1409,29 +1409,28 @@ sentry:
 		Range: 4c0
 		RequiresCondition: shielding
 	GrantTimedConditionOnDeploy@shield:
-		DeployedCondition: shielding
-		DeployedTicks: 300
+		DeployedCondition: shieldenergy
+		DeployedTicks: 2
 		CooldownTicks: 0
 		Voice: Attack
 		StartsFullyCharged: true
-		RequiresCondition: energy >= 3
 		ChargingColor: 33CCFF
 		DischargingColor: 33CCFF
-	GrantTimedCondition@shielding:
-		Condition: shieldenergy
-		Duration: 1
-		RequiresCondition: shielding
+		RequiresCondition: !disabled
+	ExplodeWeapon@shield:
+		Weapon: sentry.shielder
+		AmmoPoolName: primary
+		AmmoUsage: 3
+		RequiresCondition: shieldenergy && !shielding && energy >= 3
+	ExternalCondition@shield:
+		Condition: shielding
+		TotalCap: 1
 	AmmoPool:
 		Armaments: secondary
 	ReloadAmmoPool:
 		Delay: 120
 		ResetOnFire: false
-		RequiresCondition: energy <= 4
-	ReloadAmmoPool@shielddrain:
-		Count: -3
-		Delay: 1
-		ResetOnFire: False
-		RequiresCondition: shieldenergy
+		RequiresCondition: energy < 4
 	Voiced:
 		VoiceSet: RobotTankVoice
 	RenderSprites:
@@ -1719,7 +1718,6 @@ disruptor:
 		ForceTargetRelationships: Enemy
 	ReaverMaster:
 		Actors: disruptor.nova
-		AggregateHealth: false
 		RespawnTicks: 120
 		PauseOnCondition: disabled
 	Targetable@novaimmune:
@@ -1882,7 +1880,7 @@ oracle:
 		DeployedTicks: 2
 		CooldownTicks: 0
 		Voice: Attack
-		RequiresCondition: energy >= 2
+		RequiresCondition: !disabled
 	AmmoPool:
 		Armaments: primary
 	ReloadAmmoPool:
@@ -2062,6 +2060,7 @@ voidray:
 		CooldownTicks: 1000
 		Voice: Attack
 		StartsFullyCharged: true
+		RequiresCondition: !disabled
 	SpeedMultiplier@aligned:
 		Modifier: 75
 		RequiresCondition: aligned
@@ -2186,6 +2185,7 @@ interceptor:
 		TurnSpeed: 40
 		Speed: 150
 		AltitudeVelocity: 200
+		VTOL: false
 	RevealsShroud:
 		Range: 7c0
 	Armament@primary:

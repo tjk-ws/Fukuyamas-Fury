@@ -294,17 +294,21 @@ caup:
 	Inherits: ^Structure
 	Defaults:
 		Offset: 0, -45
-	idle: caup
+	idle: cgup
 		ShadowStart: 4
-	damaged-idle: caup
+		UseTilesetCode: false
+	damaged-idle: cgup
 		Start: 1
 		ShadowStart: 5
-	idle2: caup
+		UseTilesetCode: false
+	idle2: cgup
 		Start: 2
 		ShadowStart: 6
-	damaged-idle2: caup
+		UseTilesetCode: false
+	damaged-idle2: cgup
 		Start: 3
 		ShadowStart: 7
+		UseTilesetCode: false
 	idle-lights: caup_a
 		Start: 1
 		Length: 3

@@ -195,6 +195,16 @@ barrier.energyhack:
 	Projectile: InstantHit
 		Blockable: false
 
+sentry.shielder:
+	Inherits: ^Explode
+	ReloadDelay: 10
+	Warhead@1: GrantExternalCondition
+		Condition: shielding
+		Range: 1
+		AffectsParent: true
+		Duration: 500
+		ValidRelationships: Ally
+
 sentry.barrier:
 	Range: 9c0
 	MinRange: 5c0
@@ -270,6 +280,7 @@ psistormspawner:
 
 ht.psistormdamage:
 	Inherits: ^Explode
+	ReloadDelay: 20
 	ValidTargets: Ground, Water, Air
 	Warhead@1Dam: SpreadDamage
 		Spread: 3c0

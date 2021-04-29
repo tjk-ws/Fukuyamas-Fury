@@ -1641,7 +1641,7 @@
 	Inherits: ^Aircraft
 	Inherits@1: ^CrateStatModifiers
 	Aircraft:
-		LandableTerrainTypes: Clear, Rough, Road, DirtRoad, Ore, Gems
+		LandableTerrainTypes: Clear, Rough, Impassable, Road, Rail, DirtRoad, Ore, Gems, Water, Cliff, Tree, Rock
 		CanForceLand: true
 		CruiseAltitude: 3c852
 		CanSlide: true

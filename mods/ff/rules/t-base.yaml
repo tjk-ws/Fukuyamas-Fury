@@ -1163,7 +1163,7 @@ reaper:
 
 ghost:
 	Inherits: ^Infantry
-	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@ENERGY: ^EnergyPoolEffects
 	Inherits@CLOAK: ^PermanentCloak
@@ -1196,12 +1196,13 @@ ghost:
 	Armament@primary:
 		Weapon: ghost.sniper
 		Name: primary
-		PauseOnCondition: nuking
+		RequiresCondition: !nuking
 	Armament@emp:
 		Weapon: ghost.lockdown
 		LocalOffset: 768,0,512
 		Name: lockdown
-		PauseOnCondition: energy < 3 || nuking
+		PauseOnCondition: energy < 3
+		RequiresCondition: !nuking
 		AmmoUsage: 3
 	AmmoPool:
 		Armaments: lockdown
@@ -1236,7 +1237,7 @@ ghost:
 		Condition: nuking
 		ArmamentNames: nukelaunch
 		RevokeOnNewTarget: true
-		RevokeDelay: 210
+		RevokeDelay: 220
 	GrantConditionOnAttack@Nuke1:
 		Condition: nukestarted
 		ArmamentNames: nukelaunch
@@ -1269,6 +1270,14 @@ ghost:
 
 ghost2:
 	Inherits: ghost
+	AutoTargetPriority@DEFAULT:
+		RequiresCondition: (!stance-attackanything && !assault-move) && !nuking
+	AutoTargetPriority@ATTACKANYTHING:
+		RequiresCondition: (stance-attackanything || assault-move) && !nuking
+	AutoTargetPriority@NUKE:
+		ValidTargets: NukeTarget
+		Priority: 2
+		RequiresCondition: nuking
 	Buildable:
 		Queue: Infantry.T
 		Prerequisites: academy #, lab.barracks
@@ -1310,10 +1319,6 @@ ghost2:
 		TargetCircleRange: 8
 		RequiresCondition: hasnuke && !nuking && !nukefiring
 		AllowMultiple: false
-	AutoTargetPriority@NUKE:
-		ValidTargets: NukeTarget
-		Priority: 2
-		RequiresCondition: nuking
 
 ghost.nukedummy:
 	Inherits@1: ^SpriteActor
@@ -1330,10 +1335,13 @@ ghost.nukedummy:
 	Health:
 		HP: 50
 		NotifyAppliedDamage: false
-	Mobile:
+	Aircraft:
+		CruiseAltitude: 1
 		Speed: 1
-		Locomotor: foot
+		CanHover: true
+		VTOL: true
 		RequiresCondition: !dontmove
+		LandableTerrainTypes: Clear, Rough, Road, DirtRoad, Ore, Gems
 	GrantCondition:
 		Condition: dontmove
 	RejectsOrders:
@@ -1484,7 +1492,8 @@ widowmine:
 	Valued:
 		Cost: 100
 	Buildable:
-		Queue: Infantry.T
+		Queue: Vehicle.T
+		BuildPaletteOrder: 30
 		Description: Soldier armed with a rocket launcher.\nNeeds to be deployed to attack.\n  Strong vs Everything
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
