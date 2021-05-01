@@ -112,8 +112,6 @@ widowmine.missile:
 	ValidTargets: Ground, Air
 	Projectile: Missile
 		Speed: 768
-		HorizontalRateOfTurn: 152
-		VerticalRateOfTurn: 152
 	Warhead@1Dam: SpreadDamage
 		Damage: 250
 		Spread: 1c0
@@ -434,10 +432,12 @@ ghost.lockdown:
 		Range: 1c512
 		Duration: 2
 		Condition: empdrain
+		ValidTargets: empdrainable
 	Warhead@3Ext: GrantExternalCondition
 		Range: 1c512
 		Duration: 120
 		Condition: emp
+		ValidTargets: empable
 	Warhead@4Eff: CreateEffect
 		Explosions: empulse
 		ExplosionPalette: tseffect
@@ -469,7 +469,7 @@ ghost.nukespawner2:
 
 ghost.nuketargeting:
 	ReloadDelay: 20
-	Range: 13c0
+	Range: 15c0
 	Projectile: InstantHit
 	Warhead@1: TargetDamage
 
@@ -481,7 +481,7 @@ ghost.nuketargeting2:
 
 ghost.nukelaunch:
 	ReloadDelay: 10
-	Range: 13c0
+	Range: 15c0
 	Report: snukintr.wav
 	ValidTargets: Ground, Air, Water, NukeTarget
 	Projectile: AthenaProjectile

@@ -25,7 +25,6 @@
 	RenderSprites:
 		PlayerPalette: placebuilding
 	Buildable:
-		Queue: Building.Z
 		BuildDuration: 0
 	Building:
 		BuildSounds: uplanadd.wav
@@ -70,9 +69,10 @@
 
 ^structure.z:
 	Inherits: ^BaseBuilding
+	Building:
+		RemoveBuilder: true
 	Buildable:
-		Queue: Building.Z, Building.Z.Bot
-		Prerequisites: ~prerequisite.aiplayer
+		Queue: Building.Z
 		Description: The actual building for debug
 	SpawnSurvivors:
 		Actors: builder.z
@@ -81,9 +81,6 @@
 		RefundPercent: 100
 		RequiresCondition: build-incomplete
 		SkipMakeAnimation: true
-	RequiresBuildableArea:
-		AreaTypes: drone
-		Adjacent: 4
 
 hatchery:
 	Inherits: ^structure.z
@@ -179,6 +176,7 @@ hatchery:
 		Mines: hatchery.dock
 		Locations: 0,0, 3,3, 0,3, 3,0
 		RecreationInterval: 1
+		RequiresCondition: !build-incomplete
 	StoresResources:
 		Capacity: 2000
 	IsometricSelectable:
@@ -223,6 +221,7 @@ hatchery.larva:
 	WithTextControlGroupDecoration:
 	SelectionDecorations:
 	Selectable:
+		Priority: 4
 	Targetable:
 		TargetTypes: Ground, Structure, DetonateAttack
 		RequiresCondition: !untargetable
@@ -299,7 +298,6 @@ morph.hatchery:
 	Tooltip:
 		Name: Hatchery
 	Buildable:
-		Queue: Building.Z
 		Description: Refines resources.\nPeriodically produces scrap piles, which are used to build units.
 	Building:
 		Footprint: ==== ==== ==== ====
@@ -370,7 +368,7 @@ spawningpool:
 	Tooltip:
 		Name: NEET concentration center
 	Buildable:
-		Prerequisites: ~prerequisite.aiplayer, hatchery
+		Prerequisites: hatchery
 	Health:
 		HP: 2000
 	Armor:
@@ -403,7 +401,6 @@ morph.spawningpool:
 	Tooltip:
 		Name: NEET concentration center
 	Buildable:
-		Queue: Building.Z
 		Prerequisites: hatchery
 		Description: Unlocks basic units.
 	Building:
@@ -424,7 +421,7 @@ banelingnest:
 	Tooltip:
 		Name: Explosives factory
 	Buildable:
-		Prerequisites: ~prerequisite.aiplayer, spawningpool
+		Prerequisites: spawningpool
 	Health:
 		HP: 1700
 	Armor:
@@ -450,7 +447,6 @@ morph.banelingnest:
 	Tooltip:
 		Name: Explosives factory
 	Buildable:
-		Queue: Building.Z
 		Prerequisites: spawningpool
 		Description: Unlocks Nihilists.
 	Building:
@@ -471,7 +467,7 @@ evolutionchamber:
 	Tooltip:
 		Name: Recycling center
 	Buildable:
-		Prerequisites: ~prerequisite.aiplayer, hatchery
+		Prerequisites: hatchery
 	Health:
 		HP: 1500
 	Armor:
@@ -509,7 +505,6 @@ morph.evochamber:
 	Tooltip:
 		Name: Recycling center
 	Buildable:
-		Queue: Building.Z
 		Prerequisites: hatchery
 		Description: Researches upgrades.
 	Building:
@@ -530,7 +525,7 @@ hydraliskden:
 	Tooltip:
 		Name: Remote control center
 	Buildable:
-		Prerequisites: ~prerequisite.aiplayer, lair
+		Prerequisites: lair
 	Health:
 		HP: 1700
 	Armor:
@@ -574,7 +569,6 @@ morph.hydraden:
 	Tooltip:
 		Name: Remote control center
 	Buildable:
-		Queue: Building.Z
 		Prerequisites: lair
 		Description: Unlocks Battle Drones.
 	Building:
@@ -595,7 +589,7 @@ roachwarren:
 	Tooltip:
 		Name: Robot assembly
 	Buildable:
-		Prerequisites: ~prerequisite.aiplayer, spawningpool
+		Prerequisites: spawningpool
 	Health:
 		HP: 1700
 	Armor:
@@ -615,7 +609,6 @@ morph.roachwarren:
 	Tooltip:
 		Name: Robot assembly
 	Buildable:
-		Queue: Building.Z
 		Prerequisites: spawningpool
 		Description: Unlocks UGVs.
 	Building:
@@ -636,7 +629,7 @@ ultraliskcavern:
 	Tooltip:
 		Name: Large Vehicle Factory
 	Buildable:
-		Prerequisites: ~prerequisite.aiplayer, hive
+		Prerequisites: hive
 	Health:
 		HP: 1700
 	Armor:
@@ -662,7 +655,6 @@ morph.ultracavern:
 	Tooltip:
 		Name: Large Vehicle Factory
 	Buildable:
-		Queue: Building.Z
 		Prerequisites: hive
 		Description: Unlocks heavy vehicles.
 	Building:
@@ -683,7 +675,7 @@ infestationpit:
 	Tooltip:
 		Name: Gadget Lab
 	Buildable:
-		Prerequisites: ~prerequisite.aiplayer, lair
+		Prerequisites: lair
 	Health:
 		HP: 1700
 	Armor:
@@ -706,7 +698,6 @@ morph.infestationpit:
 	Tooltip:
 		Name: Gadget Lab
 	Buildable:
-		Queue: Building.Z
 		Prerequisites: lair
 		Description: Unlocks advanced vehicles.
 	Building:
@@ -727,7 +718,7 @@ spire:
 	Tooltip:
 		Name: Landing Pads
 	Buildable:
-		Prerequisites: ~prerequisite.aiplayer, lair
+		Prerequisites: lair
 	Health:
 		HP: 1700
 	Armor:
@@ -775,7 +766,6 @@ morph.spire:
 	Tooltip:
 		Name: Landing Pads
 	Buildable:
-		Queue: Building.Z
 		Prerequisites: lair
 		Description: Unlocks aircraft.
 	Building:
@@ -886,11 +876,8 @@ builder.z:
 	ProductionBar@Building:
 		ProductionType: Building.Z
 	BaseProvider:
-		Range: 4c0
-		RequiresCondition: !moving && no-ore
-	GivesBuildableArea:
-		AreaTypes: drone
-		RequiresCondition: !moving && no-ore
+		Range: 6c0
+		RequiresCondition: botmicro
 	Harvester:
 		DeliveryBuildings: hatchery.dock
 	WithHarvestOverlay:
@@ -929,14 +916,9 @@ builder.z.bot:
 	Buildable:
 		Prerequisites: hatchery, ~prerequisite.aiplayer
 	Production@Building:
-		Produces: Building.Z.Bot
 		-RequiresCondition:
 	ProductionQueue@Building:
-		Type: Building.Z.Bot
 	ProductionBar@Building:
-		ProductionType: Building.Z.Bot
-	GrantConditionOnBuildingPlaced@Bothack:
-		Condition: morphed
 	AutoTarget:
 		ScanRadius: 8
 	-MapEditorData:
@@ -1108,7 +1090,7 @@ spinecrawler:
 		Cost: 100
 	Buildable:
 		Queue: Building.Z
-		Prerequisites: ~disabled #spawningpool
+		Prerequisites: spawningpool
 		Description: Anti-ground defense.
 	Armament:
 		Weapon: spinecrawler.tentacle
@@ -1128,7 +1110,6 @@ morph.spinecrawler:
 	Tooltip:
 		Name: Mortar Crawler
 	Buildable:
-		Queue: Building.Z
 		Prerequisites: spawningpool
 		Description: Anti-ground defense.
 	Building:
@@ -1191,7 +1172,7 @@ sporecrawler:
 		Cost: 75
 	Buildable:
 		Queue: Building.Z
-		Prerequisites: ~disabled #evolutionchamber
+		Prerequisites: evolutionchamber
 		Description: Anti-air defense.
 	Armament:
 		Weapon: sporecrawler.spore
@@ -1216,7 +1197,6 @@ morph.sporecrawler:
 	Tooltip:
 		Name: Flak Crawler
 	Buildable:
-		Queue: Building.Z
 		Prerequisites: evolutionchamber
 		Description: Anti-air defense.
 	Building:
@@ -1765,7 +1745,11 @@ swarmhost.locust.air:
 		VoiceSet: TerrorDroneVoice
 	RenderSprites:
 		Image: locust
+	Explodes:
+		Weapon: UnitExplode
+		EmptyWeapon: UnitExplode
 	-UpdatesPlayerStatistics:
+	-ActorLostNotification:
 
 swarmhost.locust:
 	Inherits: ^DefaultInfantry
@@ -1986,6 +1970,7 @@ broodling:
 	-WithDeathAnimation@normal:
 	-TakeCover:
 	-UpdatesPlayerStatistics:
+	-ActorLostNotification:
 	KillsSelf:
 		Delay: 145
 		DamageTypes: BulletDeath

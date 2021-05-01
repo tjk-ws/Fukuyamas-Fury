@@ -57,11 +57,15 @@ UnitExplode:
 		Weapon: SmallDebris
 		Amount: 1,4
 		AffectsParent: true
+		ValidTargets: Ground, Water, Air
 
 UnitExplodeAir:
 	Inherits: UnitExplode
 	Warhead@1Eff: CreateEffect
-		Explosions: medium_bang, medium_brnl, medium_tumu, medium_twlt, large_clsn
+		Explosions: medium_tumu, medium_twlt
+		ExplosionPalette: tseffect
+	Warhead@DebrisSpawn: FireShrapnel
+		Weapon: LargeDebris
 
 UnitExplodeSmall:
 	Inherits: UnitExplode

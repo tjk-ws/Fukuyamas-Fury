@@ -23,9 +23,6 @@
 	WithColoredOverlay@BUILD:
 		RequiresCondition: !build-complete
 		Color: 00000080
-	RequiresBuildableArea:
-		AreaTypes: scv
-		Adjacent: 4
 	RevealsShroudMultiplier@BUILDING:
 		RequiresCondition: !build-complete
 
@@ -80,11 +77,8 @@ builder.t:
 	ProductionBar@Building:
 		ProductionType: Building.T
 	BaseProvider:
-		Range: 5c0
-		RequiresCondition: !moving && no-ore
-	GivesBuildableArea:
-		AreaTypes: scv
-		RequiresCondition: !moving && no-ore
+		Range: 6c0
+		RequiresCondition: botmicro
 	AutoTargetPriority@Build:
 		ValidTargets: scvbuildable, scvbuilding
 		Priority: 2

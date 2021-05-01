@@ -53,8 +53,13 @@ spawndummy:
 		RequiresCondition: hasbase
 
 townhall.dock:
-	Interactable:
-	AlwaysVisible:
+	Selectable:
+		Priority: 4
+		Bounds: 512, 1024
+	Targetable:
+		TargetTypes: dock
+	HiddenUnderFog:
+		Type: CenterPosition
 	Mobile:
 		Speed: 1
 		Locomotor: wheeled
@@ -68,7 +73,7 @@ townhall.dock:
 		TickVelocity: 1
 		TickRate: 10
 		DockAngle: 640
-		UseStorage: true
+		UseStorage: false
 	Mine:
 		CrushClasses: mine
 		DetonateClasses: mine
@@ -76,7 +81,7 @@ townhall.dock:
 	RejectsOrders:
 	WithSpriteBody:
 	RenderSprites:
-		Image: dot
+		Image: inviso
 
 waypoint:
 	Immobile:

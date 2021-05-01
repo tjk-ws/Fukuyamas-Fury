@@ -173,11 +173,8 @@ builder.p:
 	ProductionBar@Building:
 		ProductionType: Building.P
 	BaseProvider:
-		Range: 5c0
-		RequiresCondition: !moving && no-ore 
-	GivesBuildableArea:
-		AreaTypes: building
-		RequiresCondition: !moving && no-ore
+		Range: 6c0
+		RequiresCondition: botmicro
 	Harvester:
 		DeliveryBuildings: nexus.dock
 	WithHarvestOverlay:
@@ -228,11 +225,10 @@ pylon:
 	ProximityExternalCondition@pylon:
 		Condition: pylonpower
 		Range: 8c0
-	WithRangeCircle:
-		Type: Pylon
-		Range: 8c0
 	GivesBuildableArea:
 		AreaTypes: pylon
+	BaseProvider:
+		Range: 8c0
 	IsometricSelectable:
 		DecorationHeight: 120
 	WithIdleOverlay@glow:
@@ -290,6 +286,7 @@ nexus:
 		Mines: nexus.dock
 		Locations: 0,0, 3,3, 0,3, 3,0
 		RecreationInterval: 1
+		RequiresCondition: !build-incomplete
 	StoresResources:
 		Capacity: 2000
 	IsometricSelectable:
@@ -2213,6 +2210,11 @@ interceptor:
 	RenderSprites:
 	Voiced:
 		VoiceSet: RobotTankVoice
+	Explodes:
+		Weapon: UnitExplode
+		EmptyWeapon: UnitExplode
+	-ActorLostNotification:
+	-UpdatesPlayerStatistics:
 
 warpprism:
 	Inherits: ^Helicopter

@@ -4,7 +4,7 @@
 	CombatDebugOverlay:
 	DrawLineToTarget:
 	GivesExperience:
-		PlayerExperienceModifier: 1
+		PlayerExperienceModifier: 100
 	ScriptTriggers:
 	Huntable:
 
@@ -650,7 +650,7 @@
 		Dimensions: 1,1
 		Footprint: x
 		BuildSounds: uplace.wav
-		RequiresBaseProvider: True
+		RequiresBaseProvider: false
 		UndeploySounds: uselbuil.wav
 		TerrainTypes: Clear, Rough, Road, DirtRoad
 	ActorPreviewPlaceBuildingPreview:
@@ -704,6 +704,8 @@
 
 ^BaseBuilding:
 	Inherits: ^Building
+	Building:
+		BuilderRange: 2c0
 	RevealsShroud:
 		Range: 9c0
 	RevealsShroudMultiplier@BUILDING:
@@ -714,11 +716,6 @@
 	Sellable:
 		SellSounds: uselbuil.wav
 		RequiresCondition: !build-incomplete
-	RequiresBuildableArea:
-		AreaTypes: building
-		Adjacent: 3
-	#GivesBuildableArea:
-	#	AreaTypes: building
 
 ^SupportBuilding:
 	Inherits: ^BaseBuilding
@@ -1521,8 +1518,6 @@
 		Type: Light
 	RevealsShroud:
 		Range: 5c0
-	Selectable:
-		Bounds: 64, 52, 0, -6
 	WithVoxelBody:
 	-GivesExperience:
 	Voiced:
@@ -1746,8 +1741,6 @@
 		StationaryInterval: 18
 		MovingInterval: 6
 	SelectionDecorations:
-	Selectable:
-		Bounds: 32,32
 	Targetable:
 		TargetTypes: Ground, Water, Ship
 		RequiresCondition: !untargetable
@@ -2108,6 +2101,8 @@
 	RenderDetectionCircle:
 
 ^Harvester:
+	Selectable:
+		Priority: 7
 	Harvester:
 		Capacity: 4
 		Resources: Ore, Gems
@@ -2119,6 +2114,7 @@
 		DeliverVoice: Move
 		EmptyCondition: no-ore
 		MaxUnloadQueue: 5
+		SearchOnCreation: false
 	WithHarvesterPipsDecoration:
 		Margin: 4, 3
 		Palette: ra
@@ -2128,6 +2124,7 @@
 		ResourceSequences:
 			Ore: pip-yellow
 			Gems: pip-blue
+	BuilderUnit:
 
 ^PermanentCloak:
 	Cloak:

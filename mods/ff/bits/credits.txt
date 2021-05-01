@@ -9,18 +9,21 @@ Supérior engine created by Gyula Zimmermann (Graion
 Dilach). The creator is very grateful for the powerful
 codebase of AS and also highly recommends Valiant 
 Shades, a fun RA2-based mod created by Graion that
-puts the capabilities of AS to full use.
+puts the capabilities of AS to full use. Gratitude
+is also hereby given to other contributors to the
+AS extension.
 
-You can see the details of credits for OpenRA and AS
-on the other tabs above.
+Other code contributions from (non-exhaustive list,
+apologies if not listed):
+ * drogoganor
+   > Builder logic
 
 Besides the above contributions, Fukuyama's Fury is 
 developed by:
  * tjk-ws
    > MiniYaml configuration
-   > Duplicate traits in the mod trait folder
 
-Other contributors:
+Other direct contributors:
  * Patrick Wieth
    > Technical advice
    > Some code modifications

@@ -31,7 +31,7 @@ Player:
 					Attractiveness: -20
 	BaseBuilderBotModule@test:
 		RequiresCondition: enable-test-ai
-		BuildingQueues: Building.P, Building.T, Building.Z.Bot
+		BuildingQueues: Building.P, Building.T, Building.Z
 		DefenseQueues: Warpin.P
 		MinimumExcessPower: 6
 		MaximumExcessPower: 14
@@ -48,6 +48,7 @@ Player:
 		VehiclesFactoryTypes: robotics, factory, hatchery
 		ProductionTypes: nexus, gateway, robotics, stargate, barracks, factory, starport, hatchery, hydraliskden, spire
 		BuildingLimits:
+			nexus: 2
 			pylon: 4
 			forge: 1
 			cybercore: 1
@@ -55,6 +56,7 @@ Player:
 			robobay: 1
 			darkshrine: 1
 			fleetbeacon: 1
+			commandcenter: 1
 			supplydepot: 4
 			engibay: 1
 			armory: 1
