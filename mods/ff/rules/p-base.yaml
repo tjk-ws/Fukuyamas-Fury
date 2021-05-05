@@ -170,6 +170,7 @@ builder.p:
 		QueuedAudio: Building
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
+		InstantCashDrain: true
 	ProductionBar@Building:
 		ProductionType: Building.P
 	BaseProvider:
@@ -222,9 +223,11 @@ pylon:
 	Power:
 		Amount: 8
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	ProximityExternalCondition@pylon:
 		Condition: pylonpower
 		Range: 8c0
+		RequiresCondition: !build-incomplete
 	GivesBuildableArea:
 		AreaTypes: pylon
 	BaseProvider:
@@ -243,6 +246,7 @@ pylon:
 nexus:
 	Inherits: ^BaseBuilding
 	Inherits@shape: ^4x4Shape
+	Inherits@power: ^DisableOnLowPowerOrContaminate
 	Inherits@warp: ^WarpedInBuilding
 	Inherits@pal: ^EABuildingSet2
 	Tooltip:
@@ -261,10 +265,11 @@ nexus:
 		Dimensions: 4,4
 	Power:
 		Amount: 15
-	Production@Probes:
+	Production@1:
 		Produces: Worker.P
+		PauseOnCondition: disabled
 		RequiresCondition: !build-incomplete
-	ProductionQueue@Probes:
+	ProductionQueue@1:
 		Type: Worker.P
 		Group: Vehicle
 		LowPowerModifier: 200
@@ -274,9 +279,13 @@ nexus:
 		QueuedAudio: Building
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
-	ProductionBar@Probes:
+		PowerLimitedAudio: LowPower
+		RequiresSufficientPower: true
+		InstantCashDrain: true
+	ProductionBar@1:
 		ProductionType: Worker.P
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	Exit@1:
 		ExitCell: 4,4
 	RallyPoint:
@@ -303,7 +312,7 @@ nexus.dock:
 gateway:
 	Inherits: ^BaseBuilding
 	Inherits@shape: ^3x3Shape
-	Inherits@power: ^DisableOnLowPower
+	Inherits@power: ^DisableOnLowPowerOrContaminate
 	Inherits@pylon: ^RequiresPylonPower
 	Inherits@warp: ^WarpedInBuilding
 	Inherits@pal: ^EABuildingSet2
@@ -364,6 +373,9 @@ gateway:
 		QueuedAudio: Training
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
+		PowerLimitedAudio: LowPower
+		RequiresSufficientPower: true
+		InstantCashDrain: true
 	ProductionQueue@2:
 		Type: Warpin.P
 		Group: Infantry
@@ -374,6 +386,9 @@ gateway:
 		QueuedAudio: Training
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
+		PowerLimitedAudio: LowPower
+		RequiresSufficientPower: true
+		InstantCashDrain: true
 	ProductionBar@1:
 		ProductionType: Infantry.P
 	#ProductionBar@2:
@@ -402,6 +417,7 @@ gateway:
 		Sequence: idle-glow
 		RequiresCondition: pylonpower
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	IsometricSelectable:
 		DecorationHeight: 80
 	RenderSprites:
@@ -410,7 +426,7 @@ gateway:
 robotics:
 	Inherits: ^BaseBuilding
 	Inherits@shape: ^5x3Shape
-	Inherits@power: ^DisableOnLowPower
+	Inherits@power: ^DisableOnLowPowerOrContaminate
 	Inherits@pylon: ^RequiresPylonPower
 	Inherits@warp: ^WarpedInBuilding
 	Inherits@pal: ^EABuildingSet1
@@ -445,6 +461,9 @@ robotics:
 		QueuedAudio: Building
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
+		PowerLimitedAudio: LowPower
+		RequiresSufficientPower: true
+		InstantCashDrain: true
 	ProductionBar@1:
 		ProductionType: Vehicle.P
 	RallyPoint:
@@ -467,6 +486,7 @@ robotics:
 		Sequence: active-bottom
 		RequiresCondition: !build-incomplete
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	IsometricSelectable:
 		DecorationHeight: 75
 	RenderSprites:
@@ -475,7 +495,7 @@ robotics:
 stargate:
 	Inherits: ^BaseBuilding
 	Inherits@shape: ^4x4Shape
-	Inherits@power: ^DisableOnLowPower
+	Inherits@power: ^DisableOnLowPowerOrContaminate
 	Inherits@pylon: ^RequiresPylonPower
 	Inherits@warp: ^WarpedInBuilding
 	Inherits@pal: ^EABuildingSet2
@@ -508,6 +528,9 @@ stargate:
 		QueuedAudio: Building
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
+		PowerLimitedAudio: LowPower
+		RequiresSufficientPower: true
+		InstantCashDrain: true
 	ProductionBar@1:
 		ProductionType: Air.P
 	Exit@1:
@@ -519,6 +542,7 @@ stargate:
 	Exit@4:
 		ExitCell: 2,1
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	IsometricSelectable:
 		DecorationHeight: 50
 	RenderSprites:
@@ -530,6 +554,7 @@ forge:
 	Inherits@pylon: ^RequiresPylonPower
 	Inherits@warp: ^WarpedInBuilding
 	Inherits@pal: ^EABuildingSet2
+	Inherits@contam: ^Contaminable
 	Tooltip:
 		Name: Technical Uplink
 	Health:
@@ -547,7 +572,7 @@ forge:
 		Dimensions: 3,3
 	Production@1:
 		Produces: Forge.P
-		PauseOnCondition: !pylonpower
+		PauseOnCondition: !pylonpower || slimed
 		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Forge.P
@@ -562,6 +587,7 @@ forge:
 	ProductionBar@1:
 		ProductionType: Forge.P
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	WithProductionOverlay:
 		Sequence: active-top
 		PauseOnCondition: !pylonpower
@@ -584,6 +610,7 @@ cybercore:
 	Inherits@shape: ^2x2Shape
 	Inherits@pylon: ^RequiresPylonPower
 	Inherits@warp: ^WarpedInBuilding
+	Inherits@contam: ^Contaminable
 	Tooltip:
 		Name: Overtime Pod
 	Health:
@@ -601,7 +628,7 @@ cybercore:
 		Dimensions: 2,2
 	Production@1:
 		Produces: Cybercore.P
-		PauseOnCondition: !pylonpower
+		PauseOnCondition: !pylonpower || slimed
 		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Cybercore.P
@@ -615,6 +642,7 @@ cybercore:
 	ProductionBar@1:
 		ProductionType: Cybercore.P
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	IsometricSelectable:
 		DecorationHeight: 60
 	RenderSprites:
@@ -626,6 +654,7 @@ twilightcouncil:
 	Inherits@pylon: ^RequiresPylonPower
 	Inherits@warp: ^WarpedInBuilding
 	Inherits@pal: ^EABuildingSet1
+	Inherits@contam: ^Contaminable
 	Tooltip:
 		Name: Internet Cafe
 	Health:
@@ -643,7 +672,7 @@ twilightcouncil:
 		Dimensions: 3,2
 	Production@1:
 		Produces: Council.P
-		PauseOnCondition: !pylonpower
+		PauseOnCondition: !pylonpower || slimed
 		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Council.P
@@ -657,6 +686,7 @@ twilightcouncil:
 	ProductionBar@1:
 		ProductionType: Council.P
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	WithIdleOverlay@spin:
 		Sequence: idle-logo
 		PauseOnCondition: !pylonpower
@@ -676,6 +706,7 @@ templararchives:
 	Inherits@pylon: ^RequiresPylonPower
 	Inherits@warp: ^WarpedInBuilding
 	Inherits@pal: ^EABuildingSet1
+	Inherits@contam: ^Contaminable
 	Tooltip:
 		Name: Rationality Center
 	Health:
@@ -693,7 +724,7 @@ templararchives:
 		Dimensions: 2,3
 	Production@1:
 		Produces: Archives.P
-		PauseOnCondition: !pylonpower
+		PauseOnCondition: !pylonpower || slimed
 		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Archives.P
@@ -707,6 +738,7 @@ templararchives:
 	ProductionBar@1:
 		ProductionType: Archives.P
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	IsometricSelectable:
 		DecorationHeight: 105
 	WithIdleOverlay@lights:
@@ -727,6 +759,7 @@ darkshrine:
 	Inherits@pylon: ^RequiresPylonPower
 	Inherits@warp: ^WarpedInBuilding
 	Inherits@pal: ^EABuildingSet2
+	Inherits@contam: ^Contaminable
 	Tooltip:
 		Name: Tactical Ops Center
 	Health:
@@ -744,7 +777,7 @@ darkshrine:
 		Dimensions: 3,3
 	Production@1:
 		Produces: Shrine.P
-		PauseOnCondition: !pylonpower
+		PauseOnCondition: !pylonpower || slimed
 		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Shrine.P
@@ -758,6 +791,7 @@ darkshrine:
 	ProductionBar@1:
 		ProductionType: Shrine.P
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	WithIdleOverlay@lights:
 		Sequence: idle-lights
 		RequiresCondition: !build-incomplete
@@ -782,6 +816,7 @@ robobay:
 	Inherits@shape: ^2x2Shape
 	Inherits@pylon: ^RequiresPylonPower
 	Inherits@warp: ^WarpedInBuilding
+	Inherits@contam: ^Contaminable
 	Tooltip:
 		Name: Tech Center
 	Health:
@@ -799,7 +834,7 @@ robobay:
 		Dimensions: 2,2
 	Production@1:
 		Produces: Robobay.P
-		PauseOnCondition: !pylonpower
+		PauseOnCondition: !pylonpower || slimed
 		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Robobay.P
@@ -813,6 +848,7 @@ robobay:
 	ProductionBar@1:
 		ProductionType: Robobay.P
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	IsometricSelectable:
 		DecorationHeight: 40
 	RenderSprites:
@@ -824,6 +860,7 @@ fleetbeacon:
 	Inherits@pylon: ^RequiresPylonPower
 	Inherits@warp: ^WarpedInBuilding
 	Inherits@pal: ^EABuildingSet1
+	Inherits@contam: ^Contaminable
 	Tooltip:
 		Name: Radar Tower
 	Health:
@@ -841,7 +878,7 @@ fleetbeacon:
 		Dimensions: 3,3
 	Production@1:
 		Produces: Beacon.P
-		PauseOnCondition: !pylonpower
+		PauseOnCondition: !pylonpower || slimed
 		RequiresCondition: !build-incomplete
 	ProductionQueue@1:
 		Type: Beacon.P
@@ -855,6 +892,7 @@ fleetbeacon:
 	ProductionBar@1:
 		ProductionType: Beacon.P
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	WithIdleOverlay@lights:
 		Sequence: idle-lights
 		RequiresCondition: !build-incomplete
@@ -949,6 +987,8 @@ photoncannon:
 	AttackTurreted:
 		PauseOnCondition: !pylonpower
 		RequiresCondition: !build-incomplete
+	DetectCloaked:
+		RequiresCondition: !build-incomplete
 	BodyOrientation:
 		QuantizedFacings: 32
 	IsometricSelectable:
@@ -998,7 +1038,7 @@ zealot:
 		CooldownTicks: 900
 		Voice: Attack
 		StartsFullyCharged: true
-		RequiresCondition: cancharge && !disabled
+		RequiresCondition: cancharge && !attackdisabled
 	Voiced:
 		VoiceSet: CivilianAlliedMaleVoice
 	RenderSprites:
@@ -1184,7 +1224,7 @@ hightemplar:
 		Condition: canstorm
 		Prerequisites: upgrade.psistorm
 	Voiced:
-		VoiceSet: SammyVoice
+		VoiceSet: SniperVoice
 	RenderSprites:
 		Image: ht
 
@@ -1275,7 +1315,7 @@ dragoon:
 	WithMuzzleOverlay:
 	AttackTurreted:
 		Voice: Attack
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: dragoon.cannon
 		LocalOffset: 800,0,832
@@ -1319,7 +1359,7 @@ stalker:
 	WithMuzzleOverlay:
 	AttackFrontal:
 		Voice: Attack
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: stalker.disruptor
 		LocalOffset: 301,61,421, 301,-61,421
@@ -1364,7 +1404,7 @@ sentry:
 		Queue: Infantry.P
 		Prerequisites: cybercore
 		BuildPaletteOrder: 20
-		Description: Autonomous support vehicle.\nCan create barriers to impede enemy movement.\nCan shield friendly units via deploy (TBD)
+		Description: Autonomous support vehicle.\nCan create barriers to impede enemy movement.\nCan shield friendly units via deploy
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
@@ -1385,7 +1425,7 @@ sentry:
 	AttackTurreted:
 		Armaments: primary, secondary
 		Voice: Attack
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		LocalOffset: 640,0,640
 		Weapon: sentry.beam
@@ -1413,7 +1453,7 @@ sentry:
 		StartsFullyCharged: true
 		ChargingColor: 33CCFF
 		DischargingColor: 33CCFF
-		RequiresCondition: !disabled
+		RequiresCondition: !attackdisabled
 	ExplodeWeapon@shield:
 		Weapon: sentry.shielder
 		AmmoPoolName: primary
@@ -1425,11 +1465,8 @@ sentry:
 	AmmoPool:
 		Armaments: secondary
 	ReloadAmmoPool:
-		Delay: 120
-		ResetOnFire: false
-		RequiresCondition: energy < 4
 	Voiced:
-		VoiceSet: RobotTankVoice
+		VoiceSet: AlliesEngineerVoice
 	RenderSprites:
 		Image: sentry
 	RenderVoxels:
@@ -1500,7 +1537,7 @@ immortal:
 	WithMuzzleOverlay:
 	AttackTurreted:
 		Voice: Attack
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: immortal.disruptor
 		LocalOffset: 896,0,704
@@ -1550,7 +1587,7 @@ colossus:
 		TurnSpeed: 50
 	AttackTurreted:
 		Voice: Attack
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: colossus.lance1
 		LocalOffset: 832,400,512
@@ -1600,7 +1637,7 @@ archon:
 	WithMuzzleOverlay:
 	AttackTurreted:
 		Voice: Attack
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: archon.shockwave
 		LocalOffset: 896,400,704, 896,-400,704
@@ -1657,7 +1694,7 @@ darkarchon:
 	WithMuzzleOverlay:
 	AttackTurreted:
 		Voice: Attack
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: immortal.disruptor
 		LocalOffset: 896,0,704
@@ -1708,15 +1745,16 @@ disruptor:
 		TurnSpeed: 50
 	AttackTurreted:
 		Voice: Attack
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: disruptor.launch
 		Name: primary
 		ForceTargetRelationships: Enemy
+		ReloadingCondition: attacking
 	ReaverMaster:
 		Actors: disruptor.nova
 		RespawnTicks: 120
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Targetable@novaimmune:
 		TargetTypes: Disruptor
 	RenderSprites:
@@ -1871,13 +1909,13 @@ oracle:
 		FacingTolerance: 20
 		AttackType: Hover
 		Armaments: primary, ward
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	GrantTimedConditionOnDeploy:
 		DeployedCondition: warding
 		DeployedTicks: 2
 		CooldownTicks: 0
 		Voice: Attack
-		RequiresCondition: !disabled
+		RequiresCondition: !attackdisabled
 	AmmoPool:
 		Armaments: primary
 	ReloadAmmoPool:
@@ -1993,7 +2031,7 @@ phoenix:
 		Voice: Attack
 		FacingTolerance: 20
 		AttackType: Hover
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.light
 	RevealsShroud:
@@ -2003,7 +2041,7 @@ phoenix:
 	RenderVoxels:
 		Scale: 1
 	Voiced:
-		VoiceSet: RobotTankVoice
+		VoiceSet: AegisVoice
 
 voidray:
 	Inherits: ^Helicopter
@@ -2046,7 +2084,7 @@ voidray:
 		Voice: Attack
 		FacingTolerance: 20
 		AttackType: Hover
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.heavy
 	RevealsShroud:
@@ -2057,7 +2095,7 @@ voidray:
 		CooldownTicks: 1000
 		Voice: Attack
 		StartsFullyCharged: true
-		RequiresCondition: !disabled
+		RequiresCondition: !attackdisabled
 	SpeedMultiplier@aligned:
 		Modifier: 75
 		RequiresCondition: aligned
@@ -2066,7 +2104,7 @@ voidray:
 	RenderVoxels:
 		Scale: 13
 	Voiced:
-		VoiceSet: NighthawkVoice
+		VoiceSet: CivilianTexanVoice
 
 tempest:
 	Inherits: ^Helicopter
@@ -2103,7 +2141,7 @@ tempest:
 		Voice: Attack
 		FacingTolerance: 20
 		AttackType: Hover
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.heavy
 	WithVoxelHelicopterBody:
@@ -2149,7 +2187,7 @@ carrier:
 		Voice: Attack
 		FacingTolerance: 20
 		AttackType: Hover
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	CarrierMaster:
 		Actors: interceptor, interceptor, interceptor, interceptor
 		RespawnTicks: 150
@@ -2192,7 +2230,7 @@ interceptor:
 	AttackAircraft:
 		Voice: Attack
 		FacingTolerance: 20
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.light
 	CarrierSlave:
@@ -2255,6 +2293,7 @@ warpprism:
 		DeployedCondition: warping
 		UndeployOnMove: true
 		Voice: Move
+		RequiresCondition: !attackdisabled && !mobiledisabled
 	SpeedMultiplier@warping:
 		Modifier: 0
 		RequiresCondition: warping
@@ -2303,7 +2342,7 @@ mothership:
 		Voice: Attack
 		FacingTolerance: 20
 		AttackType: Hover
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.heavy
 	WithVoxelBody:

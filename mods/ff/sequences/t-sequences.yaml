@@ -110,6 +110,13 @@ missileturret:
 		Offset: 0,0
 		UseTilesetCode: false
 
+autoturret:
+	Inherits: camtur
+	Inherits@MUZZLE: ^WithCannonMuzzle
+	icon: plticon
+		Offset: 0,0
+		UseTilesetCode: false
+
 marine:
 	Inherits: ggi
 	Defaults: ggi

@@ -176,3 +176,7 @@ corruptor:
 
 viper:
 	idle: blight
+
+infestor:
+	idle: tele
+	turret: teletur

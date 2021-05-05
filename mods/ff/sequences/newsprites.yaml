@@ -1211,3 +1211,22 @@ sidewinder:
 	cheer:
 		Start: 196
 	icon: gdgiicon
+
+camtur:
+	Inherits: ^Structure
+	Defaults:
+		Offset: -2,-15
+	idle: cgmtur
+		ShadowStart: 3
+	damaged-idle: cgmtur
+		Start: 2
+		ShadowStart: 4
+	turret: cgmtur_t
+		Facings: 32
+		ShadowStart: 32
+	damaged-turret: cgmtur_td
+		Facings: 32
+		ShadowStart: 32
+	make: cgmturmk
+		Length: 21
+		ShadowStart: 21

@@ -26,6 +26,9 @@ Player:
 		QueuedAudio: Building
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
+		PowerLimitedAudio: LowPower
+		RequiresSufficientPower: true
+		InstantCashDrain: true
 	ExternalCondition@larva:
 		Condition: larva
 		SourceCap: 1

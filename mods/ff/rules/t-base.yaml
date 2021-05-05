@@ -74,6 +74,7 @@ builder.t:
 		QueuedAudio: Building
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
+		InstantCashDrain: true
 	ProductionBar@Building:
 		ProductionType: Building.T
 	BaseProvider:
@@ -106,6 +107,7 @@ builder.t:
 	AttackTurreted:
 		Armaments: primary, building, build
 		Voice: Move
+		PauseOnCondition: attackdisabled
 	WithHarvestOverlay:
 		LocalOffset: 121,0,0
 		Palette: effect
@@ -143,6 +145,7 @@ builder.t.bot:
 commandcenter:
 	Inherits: ^BaseBuilding
 	Inherits@shape: ^4x4Shape
+	Inherits@power: ^DisableOnLowPowerOrContaminate
 	Inherits@build: ^SCVBuildable
 	Tooltip:
 		Name: Command Center
@@ -160,10 +163,11 @@ commandcenter:
 		Dimensions: 4,4
 	Power:
 		Amount: 15
-	Production@Probes:
+	Production@1:
 		Produces: Worker.T
+		PauseOnCondition: disabled
 		RequiresCondition: build-complete
-	ProductionQueue@Probes:
+	ProductionQueue@1:
 		Type: Worker.T
 		Group: Vehicle
 		LowPowerModifier: 200
@@ -173,9 +177,13 @@ commandcenter:
 		QueuedAudio: Building
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
-	ProductionBar@Probes:
+		PowerLimitedAudio: LowPower
+		RequiresSufficientPower: true
+		InstantCashDrain: true
+	ProductionBar@1:
 		ProductionType: Worker.T
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: build-complete
 	Exit@1:
 		ExitCell: 3,3
 	LaysMinefield:
@@ -205,22 +213,40 @@ cc.dock:
 ^addon.t:
 	Buildable:
 		Prerequisites: ~disabled
-	RequiresBuildableArea:
-		AreaTypes: addon
-		Adjacent: 1
-	ProximityExternalCondition:
-		Range: 2c0
+	Turreted:
+	AutoTarget:
+		ScanRadius: 3
+		InitialStance: AttackAnything
+		EnableStances: false
+		RequiresCondition: !active
+	AutoTargetPriority:
+		ValidTargets: addonable
+		InvalidTargets: addoned
+		ValidRelationships: Ally
+		RequiresCondition: !active
+	AttackTurreted: #Allow manually toggle addons
+		RequiresCondition: !cooldown
+	Armament:
+		Weapon: addon.targeting
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
+		RequiresCondition: !active
+	GrantConditionOnAttack:
+		Condition: cooldown
+		RevokeDelay: 10
+	Addon:
+		ControllingCondition: active
 
 ^addonable.t:
-	GivesBuildableArea:
-		AreaTypes: addon
-		RequiresCondition: !reactor && !techlab
-	ExternalCondition@Reactor:
-		Condition: reactor
-		TotalCap: 1
-	ExternalCondition@Techlab:
-		Condition: techlab
-		TotalCap: 1
+	Targetable@Addon:
+		TargetTypes: addonable
+	Targetable@Addoned:
+		TargetTypes: addoned
+		RequiresCondition: reactor || techlab
+	Addonable:
+		Conditions:
+			reactor: reactor
+			techlab: techlab
 	WithTextDecoration@Reactor:
 		Text: Reactor
 		UsePlayerColor: true
@@ -248,7 +274,6 @@ cc.dock:
 
 reactor:
 	Inherits: ^BaseBuilding
-	Inherits@build: ^SCVBuildable
 	Inherits@addon: ^addon.t
 	Tooltip:
 		Name: Oversight tower
@@ -287,7 +312,6 @@ reactor:
 
 techlab:
 	Inherits: ^BaseBuilding
-	Inherits@build: ^SCVBuildable
 	Inherits@addon: ^addon.t
 	Tooltip:
 		Name: Research funding bait gimmick
@@ -301,8 +325,6 @@ techlab:
 		Queue: Building.T
 		Description: Unlocks technologies and upgrades.
 	ProvidesPrerequisite@buildingname:
-	ProximityExternalCondition:
-		Condition: techlab
 	IsometricSelectable:
 		DecorationHeight: 75
 	RenderSprites:
@@ -338,7 +360,7 @@ supplydepot:
 barracks:
 	Inherits: ^BaseBuilding
 	Inherits@shape: ^3x2Shape
-	Inherits@power: ^DisableOnLowPower
+	Inherits@power: ^DisableOnLowPowerOrContaminate
 	Inherits@build: ^SCVBuildable
 	# Inherits@addon: ^addonable.t
 	Tooltip:
@@ -384,6 +406,9 @@ barracks:
 		QueuedAudio: Training
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
+		PowerLimitedAudio: LowPower
+		RequiresSufficientPower: true
+		InstantCashDrain: true
 	ProductionBar@1:
 		ProductionType: Infantry.T
 	RallyPoint:
@@ -396,6 +421,7 @@ barracks:
 		Sequence: idle-active
 		RequiresCondition: !build-incomplete
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: build-complete
 	# ProvidesPrerequisite@Reactor:
 	# 	Prerequisite: reactor.barracks
 	# ProvidesPrerequisite@Techlab:
@@ -412,7 +438,7 @@ barracks:
 factory:
 	Inherits: ^BaseBuilding
 	Inherits@shape: ^5x3Shape
-	Inherits@power: ^DisableOnLowPower
+	Inherits@power: ^DisableOnLowPowerOrContaminate
 	Inherits@build: ^SCVBuildable
 	# Inherits@addon: ^addonable.t
 	Tooltip:
@@ -446,6 +472,9 @@ factory:
 		QueuedAudio: Training
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
+		PowerLimitedAudio: LowPower
+		RequiresSufficientPower: true
+		InstantCashDrain: true
 	ProductionBar@1:
 		ProductionType: Vehicle.T
 	RallyPoint:
@@ -461,6 +490,7 @@ factory:
 		Sequence: bib
 		RequiresCondition: !build-incomplete
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: build-complete
 	# ProvidesPrerequisite@Reactor:
 	# 	Prerequisite: reactor.factory
 	# Production@Techlab:
@@ -477,7 +507,7 @@ factory:
 starport:
 	Inherits: ^BaseBuilding
 	Inherits@shape: ^3x3Shape
-	Inherits@power: ^DisableOnLowPower
+	Inherits@power: ^DisableOnLowPowerOrContaminate
 	Inherits@build: ^SCVBuildable
 	# Inherits@addon: ^addonable.t
 	Tooltip:
@@ -511,6 +541,9 @@ starport:
 		QueuedAudio: Training
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
+		PowerLimitedAudio: LowPower
+		RequiresSufficientPower: true
+		InstantCashDrain: true
 	ProductionBar@1:
 		ProductionType: Air.T
 	RallyPoint:
@@ -531,6 +564,7 @@ starport:
 		Sequence: idle-bottom
 		RequiresCondition: !build-incomplete
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: build-complete
 	# ProvidesPrerequisite@Reactor:
 	# 	Prerequisite: reactor.starport
 	# ProvidesPrerequisite@Techlab:
@@ -548,6 +582,7 @@ academy:
 	Inherits: ^BaseBuilding
 	Inherits@shape: ^3x3Shape
 	Inherits@build: ^SCVBuildable
+	Inherits@contam: ^Contaminable
 	Tooltip:
 		Name: Field command post
 	Health:
@@ -565,6 +600,7 @@ academy:
 		Dimensions: 3,3
 	Production@1:
 		Produces: Academy.T
+		PauseOnCondition: slimed
 		RequiresCondition: build-complete
 	ProductionQueue@1:
 		Type: Academy.T
@@ -587,8 +623,10 @@ academy:
 		RequiresCondition: !build-incomplete
 		PauseOnCondition: disabled
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: build-complete
 	GrantExternalConditionToOwner:
 		Condition: hasacademy
+		RequiresCondition: build-complete
 	NukePower@GhostNuke:
 		Prerequisites: ~disabled
 		OrderName: Nuke.T
@@ -638,6 +676,7 @@ engibay:
 	Inherits: ^BaseBuilding
 	Inherits@shape: ^3x3Shape
 	Inherits@build: ^SCVBuildable
+	Inherits@contam: ^Contaminable
 	Tooltip:
 		Name: Kit yard
 	Health:
@@ -657,6 +696,7 @@ engibay:
 		ExitCell: 4,1
 	Production@1:
 		Produces: Engibay.T
+		PauseOnCondition: slimed
 		RequiresCondition: build-complete
 	ProductionQueue@1:
 		Type: Engibay.T
@@ -685,6 +725,7 @@ engibay:
 		RequiresCondition: !build-incomplete
 		#PauseOnCondition: disabled
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: build-complete
 	IsometricSelectable:
 		DecorationHeight: 70
 	RenderSprites:
@@ -694,6 +735,7 @@ armory:
 	Inherits: ^BaseBuilding
 	Inherits@shape: ^5x3Shape
 	Inherits@build: ^SCVBuildable
+	Inherits@contam: ^Contaminable
 	Tooltip:
 		Name: Scrap yard
 	Health:
@@ -713,6 +755,7 @@ armory:
 		ExitCell: 4,1
 	Production@1:
 		Produces: Armory.T
+		PauseOnCondition: slimed
 		RequiresCondition: build-complete
 	ProductionQueue@1:
 		Type: Armory.T
@@ -748,6 +791,7 @@ armory:
 		Sequence: build-side
 		RequiresCondition: !build-incomplete
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: build-complete
 	IsometricSelectable:
 		DecorationHeight: 90
 	RenderSprites:
@@ -777,6 +821,7 @@ fusioncore:
 		RequiresCondition: !build-incomplete
 		#PauseOnCondition: disabled
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: build-complete
 	IsometricSelectable:
 		DecorationHeight: 80
 	RenderSprites:
@@ -839,6 +884,7 @@ sciencefacility:
 		Sequence: idle-top
 		RequiresCondition: !build-incomplete
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: build-complete
 	IsometricSelectable:
 		DecorationHeight: 100
 	RenderSprites:
@@ -950,7 +996,7 @@ missileturret:
 	Tooltip:
 		Name: Improvised SAM
 	Health:
-		HP: 100
+		HP: 250
 	Armor:
 		Type: building.steel
 	Valued:
@@ -970,6 +1016,8 @@ missileturret:
 	RenderRangeCircle:
 	AttackTurreted:
 		PauseOnCondition: disabled
+		RequiresCondition: build-complete
+	DetectCloaked:
 		RequiresCondition: build-complete
 	BodyOrientation:
 		QuantizedFacings: 32
@@ -1151,7 +1199,7 @@ reaper:
 		StartIfBelow: 150
 		DamageCooldown: 175
 	Voiced:
-		VoiceSet: CosmonautVoice
+		VoiceSet: EinsteinVoice
 	RenderSprites:
 		Image: reaper
 
@@ -1264,6 +1312,9 @@ ghost:
 
 ghost2:
 	Inherits: ghost
+	AutoTarget: # TODO
+		HoldFireCondition: cantnuke
+		ReturnFireCondition: cantnuke
 	AutoTargetPriority@DEFAULT:
 		RequiresCondition: (!stance-attackanything && !assault-move) && !nuking
 	AutoTargetPriority@ATTACKANYTHING:
@@ -1282,6 +1333,7 @@ ghost2:
 		Armaments: primary, lockdown, nuketarget, nukeimpact
 		ForceFireIgnoresActors: false
 		Voice: Attack
+		PauseOnCondition: attackdisabled
 		RequiresCondition: !nukecooldown
 	Armament@Nuke:
 		Weapon: ghost.nukespawner
@@ -1311,35 +1363,20 @@ ghost2:
 		ArrowSequence: arrow
 		CameraRange: 10
 		TargetCircleRange: 8
+		PauseOnCondition: cantnuke
 		RequiresCondition: hasnuke && !nuking && !nukefiring
 		AllowMultiple: false
 
 ghost.nukedummy:
-	Inherits@1: ^SpriteActor
-	Selectable:
+	Inherits@1: ^EffectActor
 	BodyOrientation:
 		QuantizedFacings: 1
 	-QuantizeFacingsFromSequence:
-	WithSpriteBody:
-	HiddenUnderFog:
 	Tooltip:
 		Name: Nuke Target
 	RevealsShroud:
 		Range: 1c0
-	Health:
-		HP: 50
-		NotifyAppliedDamage: false
-	Aircraft:
-		CruiseAltitude: 1
-		Speed: 1
-		CanHover: true
-		VTOL: true
-		RequiresCondition: !dontmove
-		LandableTerrainTypes: Clear, Rough, Road, DirtRoad, Ore, Gems
-	GrantCondition:
-		Condition: dontmove
-	RejectsOrders:
-	HitShape:
+		Type: CenterPosition
 	Targetable:
 		TargetTypes: NukeTarget
 	KillsSelf:
@@ -1381,6 +1418,7 @@ vulture:
 	WithMuzzleOverlay:
 	AttackFrontal:
 		Voice: Attack
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: vulture.grenade
 		LocalOffset: 768,0,512
@@ -1502,6 +1540,7 @@ widowmine:
 		Type: vehicle.light
 	AttackTurreted:
 		Voice: Attack
+		PauseOnCondition: attackdisabled
 		RequiresCondition: deployed
 	Armament@primary:
 		Weapon: widowmine.missile
@@ -1521,12 +1560,12 @@ widowmine:
 	GrantConditionOnDeploy:
 		DeployedCondition: deployed
 		UndeployedCondition: undeployed
-		Voice: Move #Deploy
+		Voice: Attack
 		CanDeployOnRamps: True
 		SmartDeploy: True
 		Facing: 384
 		UndeployOnMove: true
-		RequiresCondition: !disabled
+		RequiresCondition: !attackdisabled && !mobiledisabled
 		DeploySounds: iggidepa.wav
 		UndeploySounds: igidepa.wav, igidepb.wav
 	TakeCover:
@@ -1534,7 +1573,7 @@ widowmine:
 	Cloak:
 		RequiresCondition: deployed && !reloading
 	Voiced:
-		VoiceSet: CivilianSovietMaleVoice
+		VoiceSet: ArnieVoice
 	# render on editor hack
 	GrantCondition:
 		Condition: editorhack
@@ -1577,6 +1616,7 @@ t55:
 	WithMuzzleOverlay:
 	AttackTurreted:
 		Voice: Attack
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: immortal.disruptor
 		LocalOffset: 768,0,512
@@ -1632,6 +1672,7 @@ siegetank:
 	AttackTurreted:
 		Turrets: primary, secondary
 		Voice: Attack
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: siegetank.cannon
 		LocalOffset: 768,0,512
@@ -1647,6 +1688,7 @@ siegetank:
 		DeployedCondition: deployed
 		Voice: Move
 		UndeployOnMove: true
+		RequiresCondition: !mobiledisabled && !attackdisabled
 	RenderSprites:
 	RenderVoxels:
 		Scale: 9
@@ -1694,6 +1736,7 @@ cyclone:
 	WithMuzzleOverlay:
 	AttackTurreted:
 		Voice: Attack
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: cyclone.missile
 		LocalOffset: 768,0,512
@@ -1758,6 +1801,7 @@ goliath:
 	WithMuzzleOverlay:
 	AttackTurreted:
 		Voice: Attack
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: goliath.autocannon
 		LocalOffset: 768,0,512
@@ -1806,6 +1850,7 @@ thor:
 	WithMuzzleOverlay:
 	AttackTurreted:
 		Voice: Attack
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: thor.hammer
 		LocalOffset: 768,-400,512, 768,400,512
@@ -1867,6 +1912,7 @@ hellion:
 		TurnSpeed: 50
 	AttackFrontal:
 		Voice: Attack
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: hellion.flamer
 		LocalOffset: 125,-400,512
@@ -1949,6 +1995,7 @@ medivac:
 		Voice: Move
 		FacingTolerance: 20
 		AttackType: Hover
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.heavy
 	Cargo:
@@ -1996,6 +2043,7 @@ viking:
 		Voice: Attack
 		FacingTolerance: 20
 		AttackType: Hover
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.heavy
 	Transforms:
@@ -2006,7 +2054,7 @@ viking:
 	RenderVoxels:
 		Scale: 1
 	Voiced:
-		VoiceSet: TerrorDroneVoice
+		VoiceSet: CosmonautVoice
 
 viking.assault:
 	Inherits: ^VoxelVehicle
@@ -2046,12 +2094,14 @@ viking.assault:
 		TurnSpeed: 50
 	AttackTurreted:
 		Voice: Attack
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		LocalOffset: 640,400,640, 640,-400,640
 		Weapon: viking.cannon
 	Transforms:
 		IntoActor: viking
 		Voice: Move
+		PauseOnCondition: mobiledisabled
 	RenderSprites:
 		Image: viking
 	RenderVoxels:
@@ -2059,7 +2109,7 @@ viking.assault:
 		Scale: 1
 	WithVoxelBody:
 	Voiced:
-		VoiceSet: TerrorDroneVoice
+		VoiceSet: CosmonautVoice
 
 banshee:
 	Inherits: ^Helicopter
@@ -2097,6 +2147,7 @@ banshee:
 		Voice: Attack
 		FacingTolerance: 20
 		AttackType: Hover
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.light
 	WithVoxelBody:
@@ -2145,6 +2196,7 @@ wraith:
 	AttackAircraft:
 		Voice: Attack
 		FacingTolerance: 20
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.heavy
 	WithVoxelBody:
@@ -2153,7 +2205,7 @@ wraith:
 		Scale: 1
 		NormalsPalette: ts-normals
 	Voiced:
-		VoiceSet: SiegeChopperVoice
+		VoiceSet: RomanovVoice
 
 valkyrie:
 	Inherits: ^Helicopter
@@ -2187,6 +2239,7 @@ valkyrie:
 	AttackAircraft:
 		Voice: Attack
 		FacingTolerance: 20
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.heavy
 	WithVoxelBody:
@@ -2207,10 +2260,6 @@ liberator:
 		RequiresCondition: deployed
 		ValidTargets: Infantry, Vehicle, Water, Underwater
 		InvalidTargets: NoAutoTarget
-	#AutoTargetPriority@ATTACKANYTHING_DEPLOYED:
-	#	RequiresCondition: stance-attackanything && deployed
-	#	ValidTargets: Infantry, Vehicle, Water, Underwater
-	#	InvalidTargets: NoAutoTarget
 	Tooltip:
 		Name: Even bigger UAV
 	Selectable:
@@ -2245,15 +2294,16 @@ liberator:
 		MuzzleSequence: muzzle
 	WithMuzzleOverlay:
 	AttackAircraft:
-		Voice: Attack
+		Voice: DeployedAttack
 		FacingTolerance: 20
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.heavy
 	GrantConditionOnDeploy:
 		DeployedCondition: deployed
 		UndeployOnMove: true
 		CanDeployOnRamps: true
-		Voice: Move
+		Voice: Deploy
 	SpeedMultiplier@deployed:
 		Modifier: 0
 		RequiresCondition: deployed
@@ -2262,7 +2312,7 @@ liberator:
 	RenderVoxels:
 		Scale: 1
 	Voiced:
-		VoiceSet: CivilianSovietFemaleVoice
+		VoiceSet: SiegeChopperVoice
 
 battlecruiser:
 	Inherits: ^Helicopter
@@ -2304,6 +2354,7 @@ battlecruiser:
 	AttackAircraft:
 		Voice: Attack
 		FacingTolerance: 20
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.heavy
 	WithVoxelHelicopterBody:
@@ -2347,6 +2398,7 @@ gorgon:
 	AttackAircraft:
 		Voice: Attack
 		FacingTolerance: 20
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.heavy
 	WithVoxelHelicopterBody:
@@ -2362,6 +2414,8 @@ raven:
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@VOXEL: ^VoxelActor
+	Inherits@DETECT: ^GenericDetector
+	Inherits@ENERGY: ^EnergyPoolEffects
 	Tooltip:
 		Name: Mini-Hind
 	Selectable:
@@ -2369,12 +2423,11 @@ raven:
 	Health:
 		HP: 280
 	Valued:
-		Cost: 250
+		Cost: 300
 	Buildable:
 		Queue: Air.T
-		Prerequisites: ~disabled #lab.starport
 		BuildPaletteOrder: 20
-		Description: TBD
+		Description: Multi-purpose aircraft.\n Can force-fire to create a turret
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
@@ -2387,10 +2440,28 @@ raven:
 		Range: 11c0
 	Armament@primary:
 		LocalOffset: 640,-400,640, 640,400,640
-		Weapon: banshee.rockets
+		Weapon: raven.matrix
+		RequiresCondition: !missilemode && energy >= 3
+		AmmoUsage: 3
+	Armament@secondary:
+		LocalOffset: 640,-400,640, 640,400,640
+		Weapon: raven.aamissile
+		RequiresCondition: missilemode && energy >= 3
+		AmmoUsage: 3
+	Armament@autoturret:
+		Weapon: raven.turretspawn
+		RequiresCondition: !missilemode && energy >= 2
+		TargetRelationships: None
 	AttackAircraft:
 		Voice: Attack
 		FacingTolerance: 20
+		PauseOnCondition: attackdisabled
+	GrantConditionOnDeploy:
+		DeployedCondition: missilemode
+		CanDeployOnRamps: true
+		Voice: Move
+		SkipMakeAnimation: true
+		RequiresCondition: !attackdisabled && !mobiledisabled
 	Armor:
 		Type: air.heavy
 	WithVoxelHelicopterBody:
@@ -2399,6 +2470,47 @@ raven:
 		#Scale: 1
 	Voiced:
 		VoiceSet: TeslaTankVoice
+
+raven.autoturret:
+	Inherits: ^SupportBuilding
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@DETECT: ^GenericDetector
+	Tooltip:
+		Name: Sentry Gun
+	Health:
+		HP: 300
+	Armor:
+		Type: building.steel
+	Valued:
+		Cost: 0
+	Buildable:
+		Queue: Building.T
+		Prerequisites: ~disabled
+		Description: Defense structure.
+	WithSpriteBody:
+	WithSpriteTurret:
+		RequiresCondition: !build-incomplete
+	Turreted:
+		TurnSpeed: 64
+	Armament:
+		Weapon: autoturret.gun
+		LocalOffset: 500,200,900, 500,-200,900
+	RenderRangeCircle:
+	AttackTurreted:
+		PauseOnCondition: disabled
+		RequiresCondition: !build-incomplete
+	WithMuzzleOverlay:
+	KillsSelf:
+		Delay: 250
+		DamageTypes: BulletDeath
+		RequiresCondition: !chronodisable
+	-UpdatesPlayerStatistics:
+	BodyOrientation:
+		QuantizedFacings: 32
+	IsometricSelectable:
+		DecorationHeight: 30
+	RenderSprites:
+		Image: autoturret
 
 sciencevessel:
 	Inherits: ^Helicopter
@@ -2434,6 +2546,7 @@ sciencevessel:
 	AttackAircraft:
 		Voice: Attack
 		FacingTolerance: 20
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.heavy
 	WithVoxelHelicopterBody:

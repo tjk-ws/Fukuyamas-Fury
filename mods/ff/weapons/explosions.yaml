@@ -62,8 +62,6 @@ UnitExplode:
 UnitExplodeAir:
 	Inherits: UnitExplode
 	Warhead@1Eff: CreateEffect
-		Explosions: medium_tumu, medium_twlt
-		ExplosionPalette: tseffect
 	Warhead@DebrisSpawn: FireShrapnel
 		Weapon: LargeDebris
 

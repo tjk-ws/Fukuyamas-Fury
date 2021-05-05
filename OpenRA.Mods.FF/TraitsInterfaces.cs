@@ -40,4 +40,7 @@ namespace OpenRA.Mods.AS.Traits
 	{
 		void RemoveInfector(Actor self, bool kill, AttackInfo e = null);
 	}
+
+	//[ RequireExplicitImplementation]
+	// public interface IPerProducerProductionTimeModifierInfo : ITraitInfoInterface { int GetProductionTimeModifier(Actor prod, string queue); }
 }

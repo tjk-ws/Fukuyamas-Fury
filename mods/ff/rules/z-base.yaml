@@ -73,6 +73,7 @@
 		RemoveBuilder: true
 	Buildable:
 		Queue: Building.Z
+		BuildDuration: 0
 		Description: The actual building for debug
 	SpawnSurvivors:
 		Actors: builder.z
@@ -86,6 +87,7 @@ hatchery:
 	Inherits: ^structure.z
 	Inherits@shape: ^4x4Shape
 	Inherits@power: ^DisableOnLowPower
+	Inherits@contam: ^Contaminable
 	Tooltip:
 		Name: Scrapyard
 	Health:
@@ -130,6 +132,7 @@ hatchery:
 		SlaveDisposalOnKill: DoNothing
 		RespawnTicks: 275
 		InitialActorCount: 0
+		PauseOnCondition: slimed
 		RequiresCondition: !build-incomplete
 	MobSpawnerMaster@Inject:
 		Actors: hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva, hatchery.larva
@@ -140,7 +143,9 @@ hatchery:
 		SlaveDisposalOnKill: DoNothing
 		RespawnTicks: 1
 		RequiresCondition: inject && !build-incomplete
+		PauseOnCondition: slimed
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	ProvidesPrerequisite@lair:
 		Prerequisite: lair
 		RequiresCondition: lair
@@ -365,6 +370,7 @@ creeptumor:
 spawningpool:
 	Inherits: ^structure.z
 	Inherits@shape: ^2x3Shape
+	Inherits@contam: ^Contaminable
 	Tooltip:
 		Name: NEET concentration center
 	Buildable:
@@ -380,6 +386,7 @@ spawningpool:
 		Dimensions: 2,3
 	Production@1:
 		Produces: Pool.Z
+		PauseOnCondition: slimed
 	ProductionQueue@1:
 		Type: Pool.Z
 		Group: Support
@@ -392,6 +399,7 @@ spawningpool:
 	ProductionBar@1:
 		ProductionType: Pool.Z
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	IsometricSelectable:
 		DecorationHeight: 105
 
@@ -432,6 +440,7 @@ banelingnest:
 		Footprint: xx xx
 		Dimensions: 2,2
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	WithIdleOverlay@loaded:
 		Sequence: loaded
 		RequiresCondition: !build-incomplete
@@ -464,6 +473,7 @@ morph.banelingnest:
 evolutionchamber:
 	Inherits: ^structure.z
 	Inherits@shape: ^3x3Shape
+	Inherits@contam: ^Contaminable
 	Tooltip:
 		Name: Recycling center
 	Buildable:
@@ -479,6 +489,7 @@ evolutionchamber:
 		Dimensions: 3,3
 	Production@1:
 		Produces: Chamber.Z
+		PauseOnCondition: slimed
 	ProductionQueue@1:
 		Type: Chamber.Z
 		Group: Support
@@ -491,6 +502,7 @@ evolutionchamber:
 	ProductionBar@1:
 		ProductionType: Chamber.Z
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	WithProductionOverlay:
 		Sequence: grind
 	WithIdleOverlay@top:
@@ -522,6 +534,7 @@ morph.evochamber:
 hydraliskden:
 	Inherits: ^structure.z
 	Inherits@shape: ^2x2Shape
+	Inherits@contam: ^Contaminable
 	Tooltip:
 		Name: Remote control center
 	Buildable:
@@ -537,6 +550,7 @@ hydraliskden:
 		Dimensions: 2,2
 	Production@1:
 		Produces: Hydraden.Z
+		PauseOnCondition: slimed
 		RequiresCondition: !lurker
 	#TODO: Add lurker upgrade queue
 	ProductionQueue@1:
@@ -551,6 +565,7 @@ hydraliskden:
 	ProductionBar@1:
 		ProductionType: Hydraden.Z
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	ProvidesPrerequisite@lurker:
 		Prerequisite: lurkerden
 		RequiresCondition: lurker
@@ -600,6 +615,7 @@ roachwarren:
 		Footprint: xx xx
 		Dimensions: 2,2
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	IsometricSelectable:
 		DecorationHeight: 75
 
@@ -646,6 +662,7 @@ ultraliskcavern:
 		Sequence: bib
 		RequiresCondition: !build-incomplete
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	IsometricSelectable:
 		DecorationHeight: 75
 
@@ -686,6 +703,7 @@ infestationpit:
 		Footprint: xxx xxx
 		Dimensions: 3,2
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	WithIdleOverlay@lift:
 		Sequence: idle-lift
 		RequiresCondition: !build-incomplete
@@ -715,6 +733,7 @@ morph.infestationpit:
 spire:
 	Inherits: ^structure.z
 	Inherits@shape: ^3x2Shape
+	Inherits@contam: ^Contaminable
 	Tooltip:
 		Name: Landing Pads
 	Buildable:
@@ -730,6 +749,7 @@ spire:
 		Dimensions: 3,2
 	Production@1:
 		Produces: Spire.Z
+		PauseOnCondition: slimed
 		RequiresCondition: !greaterspire
 	ProductionQueue@1:
 		Type: Spire.Z
@@ -745,6 +765,7 @@ spire:
 		Condition: greaterspire
 		Actors: upgrade.greaterspire
 	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !build-incomplete
 	ProvidesPrerequisite@greaterspire:
 		Prerequisite: greaterspire
 		RequiresCondition: greaterspire
@@ -824,7 +845,6 @@ builder.z:
 	Inherits@2: ^Harvester
 	Inherits@3: ^BotBuilderWorker
 	Inherits@SELECTION_MODE: ^LowPrioritySelectionMode
-	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Inherits@HATCH: ^ProducedFromLarva
 	Selectable:
 		Class: builder.z
@@ -873,6 +893,7 @@ builder.z:
 		CancelledAudio: Cancelled
 		ItemLimit: 1
 		QueueLimit: 1
+		InstantCashDrain: true
 	ProductionBar@Building:
 		ProductionType: Building.Z
 	BaseProvider:
@@ -883,25 +904,6 @@ builder.z:
 	WithHarvestOverlay:
 		LocalOffset: 121,0,0
 		Palette: effect
-	AutoTargetPriority@Build:
-		ValidTargets: morphable
-		Priority: 2
-	AutoTarget:
-		ScanRadius: 4
-		InitialStance: AttackAnything
-	AttackFrontal:
-		Armaments: primary, morph
-	Armament@morph:
-		Weapon: drone.morph
-		Name: morph
-		TargetRelationships: Ally
-		ForceTargetRelationships: Ally
-	GrantConditionOnAttack@morph:
-		Condition: morphed
-		ArmamentNames: morph
-	KillsSelf@morph:
-		RequiresCondition: morphed
-		RemoveInstead: true
 	WithVoxelUnloadBody:
 	GrantConditionOnMovement@MoveStart:
 		Condition: moving
@@ -919,8 +921,6 @@ builder.z.bot:
 		-RequiresCondition:
 	ProductionQueue@Building:
 	ProductionBar@Building:
-	AutoTarget:
-		ScanRadius: 8
 	-MapEditorData:
 	-Harvester:
 	-WithHarvesterPipsDecoration:
@@ -981,6 +981,7 @@ overseer:
 	Inherits@VOXEL: ^VoxelActor
 	Inherits@HATCH: ^ProducedFromLarva
 	Inherits@DETECT: ^GenericDetector
+	Inherits@FB: ^EnergyPoolEffects
 	Tooltip:
 		Name: Hover Drone Mk. II
 	Selectable:
@@ -992,7 +993,7 @@ overseer:
 	Buildable:
 		BuildPaletteOrder: 20
 		Prerequisites: lair
-		Description: Provides supply.\nCan detect cloaked units\nCan deploy to provide additional vision
+		Description: Provides supply.\nCan detect cloaked units\nCan deploy to provide additional vision\nCan freeze targeted production structures
 	Power:
 		Amount: 8
 	Aircraft:
@@ -1002,13 +1003,13 @@ overseer:
 		RequireForceMoveCondition: deployed
 	RevealsShroud:
 		Range: 11c0
-	Armament@secondary:
-		Weapon: barrier.energyhack
-		Name: secondary
-		TargetRelationships: None
-		ForceTargetRelationships: None
+	Armament@primary:
+		Weapon: overseer.contaminate
+		RequiresCondition: energy >= 5
+		AmmoUsage: 5
 	AttackAircraft:
 		Voice: Attack
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.light
 	GrantConditionOnDeploy:
@@ -1097,12 +1098,13 @@ spinecrawler:
 		Turret: primary
 	AttackTurreted:
 		Voice: Attack
+		RequiresCondition: !build-incomplete
 	RenderRangeCircle:
 	Transforms:
 		IntoActor: spinecrawler.mobile
 		Voice: Move
 	Voiced:
-		VoiceSet: GatlingTankVoice
+		VoiceSet: YuriEngineerVoice
 
 morph.spinecrawler:
 	Inherits: ^MorphTarget
@@ -1152,8 +1154,9 @@ spinecrawler.mobile:
 	Transforms:
 		IntoActor: spinecrawler
 		Voice: Move
+		PauseOnCondition: mobiledisabled
 	Voiced:
-		VoiceSet: GatlingTankVoice
+		VoiceSet: YuriEngineerVoice
 
 sporecrawler:
 	Inherits@1: ^structure.z
@@ -1182,12 +1185,15 @@ sporecrawler:
 	WithMuzzleOverlay:
 	AttackTurreted:
 		Voice: Attack
+		RequiresCondition: !build-incomplete
+	DetectCloaked:
+		RequiresCondition: !build-incomplete
 	RenderRangeCircle:
 	Transforms:
 		IntoActor: sporecrawler.mobile
 		Voice: Move
 	Voiced:
-		VoiceSet: GatlingTankVoice
+		VoiceSet: YuriEngineerVoice
 	RenderSprites:
 		Image: sporecrawler
 
@@ -1242,8 +1248,9 @@ sporecrawler.mobile:
 	Transforms:
 		IntoActor: sporecrawler
 		Voice: Move
+		PauseOnCondition: mobiledisabled
 	Voiced:
-		VoiceSet: GatlingTankVoice
+		VoiceSet: YuriEngineerVoice
 
 zergling.build:
 	Inherits: ^addon
@@ -1381,7 +1388,7 @@ queen:
 	AttackTurreted:
 		Armaments: primary, inject
 		Voice: Attack
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: queen.talon
 		LocalOffset: 800,0,832
@@ -1445,7 +1452,7 @@ hydralisk:
 	WithMuzzleOverlay:
 	AttackFrontal:
 		Voice: Attack
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: hydralisk.spine
 		LocalOffset: 800,0,832
@@ -1492,7 +1499,7 @@ lurker:
 	WithMuzzleOverlay:
 	AttackTurreted:
 		Voice: Attack
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 		RequiresCondition: deployed
 	Armament@primary:
 		Weapon: lurker.spine
@@ -1505,7 +1512,7 @@ lurker:
 		CanDeployOnRamps: True
 		SmartDeploy: True
 		UndeployOnMove: true
-		RequiresCondition: !disabled
+		RequiresCondition: !mobiledisabled && !attackdisabled
 	Cloak:
 		CloakDelay: 25
 		RequiresCondition: deployed
@@ -1549,7 +1556,7 @@ roach:
 	WithMuzzleOverlay:
 	AttackFrontal:
 		Voice: Attack
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: roach.spit
 		LocalOffset: 800,0,832
@@ -1591,7 +1598,7 @@ ravager:
 		Type: vehicle.light
 	AttackFrontal:
 		Voice: Attack
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: ravager.plasma
 		LocalOffset: 800,0,832
@@ -1633,7 +1640,7 @@ ultralisk:
 	WithMuzzleOverlay:
 	AttackFrontal:
 		Voice: Attack
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: ultralisk.blade
 		LocalOffset: 800,0,832
@@ -1682,7 +1689,7 @@ swarmhost:
 	Turreted:
 	AttackTurreted:
 		Voice: Attack
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	Armament@primary:
 		Weapon: swarmhost.spawn
 		ForceTargetRelationships: Enemy
@@ -1715,20 +1722,20 @@ swarmhost.locust.air:
 		Voice: Attack
 		FacingTolerance: 128
 		AttackType: Hover
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	AutoTarget:
 		ScanRadius: 9
 		InitialStance: AttackAnything
 	GrantConditionOnAttack:
 		Condition: forceland
-		RequiresCondition: !disabled
+		RequiresCondition: !mobiledisabled
 	Transforms:
 		IntoActor: swarmhost.locust
 		Voice: Move
-		PauseOnCondition: disabled
+		PauseOnCondition: mobiledisabled
 	TransformOnCondition:
 		IntoActor: swarmhost.locust
-		RequiresCondition: forceland && !disabled
+		RequiresCondition: forceland && !mobiledisabled
 	Armor:
 		Type: air.light
 	RevealsShroud:
@@ -1795,6 +1802,56 @@ swarmhost.locust:
 	RenderSprites:
 		Image: locust
 
+infestor:
+	Inherits: ^VoxelVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@HATCH: ^ProducedFromLarva
+	Inherits@ENERGY: ^EnergyPoolEffects
+	Tooltip:
+		Name: Mobile Antenna
+	Selectable:
+		Bounds: 1544, 2509, 0, -289
+	Health:
+		HP: 180
+	Valued:
+		Cost: 250
+	Buildable:
+		BuildPaletteOrder: 120
+		Prerequisites: infestationpit
+		Description: Improvised electronic warfare vehicle.\n Force-fire to create protective shroud
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Power:
+		Amount: -2
+	Mobile:
+		Speed: 88
+		TurnSpeed: 32
+	RevealsShroud:
+		Range: 10c0
+	Armor:
+		Type: vehicle.light
+	Turreted:
+	AttackTurreted:
+		Voice: Attack
+		PauseOnCondition: attackdisabled
+	Armament@primary:
+		Weapon: infestor.fungal
+		RequiresCondition: energy >= 3
+		AmmoUsage: 3
+	Armament@secondary:
+		Weapon: infestor.shrouder
+		RequiresCondition: energy >= 3
+		TargetRelationships: None
+		AmmoUsage: 3
+	RenderSprites:
+	RenderVoxels:
+		Scale: 1
+	WithVoxelBody:
+	WithVoxelTurret:
+	Voiced:
+		VoiceSet: MagnetronVoice
+
 mutalisk:
 	Inherits: ^Helicopter
 	Inherits@VOXEL: ^VoxelActor
@@ -1829,13 +1886,14 @@ mutalisk:
 	WithMuzzleOverlay:
 	AttackAircraft:
 		Voice: Attack
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.light
 	WithVoxelBody:
 	RenderSprites:
 	RenderVoxels:
 	Voiced:
-		VoiceSet: ChaosDroneVoice
+		VoiceSet: InitiateVoice
 
 corruptor:
 	Inherits: ^Helicopter
@@ -1885,6 +1943,7 @@ corruptor:
 		RevokeOnNewTarget: true
 	AttackAircraft:
 		Voice: Attack
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.heavy
 	WithVoxelBody:
@@ -1926,6 +1985,7 @@ broodlord:
 		ForceTargetRelationships: Enemy, Neutral
 	AttackAircraft:
 		Voice: Attack
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.heavy
 	WithVoxelBody:
@@ -2022,12 +2082,10 @@ viper:
 		RequiresCondition: energy >= 4
 		AmmoUsage: 4
 	ReloadAmmoPool:
-		Delay: 100
-		ResetOnFire: false
-		RequiresCondition: energy < 4
 	WithMuzzleOverlay:
 	AttackAircraft:
 		Voice: Attack
+		PauseOnCondition: attackdisabled
 	Armor:
 		Type: air.heavy
 	WithVoxelBody:
@@ -2038,28 +2096,15 @@ viper:
 		VoiceSet: VirusVoice
 
 viper.parasite:
-	Inherits@1: ^SpriteActor
-	Selectable:
-	SelectionDecorations:
+	Inherits@1: ^EffectActor
 	RenderSprites:
 		Palette: mouse
 	QuantizeFacingsFromSequence:
 		Sequence: parasite
 	WithSpriteBody:
 		Sequence: parasite
-	HiddenUnderFog:
-		Type: CenterPosition
 	Tooltip:
 		Name: Toxin Cloud
-	Health:
-		HP: 50
-		NotifyAppliedDamage: false
-	Aircraft:
-		CruiseAltitude: 1
-		Speed: 1
-		VTOL: true
-	RejectsOrders:
-	HitShape:
 	ExplodeWeapon:
 		Weapon: viper.parasiteexplode
 		LocalOffset: 0,0,384
@@ -2084,28 +2129,15 @@ viper.cloudspawner:
 		RemoveInstead: true
 
 viper.cloud:
-	Inherits@1: ^SpriteActor
-	Interactable:
+	Inherits@1: ^EffectActor
 	RenderSprites:
 		PlayerPalette: player50alpha
 	QuantizeFacingsFromSequence:
 		Sequence: cloud
 	WithSpriteBody:
 		Sequence: cloud
-	HiddenUnderFog:
-		Type: CenterPosition
 	Tooltip:
 		Name: Smoke Cloud
-	Health:
-		HP: 50
-		NotifyAppliedDamage: false
-	Aircraft:
-		CruiseAltitude: 1
-		Speed: 1
-		AltitudeVelocity: 500
-		VTOL: true
-	RejectsOrders:
-	HitShape:
 	ProximityExternalCondition@CLOUD:
 		Condition: blindingcloud
 		Range: 4c0
@@ -2114,6 +2146,14 @@ viper.cloud:
 		RemoveInstead: true
 	RenderSprites:
 		Image: viper
+
+infestor.shroud:
+	Inherits: viper.cloud
+	WithColoredOverlay:
+		Color: FF660080
+	ProximityExternalCondition@CLOUD:
+		Condition: microbialshroud
+		Range: 3c512
 
 teslapyro:
 	Inherits: ^Infantry

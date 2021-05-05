@@ -1,3 +1,9 @@
+addon.targeting:
+	Inherits: ^Targeting
+	Range: 1c512
+	ReloadDelay: 100
+	ValidTargets: addonable
+
 scv.build:
 	Range: 2c0
 	ReloadDelay: 30
@@ -71,6 +77,7 @@ marauder.grenade:
 
 reaper.gun:
 	Inherits: ^LargeBullet
+	Burst: 2
 	ReloadDelay: 20
 	Range: 5c0
 	Report: ilasatta.wav
@@ -420,6 +427,7 @@ ghost.lockdown:
 	ReloadDelay: 60
 	Range: 10c0
 	Report: bigggun1.aud
+	TargetActorCenter: true
 	ValidTargets: empable, empdrainable
 	Projectile: Missile
 		Speed: 384
@@ -529,3 +537,67 @@ ghost.nuke:
 	Warhead@4Smu: LeaveSmudge
 		SmudgeType: MediumCrater, MediumScorch
 		InvalidTargets: Vehicle, Building, Wall
+
+raven.matrix:
+	Inherits: ^AGMissile
+	ReloadDelay: 100
+	Range: 9c0
+	Report: vaegatta.wav, vaegattb.wav
+	ValidTargets: Vehicle, Air
+	Projectile: Missile
+		Speed: 768
+	Warhead@1Dam: TargetDamage
+		Damage: 0
+	Warhead@2Eff: CreateEffect
+		Explosions: empulse
+		ExplosionPalette: tseffect
+		ImpactSounds: iteschaa.wav
+		ValidTargets: Ground, Water, Air
+	Warhead@4Ext: GrantExternalCondition
+		Range: 1c0
+		Duration: 275
+		Condition: matrixed
+		ValidTargets: Ground, Air
+
+raven.aamissile:
+	Inherits: raven.matrix
+	Warhead@2Eff: CreateEffect
+		Explosions: apoc_explosion
+		ExplosionPalette: effect
+		ImpactSounds: siroof.wav
+	Warhead@4Ext: GrantExternalCondition
+		Range: 2c512
+		Duration: 525
+		Condition: antiarmor
+		ValidTargets: Ground, Air
+
+raven.turretspawn:
+	Range: 2c0
+	InvalidTargets: Structure, Infantry, Vehicle, Wall, Air, Ship
+	ReloadDelay: 180
+	Projectile: Bullet
+		Speed: 240
+		Image: 120mm
+		Palette: ra
+		Shadow: true
+		Blockable: false
+		LaunchAngle: 30
+	Warhead@1Spawn: SpawnBuilding
+		Buildings: raven.autoturret
+		Range: 3
+		ForceGround: true
+
+autoturret.gun:
+	Inherits: ^LargeBullet
+	ReloadDelay: 14
+	Range: 6c0
+	Report: vospatta.wav
+	ValidTargets: Ground, Air
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Damage: 36
+		ValidTargets: Ground, Air
+	Warhead@2Eff: CreateEffect
+		ImpactSounds: gexpifva.wav
+	Warhead@4Smu: LeaveSmudge
+		SmudgeType: SmallCrater

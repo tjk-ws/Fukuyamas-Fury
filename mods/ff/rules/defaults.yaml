@@ -1,3 +1,5 @@
+# TODO: Completely split up effect attributes and mobile/cosmetic attributes
+
 ^ExistsInWorld:
 	AppearsOnRadar:
 	UpdatesPlayerStatistics:
@@ -232,12 +234,6 @@
 		Position: BottomRight
 		RequiresCondition: rank-elite
 		ValidRelationships: Ally, Enemy, Neutral
-	GainsExperienceMultiplier@ARMORY:
-		Modifier: 150
-		RequiresCondition: armory
-	GrantConditionOnPrerequisite@ARMORY:
-		Prerequisites: caarmr
-		Condition: armory
 
 ^HospitalHealing:
 	ChangesHealth@HOSPITAL:
@@ -1075,6 +1071,28 @@
 	LineBuildNode:
 		Connections: 0,-1, 0,1
 
+^EffectActor:
+	Inherits@1: ^SpriteActor
+	Interactable:
+	WithSpriteBody:
+	HiddenUnderFog:
+		Type: CenterPosition
+	HitShape:
+	Health:
+		HP: 50
+		NotifyAppliedDamage: false
+	Aircraft:
+		CruiseAltitude: 1
+		Speed: 1
+		VTOL: true
+		AltitudeVelocity: 500
+		Repulsable: false
+		RequiresCondition: !dontmove
+		LandableTerrainTypes: Clear, Rough, Road, DirtRoad, Ore, Gems, Bridge, Rail, Impassable, Water, Cliff, Tree, Rock
+	GrantCondition:
+		Condition: dontmove
+	RejectsOrders:
+
 ^DefaultInfantry:
 	Inherits@1: ^ExistsInWorld
 	Inherits@2: ^SpriteActor
@@ -1082,6 +1100,8 @@
 	Inherits@4: ^TeleportNetworkTransportable
 	Inherits@5: ^CloudBlindable
 	Inherits@6: ^GuardianShieldable
+	Inherits@7: ^AffectedByFungal
+	Inherits@8: ^MicrobialShroudable
 	Inherits@SELECTION_MODE: ^FlatSelectionMode
 	Selectable:
 		Bounds: 482, 1448, 0, -530
@@ -1110,13 +1130,16 @@
 		Speed: 60
 		Voice: Move
 		Locomotor: foot
-		RequiresCondition: !disabled
+		RequiresCondition: !mobiledisabled
 	AttackFrontal:
 		Voice: Attack
 		FacingTolerance: 2
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled
 	GrantCondition@disable:
-		Condition: disabled
+		Condition: mobiledisabled
+		RequiresCondition: chronodisable
+	GrantCondition@attackdisable:
+		Condition: attackdisabled
 		RequiresCondition: chronodisable
 	WithTextControlGroupDecoration:
 	SelectionDecorations:
@@ -1406,12 +1429,16 @@
 ^Vehicle:
 	Inherits@1: ^ExistsInWorld
 	Inherits@SELECTION_MODE: ^FlatSelectionMode
-	Inherits@2: ^VehicleParticles
+	Inherits@PARTICLES: ^VehicleParticles
 	Inherits@3: ^DisabledByEMP
 	Inherits@4: ^ChronoDisable
 	Inherits@5: ^TeleportNetworkTransportable
 	Inherits@6: ^CloudBlindable
 	Inherits@7: ^GuardianShieldable
+	Inherits@8: ^DisabledByMatrix
+	Inherits@9: ^AffectedByAntiArmor
+	Inherits@10: ^AffectedByFungal
+	Inherits@11: ^MicrobialShroudable
 	OwnerLostAction:
 		Action: Kill
 		DeathTypes: BulletDeath
@@ -1424,7 +1451,7 @@
 		Voice: Move
 		TurnSpeed: 20
 		Locomotor: wheeled
-		RequiresCondition: !disabled
+		RequiresCondition: !mobiledisabled
 	RevealsShroud:
 		Range: 5c0
 		MaxHeightDelta: 3
@@ -1444,15 +1471,12 @@
 	GrantConditionOnDamageState@DAMAGED:
 		Condition: damaged
 		ValidDamageStates: Light, Medium, Heavy, Critical
-	#Repairable:
-	#	Voice: Move
-	#	RepairActors: gadept, nadept, nadepb, yadept, yadepb, caoutp
 	GrantCondition@IDISABLE:
-		Condition: disabled
+		Condition: mobiledisabled
 		RequiresCondition: emp || chronodisable
-	WithColoredOverlay@IDISABLE:
-		RequiresCondition: emp
-		Color: 00000080
+	GrantCondition@ATTACKDISABLE:
+		Condition: attackdisabled
+		RequiresCondition: emp || chronodisable || matrixed
 	Carryable:
 	Passenger:
 		Voice: Move
@@ -1582,7 +1606,10 @@
 	Inherits@3: ^ChronoDisable
 	Inherits@4: ^CloudBlindable
 	Inherits@5: ^ParasiteBombable
-	Inherits@7: ^UnitParticles
+	Inherits@6: ^DisabledByMatrix
+	Inherits@7: ^AffectedByAntiArmor
+	Inherits@8: ^AffectedByFungal
+	Inherits@PARTICLES: ^UnitParticles
 	Aircraft:
 		AltitudeVelocity: 43
 	WithTextControlGroupDecoration:
@@ -1595,13 +1622,17 @@
 	Targetable@ChronoDisable:
 	Targetable@EMP:
 	GrantCondition@IDISABLE:
+		Condition: mobiledisabled
 		RequiresCondition: emp || chronodisable
+	GrantCondition@ATTACKDISABLE:
+		Condition: attackdisabled
+		RequiresCondition: emp || chronodisable || matrixed
 	GrantCondition@untargetable:
 		Condition: untargetable
 		RequiresCondition: chronodisable
 	SpeedMultiplier@IDISABLE:
 		Modifier: 0
-		RequiresCondition: disabled
+		RequiresCondition: mobiledisabled
 	RevealsShroud:
 		Range: 5c0
 		Type: CenterPosition
@@ -1733,7 +1764,7 @@
 		Voice: Move
 		Locomotor: naval
 		TurnSpeed: 20
-		RequiresCondition: !disabled
+		RequiresCondition: !mobiledisabled
 	LeavesTrails:
 		Image: wake
 		Palette: effect50alpha
@@ -1758,10 +1789,11 @@
 		CloseEnough: 3c0
 		RepairActors: gayard, nayard, yayard
 	GrantCondition@IDISABLE:
-		RequiresCondition: emp
-	WithColoredOverlay@IDISABLE:
-		RequiresCondition: disabled
-		Color: 00000080
+		Condition: mobiledisabled
+		RequiresCondition: emp || chronodisable
+	GrantCondition@ATTACKDISABLE:
+		Condition: attackdisabled
+		RequiresCondition: emp || chronodisable || matrixed
 	HiddenUnderFog:
 	ActorLostNotification:
 	ProximityCaptor:
@@ -1948,7 +1980,7 @@
 
 ^DisableOnLowPower:
 	WithColoredOverlay@IDISABLE:
-		RequiresCondition: disabled
+		RequiresCondition: lowpower
 		Color: 00000080
 	GrantConditionOnPowerState@LOWPOWER:
 		Condition: lowpower
@@ -1956,6 +1988,22 @@
 	GrantCondition@IDISABLE:
 		RequiresCondition: lowpower
 		Condition: disabled
+
+^Contaminable:
+	WithColoredOverlay@slime:
+		Color: 9370DB80
+		RequiresCondition: slimed
+	ExternalCondition@slime:
+		Condition: slimed
+	Targetable@production:
+		TargetTypes: ProductionStructure
+		RequiresCondition: !slimed
+
+^DisableOnLowPowerOrContaminate:
+	Inherits@1: ^DisableOnLowPower
+	Inherits@2: ^Contaminable
+	GrantCondition@IDISABLE:
+		RequiresCondition: lowpower || slimed
 
 ^DisableOnLowPowerOrPowerDown:
 	Inherits: ^DisableOnLowPower
@@ -1994,12 +2042,9 @@
 		RequiresCondition: !disabled
 
 ^DisabledByEMP:
-	WithColoredOverlay@IDISABLE:
-		RequiresCondition: disabled
-		Color: 00000080
-	GrantCondition@IDISABLE:
+	WithColoredOverlay@EMP:
 		RequiresCondition: emp
-		Condition: disabled
+		Color: 00000080
 	#WithIdleOverlay@EMP:
 	#	Sequence: emp
 	#	Palette: tseffect
@@ -2046,9 +2091,9 @@
 		InitialAmmo: 2
 		AmmoCondition: energy
 	ReloadAmmoPool:
-		Delay: 100
+		Delay: 200 #1100
 		ResetOnFire: false
-		RequiresCondition: energy <= 2
+		RequiresCondition: energy < 8 && !attackdisabled
 	WithAmmoPipsDecoration:
 		Margin: 4, 3
 		FullSequence: pip-ammo
@@ -2114,7 +2159,7 @@
 		DeliverVoice: Move
 		EmptyCondition: no-ore
 		MaxUnloadQueue: 5
-		SearchOnCreation: false
+		# SearchOnCreation: false
 	WithHarvesterPipsDecoration:
 		Margin: 4, 3
 		Palette: ra
@@ -2132,7 +2177,7 @@
 		CloakDelay: 50
 		IsPlayerPalette: true
 		UncloakOn: None
-		PauseOnCondition: disabled
+		PauseOnCondition: attackdisabled || fungal
 
 ^CloudBlindable:
 	ExternalCondition@BLINDINGCLOUD:
@@ -2177,6 +2222,51 @@
 	DamageMultiplier@guardianshield: #TODO: use armor to limit effect to ranged attacks
 		RequiresCondition: guardianshield
 		Modifier: 80
+
+^DisabledByMatrix:
+	ExternalCondition@matrix:
+		Condition: matrixed
+		TotalCap: 1
+	WithColoredOverlay@matrix:
+		Color: 00000050
+		RequiresCondition: matrixed
+
+^AffectedByAntiArmor:
+	ExternalCondition@antiarmor:
+		Condition: antiarmor
+		TotalCap: 1
+	WithColoredOverlay@antiarmor:
+		Color: 60000060
+		RequiresCondition: antiarmor
+	DamageMultiplier@antiarmor:
+		Modifier: 150
+		RequiresCondition: antiarmor
+
+^AffectedByFungal:
+	ExternalCondition@fungal:
+		Condition: fungal
+		TotalCap: 1
+	WithColoredOverlay@fungal:
+		Color: 00800080
+		RequiresCondition: fungal
+	SpeedMultiplier@fungal:
+		Modifier: 25
+		RequiresCondition: fungal
+	ChangesHealth@fungal:
+		Step: -20
+		Delay: 25
+		DamageTypes: BulletDeath
+		StartIfBelow: 150
+		DamageCooldown: 0
+		RequiresCondition: fungal
+
+^MicrobialShroudable:
+	ExternalCondition@shroud:
+		Condition: microbialshroud
+		TotalCap: 1
+	DamageMultiplier@shroud: #TODO
+		Modifier: 50
+		RequiresCondition: microbialshroud
 
 ^BotMicromanageable:
 	GrantConditionOnBotOwner@bot:

@@ -161,6 +161,9 @@ MasterHaosis:
 	Gatling Trooper Cameo			cameos/gtrpicon.shp
 	Gatling Trooper				infantry/gtrp.shp
 
+McPwny:
+	Turret					structures/c*mtur*.shp
+
 MiGEater:
 	Cargo Planes				vehicles/*plane.*
 	F22 Raptor				vehicles/f22.vxl

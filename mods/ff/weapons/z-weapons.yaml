@@ -79,8 +79,10 @@ baneling.explode:
 
 queen.talon:
 	Inherits: ^Flak
+	Burst: 2
 	ReloadDelay: 18
 	Range: 5c0
+	InvalidTargets: Injectable
 	Warhead@1Dam: SpreadDamage
 		Damage: 8
 
@@ -344,6 +346,31 @@ locust.spit:
 	Warhead@1Dam: SpreadDamage
 		Damage: 20
 
+infestor.fungal:
+	Inherits: ^TeslaZap
+	Range: 10c0
+	Report: vtesatta.wav, vtesattb.wav
+	ValidTargets: Ground, Water, Air
+	Warhead@1Dam: TargetDamage
+		Damage: 0
+	Warhead@3Ext: GrantExternalCondition
+		Condition: fungal
+		ValidTargets: Ground, Water, Air
+		Duration: 75
+		Range: 2c512
+
+infestor.shrouder:
+	Inherits: infestor.fungal
+	Range: 9c0
+	Report: vtesstaa.wav, vtesstab.wav
+	ValidTargets: Ground, Water
+	InvalidTargets: Structure, Infantry, Vehicle, Wall, Air, Ship
+	Warhead@3Ext: SpawnActor
+		Actors: infestor.shroud
+		FallRate: 5000
+		Range: 3
+		ValidTargets: Ground, Water, Air
+
 viper.parasitebomb:
 	Inherits: ^LargeBullet
 	Range: 8c0
@@ -398,13 +425,25 @@ viper.cloud:
 	Warhead@1Dam: SpreadDamage
 		Damage: 0
 	Warhead@1Spawn: SpawnActor
-		Actors: viper.cloudspawner
+		Actors: viper.cloud
 		FallRate: 5000
 		Range: 3
+		ValidTargets: Ground, Water, Air
 	Warhead@3Eff: CreateEffect
 		Explosions: medium_grey_explosion
 		ImpactSounds: gexp14c.wav
 		ValidTargets: Ground, Air, Water
-	Warhead@4Eff: CreateEffect
-		ImpactSounds: ucamera.wav
-		ImpactActors: false
+
+overseer.contaminate:
+	Inherits: ^TeslaZap
+	Range: 3c0
+	Report: btesat2a.wav
+	TargetActorCenter: true
+	ValidTargets: ProductionStructure
+	Warhead@1Dam: TargetDamage
+		Damage: 0
+	Warhead@3Ext: GrantExternalCondition
+		Condition: slimed
+		Range: 1c0
+		Duration: 525
+		ValidTargets: ProductionStructure

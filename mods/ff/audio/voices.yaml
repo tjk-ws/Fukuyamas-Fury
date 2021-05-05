@@ -13,6 +13,7 @@ SovietEngineerVoice:
 	Voices:
 		Select: ienssea, iensseb, ienssec, ienssed
 		Move: iensmoa, iensmob, iensmoc
+		Attack: iensata, iensatb, iensatc
 		Action: iensata, iensatb, iensatc
 		Feedback: iensfea, iensfeb, iensfec
 		Die: iensdia, iensdib, iensdic, iensdid
@@ -23,6 +24,7 @@ AlliesEngineerVoice:
 	Voices:
 		Select: ienasea, ienaseb, ienasec, ienased
 		Move: ienamoa, ienamob, ienamoc
+		Attack: ienaata, ienaatb, ienaatc
 		Action: ienaata, ienaatb, ienaatc
 		Feedback: ienafea, ienafeb, ienafec
 		Die: ienadia, ienadib, ienadic, ienadid
@@ -33,6 +35,7 @@ YuriEngineerVoice:
 	Voices:
 		Select: ienysea, ienyseb, ienysec, ienysed
 		Move: ienymoa, ienymob, ienymoc
+		Attack: ienyata, ienyatb, ienyatc
 		Action: ienyata, ienyatb, ienyatc
 		Feedback: ienyfea, ienyfeb, ienyfec
 		Die: ienydia, ienydib, ienydic, ienydid
