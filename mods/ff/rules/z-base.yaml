@@ -350,6 +350,8 @@ creeptumor:
 	Inherits: ^structure.z
 	Tooltip:
 		Name: 5G Tower
+	Buildable:
+		Prerequisites: ~disabled
 	Health:
 		HP: 100
 	Armor:
@@ -851,7 +853,7 @@ builder.z:
 	Tooltip:
 		Name: Supply Truck
 	Mobile:
-		Speed: 100
+		Speed: 161
 	RevealsShroud:
 		Range: 8c0
 	Health:
@@ -951,7 +953,7 @@ overlord:
 		Amount: 8
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 90
+		Speed: 37
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 11c0
@@ -998,7 +1000,7 @@ overseer:
 		Amount: 8
 	Aircraft:
 		TurnSpeed: 60
-		Speed: 120
+		Speed: 107
 		AltitudeVelocity: 200
 		RequireForceMoveCondition: deployed
 	RevealsShroud:
@@ -1141,7 +1143,7 @@ spinecrawler.mobile:
 	Power:
 		Amount: -6
 	Mobile:
-		Speed: 70
+		Speed: 57
 		TurnSpeed: 32
 	Armor:
 		Type: building.steel
@@ -1232,7 +1234,7 @@ sporecrawler.mobile:
 	Power:
 		Amount: -6
 	Mobile:
-		Speed: 70
+		Speed: 57
 		TurnSpeed: 32
 	Armor:
 		Type: building.steel
@@ -1292,7 +1294,7 @@ zergling:
 	Power:
 		Amount: -1
 	Mobile:
-		Speed: 95
+		Speed: 169
 	RevealsShroud:
 		Range: 8c0
 	Armor:
@@ -1327,7 +1329,7 @@ baneling:
 	Power:
 		Amount: -1
 	Mobile:
-		Speed: 85
+		Speed: 143
 	RevealsShroud:
 		Range: 8c0
 	Armor:
@@ -1355,7 +1357,7 @@ baneling:
 
 queen:
 	Inherits: ^VoxelVehicle
-	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@AUTOTARGET: ^AutoTargetAllPrioritizeAirAssaultMove
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@HATCH: ^ProducedFromLarva
 	Inherits@FB: ^EnergyPoolEffects
@@ -1376,7 +1378,7 @@ queen:
 	Power:
 		Amount: -2
 	Mobile:
-		Speed: 120
+		Speed: 54
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 9c0
@@ -1443,7 +1445,7 @@ hydralisk:
 	Power:
 		Amount: -2
 	Mobile:
-		Speed: 120
+		Speed: 129
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 9c0
@@ -1470,6 +1472,7 @@ lurker:
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@HATCH: ^ProducedFromLarva
 	Inherits@CLOAK: ^PermanentCloak
+	Inherits@BOT: ^BotMicromanageable
 	Tooltip:
 		Name: Ambush Drone
 	Selectable:
@@ -1487,7 +1490,7 @@ lurker:
 	Power:
 		Amount: -3
 	Mobile:
-		Speed: 120
+		Speed: 169
 		TurnSpeed: 32
 		RequireForceMoveCondition: deployed
 	RevealsShroud:
@@ -1524,6 +1527,12 @@ lurker:
 	WithVoxelBody:
 	Voiced:
 		VoiceSet: ChaosDroneVoice
+	AutoDeployer:
+		DeployTrigger: Periodically, Damage
+		DeployChance: 100
+		DeployTicks: 250
+		UndeployTicks: 500
+		RequiresCondition: botmicro
 
 roach:
 	Inherits: ^VoxelVehicle
@@ -1547,7 +1556,7 @@ roach:
 	Power:
 		Amount: -2
 	Mobile:
-		Speed: 90
+		Speed: 81
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 9c0
@@ -1590,7 +1599,7 @@ ravager:
 	Power:
 		Amount: -3
 	Mobile:
-		Speed: 80
+		Speed: 158
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 9c0
@@ -1631,7 +1640,7 @@ ultralisk:
 	Power:
 		Amount: -6
 	Mobile:
-		Speed: 100
+		Speed: 169
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 9c0
@@ -1680,7 +1689,7 @@ swarmhost:
 	Power:
 		Amount: -3
 	Mobile:
-		Speed: 80
+		Speed: 129
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 10c0
@@ -1825,7 +1834,7 @@ infestor:
 	Power:
 		Amount: -2
 	Mobile:
-		Speed: 88
+		Speed: 149
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 10c0
@@ -1875,7 +1884,7 @@ mutalisk:
 		Amount: -2
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 160
+		Speed: 229
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 11c0
@@ -1918,7 +1927,7 @@ corruptor:
 		Amount: -2
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 110
+		Speed: 193
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 10c0
@@ -1976,7 +1985,7 @@ broodlord:
 		Amount: -2
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 80
+		Speed: 81
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 12c0
@@ -2013,7 +2022,7 @@ broodling:
 	Power:
 		Amount: 0
 	Mobile:
-		Speed: 200
+		Speed: 220
 	RevealsShroud:
 		Range: 7c0
 	Armor:
@@ -2064,7 +2073,7 @@ viper:
 		Amount: -3
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 100
+		Speed: 169
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 11c0

@@ -42,8 +42,8 @@ Player:
 		MaxBaseRadius: 16
 		NewProductionCashThreshold: 300
 		PlaceDefenseTowardsEnemyChance: 0
-		StructureProductionInactiveDelay: 500
-		StructureProductionActiveDelay: 150
+		StructureProductionInactiveDelay: 750
+		StructureProductionActiveDelay: 300
 		AdditionalMinimumRefineryCount: 0
 		RefineryTypes: nexus, commandcenter, hatchery
 		PowerTypes: pylon, supplydepot, overlord, overseer
@@ -93,6 +93,7 @@ Player:
 			engibay: 1
 			armory: 1
 			academy: 1
+			fusioncore: 1
 			bunker: 1
 			missileturret: 1
 			hatchery: 1
@@ -126,7 +127,7 @@ Player:
 		ConstructionYardTypes: builder.p.bot, builder.t.bot, builder.z.bot
 	UnitBuilderBotModule@test:
 		RequiresCondition: enable-test-ai
-		UnitQueues: Infantry.P, Vehicle.P, Worker.P, Air.P, Infantry.T, Vehicle.T, Worker.T, Air.T, Units.Z, Hatchery.Z, Lair.Z
+		UnitQueues: Infantry.P, Vehicle.P, Worker.P, Air.P, Infantry.T, Vehicle.T, Worker.T, Air.T, Nuke.T, Units.Z, Hatchery.Z, Lair.Z, Hydraden.Z
 		UnitLimits:
 			builder.p.bot: 5
 			builder.t.bot: 5
@@ -164,19 +165,26 @@ Player:
 			cyclone: 1
 			goliath: 1
 			thor: 1
+			widowmine: 1
+			viking: 1
 			banshee: 1
+			raven: 1
+			liberator: 1
 			battlecruiser: 1
 			builder.t: 1
 			builder.t.bot: 2
+			academy.nuke: 1
 			hatchery.lair: 1
 			hatchery.hive: 1
 			upgrade.greaterspire: 1
+			upgrade.lurker: 1
 			zergling.build: 2
 			baneling: 1
 			queen: 1
 			overlord: 1
 			overseer: 1
 			hydralisk: 1
+			lurker: 1
 			roach: 1
 			ravager: 1
 			ultralisk: 1
@@ -184,6 +192,7 @@ Player:
 			mutalisk: 1
 			corruptor: 1
 			broodlord: 1
+			infestor: 1
 			builder.z: 1
 			builder.z.bot: 1
 		UnitDelays:

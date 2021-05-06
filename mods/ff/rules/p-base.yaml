@@ -132,7 +132,7 @@ builder.p:
 	Tooltip:
 		Name: Surveyor
 	Mobile:
-		Speed: 100
+		Speed: 161
 	Health:
 		HP: 40
 	Valued:
@@ -140,7 +140,6 @@ builder.p:
 	Buildable:
 		Queue: Worker.P
 		Prerequisites: nexus
-		BuildPaletteOrder: 50
 		Description: Builds structures.
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
@@ -1015,7 +1014,7 @@ zealot:
 	Power:
 		Amount: -1
 	Mobile:
-		Speed: 85
+		Speed: 129
 	Armor:
 		Type: infantry.light
 	AttackFrontal:
@@ -1084,7 +1083,7 @@ darktemplar:
 	Power:
 		Amount: -2
 	Mobile:
-		Speed: 75
+		Speed: 161
 	Armor:
 		Type: infantry.light
 	AttackFrontal:
@@ -1135,7 +1134,7 @@ adept:
 	Power:
 		Amount: -2
 	Mobile:
-		Speed: 75
+		Speed: 143
 	Armor:
 		Type: infantry.light
 	AttackFrontal:
@@ -1187,7 +1186,7 @@ hightemplar:
 	Power:
 		Amount: -2
 	Mobile:
-		Speed: 75
+		Speed: 107
 	Armor:
 		Type: infantry.light
 	AttackFrontal:
@@ -1392,6 +1391,7 @@ sentry:
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@FB: ^EnergyPoolEffects
+	Inherits@BOT: ^BotMicromanageable
 	Tooltip:
 		Name: OSHA inspector drone
 	Selectable:
@@ -1410,7 +1410,7 @@ sentry:
 	Power:
 		Amount: -2
 	Mobile:
-		Speed: 100
+		Speed: 129
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 10c0
@@ -1473,6 +1473,12 @@ sentry:
 		Scale: 1
 	WithVoxelBody:
 	WithVoxelTurret:
+	AutoDeployer:
+		DeployTrigger: Attack, Damage
+		DeployChance: 100
+		DeployTicks: 100
+		UndeployTicks: 500
+		RequiresCondition: botmicro
 
 sentry.barrier:
 	Inherits@1: ^SpriteActor
@@ -1526,7 +1532,7 @@ immortal:
 	Power:
 		Amount: -4
 	Mobile:
-		Speed: 95
+		Speed: 129
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 9c0
@@ -1572,7 +1578,7 @@ colossus:
 	Power:
 		Amount: -6
 	Mobile:
-		Speed: 95
+		Speed: 129
 		TurnSpeed: 32
 		Locomotor: hover
 	RevealsShroud:
@@ -1626,7 +1632,7 @@ archon:
 	Power:
 		Amount: -4
 	Mobile:
-		Speed: 95
+		Speed: 161
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 9c0
@@ -1728,7 +1734,7 @@ disruptor:
 	Power:
 		Amount: -3
 	Mobile:
-		Speed: 95
+		Speed: 129
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 9c0
@@ -1780,7 +1786,7 @@ disruptor.nova:
 	Valued:
 		Cost: 10
 	Mobile:
-		Speed: 240
+		Speed: 243
 		TurnSpeed: 128
 	Hovers:
 		Ticks: 30
@@ -1840,7 +1846,7 @@ observer:
 		Amount: -1
 	Aircraft:
 		TurnSpeed: 64
-		Speed: 75
+		Speed: 107
 		RequireForceMoveCondition: deployed
 	RevealsShroud:
 		Range: 11c0
@@ -1890,7 +1896,7 @@ oracle:
 		Amount: -3
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 150
+		Speed: 229
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 10c0
@@ -2019,7 +2025,7 @@ phoenix:
 		Amount: -2
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 150
+		Speed: 243
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 10c0
@@ -2066,7 +2072,7 @@ voidray:
 		Amount: -4
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 150
+		Speed: 158
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 10c0
@@ -2129,7 +2135,7 @@ tempest:
 		Amount: -5
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 150
+		Speed: 129
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 12c0
@@ -2176,7 +2182,7 @@ carrier:
 		Amount: -6
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 105
+		Speed: 107
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 12c0
@@ -2218,7 +2224,7 @@ interceptor:
 	Aircraft:
 		Repulsable: false
 		TurnSpeed: 40
-		Speed: 150
+		Speed: 400
 		AltitudeVelocity: 200
 		VTOL: false
 	RevealsShroud:
@@ -2331,7 +2337,7 @@ mothership:
 		Amount: -8
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 150
+		Speed: 107
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 14c0

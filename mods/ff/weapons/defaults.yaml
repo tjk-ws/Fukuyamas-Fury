@@ -118,6 +118,7 @@
 	Inherits: ^Missile
 	ValidTargets: Air
 	Projectile: Missile
+		TerrainHeightAware: false
 	Warhead@1Dam: SpreadDamage
 		Spread: 0c307
 		Falloff: 100, 0

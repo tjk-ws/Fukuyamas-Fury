@@ -35,7 +35,7 @@ builder.t:
 	Tooltip:
 		Name: Dozer
 	Mobile:
-		Speed: 100
+		Speed: 161
 		PauseOnCondition: building
 	Health:
 		HP: 200
@@ -44,7 +44,7 @@ builder.t:
 	Buildable:
 		Queue: Worker.T
 		Prerequisites: commandcenter
-		BuildPaletteOrder: 50
+		BuildPaletteOrder: 0
 		Description: Builds structures.
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
@@ -117,8 +117,8 @@ builder.t:
 	GrantConditionOnMovement@MoveStart:
 		Condition: moving
 		ValidMovementTypes: Horizontal, Turn
-	Wanders@bot:
-		MinMoveDelay: 240
+	#Wanders@bot:
+	#	MinMoveDelay: 240
 	Voiced:
 		VoiceSet: SovietConstructionVehicleVoice
 
@@ -594,7 +594,7 @@ academy:
 	Buildable:
 		Queue: Building.T
 		Prerequisites: barracks
-		Description: Enables deployment of Ghosts.\nProvides missile strikes for a price.
+		Description: Enables deployment of schizos.\nProvides space for a tactical missile (up to 4).
 	Building:
 		Footprint: xxx xxx xxx
 		Dimensions: 3,3
@@ -668,7 +668,7 @@ academy.nuke:
 	Buildable:
 		Queue: Nuke.T
 		Prerequisites: factory, academy, ~canbuildnuke
-		Description: Arms the building with a missile\nthat can be fired by Ghosts.
+		Description: Arms the building with a missile\nthat can be fired by schizos.
 	Valued:
 		Cost: 200
 
@@ -1078,7 +1078,7 @@ marine:
 	Power:
 		Amount: -1
 	Mobile:
-		Speed: 85
+		Speed: 129
 	RevealsShroud:
 		Range: 9c0
 	Armor:
@@ -1110,7 +1110,7 @@ medic:
 	Power:
 		Amount: -1
 	Mobile:
-		Speed: 80
+		Speed: 122
 	RevealsShroud:
 		Range: 9c0
 	Armor:
@@ -1149,7 +1149,7 @@ marauder:
 	Power:
 		Amount: -2
 	Mobile:
-		Speed: 85
+		Speed: 129
 	RevealsShroud:
 		Range: 10c0
 	Armor:
@@ -1183,7 +1183,7 @@ reaper:
 	Power:
 		Amount: -1
 	Mobile:
-		Speed: 110
+		Speed: 215
 	RevealsShroud:
 		Range: 9c0
 	Armor:
@@ -1224,7 +1224,7 @@ ghost:
 	Power:
 		Amount: -2
 	Mobile:
-		Speed: 90
+		Speed: 161
 		RequireForceMoveCondition: nuking
 	RevealsShroud:
 		Range: 11c0
@@ -1312,6 +1312,7 @@ ghost:
 
 ghost2:
 	Inherits: ghost
+	Inherits@BOT: ^BotMicromanageable
 	AutoTarget: # TODO
 		HoldFireCondition: cantnuke
 		ReturnFireCondition: cantnuke
@@ -1323,6 +1324,8 @@ ghost2:
 		ValidTargets: NukeTarget
 		Priority: 2
 		RequiresCondition: nuking
+	RejectsOrders:
+		RequiresCondition: botmicro && nuking
 	Buildable:
 		Queue: Infantry.T
 		Prerequisites: academy #, lab.barracks
@@ -1409,7 +1412,7 @@ vulture:
 	Power:
 		Amount: -2
 	Mobile:
-		Speed: 125
+		Speed: 195
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 10c0
@@ -1517,6 +1520,7 @@ widowmine:
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@VOICES: ^WithFeedbackVoicelines
 	Inherits@CLOAK: ^PermanentCloak
+	Inherits@BOT: ^BotMicromanageable
 	Tooltip:
 		Name: RPG Trooper
 	Health:
@@ -1532,7 +1536,7 @@ widowmine:
 	Power:
 		Amount: -2
 	Mobile:
-		Speed: 70
+		Speed: 161
 		RequireForceMoveCondition: deployed
 	RevealsShroud:
 		Range: 7c0
@@ -1582,6 +1586,12 @@ widowmine:
 		RequiresCondition: !editorhack
 	RenderSprites:
 		Image: widowmine
+	AutoDeployer:
+		DeployTrigger: Periodically, Damage
+		DeployChance: 100
+		DeployTicks: 1000
+		UndeployTicks: 500
+		RequiresCondition: botmicro
 
 t55:
 	Inherits: ^VoxelVehicle
@@ -1605,7 +1615,7 @@ t55:
 	Power:
 		Amount: -3
 	Mobile:
-		Speed: 95
+		Speed: 140
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 10c0
@@ -1636,6 +1646,7 @@ siegetank:
 	Inherits: ^VoxelVehicle
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@BOT: ^BotMicromanageable
 	Tooltip:
 		Name: Rocket Buggy
 	Selectable:
@@ -1654,7 +1665,7 @@ siegetank:
 	Power:
 		Amount: -3
 	Mobile:
-		Speed: 95
+		Speed: 129
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 11c0
@@ -1702,6 +1713,12 @@ siegetank:
 	WithMakeAnimation:
 	Voiced:
 		VoiceSet: SovietVehicleVoice
+	AutoDeployer:
+		DeployTrigger: Attack
+		DeployChance: 75
+		DeployTicks: 1000
+		UndeployTicks: 500
+		RequiresCondition: botmicro
 
 cyclone:
 	Inherits: ^VoxelVehicle
@@ -1725,7 +1742,7 @@ cyclone:
 	Power:
 		Amount: -3
 	Mobile:
-		Speed: 95
+		Speed: 193
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 11c0
@@ -1790,7 +1807,7 @@ goliath:
 	Power:
 		Amount: -3
 	Mobile:
-		Speed: 95
+		Speed: 110
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 10c0
@@ -1839,7 +1856,7 @@ thor:
 	Power:
 		Amount: -6
 	Mobile:
-		Speed: 95
+		Speed: 107
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 11c0
@@ -1902,7 +1919,7 @@ hellion:
 	Power:
 		Amount: -2
 	Mobile:
-		Speed: 130
+		Speed: 243
 		TurnSpeed: 32
 	RevealsShroud:
 		Range: 10c0
@@ -1922,7 +1939,7 @@ hellion:
 		LocalOffset: 768,0,512
 		RequiresCondition: deployed
 	SpeedMultiplier@deployed:
-		Modifier: 66
+		Modifier: 50
 		RequiresCondition: deployed
 	GrantConditionOnDeploy:
 		UndeployedCondition: undeployed
@@ -1977,7 +1994,7 @@ medivac:
 		Amount: -2
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 150
+		Speed: 143
 		AltitudeVelocity: 200
 		CanForceLand: false
 	RevealsShroud:
@@ -2032,7 +2049,7 @@ viking:
 		Amount: -2
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 160
+		Speed: 158
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 10c0
@@ -2080,7 +2097,7 @@ viking.assault:
 	Power:
 		Amount: -2
 	Mobile:
-		Speed: 120
+		Speed: 129
 		TurnSpeed: 40
 	RevealsShroud:
 		Range: 10c0
@@ -2136,7 +2153,7 @@ banshee:
 		Amount: -3
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 130
+		Speed: 215
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 10c0
@@ -2181,7 +2198,7 @@ wraith:
 		Amount: -2
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 120
+		Speed: 203
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 10c0
@@ -2231,7 +2248,7 @@ valkyrie:
 		Amount: -3
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 150
+		Speed: 201
 		AltitudeVelocity: 200
 	Armament@primary:
 		LocalOffset: 640,-400,640, 640,400,640
@@ -2254,6 +2271,7 @@ liberator:
 	Inherits@AUTOTARGET: ^AutoTargetAirAssaultMove
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@VOXEL: ^VoxelActor
+	Inherits@BOT: ^BotMicromanageable
 	AutoTargetPriority@DEFAULT:
 		RequiresCondition: !deployed
 	AutoTargetPriority@DEPLOYED:
@@ -2278,7 +2296,7 @@ liberator:
 		Amount: -3
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 130
+		Speed: 193
 		AltitudeVelocity: 200
 		RequireForceMoveCondition: deployed
 	RevealsShroud:
@@ -2313,6 +2331,12 @@ liberator:
 		Scale: 1
 	Voiced:
 		VoiceSet: SiegeChopperVoice
+	AutoDeployer:
+		DeployTrigger: Damage
+		DeployChance: 75
+		DeployTicks: 500
+		UndeployTicks: 500
+		RequiresCondition: botmicro
 
 battlecruiser:
 	Inherits: ^Helicopter
@@ -2338,7 +2362,7 @@ battlecruiser:
 		Amount: -6
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 90
+		Speed: 107
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 12c0
@@ -2388,7 +2412,7 @@ gorgon:
 		Amount: -3
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 150
+		Speed: 107
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 12c0
@@ -2416,6 +2440,7 @@ raven:
 	Inherits@VOXEL: ^VoxelActor
 	Inherits@DETECT: ^GenericDetector
 	Inherits@ENERGY: ^EnergyPoolEffects
+	Inherits@BOT: ^BotMicromanageable
 	Tooltip:
 		Name: Mini-Hind
 	Selectable:
@@ -2434,7 +2459,7 @@ raven:
 		Amount: -3
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 90
+		Speed: 169
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 11c0
@@ -2470,6 +2495,12 @@ raven:
 		#Scale: 1
 	Voiced:
 		VoiceSet: TeslaTankVoice
+	AutoDeployer:
+		DeployTrigger: Attack, Periodically
+		DeployChance: 50
+		DeployTicks: 500
+		UndeployTicks: 500
+		RequiresCondition: botmicro
 
 raven.autoturret:
 	Inherits: ^SupportBuilding
@@ -2536,7 +2567,7 @@ sciencevessel:
 		Amount: -3
 	Aircraft:
 		TurnSpeed: 40
-		Speed: 150
+		Speed: 152
 		AltitudeVelocity: 200
 	RevealsShroud:
 		Range: 11c0

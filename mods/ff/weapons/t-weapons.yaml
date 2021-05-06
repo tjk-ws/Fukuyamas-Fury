@@ -176,10 +176,7 @@ hellion.flamer:
 		Weapon: hellion.impact
 		Speed: 200
 		ExplosionInterval: 4
-		Image: flameall
-		Palette: tseffect
-		TrailImage: flameall
-		TrailPalette: tseffect
+		Image: fireball
 		TrailInterval: 3
 		Blockable: true
 		KillProjectilesWhenReachedTargetLocation: false
@@ -209,9 +206,6 @@ hellbat.spray:
 		Speed: 255
 		Image: fireball
 		Palette: effect
-		TrailImage: fireball
-		TrailSequences: trailer
-		TrailInterval: 1
 		LaunchAngle: 62
 	Warhead@1Dam: SpreadDamage
 		Damage: 12
@@ -539,7 +533,7 @@ ghost.nuke:
 		InvalidTargets: Vehicle, Building, Wall
 
 raven.matrix:
-	Inherits: ^AGMissile
+	Inherits: ^AAMissile
 	ReloadDelay: 100
 	Range: 9c0
 	Report: vaegatta.wav, vaegattb.wav
@@ -585,7 +579,6 @@ raven.turretspawn:
 	Warhead@1Spawn: SpawnBuilding
 		Buildings: raven.autoturret
 		Range: 3
-		ForceGround: true
 
 autoturret.gun:
 	Inherits: ^LargeBullet

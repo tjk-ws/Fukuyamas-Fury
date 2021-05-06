@@ -225,7 +225,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		bool HasSufficientPowerForActor(ActorInfo actorInfo)
 		{
-			return playerPower == null || (actorInfo.TraitInfos<PowerInfo>().Where(i => i.EnabledByDefault)
+			return playerPower == null || (actorInfo.TraitInfos<PowerInfo>()
 				.Sum(p => p.Amount) + playerPower.ExcessPower) >= baseBuilder.Info.MinimumExcessPower;
 		}
 
@@ -234,13 +234,14 @@ namespace OpenRA.Mods.Common.Traits
 			var buildableThings = queue.BuildableItems();
 
 			// This gets used quite a bit, so let's cache it here
+			// Remove checks if power trait is enabled because buildings should not provide power while incomplete
 			var power = GetProducibleBuilding(baseBuilder.Info.PowerTypes, buildableThings,
-				a => a.TraitInfos<PowerInfo>().Where(i => i.EnabledByDefault).Sum(p => p.Amount));
+				a => a.TraitInfos<PowerInfo>().Sum(p => p.Amount));
 
 			// First priority is to get out of a low power situation
 			if (playerPower != null && playerPower.ExcessPower < minimumExcessPower)
 			{
-				if (power != null && power.TraitInfos<PowerInfo>().Where(i => i.EnabledByDefault).Sum(p => p.Amount) > 0)
+				if (power != null && power.TraitInfos<PowerInfo>().Sum(p => p.Amount) > 0)
 				{
 					AIUtils.BotDebug("{0} decided to build {1}: Priority override (low power)", queue.Actor.Owner, power.Name);
 					return power;
@@ -358,7 +359,7 @@ namespace OpenRA.Mods.Common.Traits
 				if (playerPower != null && (playerPower.ExcessPower < minimumExcessPower || !HasSufficientPowerForActor(actor)))
 				{
 					// Try building a power plant instead
-					if (power != null && power.TraitInfos<PowerInfo>().Where(i => i.EnabledByDefault).Sum(pi => pi.Amount) > 0)
+					if (power != null && power.TraitInfos<PowerInfo>().Sum(pi => pi.Amount) > 0)
 					{
 						if (playerPower.PowerOutageRemainingTicks > 0)
 							AIUtils.BotDebug("{0} decided to build {1}: Priority override (is low power)", queue.Actor.Owner, power.Name);

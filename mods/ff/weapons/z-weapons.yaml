@@ -208,8 +208,7 @@ bbqlighter:
 	Report: flamtnk1.aud
 	Projectile: Bullet
 		Speed: 340
-		Image: flameall
-		Palette: tseffect
+		Image: fireball
 		LaunchAngle: 62
 	Warhead@1Dam: SpreadDamage
 		Damage: 10
@@ -265,11 +264,7 @@ corruptor.spray:
 	ValidTargets: Structure
 	Projectile: Bullet
 		Speed: 255
-		Image: flameall
-		Palette: tseffect
-		TrailImage: flameall
-		TrailPalette: tseffect
-		TrailInterval: 3
+		Image: fireball
 		Blockable: false
 	Warhead@1Dam: SpreadDamage
 		Spread: 0c512

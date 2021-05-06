@@ -608,6 +608,23 @@
 		AssaultMoveCondition: assault-move
 		Voice: Attack
 
+^AutoTargetAllPrioritizeAir:
+	Inherits: ^AutoTargetGround
+	AutoTargetPriority@AIR:
+		ValidTargets: Air
+		InvalidTargets: NoAutoTarget
+		Priority: 2
+
+^AutoTargetAllPrioritizeAirAssaultMove:
+	Inherits: ^AutoTargetAllPrioritizeAir
+	AutoTargetPriority@DEFAULT:
+		RequiresCondition: !stance-attackanything && !assault-move
+	AutoTargetPriority@ATTACKANYTHING:
+		RequiresCondition: stance-attackanything || assault-move
+	AttackMove:
+		AssaultMoveCondition: assault-move
+		Voice: Attack
+
 ^FlatSelectionMode:
 	Selectable:
 		PriorityModifiers: Ctrl
@@ -2275,11 +2292,11 @@
 
 ^BotBuilderWorker:
 	Inherits: ^BotMicromanageable
-	Wanders@bot:
-		WanderMoveRadius: 4
-		MinMoveDelay: 100
-		MaxMoveDelay: 400
-		RequiresCondition: botmicro
+	#Wanders@bot:
+	#	WanderMoveRadius: 4
+	#	MinMoveDelay: 100
+	#	MaxMoveDelay: 400
+	#	RequiresCondition: botmicro
 	RevealsShroud:
 		Range: 8c0
 
