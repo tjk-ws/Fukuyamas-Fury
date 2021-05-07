@@ -717,6 +717,7 @@
 
 ^BaseBuilding:
 	Inherits: ^Building
+	Inherits@1: ^CloakedByMothership
 	Building:
 		BuilderRange: 2c0
 	RevealsShroud:
@@ -1119,6 +1120,7 @@
 	Inherits@6: ^GuardianShieldable
 	Inherits@7: ^AffectedByFungal
 	Inherits@8: ^MicrobialShroudable
+	Inherits@9: ^CloakedByMothership
 	Inherits@SELECTION_MODE: ^FlatSelectionMode
 	Selectable:
 		Bounds: 482, 1448, 0, -530
@@ -1223,6 +1225,10 @@
 	DetectCloaked:
 		CloakTypes: Cloak
 		Range: 1c0
+	Chronoshiftable:
+		ChronoshiftSound: schrmov.wav
+		ReturnToOrigin: false
+		RequiresCondition: !untargetable
 
 ^Infantry:
 	Inherits: ^DefaultInfantry
@@ -1456,6 +1462,7 @@
 	Inherits@9: ^AffectedByAntiArmor
 	Inherits@10: ^AffectedByFungal
 	Inherits@11: ^MicrobialShroudable
+	Inherits@12: ^CloakedByMothership
 	OwnerLostAction:
 		Action: Kill
 		DeathTypes: BulletDeath
@@ -1626,6 +1633,7 @@
 	Inherits@6: ^DisabledByMatrix
 	Inherits@7: ^AffectedByAntiArmor
 	Inherits@8: ^AffectedByFungal
+	Inherits@9: ^CloakedByMothership
 	Inherits@PARTICLES: ^UnitParticles
 	Aircraft:
 		AltitudeVelocity: 43
@@ -2166,7 +2174,7 @@
 	Selectable:
 		Priority: 7
 	Harvester:
-		Capacity: 4
+		Capacity: 2
 		Resources: Ore, Gems
 		BaleLoadDelay: 1
 		BaleUnloadDelay: 1
@@ -2187,6 +2195,17 @@
 			Ore: pip-yellow
 			Gems: pip-blue
 	BuilderUnit:
+
+^CloakedByMothership:
+	ExternalCondition@MOTHERSHIP:
+		Condition: mothershipcloak
+	Cloak@MOTHERSHIP:
+		InitialDelay: 25
+		CloakDelay: 50
+		IsPlayerPalette: true
+		UncloakOn: None
+		PauseOnCondition: attackdisabled || fungal
+		RequiresCondition: mothershipcloak
 
 ^PermanentCloak:
 	Cloak:

@@ -265,6 +265,9 @@ corruptor.spray:
 	Projectile: Bullet
 		Speed: 255
 		Image: fireball
+		TrailImage: fireball
+		TrailSequences: trailer
+		TrailInterval: 5
 		Blockable: false
 	Warhead@1Dam: SpreadDamage
 		Spread: 0c512

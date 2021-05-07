@@ -16,7 +16,7 @@ photoncannon.ag:
 dt.blade:
 	Inherits: ^MG
 	ReloadDelay: 30
-	Range: 5c0
+	Range: 1c512
 	Report: iseaatta.wav, iseaattb.wav
 	Warhead@1Dam: SpreadDamage
 		Damage: 90
@@ -445,7 +445,7 @@ oracleward.explode:
 		ImpactSounds: gexpbara.wav, gexpbarb.wav, gexpbarc.wav
 		ImpactActors: false
 
-mothership.beam:
+mothership.glasser:
 	Inherits: ^Explode
 	Range: 0c128
 	Burst: 6
@@ -468,3 +468,19 @@ mothership.impact:
 		Spread: 1c0
 		Falloff: 100, 100
 		Damage: 12
+
+mothership.beam:
+	Inherits: ^Laser
+	Range: 7c0
+	Burst: 6
+	ReloadDelay: 40
+	Report: vfloatta.wav
+	ValidTargets: Ground, Air, Water
+	Projectile: KKNDLaser
+		Radius: 4
+		InnerLightness: 192
+		OuterLightness: 96
+		Duration: 6
+	Warhead@1Dam: SpreadDamage
+		Damage: 12
+		ValidTargets: Ground, Air, Water

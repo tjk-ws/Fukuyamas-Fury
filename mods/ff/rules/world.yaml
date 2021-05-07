@@ -156,12 +156,12 @@ World:
 				ResourceIndex: 1
 				TerrainType: Ore
 				AllowedTerrainTypes: Clear, Rough, Road, DirtRoad
-				MaxDensity: 360
+				MaxDensity: 180
 			Gems:
 				ResourceIndex: 2
 				TerrainType: Gems
 				AllowedTerrainTypes: Clear, Rough, Road, DirtRoad
-				MaxDensity: 360
+				MaxDensity: 180
 	ResourceClaimLayer:
 	#ResourceTwinkleLayer:
 	#	Image: oreshimmering

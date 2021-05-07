@@ -40,7 +40,7 @@ builder.t:
 	Health:
 		HP: 200
 	Valued:
-		Cost: 100
+		Cost: 50
 	Buildable:
 		Queue: Worker.T
 		Prerequisites: commandcenter
@@ -743,7 +743,7 @@ armory:
 	Armor:
 		Type: building.steel
 	Valued:
-		Cost: 125
+		Cost: 250
 	Buildable:
 		Queue: Building.T
 		Prerequisites: factory
@@ -808,7 +808,7 @@ fusioncore:
 	Armor:
 		Type: building.steel
 	Valued:
-		Cost: 100
+		Cost: 300
 	Buildable:
 		Queue: Building.T
 		Prerequisites: starport
@@ -942,7 +942,7 @@ bunker:
 	Armor:
 		Type: building.steel
 	Valued:
-		Cost: 100
+		Cost: 150
 	Buildable:
 		Queue: Building.T
 		Prerequisites: barracks

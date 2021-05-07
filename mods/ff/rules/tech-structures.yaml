@@ -302,29 +302,34 @@ caslab:
 cacomm:
 	AlwaysVisible:
 	Interactable:
+	Immobile:
 	KillsSelf:
 		RemoveInstead: true
 
 caarmr:
 	AlwaysVisible:
 	Interactable:
+	Immobile:
 	KillsSelf:
 		RemoveInstead: true
 
 carpad:
 	AlwaysVisible:
 	Interactable:
+	Immobile:
 	KillsSelf:
 		RemoveInstead: true
 
 capsyb:
 	AlwaysVisible:
 	Interactable:
+	Immobile:
 	KillsSelf:
 		RemoveInstead: true
 
 camisl:
 	AlwaysVisible:
 	Interactable:
+	Immobile:
 	KillsSelf:
 		RemoveInstead: true

@@ -1,12 +1,18 @@
 ^EABuildingSet1:	
 	RenderSprites:
 		PlayerPalette: ea1
+	Cloak@MOTHERSHIP:
+		Palette: cloakea1
+		RequiresCondition: mothershipcloak
 	ActorPreviewPlaceBuildingPreview:
 		OverridePalette: placeea1
 
 ^EABuildingSet2:	
 	RenderSprites:
 		PlayerPalette: ea2
+	Cloak@MOTHERSHIP:
+		Palette: cloakea2
+		RequiresCondition: mothershipcloak
 	ActorPreviewPlaceBuildingPreview:
 		OverridePalette: placeea2
 
@@ -2317,8 +2323,9 @@ mothership:
 	Inherits@VOXEL: ^VoxelActor
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@ENERGY: ^EnergyPoolEffects
 	Tooltip:
-		Name: Very big flying thing
+		Name: Chrono Gunship
 	Selectable:
 		Bounds: 1689, 2896, 0, -965
 	Health:
@@ -2329,7 +2336,7 @@ mothership:
 		Queue: Air.P
 		Prerequisites: fleetbeacon
 		BuildPaletteOrder: 40
-		Description: Superheavy gunship.
+		Description: Flying miniaturized dark energy reactor.\nCloaks nearby units and structures\nCan teleport ground units to its location
 		BuildLimit: 1
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
@@ -2357,6 +2364,31 @@ mothership:
 		Scale: 1.5
 	Voiced:
 		VoiceSet: AlliedNavalVoice
+	AmmoPool:
+		Armaments: secondary
+	ProximityExternalCondition@Mothership:
+		Condition: mothershipcloak
+		Range: 5c0
+		RequiresCondition: !attackdisabled
+	RecallPower:
+		OrderName: MothershipRecall
+		Icon: chrono
+		ChargeInterval: 1000
+		Description: Recall
+		LongDesc: Teleports a group of units to the gunship.
+		EndChargeSound: schropen.wav
+		DisplayTimerStances: Ally, Neutral, Enemy
+		DisplayRadarPing: True
+		KillCargo: False
+		SelectionCursor: chronosphere
+		TargetCursor: chronosphere
+		PauseOnCondition: attackdisabled || energy < 4
+		Dimensions: 4, 4
+		Footprint: _xx_ xxxx xxxx _xx_
+		AmmoPoolName: primary
+		AmmoUsage: 4
+	-Cloak@MOTHERSHIP:
+	-ExternalCondition@MOTHERSHIP:
 
 upgrade.warpgate:
 	Inherits: ^upgrade

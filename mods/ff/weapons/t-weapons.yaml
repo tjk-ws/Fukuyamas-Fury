@@ -177,7 +177,9 @@ hellion.flamer:
 		Speed: 200
 		ExplosionInterval: 4
 		Image: fireball
-		TrailInterval: 3
+		TrailImage: fireball
+		TrailSequences: trailer
+		TrailInterval: 2
 		Blockable: true
 		KillProjectilesWhenReachedTargetLocation: false
 	Warhead@1Dam: TargetDamage

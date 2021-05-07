@@ -100,7 +100,7 @@ hatchery:
 		Footprint: =xx= xxxx xxxx =xx=
 		Dimensions: 4,4
 	Power:
-		Amount: 15
+		Amount: 6
 	Production@Units:
 		Produces: Units.Z
 		PauseOnCondition: nolarva || lowpower
@@ -839,6 +839,9 @@ nydus:
 	WithIdleOverlay@lights:
 		Sequence: idle-top
 		RequiresCondition: !build-incomplete
+	Cloak@MOTHERSHIP:
+		Palette: cloakyunkn
+		RequiresCondition: mothershipcloak
 	IsometricSelectable:
 		DecorationHeight: 60
 
@@ -1267,6 +1270,8 @@ zergling.build:
 		Locomotor: foot
 	Valued:
 		Cost: 50
+	Power:
+		Amount: -2
 	RenderSprites:
 		Image: zergling
 	FreeActor@1:
