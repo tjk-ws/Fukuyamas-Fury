@@ -31,8 +31,8 @@ namespace OpenRA.Mods.Common.Traits
 		[Desc("Tells the AI what building types are considered power plants.")]
 		public readonly HashSet<string> PowerTypes = new HashSet<string>();
 
-		[Desc("Tells the AI what building types are considered infantry production facilities.")]
-		public readonly HashSet<string> BarracksTypes = new HashSet<string>();
+		[Desc("Tells the AI what building types call for additional refineries.")]
+		public readonly HashSet<string> IncreaseRefineryTypes = new HashSet<string>();
 
 		[Desc("Tells the AI what building types are considered production facilities.")]
 		public readonly HashSet<string> ProductionTypes = new HashSet<string>();
@@ -261,7 +261,7 @@ namespace OpenRA.Mods.Common.Traits
 			AIUtils.CountActorByCommonName(Info.PowerTypes, player) == 0 ||
 			AIUtils.CountBuildingByCommonName(Info.ConstructionYardTypes, player) == 0;
 
-		int MinimumRefineryCount => AIUtils.CountBuildingByCommonName(Info.BarracksTypes, player) > 0 ? Info.InititalMinimumRefineryCount + Info.AdditionalMinimumRefineryCount : Info.InititalMinimumRefineryCount;
+		int MinimumRefineryCount => AIUtils.CountBuildingByCommonName(Info.IncreaseRefineryTypes, player) > 0 ? Info.InititalMinimumRefineryCount + Info.AdditionalMinimumRefineryCount : Info.InititalMinimumRefineryCount;
 
 		List<MiniYamlNode> IGameSaveTraitData.IssueTraitData(Actor self)
 		{

@@ -31,7 +31,7 @@ Player:
 					Attractiveness: -20
 	BaseBuilderFFBotModule@test:
 		RequiresCondition: enable-test-ai
-		BuildingQueues: Building.P, Building.T, Building.Z
+		BuildingQueues: Building.P, Building.T, Building.Z, Units.Z
 		DefenseQueues: Warpin.P
 		MinimumExcessPower: 6
 		MaximumExcessPower: 14
@@ -44,26 +44,26 @@ Player:
 		PlaceDefenseTowardsEnemyChance: 0
 		StructureProductionInactiveDelay: 750
 		StructureProductionActiveDelay: 300
-		AdditionalMinimumRefineryCount: 0
+		AdditionalMinimumRefineryCount: 1
 		RefineryTypes: nexus, commandcenter, hatchery
 		PowerTypes: pylon, supplydepot, overlord, overseer
-		BarracksTypes: gateway, barracks, hatchery
+		IncreaseRefineryTypes: twilightcouncil, robotics, stargate, armory, engibay, starport, spire, infestationpit
 		VehiclesFactoryTypes: robotics, factory, hatchery
 		ConstructionYardTypes: nexus, pylon, commandcenter, hatchery
 		ProductionTypes: nexus, gateway, robotics, stargate, barracks, factory, starport, hatchery
 		BuildingLimits:
-			nexus: 2
+			nexus: 3
 			forge: 1
 			cybercore: 1
 			twilightcouncil: 1
 			robobay: 1
 			darkshrine: 1
 			fleetbeacon: 1
-			commandcenter: 1
+			commandcenter: 3
 			engibay: 1
 			armory: 1
 			academy: 1
-			hatchery: 2
+			hatchery: 4
 			spawningpool: 1
 			banelingnest: 1
 			evolutionchamber: 1
@@ -105,12 +105,18 @@ Player:
 			ultraliskcavern: 1
 			infestationpit: 1
 			spire: 1
+			spinecrawler: 1
+			sporecrawler: 1
 		BuildingDelays:
 			engibay: 5000
 			academy: 6000
-	HarvesterBotModule@test:
+			evolutionchamber: 3000
+	HarvesterBotModuleAS@test:
 		RequiresCondition: enable-test-ai
 		HarvesterTypes: builder.p, builder.t, builder.z
+		RefineryTypes: nexus, commandcenter, hatchery
+		HarvestersPerRefinery: 12
+		ScanForIdleHarvestersInterval: 300
 	BuildingRepairBotModule@test:
 		RequiresCondition: enable-test-ai
 	SquadManagerBotModule@test:
@@ -125,18 +131,17 @@ Player:
 		ExcludeFromSquadsTypes: builder.p, builder.p.bot, builder.t, builder.t.bot, builder.z, builder.z.bot, overlord, overseer, queen
 		NavalUnitsTypes:
 		ConstructionYardTypes: builder.p.bot, builder.t.bot, builder.z.bot
+		IgnoredEnemyTargetTypes: dock, NukeTarget
 	UnitBuilderBotModule@test:
 		RequiresCondition: enable-test-ai
 		UnitQueues: Infantry.P, Vehicle.P, Worker.P, Air.P, Infantry.T, Vehicle.T, Worker.T, Air.T, Nuke.T, Units.Z, Hatchery.Z, Lair.Z, Hydraden.Z
 		UnitLimits:
 			builder.p.bot: 5
 			builder.t.bot: 5
-			builder.z.bot: 10
-			builder.p: 15
-			builder.t: 15
-			builder.z: 15
-			overlord: 8
-			overseer: 2
+			builder.z.bot: 5
+			#builder.p: 15
+			#builder.t: 15
+			#builder.z: 15
 			queen: 3
 		UnitsToBuild:
 			zealot: 5
@@ -153,7 +158,7 @@ Player:
 			tempest: 1
 			carrier: 1
 			mothership: 1
-			builder.p: 1
+			#builder.p: 1
 			builder.p.bot: 1
 			marine: 5
 			marauder: 3
@@ -171,7 +176,7 @@ Player:
 			raven: 1
 			liberator: 1
 			battlecruiser: 1
-			builder.t: 1
+			#builder.t: 1
 			builder.t.bot: 2
 			academy.nuke: 1
 			hatchery.lair: 1
@@ -181,8 +186,6 @@ Player:
 			zergling.build: 2
 			baneling: 1
 			queen: 1
-			overlord: 1
-			overseer: 1
 			hydralisk: 1
 			lurker: 1
 			roach: 1
@@ -193,7 +196,7 @@ Player:
 			corruptor: 1
 			broodlord: 1
 			infestor: 1
-			builder.z: 1
+			#builder.z: 1
 			builder.z.bot: 1
 		UnitDelays:
 			builder.p.bot: 5000

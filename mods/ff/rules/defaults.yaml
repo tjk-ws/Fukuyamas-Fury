@@ -2174,7 +2174,7 @@
 	Selectable:
 		Priority: 7
 	Harvester:
-		Capacity: 2
+		Capacity: 4
 		Resources: Ore, Gems
 		BaleLoadDelay: 1
 		BaleUnloadDelay: 1
@@ -2183,7 +2183,7 @@
 		HarvestVoice: Move
 		DeliverVoice: Move
 		EmptyCondition: no-ore
-		MaxUnloadQueue: 5
+		MaxUnloadQueue: 3
 		# SearchOnCreation: false
 	WithHarvesterPipsDecoration:
 		Margin: 4, 3

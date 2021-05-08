@@ -141,6 +141,7 @@ namespace OpenRA.Mods.Common.Traits
 
 				// Check if Building is a plug for other Building
 				var actorInfo = world.Map.Rules.Actors[currentBuilding.Item];
+				var buildingInfo = actorInfo.TraitInfoOrDefault<BuildingInfo>();
 				var plugInfo = actorInfo.TraitInfoOrDefault<PlugInfo>();
 				if (plugInfo != null)
 				{
@@ -152,6 +153,10 @@ namespace OpenRA.Mods.Common.Traits
 						orderString = "PlacePlug";
 						location = possibleBuilding.Actor.Location + possibleBuilding.Trait.Info.Offset;
 					}
+				}
+				else if (buildingInfo == null) // Hack for AI to better manage power-providing units
+				{
+					return true;
 				}
 				else
 				{
