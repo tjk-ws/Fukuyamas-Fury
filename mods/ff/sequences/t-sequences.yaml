@@ -19,6 +19,15 @@ siegetank:
 
 commandcenter:
 	Inherits: cacnst
+	Inherits@MUZZLE: ^WithApocMuzzle
+	turret: nasntytur
+		Offset: 0,0
+		Facings: 32
+		ShadowStart: 32
+		UseTilesetCode: false
+	muzzle: apmuzzle
+		Offset: 0,0
+		UseTilesetCode: false
 	icon: scnsicon
 		Offset: 0,0
 		UseTilesetCode: false

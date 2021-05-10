@@ -75,6 +75,13 @@ marauder.grenade:
 	Warhead@4Smu: LeaveSmudge
 		SmudgeType: SmallCrater
 
+marauder.concussor:
+	Inherits: marauder.grenade
+	Warhead@5Ext: GrantExternalCondition
+		Range: 1c0
+		Duration: 27
+		Condition: concussion
+
 reaper.gun:
 	Inherits: ^LargeBullet
 	Burst: 2
@@ -201,7 +208,7 @@ hellbat.spray:
 	BurstDelays: 2
 	ReloadDelay: 45
 	Range: 5c0
-	Report: flamtnk1.aud
+	StartBurstReport: flamtnk1.aud
 	FirstBurstTargetOffset: -90,-300,0
 	FollowingBurstTargetOffset: 20,90,0
 	Projectile: Bullet
@@ -428,8 +435,10 @@ ghost.lockdown:
 	Projectile: Missile
 		Speed: 384
 		TrailImage: smokey2
-	Warhead@1Dam: TargetDamage
+	Warhead@1Dam: SpreadDamage
 		Damage: 200
+		Spread: 1c512
+		Falloff: 100, 0
 		ValidTargets: empable, empdrainable
 		DamageTypes: ElectroDeath
 	Warhead@2Ext: GrantExternalCondition
@@ -594,5 +603,20 @@ autoturret.gun:
 		ValidTargets: Ground, Air
 	Warhead@2Eff: CreateEffect
 		ImpactSounds: gexpifva.wav
+	Warhead@4Smu: LeaveSmudge
+		SmudgeType: SmallCrater
+
+cc.cannon:
+	Inherits: ^LargeBullet
+	ReloadDelay: 36
+	Range: 6c0
+	Report: vchoat2a.wav
+	Warhead@1Dam: SpreadDamage
+		Spread: 0c512
+		Damage: 80
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: elite_explosion
+		ImpactSounds: gexpapoa.wav
 	Warhead@4Smu: LeaveSmudge
 		SmudgeType: SmallCrater

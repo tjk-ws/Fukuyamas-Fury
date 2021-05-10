@@ -101,11 +101,10 @@ colossus.lance1:
 	FollowingBurstTargetOffset: 20,90,0
 	ReloadDelay: 90
 	Range: 7c0
-	Burst: 18
+	Burst: 12
 	BurstDelays: 1
-	MinRange: 4c0
 	TargetActorCenter: true
-	Report: vfloatta.wav
+	StartBurstReport: vfloatta.wav
 	Projectile: LaserZap
 		TrackTarget: false
 	Warhead@1Dam: SpreadDamage

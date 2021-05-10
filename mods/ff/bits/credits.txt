@@ -149,6 +149,7 @@ MadHQ:
 	Allied Weather Tower			structures/g*whtr*.shp
 	Soviet Tower				structures/natower*.shp
 	Soviet Missile Turret			structures/ngmissl*.shp
+	Soviet Sentry Gun			structures/n*snty*.shp
 	Allied Laser Turret			structures/g*lasr*.shp
 	Yuri Airpad				structures/y*pad*.shp
 	RA3 Terror Drone			vehicles/dron2.shp

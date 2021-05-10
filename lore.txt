@@ -1,9 +1,0 @@
-Mod lore:
-- Human civilization (Faustian culture) undergoes an intellectual stagnation, but becomes interstellar in scale anyway
-- What happens/happened on Earth is mostly irrelevant, but the 20th century is remembered as the latest point in time when philosophy existed
-- Driven by sheer boredom, humans engineer artificial intelligences to recreate the intellects of major philosophers based on their preserved descriptions, in hopes of solving that same boredom and existential crisis
-- 'Philosophers' become appalled at each other and resort to turning scraps of obsolete human technology into weapons, fighting on mostly uninhabited but resource-rich planets (no one besides Kojeve is vindicated of course)
-- Cloned humans programmed based on idealistic memories of intellectually superior 'ancients' (but probably come from some Arendt book) are used and mass-produced by the 'philosophers' to serve as commanders and footsoldiers
-
-- 'Classicals' are properly understood as 'Premoderns'; going by Strauss they would encompass people in general pre-Machiavelli and not just Greeks. Although this is mainly to provide more candidates for names in case subfactions/commanders are ever implemented
-- Unsure on whether and how to include Indian, Islamic, Chinese philosophers etc. Maybe could use them to recreate mechanics from other games

@@ -147,6 +147,8 @@ commandcenter:
 	Inherits@shape: ^4x4Shape
 	Inherits@power: ^DisableOnLowPowerOrContaminate
 	Inherits@build: ^SCVBuildable
+	Inherits@ENERGY: ^EnergyPoolEffects
+	Inherits@cloud: ^CloudBlindable
 	Tooltip:
 		Name: Command Center
 	Health:
@@ -180,12 +182,18 @@ commandcenter:
 		PowerLimitedAudio: LowPower
 		RequiresSufficientPower: true
 		InstantCashDrain: true
+	Production@2:
+		Produces: CC.T
+		RequiresCondition: build-complete && !(fortress || command)
+	ProductionQueue@2:
+		Type: CC.T
+		Group: Support
 	ProductionBar@1:
 		ProductionType: Worker.T
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: build-complete
 	Exit@1:
-		ExitCell: 3,3
+		ExitCell: 2,3
 	LaysMinefield:
 		Mines: cc.dock
 		Locations: 0,0, 3,3, 0,3, 3,0
@@ -197,7 +205,7 @@ commandcenter:
 		DecorationHeight: 90
 	WithIdleOverlay@top:
 		Sequence: idle-top
-		RequiresCondition: !build-incomplete
+		RequiresCondition: !build-incomplete && command
 	WithIdleOverlay@normal:
 		Sequence: idle-normal
 		RequiresCondition: !build-incomplete
@@ -206,9 +214,109 @@ commandcenter:
 		RequiresCondition: !build-incomplete
 	RenderSprites:
 		Image: commandcenter
+	GrantConditionOnProduction@1:
+		Actors: cc.command
+		Condition: command
+	GrantConditionOnProduction@2:
+		Actors: cc.fortress
+		Condition: fortress
+	AttackTurreted:
+		RequiresCondition: fortress
+	Turreted:
+		Offset: 0, 1750, 3850
+		RequiresCondition: fortress
+	WithSpriteTurret:
+		Sequence: turret
+		RequiresCondition: !build-incomplete && fortress
+	Armament@fort:
+		Weapon: cc.cannon
+		LocalOffset: 702,128,0, 702,-128,0
+		MuzzleSequence: muzzle
+		RequiresCondition: fortress
+	WithMuzzleOverlay:
+	DamageMultiplier@fort:
+		Modifier: 75
+		RequiresCondition: fortress
+	Targetable@fort-auto:
+		TargetTypes: Defense
+		RequiresCondition: fortress
+	SpawnActorPower@satscan:
+		Actor: camera.ccscan
+		LifeTime: 225
+		OrderName: Scan.T
+		Icon: xxicon
+		ChargeInterval: 100 #todo
+		Description: Scanner Sweep
+		LongDesc: Reveals map area and cloaked units.
+		DeploySound: bspyon.wav
+		Cursor: reveal
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		EffectImage: explosion
+		EffectSequence: scananim
+		EffectPalette: tseffect
+		AmmoPoolName: primary
+		AmmoUsage: 2
+		PauseOnCondition: energy < 2
+		RequiresCondition: command
+	GrantExternalConditionPower@supply:
+		Icon: xxicon
+		ChargeInterval: 100
+		Description: Extra Supplies
+		LongDesc: Increases Warehouse capacity.
+		SelectTargetSpeechNotification: SelectTarget
+		Condition: extrasupply
+		Dimensions: 1, 1
+		Footprint: x
+		Sequence: idle
+		AmmoPoolName: primary
+		AmmoUsage: 2
+		PauseOnCondition: energy < 2
+		RequiresCondition: command
+	AmmoPool:
+		Armaments: secondary
+	ReloadAmmoPool:
+		RequiresCondition: energy < 8 && command
+	RevealOnFire:
+		Radius: 1c0
+		Duration: 50
 
 cc.dock:
 	Inherits: townhall.dock
+
+camera.ccscan:
+	Inherits: CAMERA
+	RevealsShroud:
+		Range: 13c0
+		Type: CenterPosition
+	DetectCloaked:
+		Range: 13c0
+
+cc.command:
+	Inherits: ^addon
+	Tooltip:
+		Name: Radar
+	Valued:
+		Cost: 150
+	Buildable:
+		Queue: CC.T
+		Prerequisites: barracks
+		Description: Provides access to radar scans.
+	RenderSprites:
+		Image: commandcenter
+
+cc.fortress:
+	Inherits: ^addon
+	Tooltip:
+		Name: Cannon
+	Valued:
+		Cost: 300
+	Buildable:
+		Queue: CC.T
+		Prerequisites: engibay
+		Description: Installs a powerful cannon.
+	RenderSprites:
+		Image: commandcenter
 
 ^addon.t:
 	Buildable:
@@ -356,6 +464,12 @@ supplydepot:
 		DecorationHeight: 45
 	RenderSprites:
 		Image: supplydepot
+	ExternalCondition@supply:
+		Condition: extrasupply
+		TotalCap: 1
+	PowerMultiplier@supply:
+		Modifier: 200
+		RequiresCondition: extrasupply
 
 barracks:
 	Inherits: ^BaseBuilding
@@ -1038,7 +1152,7 @@ missileturret:
 		RequiresCondition: stimmed
 	GrantTimedCondition@stimdamage:
 		Condition: stimdamage
-		Duration: 2
+		Duration: 1
 		RequiresCondition: stimmed
 	ChangesHealth@stimdamage:
 		Step: -20
@@ -1057,6 +1171,7 @@ missileturret:
 		StartsFullyCharged: true
 		RequiresCondition: canstim
 		PauseOnCondition: nostim
+		TickWhilePaused: true
 
 marine:
 	Inherits: ^Infantry
@@ -1104,6 +1219,7 @@ medic:
 		Cost: 120
 	Buildable:
 		Queue: Infantry.T
+		Prerequisites: engibay
 		Description: Heals nearby infantry.\n  Unarmed
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
@@ -1142,7 +1258,7 @@ marauder:
 		Cost: 125
 	Buildable:
 		Queue: Infantry.T
-		# Prerequisites: lab.barracks
+		Prerequisites: engibay #lab.barracks
 		Description: Heavily armored infantry equipped with dual grenade launchers.\n  Strong vs Buildings, Vehicles \n  Weak vs Infantry, Aircraft
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
@@ -1159,11 +1275,22 @@ marauder:
 	Armament@primary:
 		Weapon: marauder.grenade
 		LocalOffset: 512,-200,384, 512,200,384
+		RequiresCondition: !concussionshells
+	Armament@upgrade:
+		Weapon: marauder.concussor
+		LocalOffset: 512,-200,384, 512,200,384
+		RequiresCondition: concussionshells
+	GrantConditionOnPrerequisite@concussion:
+		Condition: concussionshells
+		Prerequisites: upgrade.concussionshells
 	-TakeCover:
 	Voiced:
 		VoiceSet: CrazyIvanVoice
 	RenderSprites:
 		Image: marauder
+	ChangesHealth@stimdamage:
+		Step: -40
+		RequiresCondition: stimdamage
 
 reaper:
 	Inherits: ^Infantry
@@ -1576,7 +1703,10 @@ widowmine:
 	TakeCover:
 		RequiresCondition: undeployed
 	Cloak:
-		RequiresCondition: deployed && !reloading
+		RequiresCondition: deployed && (!reloading || canhide)
+	GrantConditionOnPrerequisite@cloak:
+		Condition: canhide
+		Prerequisites: armory
 	Voiced:
 		VoiceSet: ArnieVoice
 	# render on editor hack
@@ -1658,7 +1788,7 @@ siegetank:
 		Cost: 275
 	Buildable:
 		Queue: Vehicle.T
-		# Prerequisites: lab.factory
+		Prerequisites: engibay #lab.factory
 		BuildPaletteOrder: 20
 		Description: Light artillery vehicle.\nCan deploy for splash damage.
 	UpdatesPlayerStatistics:
@@ -1735,7 +1865,7 @@ cyclone:
 		Cost: 250
 	Buildable:
 		Queue: Vehicle.T
-		# Prerequisites: lab.factory
+		Prerequisites: armory #lab.factory
 		BuildPaletteOrder: 20
 		Description: Armored car with long-range gun.
 	UpdatesPlayerStatistics:
@@ -2145,7 +2275,7 @@ banshee:
 		Cost: 250
 	Buildable:
 		Queue: Air.T
-		#Prerequisites: lab.starport
+		Prerequisites: fusioncore #lab.starport
 		BuildPaletteOrder: 20
 		Description: Stealth combat UAV.\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
 	UpdatesPlayerStatistics:
@@ -2280,7 +2410,7 @@ liberator:
 		ValidTargets: Infantry, Vehicle, Water, Underwater
 		InvalidTargets: NoAutoTarget
 	Tooltip:
-		Name: Even bigger UAV
+		Name: Heligun
 	Selectable:
 		Bounds: 1689, 2896, 0, -965
 	Health:
@@ -2588,3 +2718,27 @@ sciencevessel:
 		NormalsPalette: ts-normals
 	Voiced:
 		VoiceSet: TeslaTankVoice
+
+upgrade.stimpack:
+	Inherits: ^upgrade
+	Tooltip:
+		Name: Hegelian Krokodil Injection
+	Valued:
+		Cost: 200
+	Buildable:
+		Queue: Engibay.T
+		Description: Allow infantry frontliners to increase speed and firing rate\nat expense of some health.
+	RenderSprites:
+		Image: marine
+
+upgrade.concussionshells:
+	Inherits: ^upgrade
+	Tooltip:
+		Name: Concussive Shells
+	Valued:
+		Cost: 100
+	Buildable:
+		Queue: Engibay.T
+		Description: Grenadier weapon slows enemies.
+	RenderSprites:
+		Image: marauder

@@ -1027,6 +1027,9 @@ zealot:
 		Voice: Attack
 	Armament@primary:
 		Weapon: zealot.blade
+	AutoTarget:
+		ScanRadius: 4
+		InitialStance: AttackAnything
 	-TakeCover:
 	GrantConditionOnPrerequisite@charge:
 		Condition: cancharge
@@ -1096,6 +1099,9 @@ darktemplar:
 		Voice: Attack
 	Armament@primary:
 		Weapon: dt.blade
+	AutoTarget:
+		ScanRadius: 4
+		InitialStance: AttackAnything
 	RenderSprites:
 		Image: darktemplar
 	Voiced:

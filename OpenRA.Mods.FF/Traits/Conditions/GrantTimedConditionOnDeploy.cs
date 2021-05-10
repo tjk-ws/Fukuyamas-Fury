@@ -65,6 +65,8 @@ namespace OpenRA.Mods.AS.Traits
 
 		public readonly bool StartsFullyCharged = false;
 
+		public readonly bool TickWhilePaused = false;
+
 		[VoiceReference]
 		public readonly string Voice = "Action";
 
@@ -127,7 +129,7 @@ namespace OpenRA.Mods.AS.Traits
 		{
 			get
 			{
-				if (!IsTraitDisabled)
+				if (!IsTraitDisabled && !IsTraitPaused)
 					yield return new DeployOrderTargeter("GrantTimedConditionOnDeploy", 5,
 						() => IsCursorBlocked() ? Info.DeployBlockedCursor : Info.DeployCursor);
 			}
@@ -235,7 +237,7 @@ namespace OpenRA.Mods.AS.Traits
 
 		void ITick.Tick(Actor self)
 		{
-			if (IsTraitPaused || IsTraitDisabled)
+			if ((IsTraitPaused && !Info.TickWhilePaused) || IsTraitDisabled)
 				return;
 
 			if (deployState == TimedDeployState.Ready || deployState == TimedDeployState.Deploying || deployState == TimedDeployState.Undeploying)

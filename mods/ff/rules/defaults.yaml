@@ -555,6 +555,8 @@
 
 ^AutoTargetGround:
 	AutoTarget:
+		MinimumScanTimeInterval: 16
+		MaximumScanTimeInterval: 20
 		AttackAnythingCondition: stance-attackanything
 	AutoTargetPriority@DEFAULT:
 		RequiresCondition: !stance-attackanything
@@ -577,6 +579,8 @@
 
 ^AutoTargetAir:
 	AutoTarget:
+		MinimumScanTimeInterval: 16
+		MaximumScanTimeInterval: 20
 	AutoTargetPriority@DEFAULT:
 		ValidTargets: Air
 		InvalidTargets: NoAutoTarget
@@ -588,6 +592,8 @@
 
 ^AutoTargetAll:
 	AutoTarget:
+		MinimumScanTimeInterval: 16
+		MaximumScanTimeInterval: 20
 		AttackAnythingCondition: stance-attackanything
 	AutoTargetPriority@DEFAULT:
 		RequiresCondition: !stance-attackanything
@@ -730,6 +736,9 @@
 	Sellable:
 		SellSounds: uselbuil.wav
 		RequiresCondition: !build-incomplete
+	GrantCondition@cloakdisable:
+		Condition: cloakdisabled
+		RequiresCondition: chronodisable
 
 ^SupportBuilding:
 	Inherits: ^BaseBuilding
@@ -1121,6 +1130,7 @@
 	Inherits@7: ^AffectedByFungal
 	Inherits@8: ^MicrobialShroudable
 	Inherits@9: ^CloakedByMothership
+	Inherits@10: ^AffectedByConcussion
 	Inherits@SELECTION_MODE: ^FlatSelectionMode
 	Selectable:
 		Bounds: 482, 1448, 0, -530
@@ -1160,6 +1170,9 @@
 	GrantCondition@attackdisable:
 		Condition: attackdisabled
 		RequiresCondition: chronodisable
+	GrantCondition@cloakdisable:
+		Condition: cloakdisabled
+		RequiresCondition: chronodisable || fungal
 	WithTextControlGroupDecoration:
 	SelectionDecorations:
 	Selectable:
@@ -1463,6 +1476,7 @@
 	Inherits@10: ^AffectedByFungal
 	Inherits@11: ^MicrobialShroudable
 	Inherits@12: ^CloakedByMothership
+	Inherits@13: ^AffectedByConcussion
 	OwnerLostAction:
 		Action: Kill
 		DeathTypes: BulletDeath
@@ -1501,6 +1515,9 @@
 	GrantCondition@ATTACKDISABLE:
 		Condition: attackdisabled
 		RequiresCondition: emp || chronodisable || matrixed
+	GrantCondition@cloakdisable:
+		Condition: cloakdisabled
+		RequiresCondition: chronodisable || fungal || emp || matrixed
 	Carryable:
 	Passenger:
 		Voice: Move
@@ -1652,6 +1669,9 @@
 	GrantCondition@ATTACKDISABLE:
 		Condition: attackdisabled
 		RequiresCondition: emp || chronodisable || matrixed
+	GrantCondition@cloakdisable:
+		Condition: cloakdisabled
+		RequiresCondition: chronodisable || fungal || emp || matrixed
 	GrantCondition@untargetable:
 		Condition: untargetable
 		RequiresCondition: chronodisable
@@ -2107,6 +2127,7 @@
 	Buildable:
 		BuildDurationModifier: 100
 	RenderSprites:
+	ProvidesPrerequisite@powername:
 	KillsSelf:
 		RemoveInstead: true
 
@@ -2204,7 +2225,7 @@
 		CloakDelay: 50
 		IsPlayerPalette: true
 		UncloakOn: None
-		PauseOnCondition: attackdisabled || fungal
+		PauseOnCondition: cloakdisabled
 		RequiresCondition: mothershipcloak
 
 ^PermanentCloak:
@@ -2213,7 +2234,7 @@
 		CloakDelay: 50
 		IsPlayerPalette: true
 		UncloakOn: None
-		PauseOnCondition: attackdisabled || fungal
+		PauseOnCondition: cloakdisabled
 
 ^CloudBlindable:
 	ExternalCondition@BLINDINGCLOUD:
@@ -2303,6 +2324,16 @@
 	DamageMultiplier@shroud: #TODO
 		Modifier: 50
 		RequiresCondition: microbialshroud
+
+^AffectedByConcussion:
+	ExternalCondition@concussion:
+		Condition: concussion
+	SpeedMultiplier@concussion:
+		Modifier: 50
+		RequiresCondition: concussion
+	TimedConditionBar@concussion:
+		Condition: concussion
+		Color: FFFFFF
 
 ^BotMicromanageable:
 	GrantConditionOnBotOwner@bot:

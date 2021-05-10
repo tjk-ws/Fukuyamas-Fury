@@ -685,7 +685,7 @@ tesla:
 	Inherits@EMP: ^EMPDisableable
 	Inherits@MC: ^MindControllable
 	Defaults:
-		Offset: 0, -15
+		Offset: 0, -15, 15
 		UseTilesetCode: true
 		TilesetOverrides:
 			TEMPERATE: GENERIC

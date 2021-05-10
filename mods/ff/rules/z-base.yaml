@@ -1310,6 +1310,9 @@ zergling:
 		Voice: Attack
 	Armament@primary:
 		Weapon: zergling.claw
+	AutoTarget:
+		ScanRadius: 4
+		InitialStance: AttackAnything
 	Voiced:
 		VoiceSet: ConscriptVoice
 	RenderSprites:

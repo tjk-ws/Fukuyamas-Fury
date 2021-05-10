@@ -61,35 +61,19 @@ namespace OpenRA.Mods.AS.Traits
 		[Desc("Cursor to display when the targeted area is blocked.")]
 		public readonly string TargetBlockedCursor = "move-blocked";
 
-		// TODO: make this an engine level modification instead
-		[Desc("Which limited ammo pool (if present) should this power be assigned to.")]
-		public readonly string AmmoPoolName = "";
-
-		[Desc("Ammo the power consumes per use.")]
-		public readonly int AmmoUsage = 1;
-
 		public override object Create(ActorInitializer init) { return new RecallPower(init.Self, this); }
 	}
 
-	class RecallPower : SupportPower, INotifyCreated
+	class RecallPower : SupportPower
 	{
 		readonly char[] footprint;
 		readonly CVec dimensions;
-		AmmoPool ammoPool;
 
 		public RecallPower(Actor self, RecallPowerInfo info)
 			: base(self, info)
 		{
 			footprint = info.Footprint.Where(c => !char.IsWhiteSpace(c)).ToArray();
 			dimensions = info.Dimensions;
-		}
-
-		protected override void Created(Actor self)
-		{
-			var info = (RecallPowerInfo)Info;
-			ammoPool = self.TraitsImplementing<AmmoPool>().FirstOrDefault(la => la.Info.Name == info.AmmoPoolName);
-
-			base.Created(self);
 		}
 
 		public override void SelectTarget(Actor self, string order, SupportPowerManager manager)
@@ -117,9 +101,6 @@ namespace OpenRA.Mods.AS.Traits
 				if (self.Owner.Shroud.IsExplored(targetCell) && cs.CanChronoshiftTo(target, targetCell))
 					cs.Teleport(target, targetCell, info.Duration, info.KillCargo, self);
 			}
-
-			if (ammoPool != null)
-				ammoPool.TakeAmmo(self, info.AmmoUsage);
 		}
 
 		public IEnumerable<Actor> UnitsInRange(CPos xy)
