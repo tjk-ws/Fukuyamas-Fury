@@ -25,6 +25,9 @@
 		Color: 00000080
 	RevealsShroudMultiplier@BUILDING:
 		RequiresCondition: !build-complete
+	Sellable:
+		RefundPercent: 75
+		RequiresCondition: build-complete
 
 builder.t:
 	Inherits: ^VoxelVehicle
@@ -50,7 +53,7 @@ builder.t:
 		AddToArmyValue: true
 		OverrideActor: builder.t
 	Power:
-		Amount: -1
+		Amount: -2
 	MustBeDestroyed:
 		RequiredForShortGame: true
 	BaseBuilding:
@@ -63,7 +66,6 @@ builder.t:
 		Prerequisite: hasbase
 	Production@Building:
 		Produces: Building.T
-		PauseOnCondition: moving || building || !no-ore
 		RequiresCondition: !botmicro
 	ProductionQueue@Building:
 		Type: Building.T
@@ -164,7 +166,7 @@ commandcenter:
 		Footprint: =xx= xxxx xxxx =xx=
 		Dimensions: 4,4
 	Power:
-		Amount: 15
+		Amount: 30
 	Production@1:
 		Produces: Worker.T
 		PauseOnCondition: disabled
@@ -248,7 +250,7 @@ commandcenter:
 		ChargeInterval: 100 #todo
 		Description: Scanner Sweep
 		LongDesc: Reveals map area and cloaked units.
-		DeploySound: bspyon.wav
+		DeploySound: uradaron.wav
 		Cursor: reveal
 		SelectTargetSpeechNotification: SelectTarget
 		DisplayRadarPing: True
@@ -457,7 +459,7 @@ supplydepot:
 		Footprint: xxx xxx
 		Dimensions: 3,2
 	Power:
-		Amount: 8
+		Amount: 16
 		RequiresCondition: build-complete
 	ProvidesPrerequisite@buildingname:
 	IsometricSelectable:
@@ -1191,7 +1193,7 @@ marine:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -1
+		Amount: -2
 	Mobile:
 		Speed: 129
 	RevealsShroud:
@@ -1224,7 +1226,7 @@ medic:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -1
+		Amount: -2
 	Mobile:
 		Speed: 122
 	RevealsShroud:
@@ -1263,7 +1265,7 @@ marauder:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 129
 	RevealsShroud:
@@ -1308,7 +1310,7 @@ reaper:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -1
+		Amount: -2
 	Mobile:
 		Speed: 215
 	RevealsShroud:
@@ -1350,7 +1352,7 @@ ghost:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 161
 		RequireForceMoveCondition: nuking
@@ -1538,7 +1540,7 @@ vulture:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 195
 		TurnSpeed: 32
@@ -1662,7 +1664,7 @@ widowmine:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 161
 		RequireForceMoveCondition: deployed
@@ -1744,7 +1746,7 @@ t55:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -3
+		Amount: -6
 	Mobile:
 		Speed: 140
 		TurnSpeed: 32
@@ -1794,7 +1796,7 @@ siegetank:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -3
+		Amount: -6
 	Mobile:
 		Speed: 129
 		TurnSpeed: 32
@@ -1871,7 +1873,7 @@ cyclone:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -3
+		Amount: -6
 	Mobile:
 		Speed: 193
 		TurnSpeed: 32
@@ -1936,7 +1938,7 @@ goliath:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -3
+		Amount: -6
 	Mobile:
 		Speed: 110
 		TurnSpeed: 32
@@ -1985,7 +1987,7 @@ thor:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -6
+		Amount: -12
 	Mobile:
 		Speed: 107
 		TurnSpeed: 32
@@ -2048,7 +2050,7 @@ hellion:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 243
 		TurnSpeed: 32
@@ -2122,7 +2124,7 @@ medivac:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 143
@@ -2177,7 +2179,7 @@ viking:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 158
@@ -2226,7 +2228,7 @@ viking.assault:
 		AddToArmyValue: true
 		OverrideActor: viking
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 129
 		TurnSpeed: 40
@@ -2281,7 +2283,7 @@ banshee:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -3
+		Amount: -6
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 215
@@ -2326,7 +2328,7 @@ wraith:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 203
@@ -2376,7 +2378,7 @@ valkyrie:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -3
+		Amount: -6
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 201
@@ -2424,7 +2426,7 @@ liberator:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -3
+		Amount: -6
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 193
@@ -2490,7 +2492,7 @@ battlecruiser:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -6
+		Amount: -12
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 107
@@ -2540,7 +2542,7 @@ gorgon:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -3
+		Amount: -6
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 107
@@ -2587,7 +2589,7 @@ raven:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -3
+		Amount: -6
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 169
@@ -2695,7 +2697,7 @@ sciencevessel:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -3
+		Amount: -6
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 152

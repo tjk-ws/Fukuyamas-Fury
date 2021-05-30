@@ -151,7 +151,7 @@ builder.p:
 		AddToArmyValue: true
 		OverrideActor: builder.p
 	Power:
-		Amount: -1
+		Amount: -2
 	MustBeDestroyed:
 		RequiredForShortGame: true
 	BaseBuilding:
@@ -164,7 +164,6 @@ builder.p:
 		Prerequisite: hasbase
 	Production@Building:
 		Produces: Building.P
-		PauseOnCondition: moving || !no-ore
 		RequiresCondition: !botmicro
 	ProductionQueue@Building:
 		Type: Building.P
@@ -226,7 +225,7 @@ pylon:
 		Queue: Building.P
 		Description: Provides power and warp area.
 	Power:
-		Amount: 8
+		Amount: 16
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: !build-incomplete
 	ProximityExternalCondition@pylon:
@@ -269,7 +268,7 @@ nexus:
 		Footprint: =xx= xxxx xxxx =xx=
 		Dimensions: 4,4
 	Power:
-		Amount: 15
+		Amount: 30
 	Production@1:
 		Produces: Worker.P
 		PauseOnCondition: disabled
@@ -1018,7 +1017,7 @@ zealot:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -1
+		Amount: -2
 	Mobile:
 		Speed: 129
 	Armor:
@@ -1062,6 +1061,8 @@ warpin.zealot:
 		Cost: 50
 	Armor:
 		Type: infantry.light
+	Power:
+		Amount: -4
 	Buildable:
 		Queue: Warpin.P
 		Description: Warps in an Ultra at\nthe targeted location.
@@ -1090,7 +1091,7 @@ darktemplar:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 161
 	Armor:
@@ -1117,8 +1118,11 @@ warpin.darktemplar:
 		Cost: 250
 	Armor:
 		Type: infantry.light
+	Power:
+		Amount: -4
 	Buildable:
 		Queue: Warpin.P
+		Prerequisites: darkshrine
 		Description: Warps in a Wolf Warrior at\nthe targeted location.
 	TransformOnCondition:
 		IntoActor: darktemplar
@@ -1144,7 +1148,7 @@ adept:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 143
 	Armor:
@@ -1168,8 +1172,11 @@ warpin.adept:
 		Cost: 50
 	Armor:
 		Type: infantry.light
+	Power:
+		Amount: -4
 	Buildable:
 		Queue: Warpin.P
+		Prerequisites: cybercore
 		Description: Warps in a Tulpa at\nthe targeted location.
 	TransformOnCondition:
 		IntoActor: adept
@@ -1196,7 +1203,7 @@ hightemplar:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 107
 	Armor:
@@ -1249,8 +1256,11 @@ warpin.ht:
 		Cost: 200
 	Armor:
 		Type: infantry.light
+	Power:
+		Amount: -4
 	Buildable:
 		Queue: Warpin.P
+		Prerequisites: templararchives
 		Description: Warps in a Hacker at\nthe targeted location.
 	TransformOnCondition:
 		IntoActor: hightemplar
@@ -1313,7 +1323,7 @@ dragoon:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 120
 		TurnSpeed: 32
@@ -1359,7 +1369,7 @@ stalker:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 100
 		TurnSpeed: 32
@@ -1420,7 +1430,7 @@ sentry:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 129
 		TurnSpeed: 32
@@ -1490,7 +1500,7 @@ sentry:
 		DeployChance: 100
 		DeployTicks: 100
 		UndeployTicks: 500
-		RequiresCondition: botmicro
+		RequiresCondition: botmicro && !shielding
 
 sentry.barrier:
 	Inherits@1: ^SpriteActor
@@ -1542,7 +1552,7 @@ immortal:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -4
+		Amount: -8
 	Mobile:
 		Speed: 129
 		TurnSpeed: 32
@@ -1588,7 +1598,7 @@ colossus:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -6
+		Amount: -12
 	Mobile:
 		Speed: 129
 		TurnSpeed: 32
@@ -1642,7 +1652,7 @@ archon:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -4
+		Amount: -8
 	Mobile:
 		Speed: 161
 		TurnSpeed: 32
@@ -1744,7 +1754,7 @@ disruptor:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -3
+		Amount: -6
 	Mobile:
 		Speed: 129
 		TurnSpeed: 32
@@ -1855,7 +1865,7 @@ observer:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -1
+		Amount: -2
 	Aircraft:
 		TurnSpeed: 64
 		Speed: 107
@@ -1905,7 +1915,7 @@ oracle:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -3
+		Amount: -6
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 229
@@ -2034,7 +2044,7 @@ phoenix:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 243
@@ -2081,7 +2091,7 @@ voidray:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -4
+		Amount: -8
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 158
@@ -2144,7 +2154,7 @@ tempest:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -5
+		Amount: -10
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 129
@@ -2191,7 +2201,7 @@ carrier:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -6
+		Amount: -12
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 107
@@ -2291,7 +2301,7 @@ warpprism:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 150
@@ -2347,7 +2357,7 @@ mothership:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -8
+		Amount: -16
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 107

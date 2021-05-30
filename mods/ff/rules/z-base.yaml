@@ -100,7 +100,7 @@ hatchery:
 		Footprint: =xx= xxxx xxxx =xx=
 		Dimensions: 4,4
 	Power:
-		Amount: 6
+		Amount: 12
 	Production@Units:
 		Produces: Units.Z
 		PauseOnCondition: nolarva || lowpower
@@ -172,7 +172,7 @@ hatchery:
 		Position: Top
 		RequiresCondition: injected
 	Exit@1:
-		ExitCell: 2,4
+		ExitCell: 3,4
 		Facing: 384
 	RallyPoint:
 		Palette: mouse
@@ -872,7 +872,7 @@ builder.z:
 		AddToArmyValue: true
 		OverrideActor: builder.z
 	Power:
-		Amount: -1
+		Amount: -2
 	MustBeDestroyed:
 		RequiredForShortGame: true
 	BaseBuilding:
@@ -885,7 +885,7 @@ builder.z:
 		Prerequisite: hasbase
 	Production@Building:
 		Produces: Building.Z
-		PauseOnCondition: moving || !no-ore
+		PauseOnCondition: !no-ore
 		RequiresCondition: !botmicro
 	ProductionQueue@Building:
 		Type: Building.Z
@@ -955,7 +955,7 @@ overlord:
 		Prerequisites: hatchery
 		Description: Provides supply.\nCan transport units
 	Power:
-		Amount: 8
+		Amount: 16
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 37
@@ -1002,7 +1002,7 @@ overseer:
 		Prerequisites: lair
 		Description: Provides supply.\nCan detect cloaked units\nCan deploy to provide additional vision\nCan freeze targeted production structures
 	Power:
-		Amount: 8
+		Amount: 16
 	Aircraft:
 		TurnSpeed: 60
 		Speed: 107
@@ -1146,7 +1146,7 @@ spinecrawler.mobile:
 		Prerequisites: ~disabled #spawningpool
 		Description: TBD
 	Power:
-		Amount: -6
+		Amount: 0
 	Mobile:
 		Speed: 57
 		TurnSpeed: 32
@@ -1237,7 +1237,7 @@ sporecrawler.mobile:
 		Prerequisites: ~disabled #evolutionchamber
 		Description: TBD
 	Power:
-		Amount: -6
+		Amount: 0
 	Mobile:
 		Speed: 57
 		TurnSpeed: 32
@@ -1267,7 +1267,7 @@ zergling.build:
 	Buildable:
 		Prerequisites: spawningpool
 		BuildPaletteOrder: 30
-		Description: Armed with a zip gun.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+		Description: Armed with a nail gun.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
 	Mobile:
 		Locomotor: foot
 	Valued:
@@ -1386,7 +1386,7 @@ queen:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 54
 		TurnSpeed: 32
@@ -1453,7 +1453,7 @@ hydralisk:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 129
 		TurnSpeed: 32
@@ -1498,7 +1498,7 @@ lurker:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -3
+		Amount: -6
 	Mobile:
 		Speed: 169
 		TurnSpeed: 32
@@ -1564,7 +1564,7 @@ roach:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 81
 		TurnSpeed: 32
@@ -1607,7 +1607,7 @@ ravager:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -3
+		Amount: -6
 	Mobile:
 		Speed: 158
 		TurnSpeed: 32
@@ -1648,7 +1648,7 @@ ultralisk:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -6
+		Amount: -12
 	Mobile:
 		Speed: 169
 		TurnSpeed: 32
@@ -1697,7 +1697,7 @@ swarmhost:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -3
+		Amount: -6
 	Mobile:
 		Speed: 129
 		TurnSpeed: 32
@@ -1842,7 +1842,7 @@ infestor:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 149
 		TurnSpeed: 32
@@ -1891,7 +1891,7 @@ mutalisk:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 229
@@ -1934,7 +1934,7 @@ corruptor:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 193
@@ -1992,7 +1992,7 @@ broodlord:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 81
@@ -2080,7 +2080,7 @@ viper:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -3
+		Amount: -6
 	Aircraft:
 		TurnSpeed: 40
 		Speed: 169
@@ -2190,7 +2190,7 @@ teslapyro:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Power:
-		Amount: -2
+		Amount: -4
 	Mobile:
 		Speed: 90
 	Armor:

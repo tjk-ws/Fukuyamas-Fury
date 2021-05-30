@@ -34,12 +34,12 @@ Player:
 		BuildingQueues: Building.P, Building.T, Building.Z, Units.Z
 		DefenseQueues: Warpin.P
 		MinimumExcessPower: 6
-		MaximumExcessPower: 14
+		MaximumExcessPower: 30
 		ExcessPowerIncrement: 0
 		ExcessPowerIncreaseThreshold: 0
 		MaximumFailedPlacementAttempts: 3
 		MinBaseRadius: 0
-		MaxBaseRadius: 16
+		MaxBaseRadius: 20
 		NewProductionCashThreshold: 300
 		PlaceDefenseTowardsEnemyChance: 0
 		StructureProductionInactiveDelay: 750
@@ -47,10 +47,10 @@ Player:
 		AdditionalMinimumRefineryCount: 1
 		RefineryTypes: nexus, commandcenter, hatchery
 		PowerTypes: pylon, supplydepot, overlord, overseer
-		IncreaseRefineryTypes: twilightcouncil, robotics, stargate, armory, engibay, starport, spire, infestationpit
+		IncreaseRefineryTypes: twilightcouncil, robotics, stargate, armory, engibay, starport
 		VehiclesFactoryTypes: robotics, factory, hatchery
 		ConstructionYardTypes: nexus, pylon, commandcenter, hatchery
-		ProductionTypes: nexus, gateway, robotics, stargate, barracks, factory, starport, hatchery
+		ProductionTypes: gateway, robotics, stargate, barracks, factory, starport, hatchery
 		BuildingLimits:
 			nexus: 3
 			forge: 1
@@ -108,8 +108,6 @@ Player:
 			spinecrawler: 1
 			sporecrawler: 1
 		BuildingDelays:
-			engibay: 5000
-			academy: 6000
 			evolutionchamber: 3000
 	HarvesterBotModuleAS@test:
 		RequiresCondition: enable-test-ai
@@ -132,8 +130,9 @@ Player:
 		NavalUnitsTypes:
 		ConstructionYardTypes: builder.p.bot, builder.t.bot, builder.z.bot
 		IgnoredEnemyTargetTypes: dock, NukeTarget
-	UnitBuilderBotModule@test:
+	UnitBuilderFFBotModule@test:
 		RequiresCondition: enable-test-ai
+		UnitBuilderMinCredits: 300
 		UnitQueues: Infantry.P, Vehicle.P, Worker.P, Air.P, Infantry.T, Vehicle.T, Worker.T, Air.T, Nuke.T, Units.Z, Hatchery.Z, Lair.Z, Hydraden.Z
 		UnitLimits:
 			builder.p.bot: 5

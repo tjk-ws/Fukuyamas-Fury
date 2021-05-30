@@ -455,7 +455,7 @@ Container@PLAYER_WIDGETS:
 							ImageCollection: cash-icons
 							ImageName: cash-normal
 				LabelWithTooltip@POWER:
-					Logic: IngamePowerCounterLogic
+					Logic: IngamePowerFFCounterLogic
 					X: PARENT_RIGHT - WIDTH - 34
 					Y: 0 - 3
 					Width: 50

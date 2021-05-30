@@ -284,13 +284,13 @@ ht.psistormdamage:
 	Warhead@1Dam: SpreadDamage
 		Spread: 3c0
 		Falloff: 100, 100
-		Damage: 20
+		Damage: 40
 		ValidTargets: Ground, Water
 		DamageTypes: PsychicDeath
 	Warhead@2Dam: SpreadDamage
 		Spread: 5c0
 		Falloff: 100, 100
-		Damage: 20
+		Damage: 40
 		ValidTargets: Air
 		DamageTypes: PsychicDeath
 

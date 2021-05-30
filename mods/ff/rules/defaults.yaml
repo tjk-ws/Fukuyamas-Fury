@@ -725,7 +725,7 @@
 	Inherits: ^Building
 	Inherits@1: ^CloakedByMothership
 	Building:
-		BuilderRange: 2c0
+		BuilderRange: 3c0
 	RevealsShroud:
 		Range: 9c0
 	RevealsShroudMultiplier@BUILDING:

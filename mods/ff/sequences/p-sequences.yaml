@@ -15,6 +15,10 @@
 	warp-overlay: chronofd
 		Length: *
 		UseTilesetCode: false
+	deploy: chronofd
+		Offset: 0,0
+		Length: *
+		UseTilesetCode: false
 
 darktemplar:
 	Inherits: ccomand
