@@ -169,6 +169,34 @@ ravager.plasma:
 		Spread: 128
 		Damage: 32
 
+ravager.bile:
+	Inherits: ^LargeBullet
+	ReloadDelay: 175
+	Range: 9c0
+	ValidTargets: Ground, Air, Water
+	Projectile: NukeLaunch
+		MissileWeapon: ravager.bile
+		MissileImage: clustermissile
+		MissilePalette: player
+		IsPlayerPalette: true
+		FlightDelay: 63
+		TrailImage: clusterpuff
+		TrailSequences: idle
+		TrailInterval: 1
+		FlightVelocity: 768
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Falloff: 100, 0
+		Damage: 120
+		DamageTypes: FlameDeath, TriggerProne
+		ValidTargets: Ground, Air, Water
+	Warhead@2Eff: CreateEffect
+		Explosions: terrorist_explosion
+		ImpactSounds: gexpapoa.wav
+	Warhead@3EffWater: CreateEffect
+		Explosions: huge_watersplash
+		ImpactSounds: gexpwala.wav
+
 ultralisk.blade:
 	Inherits: ^MG
 	Range: 1c512

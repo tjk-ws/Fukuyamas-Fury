@@ -1226,6 +1226,14 @@ hightemplar:
 		RequiresCondition: stormmode
 		PauseOnCondition: energy < 3
 		AmmoUsage: 3
+	WithRangeCircle@regular:
+		Color: FFFF00
+		Range: 10c0
+		Type: ability
+	WithRangeCircle@ability:
+		Color: FFA500
+		Range: 9c0
+		Type: ability
 	GrantConditionOnDeploy:
 		DeployedCondition: stormmode
 		CanDeployOnRamps: true
@@ -2321,12 +2329,13 @@ warpprism:
 		DeployedCondition: warping
 		UndeployOnMove: true
 		Voice: Move
-		RequiresCondition: !attackdisabled && !mobiledisabled
+		RequiresCondition: !attackdisabled && !mobiledisabled && !loaded
 	SpeedMultiplier@warping:
 		Modifier: 0
 		RequiresCondition: warping
 	Cargo:
 		MaxWeight: 8
+		LoadedCondition: loaded
 	WithVoxelHelicopterBody:
 	RenderSprites:
 	RenderVoxels:

@@ -1672,6 +1672,7 @@ widowmine:
 		Range: 7c0
 	Armor:
 		Type: vehicle.light
+	-AttackFrontal:
 	AttackTurreted:
 		Voice: Attack
 		PauseOnCondition: attackdisabled
@@ -1680,6 +1681,7 @@ widowmine:
 		Weapon: widowmine.missile
 		ReloadingCondition: reloading
 		RequiresCondition: deployed
+	RenderRangeCircle:
 	Turreted:
 		TurnSpeed: 200
 		InitialFacing: 384
@@ -1827,6 +1829,7 @@ siegetank:
 		RequiresCondition: deployed
 		Name: secondary
 		Turret: secondary
+	RenderRangeCircle:
 	GrantConditionOnDeploy:
 		UndeployedCondition: undeployed
 		DeployedCondition: deployed
@@ -2599,17 +2602,28 @@ raven:
 	Armament@primary:
 		LocalOffset: 640,-400,640, 640,400,640
 		Weapon: raven.matrix
-		RequiresCondition: !missilemode && energy >= 3
+		PauseOnCondition: energy < 3
+		RequiresCondition: !missilemode
 		AmmoUsage: 3
 	Armament@secondary:
 		LocalOffset: 640,-400,640, 640,400,640
 		Weapon: raven.aamissile
-		RequiresCondition: missilemode && energy >= 3
+		PauseOnCondition: energy < 3
+		RequiresCondition: missilemode
 		AmmoUsage: 3
 	Armament@autoturret:
 		Weapon: raven.turretspawn
-		RequiresCondition: !missilemode && energy >= 2
+		PauseOnCondition: energy < 2
+		RequiresCondition: !missilemode
 		TargetRelationships: None
+	WithRangeCircle@ability:
+		Color: FFA500
+		Range: 9c0
+		Type: ability
+	WithRangeCircle@spawn:
+		Color: FFFFFF
+		Range: 2c0
+		Type: ability
 	AttackAircraft:
 		Voice: Attack
 		FacingTolerance: 20
@@ -2724,7 +2738,7 @@ sciencevessel:
 upgrade.stimpack:
 	Inherits: ^upgrade
 	Tooltip:
-		Name: Hegelian Krokodil Injection
+		Name: Book Transfusion
 	Valued:
 		Cost: 200
 	Buildable:

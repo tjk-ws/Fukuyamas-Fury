@@ -201,6 +201,7 @@ Weapons:
 	ff|weapons/p-weapons.yaml
 	ff|weapons/t-weapons.yaml
 	ff|weapons/z-weapons.yaml
+	ff|weapons/misc.yaml
 
 Voices:
 	ff|audio/voices.yaml
