@@ -103,7 +103,7 @@ hatchery:
 		Amount: 12
 	Production@Units:
 		Produces: Units.Z
-		PauseOnCondition: nolarva || lowpower
+		PauseOnCondition: nolarva
 	ProductionBar@Units:
 		ProductionType: Units.Z
 	Production@Lair:
@@ -203,7 +203,7 @@ hatchery.larva:
 	Inherits@2: ^SpriteActor
 	Inherits@3: ^ChronoDisable
 	Inherits@SELECTION_MODE: ^LowPrioritySelectionMode
-	Inherits@power: ^DisableOnLowPower
+	#Inherits@power: ^DisableOnLowPower
 	Health:
 		HP: 50
 	OwnerLostAction:
@@ -272,7 +272,7 @@ hatchery.larva:
 		ExitCell: -1,-1
 	Production@Probes:
 		Produces: Units.Z, Larva.Z
-		PauseOnCondition: lowpower
+		#PauseOnCondition: lowpower
 	ProductionBar@Probes:
 		ProductionType: Units.Z
 	Power:
@@ -1593,6 +1593,7 @@ ravager:
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@HATCH: ^ProducedFromLarva
+	Inherits@BOT: ^BotMicromanageable
 	Tooltip:
 		Name: Grenade UGV
 	Selectable:
@@ -1647,6 +1648,12 @@ ravager:
 	WithVoxelBody:
 	Voiced:
 		VoiceSet: LasherTankVoice
+	AutoDeployer:
+		DeployTrigger: Attack
+		DeployChance: 100
+		DeployTicks: 500
+		UndeployTicks: 100
+		RequiresCondition: botmicro
 
 ultralisk:
 	Inherits: ^VoxelVehicle

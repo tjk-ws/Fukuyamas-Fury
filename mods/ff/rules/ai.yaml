@@ -10,19 +10,19 @@ Player:
 		Decisions:
 			nuke.t:
 				OrderName: Nuke.T
-				MinimumAttractiveness: 250
+				MinimumAttractiveness: 5
 				Types: Ground
-				IgnoreVisibility: true
+				IgnoreVisibility: false
 				Consideration@1:
 					Against: Enemy
 					Types: Structure
-					Attractiveness: 1
+					Attractiveness: 2
 					TargetMetric: Health
 					CheckRadius: 5c0
 				Consideration@2:
 					Against: Enemy
 					Types: Ground, Water, Air
-					Attractiveness: 2
+					Attractiveness: 1
 					TargetMetric: Health
 					CheckRadius: 5c0
 				Consideration@3:

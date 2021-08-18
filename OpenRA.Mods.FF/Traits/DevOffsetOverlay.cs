@@ -1,4 +1,4 @@
-﻿#region Copyright & License Information
+#region Copyright & License Information
 /*
  * Copyright 2015- OpenRA.Mods.AS Developers (see AUTHORS)
  * This file is a part of a third-party plugin for OpenRA, which is
@@ -132,7 +132,7 @@ namespace OpenRA.Mods.AS.Traits
 					break;
 
 				case "query":
-					Game.Debug("The current DevOffset on actor {0} {1} is: {2},{3},{4}", self.Info.Name, self.ActorID, devOffset.X, devOffset.Y, devOffset.Z);
+					TextNotificationsManager.Debug("The current DevOffset on actor {0} {1} is: {2},{3},{4}", self.Info.Name, self.ActorID, devOffset.X, devOffset.Y, devOffset.Z);
 					break;
 
 				case "disable":

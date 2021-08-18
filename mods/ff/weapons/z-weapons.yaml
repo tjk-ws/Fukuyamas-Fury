@@ -376,7 +376,7 @@ infestor.fungal:
 	Inherits: ^TeslaZap
 	Range: 10c0
 	Report: vtesatta.wav, vtesattb.wav
-	ValidTargets: Ground, Water, Air
+	ValidTargets: Infantry, Vehicle, Air
 	Warhead@1Dam: TargetDamage
 		Damage: 0
 	Warhead@3Ext: GrantExternalCondition

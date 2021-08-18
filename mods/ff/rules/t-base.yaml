@@ -1724,8 +1724,8 @@ widowmine:
 	AutoDeployer:
 		DeployTrigger: Periodically, Damage
 		DeployChance: 100
-		DeployTicks: 1000
-		UndeployTicks: 500
+		DeployTicks: 100
+		UndeployTicks: 50
 		RequiresCondition: botmicro
 
 t55:
@@ -1851,8 +1851,8 @@ siegetank:
 		VoiceSet: SovietVehicleVoice
 	AutoDeployer:
 		DeployTrigger: Attack
-		DeployChance: 75
-		DeployTicks: 1000
+		DeployChance: 100
+		DeployTicks: 500
 		UndeployTicks: 500
 		RequiresCondition: botmicro
 

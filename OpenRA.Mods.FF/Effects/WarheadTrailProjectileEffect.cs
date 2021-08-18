@@ -1,4 +1,4 @@
-﻿#region Copyright & License Information
+#region Copyright & License Information
 /*
  * Copyright 2015- OpenRA.Mods.AS Developers (see AUTHORS)
  * This file is a part of a third-party plugin for OpenRA, which is
@@ -129,7 +129,7 @@ namespace OpenRA.Mods.AS.Effects
 
 			// Check for walls or other blocking obstacles.
 			WPos blockedPos;
-			if (info.Blockable && BlocksProjectiles.AnyBlockingActorsBetween(world, lastPos, projectilepos, info.Width, out blockedPos))
+			if (info.Blockable && BlocksProjectiles.AnyBlockingActorsBetween(world, args.SourceActor.Owner, lastPos, projectilepos, info.Width, out blockedPos))
 			{
 				projectilepos = blockedPos;
 				DetonateSelf = true;

@@ -517,7 +517,7 @@ ghost.nuke:
 		IsPlayerPalette: true
 		Shadow: false
 		Speed: 640
-		TrailImage: v3smokey
+		TrailImage: smokeyrad
 		TrailInterval: 1
 		Blockable: false
 	Warhead@1Dam: SpreadDamage
