@@ -4819,3 +4819,42 @@ caeast01.rubble:
 		Footprint: __ __
 	RenderSprites:
 		Image: caeast01
+
+gawall:
+	Inherits: ^Wall
+	Tooltip:
+		Name: Allied Wall
+	LineBuild:
+		NodeTypes: gawall
+	LineBuildNode:
+		Types: gawall
+	WithWallSpriteBody:
+		Type: gawall
+	Replaceable:
+		Types: AlliedGate
+
+nawall:
+	Inherits: ^Wall
+	Tooltip:
+		Name: Soviet Wall
+	LineBuild:
+		NodeTypes: nawall
+	LineBuildNode:
+		Types: nawall
+	WithWallSpriteBody:
+		Type: nawall
+	Replaceable:
+		Types: SovietGate
+
+yawall:
+	Inherits: ^Wall
+	Tooltip:
+		Name: Citadel Wall
+	LineBuild:
+		NodeTypes: yawall
+	LineBuildNode:
+		Types: yawall
+	WithWallSpriteBody:
+		Type: yawall
+	Replaceable:
+		Types: YuriGate

@@ -48,6 +48,8 @@ cabhut:
 		HP: 500
 	Armor:
 		Type: Concrete
+	DamageMultiplier:
+		Modifier: 0
 	HitShape:
 
 lobrdb_a:
