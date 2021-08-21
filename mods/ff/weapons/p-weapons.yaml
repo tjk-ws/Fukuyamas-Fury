@@ -1,3 +1,17 @@
+nexus.batterycharge:
+	Range: 8c0
+	ReloadDelay: 150
+	Report: itesatta.wav
+	ValidTargets: shieldbattery
+	TargetActorCenter: true
+	Projectile: TeslaZap
+	Warhead@1Dam: TargetDamage
+	Warhead@2Ext: GrantExternalCondition
+		Range: 0c768
+		Duration: 75
+		Condition: batterycharge
+		ValidRelationships: Ally
+
 photoncannon.ag:
 	Inherits: ^Laser
 	ReloadDelay: 23

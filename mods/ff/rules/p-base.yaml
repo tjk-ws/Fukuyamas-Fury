@@ -253,6 +253,7 @@ nexus:
 	Inherits@power: ^DisableOnLowPowerOrContaminate
 	Inherits@warp: ^WarpedInBuilding
 	Inherits@pal: ^EABuildingSet2
+	Inherits@ENERGY: ^EnergyPoolEffects
 	Tooltip:
 		Name: Nexus
 	Health:
@@ -307,6 +308,18 @@ nexus:
 	WithIdleOverlay@top:
 		Sequence: idle-fans
 		RequiresCondition: !build-incomplete
+	Turreted:
+	AttackTurreted:
+	Armament@overcharge:
+		Weapon: nexus.batterycharge
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
+		PauseOnCondition: energy < 2
+		AmmoUsage: 2
+	WithRangeCircle@ability:
+		Color: FFFFFF
+		Range: 8c0
+		Type: battery
 	RenderSprites:
 		Image: nexus
 
@@ -945,10 +958,18 @@ shieldbattery:
 		TargetRelationships: Ally
 		ForceTargetRelationships: Ally
 		Cursor: heal
-		PauseOnCondition: !energy
+		PauseOnCondition: !energy && !batterycharge
+	Armament@batterycharge:
+		Weapon: shieldbattery.heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
+		Cursor: heal
+		RequiresCondition: batterycharge
+		Name: secondary
 	AmmoPool:
 		Ammo: 4
 		InitialAmmo: 4
+		Armaments: primary
 	ReloadAmmoPool:
 		Delay: 200
 		RequiresCondition: energy < 4
@@ -958,6 +979,18 @@ shieldbattery:
 	WithIdleOverlay@normal:
 		Sequence: idle-top
 		RequiresCondition: !build-incomplete
+	Targetable@batterycharge:
+		TargetTypes: shieldbattery
+		RequiresCondition: !batterycharge && !chronodisable && !build-incomplete
+	ExternalCondition@batterycharge:
+		Condition: batterycharge
+		TotalCap: 1
+	WithColoredOverlay@batterycharge:
+		Color: FFFFFF40
+		RequiresCondition: batterycharge
+	FirepowerMultiplier@batterycharge:
+		Modifier: 200
+		RequiresCondition: batterycharge
 	IsometricSelectable:
 		DecorationHeight: 65
 
@@ -2359,7 +2392,7 @@ mothership:
 		Cost: 800
 	Buildable:
 		Queue: Air.P
-		Prerequisites: fleetbeacon
+		Prerequisites: fleetbeacon, nexus
 		BuildPaletteOrder: 40
 		Description: Flying miniaturized dark energy reactor.\nCloaks nearby units and structures\nCan teleport ground units to its location
 		BuildLimit: 1
